@@ -1,4 +1,4 @@
-package com.example.riverpod_project
+package com.sqisoft.coiz.beautycare
 
 import io.flutter.embedding.android.FlutterActivity
 

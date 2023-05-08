@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.riverpod_project">
+    package="com.sqisoft.coiz.beautycare">
    <application
         android:label="riverpod_project"
         android:name="${applicationName}"
