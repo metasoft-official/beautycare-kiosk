@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:riverpod_project/common/layout/home_page.dart';
-import 'package:riverpod_project/common/layout/sign_in_page.dart';
-import 'package:riverpod_project/common/layout/sign_up_page.dart';
+import 'package:riverpod_project/common/layout/home/home_page.dart';
+import 'package:riverpod_project/common/layout/sign_in/sign_in_page.dart';
+import 'package:riverpod_project/common/layout/sign_up/sign_up_page.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -14,12 +14,13 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: '/sign-in',
+      name : SignInPage.routeName,
       builder: (context, state) => SignInPage(),
     ),
 
     GoRoute(
-      name : 'sign-up',
       path: '/sign-up',
+      name : SignInPage.routeName,
       builder: (context, state) => SignUpPage(),
       // routes : [
       //   GoRoute(
