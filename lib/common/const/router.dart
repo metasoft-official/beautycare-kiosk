@@ -20,7 +20,7 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: '/sign-up',
-      name : SignInPage.routeName,
+      name : SignUpPage.routeName,
       builder: (context, state) => SignUpPage(),
       // routes : [
       //   GoRoute(
