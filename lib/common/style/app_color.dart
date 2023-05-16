@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 // 추후 뷰티케어 디자인에 맞춰 수정
 class AppColor {
   static const Color appBarTitleColor = Color(0xff0b0b0b);
+
   // static const Color logoColor = Color(0xFF0077FF);
-  static const Color appColor = Color(0xff65d3ca);
+  static const Color appColor = Color(0xff000080);
   static const Color tableHeaderColor = Color(0xfff2f2f2);
   static const Color darkBlue = Color(0xff2b3f6c);
   static const Color darkGrey = Color(0xff5a5a5b);

@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:riverpod_project/common/const/router.dart';
 
-
+import 'common/style/app_theme.dart';
 
 final httpClientProvider = Provider<HttpClient>((ref) {
   var httpClient = HttpClient();
@@ -17,14 +17,11 @@ final httpClientProvider = Provider<HttpClient>((ref) {
   return httpClient;
 });
 
-
 void main() {
   final container = ProviderContainer();
   container.read(httpClientProvider); // HttpClient 인스턴스 사용 예시
 
-  runApp(ProviderScope(
-      child: MyApp()
-  ));
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: appTheme,
       debugShowCheckedModeBanner: false,
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
