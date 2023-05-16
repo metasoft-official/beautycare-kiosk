@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_button_theme.dart';
+import 'app_color.dart';
 import 'app_text.dart';
 
 final appTheme = ThemeData(
@@ -19,5 +20,12 @@ final appTheme = ThemeData(
         borderSide: BorderSide.none),
     filled: true,
     fillColor: Colors.white,
+  ),
+  toggleButtonsTheme: const ToggleButtonsThemeData(
+    color: AppColor.unselectedToggleColor,
+    borderColor: AppColor.unselectedToggleBorderColor,
+    selectedColor: Colors.white,
+    fillColor: AppColor.selectedToggleColor,
+    textStyle: AppTextTheme.elevatedButton,
   ),
 );
