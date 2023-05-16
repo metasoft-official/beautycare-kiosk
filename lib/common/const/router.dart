@@ -11,17 +11,15 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (context, state) => HomePage(),
     ),
-
     GoRoute(
       path: '/sign-in',
-      name : LoginPage.routeName,
-      builder: (context, state) => LoginPage(),
+      name: SignInPage.routeName,
+      builder: (context, state) => SignInPage(),
     ),
-
     GoRoute(
       path: '/sign-up',
-      name : SignUpPage.routeName,
-      builder: (context, state) => SignUpPage(),
+      name: SignUpPage.routeName,
+      builder: (context, state) => const SignUpPage(),
       // routes : [
       //   GoRoute(
       //     name: 'signUpDetail',

@@ -5,22 +5,27 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar : AppBar (
+      appBar: AppBar(
         title: const Text('HomePage'),
       ),
-      body : Center(
-        child : Column(
-          mainAxisAlignment : MainAxisAlignment.center,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => context.go('/sign-in'),
-              child: const Text('sign in'),
+              onPressed: () => context.pushNamed('login'),
+              child: const Text('로그인'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => context.pushNamed('/sign-up'),
-              child: const Text('sign up'),
+              onPressed: () => context.pushNamed('register'),
+              child: const Text('회원가입'),
             ),
+            // const SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: () => context.pushNamed('survey'),
+            //   child: const Text('설문조사'),
+            // ),
           ],
         ),
       ),

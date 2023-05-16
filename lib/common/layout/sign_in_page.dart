@@ -8,11 +8,7 @@ import '../repository/user_repository.dart';
 import '../dio/user_api.dart';
 import '../provider/login_provider.dart';
 
-
-
-
-class LoginPage extends ConsumerWidget {
-
+class SignInPage extends ConsumerWidget {
   static String get routeName => 'login';
 
   final TextEditingController _usernameController = TextEditingController();
@@ -51,9 +47,9 @@ class LoginPage extends ConsumerWidget {
             ElevatedButton(
               onPressed: () {
                 ref.read(userNotifierProvider.notifier).login(
-                  _usernameController.text,
-                  _passwordController.text,
-                );
+                      _usernameController.text,
+                      _passwordController.text,
+                    );
               },
               child: Text('Login'),
             ),
