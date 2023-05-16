@@ -373,11 +373,7 @@ class SignUpState extends ConsumerState<SignUpPage> {
                           flex: 3,
                           child: ElevatedButton(
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15))),
+                            style: AppButtonTheme.roundedElevatedButtonTheme,
                             child: const Text('우편번호'),
                           ),
                         )
@@ -426,12 +422,8 @@ class SignUpState extends ConsumerState<SignUpPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(35))),
-                            child: const Text('회원가입'),
+                            style: AppButtonTheme.outlinedRoundedButtonTheme,
+                            child: const Text('취소'),
                           ),
                         ),
                         const SizedBox(
@@ -440,14 +432,10 @@ class SignUpState extends ConsumerState<SignUpPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(35))),
-                            child: const Text('취소'),
+                            style: AppButtonTheme.roundedElevatedButtonTheme,
+                            child: const Text('회원가입'),
                           ),
-                        )
+                        ),
                       ],
                     )
                   ],
