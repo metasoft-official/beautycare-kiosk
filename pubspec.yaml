@@ -32,8 +32,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.0
-  hooks_riverpod: ^2.1.1
+  flutter_hooks: ^0.18.6
+  hooks_riverpod: ^2.3.6
+
+  provider: ^6.0.5
 
   # riverpod_annotation 추가
   riverpod_annotation: ^2.0.2
@@ -41,10 +43,6 @@ dependencies:
   #freezed 추가
   freezed:
   freezed_annotation:
-
-
-  #json_serializable 추가
-  json_serializable:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
