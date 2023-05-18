@@ -19,36 +19,26 @@ class SignUpState extends ConsumerState<SignUpPage> {
   // }) as SignUpController;
 
   final idTextController = TextEditingController();
-  final idFocus = FocusNode();
-
   final pwTextController = TextEditingController();
-  final pwFocus = FocusNode();
-
   final rePwTextController = TextEditingController();
-  final rePwFocus = FocusNode();
-
   final nmTextController = TextEditingController();
-  final nmFocus = FocusNode();
-
   final phTextController = TextEditingController();
-  final phFocus = FocusNode();
-
   final bdayTextController = TextEditingController();
-  final bdayFocus = FocusNode();
-
   final emTextController = TextEditingController();
-  final emFocus = FocusNode();
-
   final domainTextController = TextEditingController();
-  final domainFocus = FocusNode();
-
   final postcordTextController = TextEditingController();
-  final postcordFocus = FocusNode();
-
   final addressTextController = TextEditingController();
-  final addressFocus = FocusNode();
-
   final detailAddressTextController = TextEditingController();
+  final pwFocus = FocusNode();
+  final idFocus = FocusNode();
+  final rePwFocus = FocusNode();
+  final nmFocus = FocusNode();
+  final phFocus = FocusNode();
+  final bdayFocus = FocusNode();
+  final emFocus = FocusNode();
+  final domainFocus = FocusNode();
+  final postcordFocus = FocusNode();
+  final addressFocus = FocusNode();
   final detailAddressFocus = FocusNode();
 
   List<String> list = <String>['직접입력', 'naver.com', 'gmail.com'];
