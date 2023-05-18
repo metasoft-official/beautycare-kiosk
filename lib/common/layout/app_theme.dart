@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'app_button_theme.dart';
-import 'app_color.dart';
-import 'app_text.dart';
+import '../layout/app_color.dart';
+import '../layout/app_text.dart';
 
 final appTheme = ThemeData(
   appBarTheme: const AppBarTheme(

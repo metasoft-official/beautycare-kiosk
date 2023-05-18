@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:riverpod_project/common/const/router.dart';
 
-import 'common/style/app_theme.dart';
+import 'common/layout/app_theme.dart';
 
 final httpClientProvider = Provider<HttpClient>((ref) {
   var httpClient = HttpClient();

@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:riverpod_project/common/layout/home_page.dart';
-import 'package:riverpod_project/common/layout/login_page.dart';
-import 'package:riverpod_project/common/layout/register_page.dart';
+import 'package:riverpod_project/common/view/home_page.dart';
+import 'package:riverpod_project/common/view/login_page.dart';
+import 'package:riverpod_project/common/view/register_page.dart';
 
 final GoRouter router = GoRouter(
   routes: [
