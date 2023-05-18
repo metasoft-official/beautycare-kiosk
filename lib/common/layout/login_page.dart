@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 import '../provider/login_provider.dart';
 import '../style/app_button_theme.dart';
@@ -152,12 +153,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ElevatedButton(
                         style: AppButtonTheme.basicElevatedButtonTheme,
-                        onPressed: () {
-                          ref.read(userNotifierProvider.notifier).login(
-                                _usernameController.text,
-                                _passwordController.text,
-                              );
-                        },
+                        onPressed: () => context.pushNamed('register'),
                         child: Text('회원가입'),
                       ),
                     )

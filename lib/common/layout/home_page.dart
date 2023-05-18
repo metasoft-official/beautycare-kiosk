@@ -29,19 +29,45 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // const SizedBox(height: 20),
-              // ElevatedButton(
-              //   onPressed: () => context.pushNamed('survey'),
-              //   child: const Text('설문조사'),
-              // ),
-            ],
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // const SizedBox(height: 20),
+                // ElevatedButton(
+                //   onPressed: () => context.pushNamed('survey'),
+                //   child: const Text('설문조사'),
+                // ),
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => context.pushNamed('survey'),
+                          child: const Text('AI로 피부 MBTI 예측하기'),
+                        ),
+                      ]),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => context.pushNamed('survey'),
+                          child: const Text('AI로 나의 피부 질환 예측하기'),
+                        ),
+                      ]),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
