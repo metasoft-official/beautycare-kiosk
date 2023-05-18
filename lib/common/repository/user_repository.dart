@@ -1,24 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:go_router/go_router.dart';
-import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
-
-import '../model/user_model.dart';
 import '../dio/user_api.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class UserRepository {
-
   final UserApi _userApi;
 
   UserRepository(this._userApi);
 
-  Future<String> login(String username, String password) {
+  Future<String> login(String username, String password) async {
+    final authorization =
+        await _userApi.login({'username': username, 'password': password});
 
-    final response = _userApi.login({'username': username, 'password': password});
-    return response;
+    String token = authorization.replaceAll('Bearer', '');
+    token = token.replaceAll("[", "");
+    token = token.replaceAll("]", "");
+    token = token.replaceAll(" ", "");
+
+    return token;
   }
-
 }

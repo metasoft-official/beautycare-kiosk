@@ -12,14 +12,13 @@ final appTheme = ThemeData(
       titleTextStyle: AppTextTheme.appBarTitle),
   elevatedButtonTheme:
       ElevatedButtonThemeData(style: AppButtonTheme.basicElevatedButtonTheme),
+  textButtonTheme:
+      TextButtonThemeData(style: AppButtonTheme.basicTextButtonTheme),
   inputDecorationTheme: const InputDecorationTheme(
     hintStyle: AppTextTheme.hintText,
     contentPadding: EdgeInsets.symmetric(horizontal: 14),
-    border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-        borderSide: BorderSide.none),
-    filled: true,
-    fillColor: Colors.white,
+    border:
+        OutlineInputBorder(borderSide: BorderSide(color: AppColor.appColor)),
   ),
   toggleButtonsTheme: const ToggleButtonsThemeData(
     color: AppColor.unselectedToggleColor,

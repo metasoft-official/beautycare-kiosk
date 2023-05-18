@@ -42,4 +42,9 @@ class AppButtonTheme {
       side: const BorderSide(color: AppColor.darkButtonColor),
     ),
   );
+  static final basicTextButtonTheme = TextButton.styleFrom(
+    foregroundColor: AppColor.textButtonColor,
+    textStyle: AppTextTheme.textButton,
+    // padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+  );
 }

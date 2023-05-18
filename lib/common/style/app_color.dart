@@ -16,7 +16,7 @@ class AppColor {
   // Text Color
   static const Color tabBarColor = Color(0xff3fb7ad);
   static const Color titleColor = Color(0xff333334);
-  static const Color textButtonColor = Color(0xff5b9893);
+  static const Color textButtonColor = Color(0xff0b0b0b);
   static const Color hintTextColor = Color(0xffc7c7cc);
   static const Color userRoleColor = Color(0xff636363);
   static const Color userNameColor = Color(0xff222222);
