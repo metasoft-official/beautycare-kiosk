@@ -4,20 +4,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_project/common/style/app_button_theme.dart';
 import '../style/app_text.dart';
 
-class SignUpPage extends ConsumerStatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   static String get routeName => 'register';
 
   @override
-  SignUpState createState() => SignUpState();
+  RegisterState createState() => RegisterState();
 }
 
-class SignUpState extends ConsumerState<SignUpPage> {
-  // final SignUpController signUpController =  Provider<SignUpController>((ref){
-  //   return signUpController(ref);
-  // }) as SignUpController;
-
+class RegisterState extends ConsumerState<RegisterPage> {
   final idTextController = TextEditingController();
   final pwTextController = TextEditingController();
   final rePwTextController = TextEditingController();

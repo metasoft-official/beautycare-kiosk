@@ -14,14 +14,14 @@ const myInputDecoration = InputDecoration(
 
 final myTextStyle = TextStyle(color: Colors.blue, fontSize: 20);
 
-class SignInPage extends ConsumerStatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   static String get routeName => 'login';
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _SignInPageState extends ConsumerState<SignInPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
