@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,7 +16,7 @@ class HomePage extends StatelessWidget {
                 icon: const Icon(Icons.login),
               ),
               IconButton(
-                onPressed: () => context.pushNamed('register'),
+                onPressed: () => context.pushNamed('mypage'),
                 icon: const Icon(Icons.person),
               ),
               // const SizedBox(height: 20),

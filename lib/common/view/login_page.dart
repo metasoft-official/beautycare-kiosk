@@ -61,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,23 +99,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       });
                     },
                   ),
-                  Text("아이디 저장"),
-                  Spacer(),
+                  const Text("아이디 저장"),
+                  const Spacer(),
                   TextButton(
                     onPressed: () {
                       // Respond to button press
                       //
                     },
-                    child: Text("아이디 찾기"),
+                    child: const Text("아이디 찾기"),
                   ),
-                  Text('|'),
+                  const Text('|'),
                   TextButton(
                     // style: AppButtonTheme.basicTextButtonTheme,
                     onPressed: () {
                       // Respond to button press
                       //
                     },
-                    child: Text("비밀번호 찾기"),
+                    child: const Text("비밀번호 찾기"),
                   )
                 ],
               ),
@@ -124,7 +124,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             if (userState.error != null)
               Text(
                 userState.error!,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
 
             Container(
@@ -145,7 +145,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 _passwordController.text,
                               );
                         },
-                        child: Text('로그인'),
+                        child: const Text('로그인'),
                       ),
                     ),
                     Container(
