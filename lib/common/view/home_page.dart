@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () => context.pushNamed('survey'),
+                          onPressed: () => context.pushNamed('predictSkinMbti'),
                           child: const Text('AI로 피부 MBTI 예측하기'),
                         ),
                       ]),
@@ -58,7 +58,8 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () => context.pushNamed('survey'),
+                          onPressed: () =>
+                              context.pushNamed('predictSkinDisease'),
                           child: const Text('AI로 나의 피부 질환 예측하기'),
                         ),
                       ]),

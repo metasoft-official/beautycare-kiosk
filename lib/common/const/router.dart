@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_project/common/view/home_page.dart';
 import 'package:riverpod_project/common/view/login_page.dart';
 import 'package:riverpod_project/common/view/register_page.dart';
-
+import 'package:riverpod_project/common/view/predict_skin_disease_page.dart';
+import 'package:riverpod_project/common/view/predict_skin_mbti_page.dart';
 import '../view/mypage_page.dart';
 
 final GoRouter router = GoRouter(
@@ -28,19 +29,14 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const MypagePage(),
     ),
     GoRoute(
-      path: '/mypage',
-      name: MypagePage.routeName,
-      builder: (context, state) => const MypagePage(),
-    ),
-    GoRoute(
       path: '/predict-skin-mbti',
-      name: MypagePage.routeName,
-      builder: (context, state) => const MypagePage(),
+      name: PredictSkinMbtiPage.routeName,
+      builder: (context, state) => PredictSkinMbtiPage(),
     ),
     GoRoute(
       path: '/predict-skin-disease',
-      name: MypagePage.routeName,
-      builder: (context, state) => const MypagePage(),
+      name: PredictSkinDiseasePage.routeName,
+      builder: (context, state) => PredictSkinDiseasePage(),
     ),
   ],
 );
