@@ -27,5 +27,20 @@ final GoRouter router = GoRouter(
       name: MypagePage.routeName,
       builder: (context, state) => const MypagePage(),
     ),
+    GoRoute(
+      path: '/mypage',
+      name: MypagePage.routeName,
+      builder: (context, state) => const MypagePage(),
+    ),
+    GoRoute(
+      path: '/predict-skin-mbti',
+      name: MypagePage.routeName,
+      builder: (context, state) => const MypagePage(),
+    ),
+    GoRoute(
+      path: '/predict-skin-disease',
+      name: MypagePage.routeName,
+      builder: (context, state) => const MypagePage(),
+    ),
   ],
 );
