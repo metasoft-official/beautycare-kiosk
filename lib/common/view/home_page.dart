@@ -64,6 +64,17 @@ class HomePage extends StatelessWidget {
                         ),
                       ]),
                 ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => context.pushNamed('survey'),
+                          child: const Text('피부타입 문진'),
+                        ),
+                      ]),
+                ),
               ],
             ),
           ],
