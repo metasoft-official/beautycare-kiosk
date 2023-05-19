@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
-import '../provider/login_provider.dart';
-import '../layout/app_button_theme.dart';
+import '../../common/provider/login_provider.dart';
+import '../../common/layout/app_button_theme.dart';
 
 const myInputDecoration = InputDecoration(
   border: OutlineInputBorder(),
@@ -61,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('로그인'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
