@@ -6,6 +6,8 @@ import 'package:riverpod_project/common/view/register_page.dart';
 import 'package:riverpod_project/common/view/predict_skin_disease_page.dart';
 import 'package:riverpod_project/common/view/predict_skin_mbti_page.dart';
 import 'package:riverpod_project/mbti/view/survey_page.dart';
+import 'package:riverpod_project/common/component/widgets/camera_capture_widget.dart';
+import 'package:riverpod_project/user/view/find_id_page.dart';
 
 import '../../user/view/mypage_page.dart';
 
@@ -20,6 +22,16 @@ final GoRouter router = GoRouter(
       name: LoginPage.routeName,
       builder: (context, state) => LoginPage(),
     ),
+    GoRoute(
+      path: '/find-id',
+      name: FindIdPage.routeName,
+      builder: (context, state) => const FindIdPage(),
+    ),
+    // GoRoute(
+    //   path: '/find-password',
+    //   name: LoginPage.routeName,
+    //   builder: (context, state) => LoginPage(),
+    // ),
     GoRoute(
       path: '/register',
       name: RegisterPage.routeName,
@@ -41,9 +53,9 @@ final GoRouter router = GoRouter(
       builder: (context, state) => PredictSkinDiseasePage(),
     ),
     GoRoute(
-      path: '/survey',
-      name: SurveyPage.routeName,
-      builder: (context, state) => SurveyPage(),
+      path: '/camera',
+      name: CameraExample.routeName,
+      builder: (context, state) => const CameraExample(),
     ),
   ],
 );

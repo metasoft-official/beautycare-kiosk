@@ -15,6 +15,8 @@ const myInputDecoration = InputDecoration(
 final myTextStyle = TextStyle(color: Colors.blue, fontSize: 20);
 
 class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
+
   static String get routeName => 'login';
 
   @override
@@ -102,19 +104,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   const Text("아이디 저장"),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {
-                      // Respond to button press
-                      //
-                    },
+                    onPressed: () => context.pushNamed('findId'),
                     child: const Text("아이디 찾기"),
                   ),
                   const Text('|'),
                   TextButton(
                     // style: AppButtonTheme.basicTextButtonTheme,
-                    onPressed: () {
-                      // Respond to button press
-                      //
-                    },
+                    onPressed: () => context.pushNamed('findId'),
                     child: const Text("비밀번호 찾기"),
                   )
                 ],

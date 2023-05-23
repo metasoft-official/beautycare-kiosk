@@ -47,6 +47,18 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
+                          onPressed: () => context.pushNamed('camera'),
+                          child: const Text('카메라 테스트'),
+                        ),
+                      ]),
+                ),
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
                           onPressed: () => context.pushNamed('predictSkinMbti'),
                           child: const Text('AI로 피부 MBTI 예측하기'),
                         ),

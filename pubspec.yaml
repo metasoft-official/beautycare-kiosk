@@ -35,6 +35,10 @@ dependencies:
   badges: ^2.0.3
   debounce_throttle: ^2.0.0
   flutter_secure_storage:
+  camera:
+  path_provider:
+  path:
+  image_picker:
 
 
 dev_dependencies:
