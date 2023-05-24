@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../layout/app_color.dart';
@@ -24,17 +23,17 @@ class IconStepper extends StatelessWidget {
   final List<String>? _titles;
   final int _curStep;
   final Color _activeColor;
-  final Color _inactiveColor = Colors.white;
+  final Color _inactiveColor = AppColor.grey;
+  final Color _activeIconColor = Colors.white;
+  final Color _inactiveCircleColor = Colors.white;
+  final Color _inactiveLineColor = AppColor.lightGrey;
+  final Color _inactiveTextColor = AppColor.grey;
   final double lineWidth = 4.0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(
-          top: 32.0,
-          left: 24.0,
-          right: 24.0,
-        ),
+        margin: const EdgeInsets.fromLTRB(24, 40, 24, 36),
         width: _width,
         child: Column(
           children: <Widget>[
@@ -51,36 +50,37 @@ class IconStepper extends StatelessWidget {
         ));
   }
 
+  // 아이콘
   List<Widget> _iconViews() {
     var list = <Widget>[];
     _icons.asMap().forEach((i, icon) {
-      //colors according to state
+      //상태에 따른 각 색상
       var circleColor =
-          (i == 0 || _curStep > i + 1) ? _activeColor : _inactiveColor;
+          (i == 0 || _curStep > i + 1) ? _activeColor : _inactiveCircleColor;
 
-      var lineColor = _curStep > i + 1 ? _activeColor : _inactiveColor;
+      var lineColor = _curStep > i + 1 ? _activeColor : _inactiveLineColor;
 
-      var iconColor =
-          (i == 0 || _curStep > i + 1) ? _inactiveColor : _activeColor;
+      var iconColor = (i == 0 || _curStep > i + 1)
+          ? _activeIconColor
+          : (_curStep == i + 1 ? _activeColor : _inactiveColor);
 
       list.add(
-        //dot with icon view
         Container(
-          width: 30.0,
-          height: 30.0,
+          width: 50.0,
+          height: 50.0,
           padding: const EdgeInsets.all(0),
           decoration: BoxDecoration(
             color: circleColor,
             borderRadius: const BorderRadius.all(Radius.circular(25.0)),
             border: Border.all(
-              color: _activeColor,
+              color: _curStep > i + 1 ? _activeColor : _inactiveLineColor,
               width: 2.0,
             ),
           ),
           child: Icon(
             icon,
             color: iconColor,
-            size: 15.0,
+            size: 20.0,
           ),
         ),
       );
@@ -98,14 +98,20 @@ class IconStepper extends StatelessWidget {
     return list;
   }
 
+  // 제목
   List<Widget> _titleViews() {
     var list = <Widget>[];
     _titles?.asMap().forEach((i, text) {
-      list.add(Text(
-        text,
-        style: TextStyle(color: _activeColor),
-        textAlign: TextAlign.center,
-      ));
+      list.add(SizedBox(
+          width: 50.0,
+          child: Text(
+            text,
+            style: TextStyle(
+                color: (i == 0 || _curStep >= i + 1)
+                    ? _activeColor
+                    : _inactiveTextColor),
+            textAlign: TextAlign.center,
+          )));
     });
     return list;
   }
