@@ -1,7 +1,10 @@
+import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +31,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -42,7 +45,7 @@ class HomePage extends StatelessWidget {
                 // ),
 
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -54,7 +57,7 @@ class HomePage extends StatelessWidget {
                 ),
 
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -65,7 +68,7 @@ class HomePage extends StatelessWidget {
                       ]),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -77,7 +80,7 @@ class HomePage extends StatelessWidget {
                       ]),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -92,6 +95,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 0),
     );
   }
 }

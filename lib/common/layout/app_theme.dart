@@ -27,4 +27,13 @@ final appTheme = ThemeData(
     fillColor: AppColor.selectedToggleColor,
     textStyle: AppTextTheme.elevatedButton,
   ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    // 인디케이터 색상 안 보이게
+    // backgroundColor: Colors.white,
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: AppColor.darkGrey,
+    unselectedItemColor: AppColor.darkGrey,
+    selectedLabelStyle: AppTextTheme.tabBarText,
+    unselectedLabelStyle: AppTextTheme.tabBarText,
+  ),
 );
