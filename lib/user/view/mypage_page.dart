@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_project/common/layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class MypagePage extends StatelessWidget {
   const MypagePage({Key? key}) : super(key: key);

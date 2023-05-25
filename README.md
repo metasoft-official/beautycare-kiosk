@@ -1,4 +1,4 @@
-# riverpod_project
+# beauty_care
 
 A new Flutter project.
 

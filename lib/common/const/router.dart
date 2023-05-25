@@ -1,13 +1,13 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:riverpod_project/common/view/home_page.dart';
-import 'package:riverpod_project/user/view/login_page.dart';
-import 'package:riverpod_project/common/view/register_page.dart';
-import 'package:riverpod_project/common/view/predict_skin_disease_page.dart';
-import 'package:riverpod_project/common/view/predict_skin_mbti_page.dart';
-import 'package:riverpod_project/mbti/view/survey_page.dart';
-import 'package:riverpod_project/common/component/widgets/camera_capture_widget.dart';
-import 'package:riverpod_project/user/view/find_id_page.dart';
+import 'package:beauty_care/common/view/home_page.dart';
+import 'package:beauty_care/user/view/login_page.dart';
+import 'package:beauty_care/common/view/register_page.dart';
+import 'package:beauty_care/common/view/predict_skin_disease_page.dart';
+import 'package:beauty_care/common/view/predict_skin_mbti_page.dart';
+import 'package:beauty_care/mbti/view/survey_page.dart';
+import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
+import 'package:beauty_care/user/view/find_id_page.dart';
 
 import '../../user/view/mypage_page.dart';
 

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "94333008654",
+    "project_id": "beautycare-16fbe",
+    "storage_bucket": "beautycare-16fbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94333008654:android:d8add03605166498f3755f",
+        "android_client_info": {
+          "package_name": "com.sqisoft.coiz.beautycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94333008654-dsi4on62nmdejrmiq1aubc3ukrb3o14o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0I78THOlsj8PO0h-7ZidjsLld2m5y_ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94333008654-dsi4on62nmdejrmiq1aubc3ukrb3o14o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "94333008654-9aao32pscfl1trjtsh9pi8tg5e2nde4k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beautyCare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-name: riverpod_project
+name: beauty_care
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -39,6 +39,10 @@ dependencies:
   path_provider:
   path:
   image_picker:
+
+  firebase_core:
+  firebase_auth:
+  firebase_messaging:
 
 
 dev_dependencies:

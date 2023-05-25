@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sqisoft.coiz.beautycare">
    <application
-        android:label="riverpod_project"
+        android:label="beauty_care"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

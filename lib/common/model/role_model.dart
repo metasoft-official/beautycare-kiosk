@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:riverpod_project/common/model/user_model.dart';
+import 'package:beauty_care/common/model/user_model.dart';
 
 part 'role_model.freezed.dart';
 part 'role_model.g.dart';

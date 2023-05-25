@@ -7,29 +7,23 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:riverpod_project/common/const/router.dart';
+import 'package:beauty_care/common/const/router.dart';
+import 'package:beauty_care/user/view/login_page.dart';
 
 import 'common/layout/app_theme.dart';
-
-final httpClientProvider = Provider<HttpClient>((ref) {
-  var httpClient = HttpClient();
-  httpClient.badCertificateCallback =
-      (X509Certificate cert, String host, int port) => true; // 인증서 검증 우회
-  return httpClient;
-});
+import 'common/provider/auth_provider.dart';
+import 'common/view/home_page.dart';
+import 'common/const/auth_router_delegate.dart';
 
 void main() {
-  final container = ProviderContainer();
-  container.read(httpClientProvider); // HttpClient 인스턴스 사용 예시
-
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       theme: appTheme,
       debugShowCheckedModeBanner: false,

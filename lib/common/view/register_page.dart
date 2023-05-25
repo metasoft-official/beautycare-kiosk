@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_project/common/layout/app_button_theme.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 import '../layout/app_text.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {

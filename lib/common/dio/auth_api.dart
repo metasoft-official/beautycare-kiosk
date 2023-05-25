@@ -15,6 +15,5 @@ abstract class AuthApi {
   factory AuthApi(Dio dio, {String baseUrl}) = _AuthApi;
 
   @GET('/')
-  Future<String> authenticated (@Header('Authorization') String token);
+  Future<String> authenticated(@Header('Authorization') String token);
 }
-

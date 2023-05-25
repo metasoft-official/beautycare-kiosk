@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_project/common/component/widgets/icon_stepper.dart';
+import 'package:beauty_care/common/component/widgets/icon_stepper.dart';
 
 import '../../common/layout/app_color.dart';
 import '../../common/layout/app_text.dart';
