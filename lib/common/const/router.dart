@@ -5,10 +5,10 @@ import 'package:beauty_care/user/view/login_page.dart';
 import 'package:beauty_care/common/view/register_page.dart';
 import 'package:beauty_care/common/view/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/predict_skin_mbti_page.dart';
-import 'package:beauty_care/mbti/view/survey_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
 import 'package:beauty_care/user/view/find_id_page.dart';
 
+import '../../mbti/view/mbti_main_page.dart';
 import '../../user/view/mypage_page.dart';
 
 final GoRouter router = GoRouter(
@@ -41,6 +41,11 @@ final GoRouter router = GoRouter(
       path: '/mypage',
       name: MypagePage.routeName,
       builder: (context, state) => const MypagePage(),
+    ),
+    GoRoute(
+      path: '/survey',
+      name: MbtiMainPage.routeName,
+      builder: (context, state) => const MbtiMainPage(),
     ),
     GoRoute(
       path: '/predict-skin-mbti',
