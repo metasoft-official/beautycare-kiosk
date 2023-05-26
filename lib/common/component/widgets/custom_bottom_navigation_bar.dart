@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({Key? key, required index}) : super(key: key);
 
