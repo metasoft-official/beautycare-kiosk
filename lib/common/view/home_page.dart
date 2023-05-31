@@ -1,5 +1,14 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Handling a background message ${message.messageId}');
+}
+
+late AndroidNotificationChannel channel;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

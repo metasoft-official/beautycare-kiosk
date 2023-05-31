@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:beauty_care/user/view/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -24,10 +27,12 @@ final authStateChangesProvider = StreamProvider<User?>((ref) {
   return ref.watch(firebaseAuthProvider).authStateChanges();
 });
 
+var logger = Logger();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -65,10 +70,6 @@ void main() async {
     badge: true,
     sound: true,
   );
-
-var logger = Logger();
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -76,14 +77,14 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
+    return const MaterialApp(
       // theme: appTheme,
       // debugShowCheckedModeBanner: false,
       // routeInformationProvider: router.routeInformationProvider,
       // routeInformationParser: router.routeInformationParser,
       // routerDelegate: router.routerDelegate,
       home: AuthWidget(
-        nonLoggedIn: const LoginPage(),
+        nonLoggedIn: LoginPage(),
         loggedIn: HomePage(),
       ),
     );
