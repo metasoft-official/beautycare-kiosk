@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -10,8 +8,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:beauty_care/common/const/router.dart';
-import 'package:beauty_care/user/view/login_page.dart';
+import 'package:logger/logger.dart';
 
 import 'common/layout/app_theme.dart';
 import 'common/provider/auth_provider.dart';
@@ -67,6 +66,8 @@ void main() async {
     sound: true,
   );
 
+var logger = Logger();
+void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 

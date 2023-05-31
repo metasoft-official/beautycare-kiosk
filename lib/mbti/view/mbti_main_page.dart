@@ -1,7 +1,9 @@
+import 'package:beauty_care/mbti/view/survey_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:beauty_care/mbti/view/survey_widget.dart';
 
+import '../../common/component/widgets/custom_bottom_navigation_bar.dart';
 import '../../common/component/widgets/icon_stepper.dart';
 import '../../common/layout/app_button_theme.dart';
 import '../../common/layout/app_color.dart';
