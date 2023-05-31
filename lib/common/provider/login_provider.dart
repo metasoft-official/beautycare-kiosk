@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,7 +38,22 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<void> login(String username, String password) async {
     try {
       final token = await _userRepository.login(username, password);
-      state = UserState(user: "");
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithCustomToken(token);
+        print("Sign-in successful.");
+      } on FirebaseAuthException catch (e) {
+        switch (e.code) {
+          case "invalid-custom-token":
+            print("The supplied token is not a Firebase custom auth token.");
+            break;
+          case "custom-token-mismatch":
+            print("The supplied token is for a different Firebase project.");
+            break;
+          default:
+            print("Unkown error.");
+        }
+      }
     } catch (e) {
       state = UserState(error: e.toString());
     }

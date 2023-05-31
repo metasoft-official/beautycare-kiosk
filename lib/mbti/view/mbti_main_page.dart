@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_project/mbti/view/survey_widget.dart';
+import 'package:beauty_care/mbti/view/survey_widget.dart';
 
 import '../../common/component/widgets/icon_stepper.dart';
 import '../../common/layout/app_button_theme.dart';
