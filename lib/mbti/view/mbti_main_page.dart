@@ -31,64 +31,62 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MBTI')),
-      body: CustomScrollView(
-        slivers: [
-          // 문진 카테고리
-          SliverPersistentHeader(
-            floating: true, // 다시 올리면 보이도록
-            delegate: PersistentHeader(
-              maxExtent: 160,
-              minExtent: 160,
-              widget: Container(
-                color: Colors.white,
-                child: IconStepper(
-                  icons: icons,
-                  width: MediaQuery.of(context).size.width,
-                  color: AppColor.appColor,
-                  curStep: curStep,
-                  titles: titles,
+        appBar: AppBar(title: const Text('MBTI')),
+        body: CustomScrollView(
+          slivers: [
+            // 문진 카테고리
+            SliverPersistentHeader(
+              floating: true, // 다시 올리면 보이도록
+              delegate: PersistentHeader(
+                maxExtent: 160,
+                minExtent: 160,
+                widget: Container(
+                  color: Colors.white,
+                  child: IconStepper(
+                    icons: icons,
+                    width: MediaQuery.of(context).size.width,
+                    color: AppColor.appColor,
+                    curStep: curStep,
+                    titles: titles,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          //문진 내용
-          const SurveyWidget(),
+            //문진 내용
+            const SurveyWidget(),
 
-          //버튼
-          SliverToBoxAdapter(
-            child: Column(children: [
-              Container(
-                // margin: const EdgeInsets.only(top: 22),
-                padding: const EdgeInsets.fromLTRB(22, 26, 22, 26),
-                // color: Colors.white,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: AppButtonTheme.outlinedRoundedButtonTheme,
-                        child: const Text("임시저장"),
+            //버튼
+            SliverToBoxAdapter(
+              child: Column(children: [
+                Container(
+                  // margin: const EdgeInsets.only(top: 22),
+                  padding: const EdgeInsets.fromLTRB(22, 26, 22, 26),
+                  // color: Colors.white,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: AppButtonTheme.outlinedRoundedButtonTheme,
+                          child: const Text("임시저장"),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: AppButtonTheme.roundedElevatedButtonTheme,
-                        child: const Text("다음"),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: AppButtonTheme.roundedElevatedButtonTheme,
+                          child: const Text("다음"),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ]),
-          )
-        ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(index: 1),
-    );
+              ]),
+            )
+          ],
+        ));
   }
 }

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  static String get routeName => 'home';
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(index: 0),
+      // bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

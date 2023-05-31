@@ -1,3 +1,5 @@
+import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:beauty_care/common/view/home_page.dart';
@@ -11,16 +13,34 @@ import 'package:beauty_care/user/view/find_id_page.dart';
 import '../../mbti/view/mbti_main_page.dart';
 import '../../user/view/mypage_page.dart';
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
 final GoRouter router = GoRouter(
+  initialLocation: '/',
+  navigatorKey: _rootNavigatorKey,
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => HomePage(),
-    ),
+    ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) {
+          return Scaffold(
+            body: child,
+            bottomNavigationBar: const CustomBottomNavigationBar(),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/',
+            name: HomePage.routeName,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: HomePage(),
+            ),
+          ),
+        ]),
     GoRoute(
       path: '/login',
       name: LoginPage.routeName,
-      builder: (context, state) => LoginPage(),
+      builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
       path: '/find-id',
