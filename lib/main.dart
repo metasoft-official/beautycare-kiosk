@@ -84,7 +84,7 @@ class MyApp extends ConsumerWidget {
       // routeInformationParser: router.routeInformationParser,
       // routerDelegate: router.routerDelegate,
       home: AuthWidget(
-        nonLoggedIn: LoginPage(),
+        nonLoggedIn: HomePage(),
         loggedIn: HomePage(),
       ),
     );
