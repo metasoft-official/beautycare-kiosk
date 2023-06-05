@@ -1,18 +1,48 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.messageId}');
-}
-
-late AndroidNotificationChannel channel;
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static String get routeName => 'home';
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  void _requestPermission() async {
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    // final client = HttpClientWithInterceptor.build(
+    //     interceptors: [AuthorizationInterceptor()],
+    //     retryPolicy: ExpiredTokenRetryPolicy());
+
+    // FirebaseMessaging.instance.getToken().then((token) {
+    //   // FCM 토큰을 서버에 저장 👈👈👈👈👈👈👈👈👈👈👈
+    //   client.post(Uri.parse(Constants.API + 'booster/v1/fcm-token'),
+    //       body: jsonEncode({'fcmToken': "$token"}));
+    // });
+    //
+    // FirebaseMessaging.instance.onTokenRefresh.listen((token) {
+    //   // FCM 토큰을 서버에 저장 👈👈👈👈👈👈👈👈👈👈👈
+    //   client.post(Uri.parse(Constants.API + 'booster/v1/fcm-token'),
+    //       body: jsonEncode({'fcmToken': "$token"}));
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {

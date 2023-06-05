@@ -50,6 +50,23 @@ class _CameraExampleState extends State<CameraExample> {
           centerTitle: true,
         ),
         backgroundColor: Colors.black,
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.camera),
+        //   // Provide an onPressed callback.
+        //   onPressed: () async {
+        //     try {
+        //       // Ensure the camera is initialized.
+        //       await _initCameraControllerFuture;
+        //
+        //       // Attempt to take a picture and log where it's been saved.
+        //       final image = await _cameraController?.takePicture();
+        //       print('Picture saved at ${image?.path}');
+        //     } catch (e) {
+        //       // If an error occurs, log the error to the console.
+        //       print(e);
+        //     }
+        //   },
+        // ),
         body: isCapture
             ? Stack(children: [
                 Column(
@@ -181,6 +198,7 @@ class _CameraExampleState extends State<CameraExample> {
                                   print("$e");
                                 }
                               },
+                              // 카메라 버튼 색깔 변경하기
                               child: Container(
                                 height: 80.0,
                                 width: 80.0,

@@ -1,38 +1,35 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:beauty_care/user/view/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:beauty_care/common/const/router.dart';
-import 'package:logger/logger.dart';
+import 'package:beauty_care/common/utils/push_manager.dart';
+import 'package:beauty_care/common/layout/app_theme.dart';
+import 'package:provider/provider.dart';
 
-import 'common/layout/app_theme.dart';
-import 'common/provider/auth_provider.dart';
-import 'common/view/home_page.dart';
-import 'common/const/auth_router_delegate.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-final firebaseAuthProvider =
-    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Handling a background message ${message.messageId}');
+}
 
-final authStateChangesProvider = StreamProvider<User?>((ref) {
-  return ref.watch(firebaseAuthProvider).authStateChanges();
-});
-
-var logger = Logger();
+late AndroidNotificationChannel channel;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -43,9 +40,9 @@ void main() async {
   );
 
   var initialzationSettingsAndroid =
-      const AndroidInitializationSettings('@mipmap/ic_launcher');
+      AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  var initialzationSettingsIOS = const IOSInitializationSettings(
+  var initialzationSettingsIOS = IOSInitializationSettings(
     requestSoundPermission: true,
     requestBadgePermission: true,
     requestAlertPermission: true,
@@ -70,48 +67,60 @@ void main() async {
     badge: true,
     sound: true,
   );
+
+  String? token = await FirebaseMessaging.instance.getToken();
+
+  print("token : ${token ?? 'token NULL!'}");
+
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // final materialAppKey = GlobalKey();
+  late FirebaseMessaging messaging;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const MaterialApp(
-      // theme: appTheme,
-      // debugShowCheckedModeBanner: false,
-      // routeInformationProvider: router.routeInformationProvider,
-      // routeInformationParser: router.routeInformationParser,
-      // routerDelegate: router.routerDelegate,
-      home: AuthWidget(
-        nonLoggedIn: HomePage(),
-        loggedIn: HomePage(),
-      ),
-    );
+  void initState() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      var androidNotiDetails = AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        channelDescription: channel.description,
+      );
+      var iOSNotiDetails = const IOSNotificationDetails();
+      var details =
+          NotificationDetails(android: androidNotiDetails, iOS: iOSNotiDetails);
+      if (notification != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          details,
+        );
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print(message);
+    });
+
+    super.initState();
   }
-}
-
-class AuthWidget extends ConsumerWidget {
-  final Widget nonLoggedIn;
-  final Widget loggedIn;
-
-  const AuthWidget(
-      {super.key, required this.nonLoggedIn, required this.loggedIn});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authStateChanges = ref.watch(authStateChangesProvider);
-
-    return authStateChanges.when(
-      data: (user) {
-        if (user == null) {
-          return nonLoggedIn;
-        } else {
-          return loggedIn;
-        }
-      },
-      loading: () => const CircularProgressIndicator(),
-      error: (_, __) => const Text('Something went wrong'),
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      theme: appTheme,
+      debugShowCheckedModeBanner: false,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
     );
   }
 }

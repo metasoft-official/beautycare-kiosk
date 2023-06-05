@@ -39,6 +39,8 @@ dependencies:
   path_provider:
   path:
   image_picker:
+  http_interceptor: ^1.0.0
+  shared_preferences: ^2.0.6
 
   firebase_core:
   firebase_auth:
