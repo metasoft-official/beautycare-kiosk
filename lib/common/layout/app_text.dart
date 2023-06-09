@@ -373,6 +373,36 @@ class AppTextTheme {
       fontSize: 18,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
+  static const black20 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      color: AppColor.black);
+  static const black20m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: AppColor.black);
+  static const black20b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: AppColor.black);
+  static const black24 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      color: AppColor.black);
+  static const black24m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: AppColor.black);
+  static const black24b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColor.black);
   //deepGrey
   static const deepGrey14 = TextStyle(
       fontFamily: 'noto_sans_kr',

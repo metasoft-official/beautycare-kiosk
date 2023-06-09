@@ -1,9 +1,8 @@
 import 'package:beauty_care/mbti/view/survey_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:beauty_care/mbti/view/survey_widget.dart';
 
-import '../../common/component/widgets/custom_bottom_navigation_bar.dart';
 import '../../common/component/widgets/icon_stepper.dart';
 import '../../common/layout/app_button_theme.dart';
 import '../../common/layout/app_color.dart';
@@ -77,7 +76,9 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pushNamed('mbtiResult');
+                          },
                           style: AppButtonTheme.roundedElevatedButtonTheme,
                           child: const Text("다음"),
                         ),

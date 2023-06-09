@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/mbti/view/mbti_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,6 +67,11 @@ final GoRouter router = GoRouter(
       path: '/survey',
       name: MbtiMainPage.routeName,
       builder: (context, state) => const MbtiMainPage(),
+    ),
+    GoRoute(
+      path: '/mbtiResult',
+      name: MbtiResultPage.routeName,
+      builder: (context, state) => const MbtiResultPage(),
     ),
     GoRoute(
       path: '/predict-skin-mbti',

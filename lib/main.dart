@@ -1,23 +1,13 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:go_router/go_router.dart';
-
 import 'package:beauty_care/common/const/router.dart';
-import 'package:beauty_care/common/utils/push_manager.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
-import 'package:provider/provider.dart';
+import 'package:logger/logger.dart';
 
-import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+var logger = Logger();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.messageId}');
