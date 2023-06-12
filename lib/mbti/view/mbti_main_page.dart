@@ -58,35 +58,18 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
 
             //버튼
             SliverToBoxAdapter(
-              child: Column(children: [
-                Container(
-                  // margin: const EdgeInsets.only(top: 22),
-                  padding: const EdgeInsets.fromLTRB(22, 26, 22, 26),
-                  // color: Colors.white,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: AppButtonTheme.outlinedRoundedButtonTheme,
-                          child: const Text("임시저장"),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.pushNamed('mbtiResult');
-                          },
-                          style: AppButtonTheme.roundedElevatedButtonTheme,
-                          child: const Text("다음"),
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Container(
+                // margin: const EdgeInsets.only(top: 22),
+                padding: const EdgeInsets.fromLTRB(22, 26, 22, 26),
+                // color: Colors.white,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.pushNamed('mbtiResult');
+                  },
+                  style: AppButtonTheme.roundedElevatedButtonTheme,
+                  child: const Text("다음"),
                 ),
-              ]),
+              ),
             )
           ],
         ));

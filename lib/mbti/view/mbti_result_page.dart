@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/layout/app_color.dart';
-import '../provider/widget_info_provider.dart';
-import '../../main.dart';
 
 final sizeProvider = StateProvider<Size>((ref) => Size.zero);
 

@@ -3,14 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/layout/app_text.dart';
 
-class SurveyWidget extends ConsumerStatefulWidget {
-  const SurveyWidget({super.key});
+final quizStateProvider = ChangeNotifierProvider<QuizState>((ref) {
+  return QuizState();
+});
 
-  @override
-  SurveyState createState() => SurveyState();
-}
-
-class SurveyState extends ConsumerState<SurveyWidget> {
+class QuizState extends ChangeNotifier {
   final answers = [
     [
       '매우 거칠고, 버석거리고 각질이 들떠 보입니다.',
@@ -26,12 +23,32 @@ class SurveyState extends ConsumerState<SurveyWidget> {
     '두 번째 질문?',
     '세 번째 질문입니다.'
   ];
+  List<int> _isClicked = [];
+
+  // 아무것도 선택되지 않은 상태
+  QuizState() {
+    _isClicked = List<int>.filled(questions.length, 0, growable: false);
+  }
+
+  List<int> get isClicked => _isClicked;
+
+  // 정답을 선택하는 경우
+  void selectAnswer(int questionIndex, int answerIndex) {
+    _isClicked[questionIndex] = answerIndex + 1;
+    notifyListeners();
+  }
+}
+
+class SurveyWidget extends ConsumerWidget {
+  const SurveyWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quizState = ref.watch(quizStateProvider);
+
     return SliverList(
-      delegate: SliverChildBuilderDelegate(childCount: questions.length,
-          (context, index) {
+      delegate: SliverChildBuilderDelegate(
+          childCount: quizState.questions.length, (context, index) {
         return Container(
           margin: const EdgeInsets.fromLTRB(24, 36, 24, 0),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -50,7 +67,7 @@ class SurveyState extends ConsumerState<SurveyWidget> {
                   // 질문 내용
                   Expanded(
                       child: Text(
-                    questions[index],
+                    quizState.questions[index],
                     style: AppTextTheme.black18b,
                   )),
                 ],
@@ -63,29 +80,59 @@ class SurveyState extends ConsumerState<SurveyWidget> {
 
             // 한 질문에 대한 답변은 lazy 하게 나올 필요가 없다고 판단하여 ListView 사용
             // 답변 ===================================================
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: answers[index].length,
-                itemBuilder: (BuildContext context, int answerIndex) {
-                  return Container(
-                      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(30.0)),
-                      child: Align(
+            if (quizState.isClicked[index] == 0) ...[
+              ListView.builder(
+                  shrinkWrap: true,
+                  primary: false, //스크롤 제한
+                  itemCount: quizState.answers[index].length,
+                  itemBuilder: (BuildContext context, int answerIndex) {
+                    return Container(
+                      margin: const EdgeInsets.fromLTRB(10, 4, 10, 0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          quizState.selectAnswer(index, answerIndex);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
                           alignment: Alignment.centerLeft,
-                          child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      24, 10, 24, 10)),
-                              child: Text(
-                                answers[index][answerIndex],
-                                style: AppTextTheme.black14m,
-                              ))));
-                }),
+                          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          quizState.answers[index][answerIndex],
+                          style: AppTextTheme.black14m,
+                        ),
+                      ),
+                    );
+                  }),
+            ] else ...[
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'A.',
+                        style: AppTextTheme.blue14m,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          quizState.selectAnswer(index, -1);
+                        },
+                        style: TextButton.styleFrom(
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          quizState.answers[index]
+                              [quizState.isClicked[index] - 1],
+                          style: AppTextTheme.blue14m,
+                        ),
+                      )
+                    ],
+                  ))
+            ],
             const SizedBox(height: 10)
           ]),
         );
