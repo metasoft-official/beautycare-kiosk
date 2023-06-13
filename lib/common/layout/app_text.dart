@@ -444,6 +444,52 @@ class AppTextTheme {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       color: AppColor.allBlack);
+  // white
+  static const white12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white12m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white12b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
+  static const white16 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white16m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white16b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
+  static const white20 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white20m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white20b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
   // grey
   static const grey12 = TextStyle(
       fontFamily: 'noto_sans_kr',
@@ -575,6 +621,11 @@ class AppTextTheme {
       fontFamily: 'noto_sans_kr',
       fontSize: 14,
       fontWeight: FontWeight.w500,
+      color: AppColor.blue);
+  static const blue16b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
       color: AppColor.blue);
   static const blueBlack12l = TextStyle(
       fontFamily: 'noto_sans_kr',
