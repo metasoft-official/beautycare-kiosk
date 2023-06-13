@@ -41,7 +41,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/login',
       name: LoginPage.routeName,
-      builder: (context, state) => const LoginPage(),
+      builder: (context, state) => LoginPage(
+        onLoginSuccess: () {
+          return '';
+        },
+      ),
     ),
     GoRoute(
       path: '/find-id',

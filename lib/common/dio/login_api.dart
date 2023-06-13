@@ -1,15 +1,16 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
 
-part of 'user_api.dart';
+@RestApi(baseUrl: 'http://localhost:9000/api')
+abstract class LoginApi {
+  factory LoginApi(Dio dio, {String baseUrl}) = _LoginApi;
 
-// **************************************************************************
-// RetrofitGenerator
-// **************************************************************************
+  @POST('/login')
+  Future<String> login(@Body() Map<String, dynamic> body);
+}
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
-
-class _UserApi implements UserApi {
-  _UserApi(
+class _LoginApi implements LoginApi {
+  _LoginApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,25 +22,25 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<String> getUserInfoTokenList(authHeader) async {
+  Future<String> login(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': authHeader};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(body);
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/util/user-info-token/my-token',
+          '/login',
           queryParameters: queryParameters,
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = _result.headers['Authorization'].toString()!;
     return value;
   }
 

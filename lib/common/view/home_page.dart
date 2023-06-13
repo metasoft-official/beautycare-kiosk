@@ -1,9 +1,17 @@
 import 'dart:io';
 
+import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+
+import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../component/widgets/camera_capture_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,114 +34,91 @@ class _HomePageState extends State<HomePage> {
       provisional: false,
       sound: true,
     );
-
-    // final client = HttpClientWithInterceptor.build(
-    //     interceptors: [AuthorizationInterceptor()],
-    //     retryPolicy: ExpiredTokenRetryPolicy());
-
-    // FirebaseMessaging.instance.getToken().then((token) {
-    //   // FCM 토큰을 서버에 저장 👈👈👈👈👈👈👈👈👈👈👈
-    //   client.post(Uri.parse(Constants.API + 'booster/v1/fcm-token'),
-    //       body: jsonEncode({'fcmToken': "$token"}));
-    // });
-    //
-    // FirebaseMessaging.instance.onTokenRefresh.listen((token) {
-    //   // FCM 토큰을 서버에 저장 👈👈👈👈👈👈👈👈👈👈👈
-    //   client.post(Uri.parse(Constants.API + 'booster/v1/fcm-token'),
-    //       body: jsonEncode({'fcmToken': "$token"}));
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('뷰티 케어'),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                onPressed: () => context.pushNamed('login'),
-                icon: const Icon(Icons.login),
+    return Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      final authStateNotifier = ref.read(authStateProvider.notifier);
+      return Scaffold(
+          appBar: AppBar(
+            title: const Text('뷰티 케어'),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () => context.pushNamed('login'),
+                    icon: const Icon(Icons.search),
+                  ),
+                  IconButton(
+                    onPressed: () => context.pushNamed('login'),
+                    icon: const Icon(Icons.person),
+                  ),
+                  IconButton(
+                    onPressed: () => context.pushNamed('mypage'),
+                    icon: const Icon(Icons.notifications),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () => context.pushNamed('mypage'),
-                icon: const Icon(Icons.person),
-              ),
-              // const SizedBox(height: 20),
-              // ElevatedButton(
-              //   onPressed: () => context.pushNamed('survey'),
-              //   child: const Text('설문조사'),
-              // ),
             ],
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // const SizedBox(height: 20),
-                // ElevatedButton(
-                //   onPressed: () => context.pushNamed('survey'),
-                //   child: const Text('설문조사'),
-                // ),
-
+          body: Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 40),
+              child: Column(children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.fromLTRB(24, 40, 22, 22),
+                    decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
+                    child: Column(
                       children: [
-                        ElevatedButton(
-                          onPressed: () => context.pushNamed('camera'),
-                          child: const Text('카메라 테스트'),
+                        const Text(
+                          '나의 피부 MBTI가 궁금하지 않으세요? AI로 진단받아보시고 체계적으로 관리해보세요',
+                          style: AppTextTheme.black18b,
                         ),
-                      ]),
-                ),
-
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
                         ElevatedButton(
-                          onPressed: () => context.pushNamed('predictSkinMbti'),
-                          child: const Text('AI로 피부 MBTI 예측하기'),
+                          onPressed: () => authStateNotifier.navigateToPage(
+                              context, ref, 'predictSkinMbti'),
+                          child: const Text('새로운 예측하기'),
                         ),
-                      ]),
-                ),
+                      ],
+                    )),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 30),
+                  // padding: const EdgeInsets.fromLTRB(24, 40, 22, 22),
+                  // decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          onPressed: () =>
-                              context.pushNamed('predictSkinDisease'),
-                          child: const Text('AI로 나의 피부 질환 예측하기'),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () =>
+                                context.pushNamed('predictSkinDisease'),
+                            child: const Text('AI로 나의 피부 질환 예측하기'),
+                          ),
                         ),
                       ]),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 30),
+                  // padding: const EdgeInsets.fromLTRB(24, 40, 22, 22),
+                  // decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          onPressed: () => context.pushNamed('survey'),
-                          child: const Text('피부타입 문진'),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () => context.pushNamed('survey'),
+                            child: const Text('문진'),
+                          ),
                         ),
                       ]),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+                )
+              ])));
+    });
   }
 }

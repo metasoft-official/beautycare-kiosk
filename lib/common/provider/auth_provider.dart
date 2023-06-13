@@ -1,6 +1,17 @@
+import 'package:beauty_care/common/const/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../user/view/login_page.dart';
+
+final secureStorageProvider =
+    Provider<FlutterSecureStorage>((ref) => const FlutterSecureStorage());
+
+final authStateProvider = StateNotifierProvider<AuthStateNotifier, bool>(
+    (ref) => AuthStateNotifier());
 
 // 로그인 상태 관리
 class AuthStateNotifier extends StateNotifier<bool> {
@@ -12,5 +23,21 @@ class AuthStateNotifier extends StateNotifier<bool> {
 
   void logOut() {
     state = false;
+  }
+
+  void navigateToPage(BuildContext context, WidgetRef ref, String routeName) {
+    final authState = ref.read(authStateProvider);
+
+    if (authState == true) {
+      context.pushNamed(routeName);
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginPage(onLoginSuccess: () {
+                    return routeName;
+                    // router.goNamed(routeName);
+                  })));
+    }
   }
 }

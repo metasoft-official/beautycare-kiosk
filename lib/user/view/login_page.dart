@@ -1,7 +1,9 @@
+import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:beauty_care/common/const/router.dart';
 
 import '../../common/provider/login_provider.dart';
 import '../../common/layout/app_button_theme.dart';
@@ -15,8 +17,8 @@ const myInputDecoration = InputDecoration(
 final myTextStyle = TextStyle(color: Colors.blue, fontSize: 20);
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
-
+  const LoginPage({super.key, required this.onLoginSuccess});
+  final String Function() onLoginSuccess; // 새로운 콜백
   static String get routeName => 'login';
 
   @override
@@ -28,34 +30,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool? _isChecked = false;
-
-  static final storage =
-      FlutterSecureStorage(); // FlutterSecureStorage를 storage로 저장
-  dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
-
-  //flutter_secure_storage 사용을 위한 초기화 작업
-  @override
-  void initState() {
-    super.initState();
-
-    // 비동기로 flutter secure storage 정보를 불러오는 작업
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _asyncMethod();
-    });
-  }
-
-  _asyncMethod() async {
-    // read 함수로 key값에 맞는 정보를 불러오고 데이터타입은 String 타입
-    // 데이터가 없을때는 null을 반환
-    userInfo = await storage.read(key: 'login');
-
-    // user의 정보가 있다면 로그인 후 들어가는 첫 페이지로 넘어가게 합니다.
-    if (userInfo != null) {
-      Navigator.pushNamed(context, '/main');
-    } else {
-      print('로그인이 필요합니다');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +91,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
             ),
             // 로그인 실패
-            if (userState.error != null)
-              Text(
-                userState.error!,
-                style: const TextStyle(color: Colors.red),
+            // if (userState.username == null)
+            //   Text(
+            //     // userState.error!,
+            //     '로그인 실패',
+            //     style: const TextStyle(color: Colors.red),
+            //   ),
+            if (userState.name != null)
+              const Text(
+                // userState.error!,
+                '로그인 성공 ',
+                style: TextStyle(color: Colors.red),
               ),
 
             Container(
@@ -135,11 +116,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         //   minimumSize: const Size.fromHeight(50), // NEW
                         // ),
                         style: AppButtonTheme.darkElevatedButtonTheme,
-                        onPressed: () {
-                          ref.read(userNotifierProvider.notifier).login(
+                        onPressed: () async {
+                          final token = await ref
+                              .read(userNotifierProvider.notifier)
+                              .login(
                                 _usernameController.text,
                                 _passwordController.text,
                               );
+
+                          ref.read(authStateProvider.notifier).logIn();
+
+                          final authState = ref.read(authStateProvider);
+
+                          String routeName = widget.onLoginSuccess();
+                          print('이동 경로 : $routeName');
+                          print('authState : $authState');
+
+                          if (authState == true) {
+                            // 로그인 페이지를 pop
+                            context.pop();
+                            context.pushNamed(routeName);
+                          } else {
+                            // 로그인 실패 처리
+                          }
                         },
                         child: const Text('로그인'),
                       ),
