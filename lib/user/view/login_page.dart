@@ -111,10 +111,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     Container(
                       width: double.infinity,
                       child: ElevatedButton(
-                        // style: ElevatedButton.styleFrom(
-                        //   primary: Colors.black,
-                        //   minimumSize: const Size.fromHeight(50), // NEW
-                        // ),
                         style: AppButtonTheme.darkElevatedButtonTheme,
                         onPressed: () async {
                           final token = await ref
@@ -123,19 +119,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 _usernameController.text,
                                 _passwordController.text,
                               );
-
+                          // final authState = ref.read(authStateProvider);
+                          //
+                          // print('변경 전 : $authState');
                           ref.read(authStateProvider.notifier).logIn();
 
                           final authState = ref.read(authStateProvider);
+                          // print('변경 후 : $authState');
 
                           String routeName = widget.onLoginSuccess();
-                          print('이동 경로 : $routeName');
-                          print('authState : $authState');
 
                           if (authState == true) {
                             // 로그인 페이지를 pop
+                            // context.pop();
                             context.pop();
                             context.pushNamed(routeName);
+                            // context.goNamed(routeName);
                           } else {
                             // 로그인 실패 처리
                           }

@@ -37,6 +37,11 @@ final GoRouter router = GoRouter(
               child: HomePage(),
             ),
           ),
+          GoRoute(
+            path: '/survey',
+            name: MbtiMainPage.routeName,
+            builder: (context, state) => const MbtiMainPage(),
+          ),
         ]),
     GoRoute(
       path: '/login',
@@ -67,11 +72,7 @@ final GoRouter router = GoRouter(
       name: MypagePage.routeName,
       builder: (context, state) => const MypagePage(),
     ),
-    GoRoute(
-      path: '/survey',
-      name: MbtiMainPage.routeName,
-      builder: (context, state) => const MbtiMainPage(),
-    ),
+
     GoRoute(
       path: '/mbtiResult',
       name: MbtiResultPage.routeName,
