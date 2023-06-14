@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_color.dart';
+
 class AppBoxTheme {
   static final basicShadowWhiteBoxTheme = BoxDecoration(
     color: Colors.white,
@@ -12,5 +14,9 @@ class AppBoxTheme {
         offset: const Offset(2, 4),
       )
     ],
+  );
+  static const greyBoxTheme = BoxDecoration(
+    color: AppColor.lightGrey,
+    borderRadius: BorderRadius.all(Radius.circular(15)),
   );
 }

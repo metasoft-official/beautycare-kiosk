@@ -33,6 +33,16 @@ class AppButtonTheme {
       borderRadius: BorderRadius.circular(35),
     ),
   );
+  static final outlinedRoundedLightButtonTheme = OutlinedButton.styleFrom(
+    backgroundColor: Colors.white,
+    foregroundColor: AppColor.appColor,
+    side: const BorderSide(color: AppColor.appColor),
+    textStyle: AppTextTheme.black14,
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(35),
+    ),
+  );
   static final darkElevatedButtonTheme = ElevatedButton.styleFrom(
     backgroundColor: AppColor.darkButtonColor,
     foregroundColor: Colors.white,

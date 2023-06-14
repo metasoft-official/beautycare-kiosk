@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,7 +28,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('MBTI')),
+        appBar: AppBar(title: const Text('MBTI')),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 30, 24, 16),
@@ -86,7 +87,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
               // 피부고민 ========================================================
               Container(
                 padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-                margin: const EdgeInsets.symmetric(vertical: 8),
+                margin: const EdgeInsets.only(top: 16),
                 width: MediaQuery.of(context).size.width,
                 decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                 child: Column(
@@ -127,7 +128,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-                margin: const EdgeInsets.only(top: 8),
+                margin: const EdgeInsets.only(top: 16),
                 decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,25 +207,129 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
 
               // 추천 시술 =======================================================
               Container(
-                margin: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                margin: const EdgeInsets.fromLTRB(8, 22, 8, 8),
                 width: MediaQuery.of(context).size.width,
                 child: const Text(
-                  'AI가 추천하는 시술 만나보기',
+                  'AI가 추천하는 시술 TOP3',
                   style: AppTextTheme.black20b,
                   textAlign: TextAlign.start,
                 ),
               ),
-              // ClipRRect(
-              //     borderRadius: BorderRadius.circular(30),
-              //     child: LayoutBuilder(builder:
-              //         (BuildContext context, BoxConstraints constraints) {
-              //       return Container(
-              //           decoration: const BoxDecoration(
-              //             borderRadius: BorderRadius.all(Radius.circular(30)),
-              //           ),
-              //           child:
-              //               Image.asset("assets/images/sample_images_01.png"));
-              //     }))
+              GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Wrap(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                          decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                    "assets/images/sample_m_${index + 1}.png"),
+                                const Text('사적인 슈링크&윤곽주사'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(4, 16, 4, 0),
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.refresh,
+                    size: 16,
+                  ),
+                  style: AppButtonTheme.outlinedRoundedLightButtonTheme,
+                  onPressed: () {},
+                  label: const Text('다른 시술 추천받기'),
+                ),
+              ),
+
+              // 화장품 추천 =====================================================
+              Container(
+                decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.fromLTRB(22, 16, 22, 16),
+                child: Column(
+                  children: [
+                    const Text(
+                      'AI가 추천하는 화장품 만나보기',
+                      style: AppTextTheme.black20b,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Wrap(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                                decoration: AppBoxTheme.greyBoxTheme,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                          "assets/images/sample_c_0${index + 1}.png"),
+                                      const Text(
+                                        '에어셀300 플루이드',
+                                        style: AppTextTheme.black16b,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      const Text(
+                                        '수분 플루이드',
+                                        style: AppTextTheme.black14,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                    ),
+                    // 더보기 버튼
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(4, 16, 4, 0),
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.refresh,
+                          size: 16,
+                        ),
+                        style: AppButtonTheme.outlinedRoundedLightButtonTheme,
+                        onPressed: () {},
+                        label: const Text('화장품 더보기'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ]),
           ),
         ),
