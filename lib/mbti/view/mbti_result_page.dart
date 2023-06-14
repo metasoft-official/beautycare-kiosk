@@ -41,7 +41,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                   // 텍스트
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 30),
+                    margin: const EdgeInsets.only(top: 44),
                     padding: const EdgeInsets.fromLTRB(24, 40, 22, 22),
                     decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                     child: Column(
@@ -73,14 +73,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                   ),
 
                   // mtbi별 이미지
-                  const CircleAvatar(
-                    backgroundImage:
-                        // todo : network image 연결? or 기본 이미지 모두 저장해서 asset으로 로드
-                        // NetworkImage(
-                        //     "${Strings.imageUrl}${commentList[i].integratedAttachFileNumRepresentImage}"),),
-                        AssetImage("assets/images/sample_images_01.png"),
-                    radius: 30,
-                  ),
+                  Image.asset("assets/images/sample_cat_01.png"),
                 ],
               ),
 
