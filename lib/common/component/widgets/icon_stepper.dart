@@ -56,13 +56,13 @@ class IconStepper extends StatelessWidget {
     _icons.asMap().forEach((i, icon) {
       //상태에 따른 각 색상
       var circleColor =
-          (i == 0 || _curStep > i + 1) ? _activeColor : _inactiveCircleColor;
+          (i == 0 || _curStep > i) ? _activeColor : _inactiveCircleColor;
 
-      var lineColor = _curStep > i + 1 ? _activeColor : _inactiveLineColor;
+      var lineColor = _curStep > i ? _activeColor : _inactiveLineColor;
 
-      var iconColor = (i == 0 || _curStep > i + 1)
+      var iconColor = (i == 0 || _curStep > i)
           ? _activeIconColor
-          : (_curStep == i + 1 ? _activeColor : _inactiveColor);
+          : (_curStep == i ? _activeColor : _inactiveColor);
 
       list.add(
         Container(
@@ -73,7 +73,7 @@ class IconStepper extends StatelessWidget {
             color: circleColor,
             borderRadius: const BorderRadius.all(Radius.circular(25.0)),
             border: Border.all(
-              color: _curStep > i + 1 ? _activeColor : _inactiveLineColor,
+              color: _curStep > i ? _activeColor : _inactiveLineColor,
               width: 2.0,
             ),
           ),
@@ -107,7 +107,7 @@ class IconStepper extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                color: (i == 0 || _curStep >= i + 1)
+                color: (i == 0 || _curStep >= i)
                     ? _activeColor
                     : _inactiveTextColor),
             textAlign: TextAlign.center,

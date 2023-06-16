@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/component/widgets/icon_stepper.dart';
 import '../../common/layout/app_button_theme.dart';
 import '../../common/layout/app_color.dart';
+import '../provider/quiz_state_provider.dart';
 
 class MbtiMainPage extends ConsumerStatefulWidget {
   const MbtiMainPage({super.key});
@@ -17,19 +18,10 @@ class MbtiMainPage extends ConsumerStatefulWidget {
 }
 
 class MbtiMainState extends ConsumerState<MbtiMainPage> {
-  ///상태 관리 필요
-  final curStep = 2;
-  final titles = ['수분', '민감', '색소', '주름', '추가'];
-  final icons = [
-    Icons.water_drop,
-    Icons.warning,
-    Icons.colorize,
-    Icons.waves,
-    Icons.plus_one
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final quizState = ref.watch(quizStateProvider);
+
     return Scaffold(
         appBar: AppBar(title: const Text('MBTI')),
         body: CustomScrollView(
@@ -43,11 +35,11 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                 widget: Container(
                   color: Colors.white,
                   child: IconStepper(
-                    icons: icons,
+                    icons: quizState.icons,
                     width: MediaQuery.of(context).size.width,
                     color: AppColor.appColor,
-                    curStep: curStep,
-                    titles: titles,
+                    curStep: quizState.curStep,
+                    titles: quizState.titles,
                   ),
                 ),
               ),
@@ -64,7 +56,9 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                 // color: Colors.white,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed('mbtiResult');
+                    quizState.curStep < 3
+                        ? quizState.increaseStep()
+                        : context.pushNamed('mbtiResult');
                   },
                   style: AppButtonTheme.roundedElevatedButtonTheme,
                   child: const Text("다음"),
