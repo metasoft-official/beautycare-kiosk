@@ -65,9 +65,13 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
               itemCount: 10,
+              buttonText: 'mbti 검사하기',
+              routerName: 'predict-skin-mbti',
             ),
             HistoryWidget(
-              itemCount: 3,
+              itemCount: 0,
+              buttonText: '피부질환 검사하기',
+              routerName: 'predict-skin-disease',
             ),
           ],
         ),
