@@ -60,7 +60,8 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.search),
                   ),
                   IconButton(
-                    onPressed: () => context.pushNamed('login'),
+                    onPressed: () => authStateNotifier.navigateToPage(
+                        context, ref, 'mypage'),
                     icon: const Icon(Icons.person),
                   ),
                   IconButton(

@@ -1,13 +1,18 @@
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:beauty_care/common/const/values.dart';
 
 part 'user_api.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:9000/api')
+@RestApi(baseUrl: BASE_URL)
 abstract class UserApi {
   factory UserApi(Dio dio, {String baseUrl}) = _UserApi;
 
   @GET('/util/user-info-token/my-token')
   Future<String> getUserInfoTokenList(
       @Header("Authorization") String authHeader);
+
+  @GET('/common/users')
+  Future<String> getUserList(@Queries() Map<String, dynamic> user);
 }
