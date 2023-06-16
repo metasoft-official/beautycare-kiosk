@@ -12,8 +12,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../component/widgets/camera_capture_widget.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static String get routeName => 'home';
@@ -60,11 +58,11 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.search),
                   ),
                   IconButton(
-                    onPressed: () => context.pushNamed('login'),
+                    onPressed: () => context.pushNamed('mypage'),
                     icon: const Icon(Icons.person),
                   ),
                   IconButton(
-                    onPressed: () => context.pushNamed('mypage'),
+                    onPressed: () => context.pushNamed('noti'),
                     icon: const Icon(Icons.notifications),
                   ),
                 ],
