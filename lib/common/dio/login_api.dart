@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:beauty_care/common/const/values.dart';
 
-@RestApi(baseUrl: 'http://localhost:9000/api')
+@RestApi(baseUrl: BASE_URL)
 abstract class LoginApi {
   factory LoginApi(Dio dio, {String baseUrl}) = _LoginApi;
 

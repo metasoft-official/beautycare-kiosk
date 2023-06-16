@@ -37,7 +37,7 @@ mixin _$RoleModel {
 
 /// @nodoc
 abstract class $RoleModelCopyWith<$Res> {
-  factory $RoleModelCopyWith(RoleModel value, $Res Function(RoleModel) then) =
+  factory $RoleModelCopyWith(RoleModel vvalue, $Res Function(RoleModel) then) =
       _$RoleModelCopyWithImpl<$Res, RoleModel>;
   @useResult
   $Res call(

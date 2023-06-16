@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../provider/component_provider.dart';
+import 'package:beauty_care/common/const/values.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
