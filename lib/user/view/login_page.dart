@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/common/provider/provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -211,10 +212,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                                 // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
 
-                                final kakao_user = UserModel(username: user.id);
+                                final kakaoUser = UserModel(username: user.id);
                                 final response = await ref
                                     .watch(userApiProvider)
-                                    .getUserList(user.toJson());
+                                    .getUserList(kakaoUser.toJson());
+                                print('회원 가입 유무');
+                                print(response.toString());
                               } catch (error) {
                                 print('사용자 정보 요청 실패 $error');
                               }
