@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.person),
                   ),
                   IconButton(
-                    onPressed: () => context.pushNamed('mypage'),
+                    onPressed: () => context.pushNamed('noti'),
                     icon: const Icon(Icons.notifications),
                   ),
                 ],

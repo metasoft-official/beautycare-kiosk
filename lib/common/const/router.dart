@@ -1,6 +1,6 @@
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/mbti/view/mbti_result_page.dart';
-import 'package:beauty_care/user/view/%20prediction_history_page.dart';
+import 'package:beauty_care/noti/view/noti_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,6 +14,7 @@ import 'package:beauty_care/user/view/find_id_page.dart';
 
 import '../../mbti/view/mbti_main_page.dart';
 import '../../user/view/mypage_page.dart';
+import '../../user/view/prediction_history_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -77,6 +78,12 @@ final GoRouter router = GoRouter(
       path: '/history',
       name: PredictionHistoryPage.routeName,
       builder: (context, state) => const PredictionHistoryPage(),
+    ),
+
+    GoRoute(
+      path: '/noti',
+      name: NotiMainPage.routeName,
+      builder: (context, state) => const NotiMainPage(),
     ),
 
     GoRoute(
