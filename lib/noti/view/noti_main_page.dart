@@ -17,16 +17,26 @@ class NotiMainPage extends ConsumerStatefulWidget {
 
 class NotiMainPageState extends ConsumerState<NotiMainPage> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final notiState = ref.read(notiStateProvider);
+      notiState.resetState();
+    });
+    logger.d('reset here');
+  }
+
+  @override
   Widget build(BuildContext context) {
+    logger.d('build here');
     final notiState = ref.watch(notiStateProvider);
-    logger.d(notiState.notiList);
 
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         title: const Text('알림'),
       ),
-      body: notiState.notiList!.isEmpty
+      body: notiState.notiTypeList.isEmpty
           // 알림이 없는 경우
           ? Container(
               padding: const EdgeInsets.fromLTRB(24, 30, 24, 60),
@@ -53,30 +63,61 @@ class NotiMainPageState extends ConsumerState<NotiMainPage> {
               slivers: [
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                      childCount: notiState.notiList?.length, (context, index) {
+                      childCount: notiState.notiTypeList.length,
+                      (context, index) {
                     return InkWell(
                       // 리스트 각 요소 선택 시 이벤트
-                      onTap: () {}, //todo 각 요소에 맞게 이동
+                      onTap: () {
+                        // todo 각 요소에 맞게 이동 또는 팝업
+                        // 확인 처리
+                        notiState.checkNoti(index);
+                      },
                       child: Container(
-                        decoration:
-                            const BoxDecoration(color: Colors.white), // 전체 박스
-                        padding: const EdgeInsets.all(16),
+                        decoration: notiState.isCheckedNoti[index] == true
+                            ? const BoxDecoration(color: AppColor.lightGrey)
+                            : const BoxDecoration(
+                                color: AppColor.appColor), // 전체 박스
+                        padding: const EdgeInsets.all(24),
                         child: Row(
                           children: [
+                            // 아이콘 필요하면 추가
+                            // const Icon(Icons.add_business),
                             // 텍스트 내용 (null값 추후 수정)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  notiState.notiList?[index] ?? '알림',
-                                  style: AppTextTheme.grey12m,
-                                ),
-                                const Text(
-                                  '5월 19일 14:00 ~ 17:00에는 시스템 점검이 있습니다.',
-                                  style: AppTextTheme.black14m,
-                                )
-                              ],
-                            )
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          notiState.notiTypeList[index],
+                                          style:
+                                              notiState.isCheckedNoti[index] ==
+                                                      true
+                                                  ? AppTextTheme.grey12m
+                                                  : AppTextTheme.white12m,
+                                        ),
+                                        Text(
+                                          notiState.notiDateList[index],
+                                          style:
+                                              notiState.isCheckedNoti[index] ==
+                                                      true
+                                                  ? AppTextTheme.grey12m
+                                                  : AppTextTheme.white12m,
+                                        )
+                                      ]),
+                                  Text(
+                                    notiState.contentsList[index],
+                                    style:
+                                        notiState.isCheckedNoti[index] == true
+                                            ? AppTextTheme.black16m
+                                            : AppTextTheme.white16m,
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
