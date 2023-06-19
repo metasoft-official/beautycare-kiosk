@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/view/home_page.dart';
 import 'package:beauty_care/mbti/view/survey_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,11 +20,27 @@ class MbtiMainPage extends ConsumerStatefulWidget {
 
 class MbtiMainState extends ConsumerState<MbtiMainPage> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final quizState = ref.read(quizStateProvider);
+      quizState.resetState();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(quizStateProvider);
 
     return Scaffold(
-        appBar: AppBar(title: const Text('MBTI')),
+        appBar: AppBar(
+          title: const Text('MBTI'),
+          leading: IconButton(
+              onPressed: () {
+                context.goNamed('home');
+              },
+              icon: const Icon(Icons.arrow_back_outlined)),
+        ),
         body: CustomScrollView(
           slivers: [
             // 문진 카테고리
@@ -54,14 +71,32 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                 // margin: const EdgeInsets.only(top: 22),
                 padding: const EdgeInsets.fromLTRB(22, 26, 22, 26),
                 // color: Colors.white,
-                child: ElevatedButton(
-                  onPressed: () {
-                    quizState.curStep < 3
-                        ? quizState.increaseStep()
-                        : context.pushNamed('mbtiResult');
-                  },
-                  style: AppButtonTheme.roundedElevatedButtonTheme,
-                  child: const Text("다음"),
+                child: Row(
+                  children: [
+                    if (quizState.curStep > 0) ...[
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            quizState.decreaseStep();
+                          },
+                          style: AppButtonTheme.outlinedRoundedButtonTheme,
+                          child: const Text("이전"),
+                        ),
+                      ),
+                      const SizedBox(width: 8)
+                    ],
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          quizState.curStep < 3
+                              ? quizState.increaseStep()
+                              : context.pushNamed('mbtiResult');
+                        },
+                        style: AppButtonTheme.roundedElevatedButtonTheme,
+                        child: const Text("다음"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )

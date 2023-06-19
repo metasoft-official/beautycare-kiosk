@@ -26,7 +26,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             context.goNamed('home');
             break;
           case 1:
-            context.goNamed('survey');
+            context.pushNamed('survey');
             break;
           case 2:
             context.pushNamed('home');

@@ -2,6 +2,7 @@ import 'package:beauty_care/common/layout/app_box_theme.dart';
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/layout/app_color.dart';
@@ -33,6 +34,17 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 30, 24, 16),
             child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        context.pop();
+                        context.goNamed('home');
+                      },
+                      icon: const Icon(Icons.close_outlined))
+                ],
+              ),
               // mbti 제목 및 소개 ===============================================
               Stack(
                 alignment: Alignment.topCenter,
