@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,7 +13,6 @@ import '../dio/login_api.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import '../repository/user_repository.dart';
 
-final userApiProvider = Provider<UserApi>((ref) => UserApi(Dio()));
 final loginApiProvider = Provider<LoginApi>((ref) => LoginApi(Dio()));
 
 // 로그인 된 유저 상태 저장

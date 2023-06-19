@@ -14,6 +14,8 @@ import 'package:beauty_care/common/const/router.dart';
 import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
 
+import 'common/provider/provider.dart';
+
 var logger = Logger();
 
 void main() async {

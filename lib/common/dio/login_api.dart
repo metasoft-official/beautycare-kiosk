@@ -15,7 +15,7 @@ class _LoginApi implements LoginApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:9000/api';
+    baseUrl ??= BASE_URL;
   }
 
   final Dio _dio;
