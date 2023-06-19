@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../main.dart';
 
 final quizStateProvider = ChangeNotifierProvider<QuizState>((ref) {
   return QuizState();
@@ -40,6 +41,7 @@ class QuizState extends ChangeNotifier {
   // 아무것도 선택되지 않은 상태
   QuizState() {
     _isClicked = List<int>.filled(questions.length, 0, growable: false);
+    curStep = 0;
   }
 
   List<int> get isClicked => _isClicked;
@@ -58,9 +60,18 @@ class QuizState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // curStep 감소
+  void decreaseStep() {
+    if (curStep > 0) {
+      curStep -= 1;
+    }
+    notifyListeners();
+  }
+
   void resetState() {
-    _isClicked = List<int>.filled(questions.length, 0, growable: false);
-    curStep = 0;
+    QuizState();
+    logger.d(curStep);
+    logger.d(_isClicked);
     notifyListeners();
   }
 }
