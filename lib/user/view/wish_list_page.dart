@@ -4,16 +4,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/layout/app_color.dart';
 import 'history_widget.dart';
 
-class PredictionHistoryPage extends ConsumerStatefulWidget {
-  const PredictionHistoryPage({Key? key}) : super(key: key);
+class WishListPage extends ConsumerStatefulWidget {
+  const WishListPage({Key? key}) : super(key: key);
 
-  static String get routeName => 'history';
+  static String get routeName => 'wishlist';
 
   @override
-  PredictionHistoryState createState() => PredictionHistoryState();
+  WishListState createState() => WishListState();
 }
 
-class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
+class WishListState extends ConsumerState<WishListPage>
     with TickerProviderStateMixin {
   late TabController tabController;
 
@@ -36,17 +36,17 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('예측 이력'),
+        title: const Text('찜 목록'),
         bottom: TabBar(
           tabs: [
             Container(
               margin: const EdgeInsets.all(8),
-              child: const Text('피부 MBTI',
+              child: const Text('화장품',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             Container(
               margin: const EdgeInsets.all(8),
-              child: const Text('피부 질환',
+              child: const Text('클리닉',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             )
           ],
@@ -64,15 +64,15 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
           children: const [
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
-              itemCount: 10,
-              nullMessage: '예측 이력이 없어요!',
-              buttonText: 'mbti 검사하기',
+              itemCount: 0,
+              nullMessage: '찜한 내역이 없어요!',
+              buttonText: '화장품 보러가기',
               routerName: 'predict-skin-mbti',
             ),
             HistoryWidget(
               itemCount: 0,
-              nullMessage: '예측 이력이 없어요!',
-              buttonText: '피부질환 검사하기',
+              nullMessage: '찜한 내역이 없어요!',
+              buttonText: '클리닉 보러가기',
               routerName: 'predict-skin-disease',
             ),
           ],

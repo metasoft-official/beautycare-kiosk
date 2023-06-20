@@ -15,6 +15,7 @@ import 'package:beauty_care/user/view/find_id_page.dart';
 import '../../mbti/view/mbti_main_page.dart';
 import '../../user/view/mypage_page.dart';
 import '../../user/view/prediction_history_page.dart';
+import '../../user/view/wish_list_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -78,6 +79,11 @@ final GoRouter router = GoRouter(
       path: '/history',
       name: PredictionHistoryPage.routeName,
       builder: (context, state) => const PredictionHistoryPage(),
+    ),
+    GoRoute(
+      path: '/wish-list',
+      name: WishListPage.routeName,
+      builder: (context, state) => const WishListPage(),
     ),
 
     GoRoute(

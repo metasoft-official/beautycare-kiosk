@@ -34,6 +34,7 @@ class MypageState extends ConsumerState<MypagePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // 프로필 이미지
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
@@ -46,6 +47,7 @@ class MypageState extends ConsumerState<MypagePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
+                // 프로필 내용
                 Text(
                   '${user.name}',
                   style: AppTextTheme.black20b,
@@ -57,28 +59,42 @@ class MypageState extends ConsumerState<MypagePage> {
               ],
             ),
           ),
+
           const Divider(
             thickness: 15,
             color: AppColor.lightGrey,
           ),
+
           Container(
             color: Colors.white,
             padding: const EdgeInsets.fromLTRB(24, 30, 24, 30),
             child: Row(
               children: [
+                // 찜 목록
                 Expanded(
                     child: ElevatedButton(
                         style: AppButtonTheme.outlinedBasicButtonTheme,
-                        onPressed: () => context.pushNamed('history'),
-                        child: const Text('예측이력'))),
+                        onPressed: () => context.pushNamed('wishlist'),
+                        child: const Text('찜 목록'))),
                 const SizedBox(width: 8),
+                // 피부 변화
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Text('피부변화')),
+                      style: AppButtonTheme.outlinedBasicButtonTheme,
+                      onPressed: () => context.pushNamed('history'),
+                      child: const Text('예측 이력')),
                 ),
               ],
             ),
-          )
+          ),
+
+          // 예측 이력
+          Container(
+              color: Colors.white,
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 30),
+              width: double.infinity,
+              child:
+                  ElevatedButton(onPressed: () {}, child: const Text('피부변화'))),
         ],
       )),
     );
