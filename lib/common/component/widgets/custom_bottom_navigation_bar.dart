@@ -29,10 +29,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             context.pushNamed('survey');
             break;
           case 2:
-            context.pushNamed('home');
+            context.pushNamed('cosmeticProduct');
             break;
           case 3:
-            context.pushNamed('home');
+            context.pushNamed('surgeryProduct');
             break;
         }
       },
