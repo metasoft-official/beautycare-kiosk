@@ -47,7 +47,7 @@ class HistoryWidget extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: AppButtonTheme.outlinedBasicButtonTheme,
-                onPressed: () => context.goNamed(routerName),
+                onPressed: () => context.pushNamed(routerName),
                 child: Text(buttonText),
               )
             ]))
