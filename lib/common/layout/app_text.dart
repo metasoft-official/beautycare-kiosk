@@ -616,17 +616,27 @@ class AppTextTheme {
       fontFamily: 'noto_sans_kr',
       fontSize: 12,
       fontWeight: FontWeight.w500,
-      color: AppColor.blue);
+      color: AppColor.appColor);
   static const blue14m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      color: AppColor.blue);
+      color: AppColor.appColor);
+  static const blue16 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w300,
+      color: AppColor.appColor);
+  static const blue16m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: AppColor.appColor);
   static const blue16b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 16,
       fontWeight: FontWeight.w700,
-      color: AppColor.blue);
+      color: AppColor.appColor);
   static const blueBlack12l = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 12,

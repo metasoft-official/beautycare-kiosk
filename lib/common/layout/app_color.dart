@@ -5,7 +5,7 @@ class AppColor {
   static const Color appBarTitleColor = Color(0xff0b0b0b);
 
   // static const Color logoColor = Color(0xFF0077FF);
-  static const Color appColor = Color(0xff000080);
+  static const Color appColor = Color(0xff0055D4);
   static const Color tableHeaderColor = Color(0xfff2f2f2);
   static const Color darkBlue = Color(0xff2b3f6c);
   static const Color darkGrey = Color(0xff5a5a5b);
