@@ -42,7 +42,7 @@ dependencies:
   http_interceptor: ^1.0.0
   shared_preferences: ^2.0.6
   kakao_flutter_sdk_user:
-
+  kakao_flutter_sdk_talk:
 
   firebase_core:
   firebase_auth:
