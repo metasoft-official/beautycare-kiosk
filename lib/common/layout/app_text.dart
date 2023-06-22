@@ -460,6 +460,21 @@ class AppTextTheme {
       fontSize: 12,
       fontWeight: FontWeight.w700,
       color: Colors.white);
+  static const white14 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white14m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white14b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
   static const white16 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 16,
@@ -488,6 +503,21 @@ class AppTextTheme {
   static const white20b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
+  static const white24 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white24m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white24b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
       fontWeight: FontWeight.w700,
       color: Colors.white);
   // grey
@@ -661,4 +691,20 @@ class AppTextTheme {
       fontSize: 12,
       fontWeight: FontWeight.w700,
       color: AppColor.deepPrimary);
+  // yellow
+  static const yellow20 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w300,
+      color: AppColor.yellow);
+  static const yellow20m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: AppColor.yellow);
+  static const yellow20b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: AppColor.yellow);
 }
