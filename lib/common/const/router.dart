@@ -1,6 +1,8 @@
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/cosmetic/view/cosmetic_product_page.dart';
 import 'package:beauty_care/mbti/view/mbti_result_page.dart';
 import 'package:beauty_care/noti/view/noti_main_page.dart';
+import 'package:beauty_care/surgery/view/surgery_product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +17,7 @@ import 'package:beauty_care/user/view/find_id_page.dart';
 import '../../mbti/view/mbti_main_page.dart';
 import '../../user/view/mypage_page.dart';
 import '../../user/view/prediction_history_page.dart';
+import '../../user/view/wish_list_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -79,6 +82,11 @@ final GoRouter router = GoRouter(
       name: PredictionHistoryPage.routeName,
       builder: (context, state) => const PredictionHistoryPage(),
     ),
+    GoRoute(
+      path: '/wish-list',
+      name: WishListPage.routeName,
+      builder: (context, state) => const WishListPage(),
+    ),
 
     GoRoute(
       path: '/noti',
@@ -105,6 +113,20 @@ final GoRouter router = GoRouter(
       path: '/camera',
       name: CameraExample.routeName,
       builder: (context, state) => const CameraExample(),
+    ),
+
+    // cosmetic
+    GoRoute(
+      path: '/cosmetic-product',
+      name: CosmeticProductPage.routeName,
+      builder: (context, state) => const CosmeticProductPage(),
+    ),
+
+    // surgery
+    GoRoute(
+      path: '/surgery-product',
+      name: SurgeryProductPage.routeName,
+      builder: (context, state) => const SurgeryProductPage(),
     ),
   ],
 );

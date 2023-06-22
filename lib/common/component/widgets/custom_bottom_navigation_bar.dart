@@ -15,7 +15,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return BottomNavigationBar(
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
-        BottomNavigationBarItem(icon: Icon(Icons.access_alarm), label: "이벤트"),
+        BottomNavigationBarItem(icon: Icon(Icons.note_alt), label: "문진"),
         BottomNavigationBarItem(icon: Icon(Icons.add_business), label: "화장품"),
         BottomNavigationBarItem(icon: Icon(Icons.local_hospital), label: "시술")
       ],
@@ -29,10 +29,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             context.pushNamed('survey');
             break;
           case 2:
-            context.pushNamed('home');
+            context.pushNamed('cosmeticProduct');
             break;
           case 3:
-            context.pushNamed('home');
+            context.pushNamed('surgeryProduct');
             break;
         }
       },

@@ -11,6 +11,7 @@ class HistoryWidget extends StatelessWidget {
   const HistoryWidget({
     Key? key,
     required this.itemCount,
+    required this.nullMessage,
     required this.routerName,
     required this.buttonText,
     this.decoration,
@@ -22,6 +23,7 @@ class HistoryWidget extends StatelessWidget {
   }) : super(key: key);
 
   final int itemCount;
+  final String nullMessage;
   final String routerName; // 아이템 없을 때 라우팅 유도할 곳
   final String buttonText; // 아이템 없을 때 버튼 이름
 
@@ -41,13 +43,11 @@ class HistoryWidget extends StatelessWidget {
         ? Container(
             margin: const EdgeInsets.fromLTRB(24, 50, 24, 30),
             child: Column(children: [
-              const Text('예측 이력이 없어요!', style: AppTextTheme.black18b),
-              const SizedBox(height: 8),
-              const Text('아래 버튼을 눌러 검사를 진행해보세요.', style: AppTextTheme.grey12b),
+              Text(nullMessage, style: AppTextTheme.black18b),
               const SizedBox(height: 20),
               ElevatedButton(
                 style: AppButtonTheme.outlinedBasicButtonTheme,
-                onPressed: () => context.goNamed(routerName),
+                onPressed: () => context.pushNamed(routerName),
                 child: Text(buttonText),
               )
             ]))

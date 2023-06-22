@@ -23,12 +23,10 @@ class NotiMainPageState extends ConsumerState<NotiMainPage> {
       final notiState = ref.read(notiStateProvider);
       notiState.resetState();
     });
-    logger.d('reset here');
   }
 
   @override
   Widget build(BuildContext context) {
-    logger.d('build here');
     final notiState = ref.watch(notiStateProvider);
 
     return SafeArea(

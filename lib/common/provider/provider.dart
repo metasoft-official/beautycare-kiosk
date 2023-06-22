@@ -10,7 +10,7 @@ import '../dio/user_api.dart';
 // user
 final userApiProvider = Provider<UserApi>((ref) {
   final dio = ref.read(dioProvider);
-  return UserApi(dio);
+  return UserApi(dio, baseUrl: BASE_URL);
 });
 
 // firebase_message

@@ -9,7 +9,7 @@ class AppButtonTheme {
       foregroundColor: Colors.white,
       textStyle: AppTextTheme.elevatedButton,
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
   static final roundedElevatedButtonTheme = ElevatedButton.styleFrom(
       backgroundColor: AppColor.appColor,
       foregroundColor: Colors.white,
