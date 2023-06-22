@@ -44,6 +44,7 @@ dependencies:
   kakao_flutter_sdk_user:
   url_launcher: ^6.1.11
 
+  kakao_flutter_sdk_talk:
 
   firebase_core:
   firebase_auth:
