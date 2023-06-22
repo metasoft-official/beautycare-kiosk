@@ -56,6 +56,7 @@ class AppColor {
   static const Color orange = Color(0xFFD7A21E);
   static const Color yellow = Color(0xFFFFF478);
   static const Color blue = Color(0xFF2295FF);
+  static const Color deepBlue = Color(0xFF0055D4);
   static const Color blueBlack = Color(0xff555D6A);
   static const Color semiBlue = Color(0xFF446CE3);
   static const Color lightBlue = Color(0xFF80BBFF);
