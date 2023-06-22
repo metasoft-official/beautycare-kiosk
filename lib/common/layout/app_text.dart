@@ -707,4 +707,19 @@ class AppTextTheme {
       fontSize: 20,
       fontWeight: FontWeight.w700,
       color: AppColor.yellow);
+  static const yellow24 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w300,
+      color: AppColor.yellow);
+  static const yellow24m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: AppColor.yellow);
+  static const yellow24b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColor.yellow);
 }
