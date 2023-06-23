@@ -69,7 +69,7 @@ class HomeBannerWidget extends StatelessWidget {
                 markText != null
                     ? RichText(
                         text: TextSpan(
-                            children: markTexts(
+                            children: markTextsMixin(
                                 title!, markText!, AppTextTheme.yellow24b),
                             style: AppTextTheme.white24b))
                     : Text(title!, style: AppTextTheme.white24b),
