@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../layout/app_color.dart';
-import '../layout/app_text.dart';
+import '../../layout/app_color.dart';
+import '../../layout/app_text.dart';
 
 // 원 그래프 위젯
 class CustomCircleIndicator extends StatelessWidget {
