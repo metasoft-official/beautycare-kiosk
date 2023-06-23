@@ -6,6 +6,7 @@ import '../layout/app_text.dart';
 
 final appTheme = ThemeData(
   appBarTheme: const AppBarTheme(
+      elevation: 0,
       centerTitle: true,
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
