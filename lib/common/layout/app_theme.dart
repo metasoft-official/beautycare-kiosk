@@ -37,4 +37,7 @@ final appTheme = ThemeData(
     selectedLabelStyle: AppTextTheme.tabBarText,
     unselectedLabelStyle: AppTextTheme.tabBarText,
   ),
+  dividerTheme: const DividerThemeData(
+    color: AppColor.lightGrey,
+  ),
 );

@@ -69,7 +69,9 @@ class UserNotifier extends StateNotifier<UserModel> {
       // print("----- state -----");
       // print(decodedToken);
 
-      state = state.copyWith(name: decodedToken['user']['name']);
+      state = state.copyWith(
+          name: decodedToken['user']['name'],
+          email: decodedToken['user']['email']);
 
       // print("----- user -----");
       // print(decodedToken['user']['name']);
