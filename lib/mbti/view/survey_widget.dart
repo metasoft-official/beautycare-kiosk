@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/layout/app_text.dart';
-import '../provider/quiz_state_provider.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/mbti/provider/quiz_state_provider.dart';
 
 class SurveyWidget extends ConsumerWidget {
   const SurveyWidget({super.key});

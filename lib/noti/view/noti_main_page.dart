@@ -1,10 +1,9 @@
-import 'package:beauty_care/common/layout/app_text.dart';
-import 'package:beauty_care/noti/provider/noti_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/layout/app_color.dart';
-import '../../main.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/noti/provider/noti_state_provider.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
 
 class NotiMainPage extends ConsumerStatefulWidget {
   const NotiMainPage({Key? key}) : super(key: key);

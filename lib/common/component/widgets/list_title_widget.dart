@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../layout/app_color.dart';
-import '../../layout/app_text.dart';
-import '../mixins/mark_texts_mixin.dart';
+import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class ListTitleWidget extends StatelessWidget {
   const ListTitleWidget(

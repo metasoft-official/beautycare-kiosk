@@ -1,9 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-
-import '../../main.dart';
 
 final notiStateProvider = ChangeNotifierProvider<NotiState>((ref) {
   return NotiState();

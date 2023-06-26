@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../layout/app_color.dart';
-import '../layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class AppButtonTheme {
   static final basicElevatedButtonTheme = ElevatedButton.styleFrom(

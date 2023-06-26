@@ -2,7 +2,7 @@ import 'package:beauty_care/common/view/home_banner_cta_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../component/mixins/mark_texts_mixin.dart';
-import '../layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 // 홈 메인 배너
 // 메인 배너 레이아웃 + 타이틀 + 캡션 + 이미지 + 추가 위젯

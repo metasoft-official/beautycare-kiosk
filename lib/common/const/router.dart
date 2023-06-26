@@ -14,10 +14,10 @@ import 'package:beauty_care/common/view/predict_skin_mbti_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
 import 'package:beauty_care/user/view/find_id_page.dart';
 
-import '../../mbti/view/mbti_main_page.dart';
-import '../../user/view/mypage_page.dart';
-import '../../user/view/prediction_history_page.dart';
-import '../../user/view/wish_list_page.dart';
+import 'package:beauty_care/mbti/view/mbti_main_page.dart';
+import 'package:beauty_care/user/view/mypage_page.dart';
+import 'package:beauty_care/user/view/prediction_history_page.dart';
+import 'package:beauty_care/user/view/wish_list_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();

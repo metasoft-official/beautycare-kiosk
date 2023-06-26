@@ -1,10 +1,9 @@
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/layout/app_box_theme.dart';
-import '../../common/layout/app_text.dart';
-import '../../main.dart';
+import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+import '/common/layout/app_button_theme.dart';
 
 // 이미지와 내용이 Row 형태인 리스트 공통 위젯
 class HistoryWidget extends StatelessWidget {

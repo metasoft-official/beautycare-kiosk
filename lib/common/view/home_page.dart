@@ -1,17 +1,15 @@
-import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
-
-import 'package:beauty_care/common/provider/auth_provider.dart';
-import 'package:beauty_care/common/provider/login_provider.dart';
-import 'package:beauty_care/common/component/widgets/custom_circle_indicator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../component/widgets/list_title_widget.dart';
-import '../layout/app_color.dart';
+import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
+import 'package:beauty_care/common/component/widgets/custom_circle_indicator.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 import 'home_banner_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {

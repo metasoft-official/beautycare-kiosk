@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/component/widgets/product_grid_widget.dart';
-import '../../common/layout/app_box_theme.dart';
-import '../../common/layout/app_text.dart';
-import '../../cosmetic/provider/product_state_provider.dart';
+import 'package:beauty_care/common/component/widgets/product_grid_widget.dart';
+import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 
 class SurgeryProductPage extends ConsumerStatefulWidget {
   const SurgeryProductPage({Key? key}) : super(key: key);
