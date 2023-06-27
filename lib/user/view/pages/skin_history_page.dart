@@ -2,20 +2,21 @@ import 'package:beauty_care/user/provider/wish_list_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:beauty_care/user/provider/skin_history_state_provider.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_view_widget.dart';
 import 'package:beauty_care/user/view/widgets/history_widget.dart';
 
-class WishListPage extends ConsumerStatefulWidget {
-  const WishListPage({Key? key}) : super(key: key);
+class SkinHistoryPage extends ConsumerStatefulWidget {
+  const SkinHistoryPage({Key? key}) : super(key: key);
 
-  static String get routeName => 'wishlist';
+  static String get routeName => 'skinHistory';
 
   @override
-  WishListState createState() => WishListState();
+  SkinHistoryState createState() => SkinHistoryState();
 }
 
-class WishListState extends ConsumerState<WishListPage>
+class SkinHistoryState extends ConsumerState<SkinHistoryPage>
     with TickerProviderStateMixin {
   late TabController tabController;
 
@@ -38,30 +39,31 @@ class WishListState extends ConsumerState<WishListPage>
 
   @override
   Widget build(BuildContext context) {
-    final wishlistState = ref.watch(wishListStateProvider);
+    final skinHistoryState = ref.watch(skinHistoryStateProvider);
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text('위시리스트'),
+          title: const Text('피부 변화 그래프'),
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(60),
               child: CustomTabbarWidget(
-                  titles: wishlistState.titles, tabController: tabController))),
+                  titles: skinHistoryState.titles,
+                  tabController: tabController))),
       body: CustomTabbarViewWidget(
         tabController: tabController,
         widgets: const [
           // todo : 위시리스트 entity 전달
           HistoryWidget(
             itemCount: 0,
-            nullMessage: '찜한 내역이 없어요!',
-            buttonText: '화장품 보러가기',
-            routerName: 'cosmeticProduct',
+            nullMessage: '피부 변화 기록이 없어요!',
+            buttonText: '진단하러가기',
+            routerName: 'skin-predict-surgery',
           ),
           HistoryWidget(
             itemCount: 0,
-            nullMessage: '찜한 내역이 없어요!',
-            buttonText: '클리닉 보러가기',
-            routerName: 'surgeryProduct',
+            nullMessage: '피부 변화 기록이 없어요!',
+            buttonText: '진단하러가기',
+            routerName: 'skin-predict-surgery',
           ),
         ],
       ),

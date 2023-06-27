@@ -4,6 +4,7 @@ import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
 import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
 import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
 import 'package:beauty_care/surgery/view/pages/surgery_product_page.dart';
+import 'package:beauty_care/user/view/pages/skin_history_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -86,6 +87,12 @@ final GoRouter router = GoRouter(
       path: '/wish-list',
       name: WishListPage.routeName,
       builder: (context, state) => const WishListPage(),
+    ),
+
+    GoRoute(
+      path: '/skin-history',
+      name: SkinHistoryPage.routeName,
+      builder: (context, state) => const SkinHistoryPage(),
     ),
 
     GoRoute(

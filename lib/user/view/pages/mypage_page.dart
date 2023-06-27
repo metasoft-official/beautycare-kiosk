@@ -101,7 +101,7 @@ class MypageState extends ConsumerState<MypagePage> {
                     Expanded(
                       child: ElevatedButton(
                           style: AppButtonTheme.outlinedBasicButtonTheme,
-                          onPressed: () => {},
+                          onPressed: () => context.pushNamed('skinHistory'),
                           child: const Text('피부 변화 그래프')),
                     ),
                   ],
