@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../layout/app_text.dart';
-
 List<TextSpan> markTextsMixin(
     String text, String markText, TextStyle textStyle) {
   List<TextSpan> spans = [];

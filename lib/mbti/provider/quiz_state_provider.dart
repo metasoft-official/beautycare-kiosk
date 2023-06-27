@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../main.dart';
+import 'package:beauty_care/main.dart';
 
 final quizStateProvider = ChangeNotifierProvider<QuizState>((ref) {
   return QuizState();

@@ -8,16 +8,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart'
     as KakaoUser;
 
-import 'package:beauty_care/common/const/router.dart';
-
-import '../../common/provider/login_provider.dart';
-import '../../common/layout/app_button_theme.dart';
-import 'package:beauty_care/common/dio/user_api.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 
 const myInputDecoration = InputDecoration(
   border: OutlineInputBorder(),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'app_button_theme.dart';
-import '../layout/app_color.dart';
-import '../layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 final appTheme = ThemeData(
   appBarTheme: const AppBarTheme(
@@ -40,4 +40,5 @@ final appTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     color: AppColor.lightGrey,
   ),
+  scaffoldBackgroundColor: AppColor.appBackgroundColor,
 );

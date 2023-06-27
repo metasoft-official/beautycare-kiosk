@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 import '../provider/login_provider.dart';
-import '../layout/app_button_theme.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 
 class PredictSkinMbtiPage extends ConsumerStatefulWidget {
   static String get routeName => 'predictSkinMbti';

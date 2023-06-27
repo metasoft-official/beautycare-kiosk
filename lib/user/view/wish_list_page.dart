@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
 import 'history_widget.dart';
 
 class WishListPage extends ConsumerStatefulWidget {

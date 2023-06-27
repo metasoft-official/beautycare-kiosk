@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../cosmetic/provider/product_state_provider.dart';
-import '../../layout/app_color.dart';
-import '../../layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 // todo 찜 로직 추가
 class ProductGridWidget extends ConsumerWidget {

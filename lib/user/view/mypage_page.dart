@@ -1,13 +1,14 @@
-import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
-import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
+import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
+
+import 'package:beauty_care/common/provider/login_provider.dart';
 import 'history_widget.dart';
 
 class MypagePage extends ConsumerStatefulWidget {
