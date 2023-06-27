@@ -1,7 +1,9 @@
+import 'package:beauty_care/common/component/widgets/custom_tabbar_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/layout/app_color.dart';
+import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
+import 'package:beauty_care/user/provider/history_state_provider.dart';
 import 'history_widget.dart';
 
 class PredictionHistoryPage extends ConsumerStatefulWidget {
@@ -20,9 +22,11 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      // Do something when tab is switched
+      final historyState = ref.watch(historyStateProvider);
+      historyState.stateIndex = tabController.index;
+      historyState.resetState();
     });
   }
 
@@ -34,39 +38,26 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
 
   @override
   Widget build(BuildContext context) {
+    final historyState = ref.watch(historyStateProvider);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('예측 이력'),
-        bottom: TabBar(
-          tabs: [
-            Container(
-              margin: const EdgeInsets.all(8),
-              child: const Text('피부 MBTI',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            ),
-            Container(
-              margin: const EdgeInsets.all(8),
-              child: const Text('피부 질환',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            )
-          ],
-          labelColor: AppColor.appColor,
-          indicatorColor: AppColor.appColor,
-          controller: tabController,
-          unselectedLabelColor: AppColor.grey,
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-        height: MediaQuery.of(context).size.height,
-        child: TabBarView(
-          controller: tabController,
-          children: const [
+        appBar: AppBar(
+            title: const Text('예측 이력'),
+            bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: CustomTabbarWidget(
+                    titles: historyState.titles,
+                    tabController: tabController))),
+
+        // 탭 내용
+        body: CustomTabbarViewWidget(
+          tabController: tabController,
+          widgets: const [
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
-              itemCount: 10,
+              itemCount: 0,
               nullMessage: '예측 이력이 없어요!',
-              buttonText: 'mbti 검사하기',
+              buttonText: '검사하러 가기',
               routerName: 'predict-skin-mbti',
             ),
             HistoryWidget(
@@ -75,9 +66,13 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
               buttonText: '피부질환 검사하기',
               routerName: 'predict-skin-disease',
             ),
+            HistoryWidget(
+              itemCount: 10,
+              nullMessage: '예측 이력이 없어요!',
+              buttonText: 'mbti 검사하기',
+              routerName: 'predict-skin-mbti',
+            ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

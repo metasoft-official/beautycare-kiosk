@@ -16,10 +16,20 @@ class AppBoxTheme {
       )
     ],
   );
-  static const greyBoxTheme = BoxDecoration(
-    color: AppColor.lightGrey,
-    borderRadius: BorderRadius.all(Radius.circular(15)),
+  static final outlinedRoundedWitheBoxTheme = BoxDecoration(
+    color: Colors.white,
+    borderRadius: const BorderRadius.all(Radius.circular(10)),
+    border: Border.all(color: AppColor.lightGrey),
   );
+  static final greyBoxTheme = BoxDecoration(
+    color: AppColor.lightGrey,
+    borderRadius: const BorderRadius.all(Radius.circular(5)),
+    border: Border.all(color: AppColor.semiGrey),
+  );
+  static final tabBarBoxTheme = BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: AppColor.appColor),
+      borderRadius: const BorderRadius.all(Radius.circular(34)));
 
   // border
   static const outlinedBlueinputBorderTheme = OutlineInputBorder(
