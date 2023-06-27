@@ -105,7 +105,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   type: 'mbti',
                   title: '${user.name} 님의 피부 MBTI는?',
                   onPressed: () => authStateNotifier.navigateToPage(
-                      context, ref, 'predictSkinDisease'),
+                      context, ref, 'mbtiPreStartCheck'),
                   widget: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [

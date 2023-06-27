@@ -40,4 +40,5 @@ final appTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     color: AppColor.lightGrey,
   ),
+  scaffoldBackgroundColor: AppColor.appBackgroundColor,
 );

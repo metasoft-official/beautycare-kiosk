@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 class AppColor {
   static const Color appBarTitleColor = Color(0xff0b0b0b);
 
+  // 전체 배경색
+  static const Color appBackgroundColor = Color(0xfff2f2f2);
+
   // static const Color logoColor = Color(0xFF0077FF);
   static const Color appColor = Color(0xff0851bd);
   static const Color tableHeaderColor = Color(0xfff2f2f2);

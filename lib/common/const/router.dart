@@ -1,6 +1,7 @@
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/cosmetic/view/cosmetic_product_page.dart';
 import 'package:beauty_care/mbti/view/mbti_result_page.dart';
+import 'package:beauty_care/mbti/view/pre_start_check_page.dart';
 import 'package:beauty_care/noti/view/noti_main_page.dart';
 import 'package:beauty_care/surgery/view/surgery_product_page.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:beauty_care/common/view/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/predict_skin_mbti_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
 import 'package:beauty_care/user/view/find_id_page.dart';
-
 import 'package:beauty_care/mbti/view/mbti_main_page.dart';
 import 'package:beauty_care/user/view/mypage_page.dart';
 import 'package:beauty_care/user/view/prediction_history_page.dart';
@@ -100,10 +100,16 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const MbtiResultPage(),
     ),
     GoRoute(
+      path: '/mbtiPreStartCheck',
+      name: MBTIPreStartCheckPage.routeName,
+      builder: (context, state) => const MBTIPreStartCheckPage(),
+    ),
+    GoRoute(
       path: '/predict-skin-mbti',
       name: PredictSkinMbtiPage.routeName,
       builder: (context, state) => PredictSkinMbtiPage(),
     ),
+
     GoRoute(
       path: '/predict-skin-disease',
       name: PredictSkinDiseasePage.routeName,
