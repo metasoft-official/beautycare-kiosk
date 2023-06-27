@@ -9,7 +9,7 @@ import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
 import 'package:beauty_care/common/provider/login_provider.dart';
-import 'history_widget.dart';
+import 'package:beauty_care/user/view/widgets/history_widget.dart';
 
 class MypagePage extends ConsumerStatefulWidget {
   const MypagePage({Key? key}) : super(key: key);

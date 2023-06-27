@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:beauty_care/user/provider/history_state_provider.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_view_widget.dart';
-import 'history_widget.dart';
+import '../widgets/history_widget.dart';
 
 class PredictionHistoryPage extends ConsumerStatefulWidget {
   const PredictionHistoryPage({Key? key}) : super(key: key);
