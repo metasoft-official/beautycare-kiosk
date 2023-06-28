@@ -20,7 +20,8 @@ class PreCheckListWidget extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         width: constraints.maxWidth * 0.85,
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 15), // padding
+        height: 64,
+        // padding: const EdgeInsets.fromLTRB(0, 20, 0, 15), // padding
         margin: const EdgeInsets.fromLTRB(0, 12, 0, 0), // margin
         decoration: BoxDecoration(
           color: Colors.white, // background color
@@ -36,15 +37,15 @@ class PreCheckListWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Icon(iconData)),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
             child: Row(children: [
-              Text(boldText, style: AppTextTheme.black14b),
-              Text(text, style: AppTextTheme.black14)
+              Text(boldText, style: AppTextTheme.black16b),
+              Text(text, style: AppTextTheme.black16)
             ]),
           )
         ]),

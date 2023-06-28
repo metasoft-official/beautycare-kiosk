@@ -20,10 +20,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         BottomNavigationBarItem(icon: Icon(Icons.local_hospital), label: "시술")
       ],
       onTap: (value) {
-        print('value : $value');
+        print('router value : $value');
         switch (value) {
           case 0:
-            context.goNamed('home');
+            context.pushNamed('home');
             break;
           case 1:
             context.pushNamed('survey');

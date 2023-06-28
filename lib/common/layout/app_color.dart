@@ -6,6 +6,8 @@ class AppColor {
 
   // 전체 배경색
   static const Color appBackgroundColor = Color(0xfff2f2f2);
+  // 흰 배경색
+  static const Color whiteBackgroundColor = Color(0xffffffff);
 
   // static const Color logoColor = Color(0xFF0077FF);
   static const Color appColor = Color(0xff0851bd);

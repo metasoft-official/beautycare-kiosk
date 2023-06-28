@@ -26,7 +26,10 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
           width: 4,
         ),
         const Image(
-          image: AssetImage("assets/images/oxygen_logo.png"),
+          width: 120,
+          image: AssetImage(
+            "assets/images/oxygen_logo.png",
+          ),
         ),
         const Spacer(),
         IconButton(
