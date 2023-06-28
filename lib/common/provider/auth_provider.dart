@@ -1,13 +1,9 @@
-import 'dart:ffi';
-
-import 'package:beauty_care/common/const/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:beauty_care/user/view/login_page.dart';
+import 'package:beauty_care/user/view/pages/login_page.dart';
 
 final secureStorageProvider =
     Provider<FlutterSecureStorage>((ref) => const FlutterSecureStorage());

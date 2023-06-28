@@ -1,7 +1,7 @@
-import 'package:beauty_care/common/view/home_banner_cta_layout.dart';
+import 'package:beauty_care/common/view/widgets/home_banner_cta_layout.dart';
 import 'package:flutter/material.dart';
 
-import '../component/mixins/mark_texts_mixin.dart';
+import '../../component/mixins/mark_texts_mixin.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
 // 홈 메인 배너

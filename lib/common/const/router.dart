@@ -1,23 +1,24 @@
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
-import 'package:beauty_care/cosmetic/view/cosmetic_product_page.dart';
-import 'package:beauty_care/mbti/view/mbti_result_page.dart';
-import 'package:beauty_care/mbti/view/pre_start_check_page.dart';
-import 'package:beauty_care/noti/view/noti_main_page.dart';
-import 'package:beauty_care/surgery/view/surgery_product_page.dart';
+import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_page.dart';
+import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
+import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
+import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
+import 'package:beauty_care/surgery/view/pages/surgery_product_page.dart';
+import 'package:beauty_care/user/view/pages/skin_history_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:beauty_care/common/view/home_page.dart';
-import 'package:beauty_care/user/view/login_page.dart';
-import 'package:beauty_care/common/view/register_page.dart';
-import 'package:beauty_care/common/view/predict_skin_disease_page.dart';
-import 'package:beauty_care/common/view/predict_skin_mbti_page.dart';
+import 'package:beauty_care/common/view/pages/home_page.dart';
+import 'package:beauty_care/common/view/pages/register_page.dart';
+import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
+import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
-import 'package:beauty_care/user/view/find_id_page.dart';
-import 'package:beauty_care/mbti/view/mbti_main_page.dart';
-import 'package:beauty_care/user/view/mypage_page.dart';
-import 'package:beauty_care/user/view/prediction_history_page.dart';
-import 'package:beauty_care/user/view/wish_list_page.dart';
+import 'package:beauty_care/user/view/pages/find_id_page.dart';
+import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
+import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
+import 'package:beauty_care/user/view/pages/wish_list_page.dart';
+import 'package:beauty_care/user/view/pages/login_page.dart';
+import 'package:beauty_care/user/view/pages/mypage_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -103,6 +104,12 @@ final GoRouter router = GoRouter(
       path: '/wish-list',
       name: WishListPage.routeName,
       builder: (context, state) => const WishListPage(),
+    ),
+
+    GoRoute(
+      path: '/skin-history',
+      name: SkinHistoryPage.routeName,
+      builder: (context, state) => const SkinHistoryPage(),
     ),
 
     GoRoute(

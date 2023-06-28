@@ -52,8 +52,8 @@ class AppColor {
   static const Color allBlack = Color(0xff000000);
   static const Color deepGrey = Color(0xFF5A5A5B);
   static const Color grey = Color(0xFF818181);
-  static const Color semiGrey = Color(0xFFCBCBCD);
-  static const Color middleGrey = Color(0xff8F8F8F);
+  static const Color semiGrey = Color(0xFFDDDDDD);
+  static const Color middleGrey = Color(0xff888888);
   static const Color lowGrey = Color(0xffFAFAFA);
   static const Color leftGrey = Color(0xff676767);
   static const Color leftLowGrey = Color(0xff515151);
@@ -65,4 +65,5 @@ class AppColor {
   static const Color blueBlack = Color(0xff555D6A);
   static const Color semiBlue = Color(0xFF446CE3);
   static const Color lightBlue = Color(0xFF80BBFF);
+  static const Color whiteBlue = Color(0xFFECF8FF);
 }

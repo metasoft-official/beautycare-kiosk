@@ -10,7 +10,7 @@ import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_circle_indicator.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
-import 'home_banner_widget.dart';
+import '../widgets/home_banner_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
