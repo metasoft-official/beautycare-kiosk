@@ -72,7 +72,9 @@ class MypageState extends ConsumerState<MypagePage> {
                     ),
                     const Spacer(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed('profileEdit');
+                      },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(0)),
                       child: Text(
