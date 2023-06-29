@@ -40,7 +40,7 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
                   child: const CircleAvatar(
                     backgroundColor: Colors.white,
                     backgroundImage:
-                        AssetImage("assets/images/emoji_sample_profile.png"),
+                        AssetImage("assets/images/character_coiz_3.png"),
                   ),
                 )
               ],
