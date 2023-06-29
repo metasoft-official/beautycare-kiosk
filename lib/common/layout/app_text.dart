@@ -772,4 +772,25 @@ class AppTextTheme {
       fontSize: 24,
       fontWeight: FontWeight.w700,
       color: AppColor.yellow);
+
+  // #888888
+  static const color88888824b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: Color(0xff888888));
+
+  // #BBBBBB
+  static const colorBBBBBB12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: Color(0xffBBBBBB));
+
+  // #BBBBBB
+  static const colorDDDDDD12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: Color(0xffDDDDDD));
 }

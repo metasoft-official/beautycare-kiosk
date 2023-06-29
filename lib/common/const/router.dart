@@ -28,28 +28,43 @@ final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   routes: [
     ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return Scaffold(
-            body: child,
-            bottomNavigationBar: const CustomBottomNavigationBar(),
-          );
-        },
-        routes: [
-          GoRoute(
-            path: '/',
-            name: HomePage.routeName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: HomePage(),
-            ),
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) {
+        print('Current path: ${router.location}'); // 현재 경로를 출력
+
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: const CustomBottomNavigationBar(),
+        );
+      },
+      routes: [
+        GoRoute(
+          path: '/',
+          name: HomePage.routeName,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: HomePage(),
           ),
-          GoRoute(
-            path: '/survey',
-            name: MbtiMainPage.routeName,
-            builder: (context, state) => const MbtiMainPage(),
-          ),
-        ]),
+        ),
+        GoRoute(
+          path: '/survey',
+          name: MbtiMainPage.routeName,
+          builder: (context, state) => const MbtiMainPage(),
+        ),
+      ],
+    ),
+    //     ShellRoute(
+    //       navigatorKey: _shellNavigatorKey,
+    //       builder: (context, state, child) builder: (context, state, child) {
+    //       print('Current path: ${router.location}'); // 현재 경로를 출력
+    //
+    // return Scaffold(
+    // body: child,
+    // bottomNavigationBar: const CustomBottomNavigationBar(),
+    // );
+    // ),
+
     GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/login',
       name: LoginPage.routeName,
       builder: (context, state) => LoginPage(
@@ -59,6 +74,7 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/find-id',
       name: FindIdPage.routeName,
       builder: (context, state) => const FindIdPage(),
@@ -74,6 +90,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const RegisterPage(),
     ),
     GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/mypage',
       name: MypagePage.routeName,
       builder: (context, state) => const MypagePage(),
@@ -107,6 +124,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const MbtiResultPage(),
     ),
     GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/mbtiPreStartCheck',
       name: MBTIPreStartCheckPage.routeName,
       builder: (context, state) => const MBTIPreStartCheckPage(),
