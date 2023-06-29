@@ -19,6 +19,7 @@ import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
 import 'package:beauty_care/user/view/pages/wish_list_page.dart';
 import 'package:beauty_care/user/view/pages/login_page.dart';
 import 'package:beauty_care/user/view/pages/mypage_page.dart';
+import 'package:beauty_care/user/view/pages/profile_edit_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -94,6 +95,12 @@ final GoRouter router = GoRouter(
       path: '/mypage',
       name: MypagePage.routeName,
       builder: (context, state) => const MypagePage(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/profile-edit',
+      name: ProfileEditPage.routeName,
+      builder: (context, state) => const ProfileEditPage(),
     ),
     GoRoute(
       path: '/history',
