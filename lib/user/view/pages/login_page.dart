@@ -281,7 +281,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                   ),
                 ],
-              )
+              ),
+              ElevatedButton(
+                style: AppButtonTheme.basicElevatedButtonTheme,
+                onPressed: () => context.pushNamed('register'),
+                child: Text('회원가입'),
+              ),
             ],
           ),
         ),
