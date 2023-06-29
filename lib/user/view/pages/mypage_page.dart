@@ -124,8 +124,6 @@ class MypageState extends ConsumerState<MypagePage> {
           const Expanded(
             child: HistoryWidget(
               itemCount: 3,
-              buttonText: '예측하러 가기',
-              routerName: 'skin-predict-surgery',
               nullMessage: '예측 결과가 없어요!',
               titles: ['DRPT', 'DRPT', '습진'],
               captions: [

@@ -54,14 +54,10 @@ class WishListState extends ConsumerState<WishListPage>
           HistoryWidget(
             itemCount: 0,
             nullMessage: '찜한 내역이 없어요!',
-            buttonText: '화장품 보러가기',
-            routerName: 'cosmeticProduct',
           ),
           HistoryWidget(
             itemCount: 0,
             nullMessage: '찜한 내역이 없어요!',
-            buttonText: '클리닉 보러가기',
-            routerName: 'surgeryProduct',
           ),
         ],
       ),

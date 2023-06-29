@@ -57,20 +57,14 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
             HistoryWidget(
               itemCount: 0,
               nullMessage: '예측 이력이 없어요!',
-              buttonText: '검사하러 가기',
-              routerName: 'predict-skin-mbti',
             ),
             HistoryWidget(
               itemCount: 0,
               nullMessage: '예측 이력이 없어요!',
-              buttonText: '피부질환 검사하기',
-              routerName: 'predict-skin-disease',
             ),
             HistoryWidget(
               itemCount: 10,
               nullMessage: '예측 이력이 없어요!',
-              buttonText: 'mbti 검사하기',
-              routerName: 'predict-skin-mbti',
             ),
           ],
         ));
