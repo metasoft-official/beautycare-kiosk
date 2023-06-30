@@ -1,11 +1,8 @@
-import 'package:beauty_care/common/const/globals.dart';
-import 'package:beauty_care/common/const/values.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:dio/dio.dart';
 
-import '../dio/user_api.dart';
+import 'package:beauty_care/common/const/globals.dart';
 
 // firebase_message
 class FirebaseMessagingState extends StateNotifier<RemoteMessage?> {
