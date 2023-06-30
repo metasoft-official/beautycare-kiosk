@@ -16,8 +16,7 @@ class TermsAgreementPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -148,6 +147,6 @@ class TermsAgreementPage extends ConsumerWidget {
           context.pushNamed('register');
         },
       ),
-    ));
+    );
   }
 }
