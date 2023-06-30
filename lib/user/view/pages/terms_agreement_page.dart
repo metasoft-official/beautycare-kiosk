@@ -18,11 +18,11 @@ class TermsAgreementPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(),
       body: SingleChildScrollView(
           child: Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
         padding: const EdgeInsets.fromLTRB(24, 34, 24, 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -16,10 +16,11 @@ final appTheme = ThemeData(
   textButtonTheme:
       TextButtonThemeData(style: AppButtonTheme.basicTextButtonTheme),
   inputDecorationTheme: const InputDecorationTheme(
-    hintStyle: AppTextTheme.hintText,
-    contentPadding: EdgeInsets.symmetric(horizontal: 14),
-    border:
-        OutlineInputBorder(borderSide: BorderSide(color: AppColor.appColor)),
+    hintStyle: AppTextTheme.middleGrey12,
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+    border: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColor.appColor),
+        borderRadius: BorderRadius.zero),
   ),
   toggleButtonsTheme: const ToggleButtonsThemeData(
     color: AppColor.unselectedToggleColor,
@@ -41,4 +42,6 @@ final appTheme = ThemeData(
     color: AppColor.lightGrey,
   ),
   scaffoldBackgroundColor: AppColor.appBackgroundColor,
+  radioTheme: RadioThemeData(
+      fillColor: MaterialStateColor.resolveWith((states) => AppColor.appColor)),
 );

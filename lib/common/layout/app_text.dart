@@ -91,11 +91,11 @@ class AppTextTheme {
   );
   static const hintText = TextStyle(
     fontFamily: 'NotoSansKR',
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 1.4475,
     letterSpacing: -0.21,
-    color: Color(0xffc8c8c8),
+    color: AppColor.middleGrey,
   );
   static const textFieldHintText = TextStyle(
     fontFamily: 'NotoSansKR',
@@ -715,6 +715,21 @@ class AppTextTheme {
   static const blue16b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
+  static const blue18 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
+      fontWeight: FontWeight.w300,
+      color: AppColor.appColor);
+  static const blue18m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: AppColor.appColor);
+  static const blue18b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
       fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blue20 = TextStyle(
