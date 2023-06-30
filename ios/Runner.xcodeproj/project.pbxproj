@@ -146,6 +146,7 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				CDC0DB5F3398B05C414BB46F /* [CP] Embed Pods Frameworks */,
+				18B77ACB2A4C25A4009C7DBD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -205,6 +206,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		18B77ACB2A4C25A4009C7DBD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -255,7 +273,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\nFONT_SOURCE=\"${SRCROOT}/../assets/fonts\"\nFONT_DEST=\"${SRCROOT}/Runner/Fonts\"\n\nmkdir -p \"${FONT_DEST}\"\nrsync -r \"${FONT_SOURCE}\" \"${FONT_DEST}\"\n";
 		};
 		CDC0DB5F3398B05C414BB46F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

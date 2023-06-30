@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
+import 'package:beauty_care/main.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -282,14 +285,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                 ],
               ),
-              ElevatedButton(
-                style: AppButtonTheme.basicElevatedButtonTheme,
-                onPressed: () => context.pushNamed('register'),
-                child: Text('회원가입'),
-              ),
+              // ElevatedButton(
+              //   style: AppButtonTheme.basicElevatedButtonTheme,
+              //   onPressed: () => context.pushNamed('register'),
+              //   child: Text('회원가입'),
+              // ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: ButtonBottomNavigationBarWidget(
+        buttonColor: AppColor.lightGreyButtonColor,
+        textStyle: AppTextTheme.blue14b,
+        label: '회원가입',
+        hiding: hiding,
+        onPressed: () {
+          context.pushNamed('register');
+        },
       ),
     );
   }

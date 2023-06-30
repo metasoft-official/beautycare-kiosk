@@ -1,3 +1,7 @@
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
+import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/widgets/hidable_bottom_navigation_bar.dart';
+import 'package:beauty_care/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -44,6 +48,7 @@ class HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: hiding.controller,
         slivers: [
           // 앱바
           const CustomAppBar(),
@@ -145,6 +150,7 @@ class HomePageState extends ConsumerState<HomePage> {
           )
         ],
       ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

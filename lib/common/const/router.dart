@@ -28,31 +28,37 @@ final GoRouter router = GoRouter(
   initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
   routes: [
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) {
-        print('Current path: ${router.location}'); // 현재 경로를 출력
-
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: const CustomBottomNavigationBar(),
-        );
-      },
-      routes: [
-        GoRoute(
-          path: '/',
-          name: HomePage.routeName,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: HomePage(),
-          ),
-        ),
-        GoRoute(
-          path: '/survey',
-          name: MbtiMainPage.routeName,
-          builder: (context, state) => const MbtiMainPage(),
-        ),
-      ],
+    GoRoute(
+      path: '/',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: HomePage(),
+      ),
     ),
+    // ShellRoute(
+    //   navigatorKey: _shellNavigatorKey,
+    //   builder: (context, state, child) {
+    //     print('Current path: ${router.location}'); // 현재 경로를 출력
+    //
+    //     return Scaffold(
+    //       body: child,
+    //       bottomNavigationBar: const CustomBottomNavigationBar(),
+    //     );
+    //   },
+    //   routes: [
+    GoRoute(
+      path: '/main',
+      name: HomePage.routeName,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: HomePage(),
+      ),
+    ),
+    GoRoute(
+      path: '/survey',
+      name: MbtiMainPage.routeName,
+      builder: (context, state) => const MbtiMainPage(),
+    ),
+    //   ],
+    // ),
     //     ShellRoute(
     //       navigatorKey: _shellNavigatorKey,
     //       builder: (context, state, child) builder: (context, state, child) {
@@ -65,7 +71,7 @@ final GoRouter router = GoRouter(
     // ),
 
     GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
+      // parentNavigatorKey: _rootNavigatorKey,
       path: '/login',
       name: LoginPage.routeName,
       builder: (context, state) => LoginPage(

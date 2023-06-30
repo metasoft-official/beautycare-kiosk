@@ -56,14 +56,10 @@ class SkinHistoryState extends ConsumerState<SkinHistoryPage>
           HistoryWidget(
             itemCount: 0,
             nullMessage: '피부 변화 기록이 없어요!',
-            buttonText: '진단하러가기',
-            routerName: 'skin-predict-surgery',
           ),
           HistoryWidget(
             itemCount: 0,
             nullMessage: '피부 변화 기록이 없어요!',
-            buttonText: '진단하러가기',
-            routerName: 'skin-predict-surgery',
           ),
         ],
       ),

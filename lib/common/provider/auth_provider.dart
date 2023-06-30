@@ -33,8 +33,12 @@ class AuthStateNotifier extends StateNotifier<bool> {
           context,
           MaterialPageRoute(
               builder: (context) => LoginPage(onLoginSuccess: () {
+                    context.pop();
+                    context.pushNamed(routeName);
+                    // Navigator.pop(context);
+                    // Navigator.pushNamed(context, routeName);
+
                     return routeName;
-                    // router.goNamed(routeName);
                   })));
     }
   }

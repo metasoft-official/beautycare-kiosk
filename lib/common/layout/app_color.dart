@@ -9,6 +9,9 @@ class AppColor {
   // 흰 배경색
   static const Color whiteBackgroundColor = Color(0xffffffff);
 
+  // 버튼색
+  static const Color lightGreyButtonColor = Color(0xfff2f2f2);
+
   // static const Color logoColor = Color(0xFF0077FF);
   static const Color appColor = Color(0xff0851bd);
   static const Color tableHeaderColor = Color(0xfff2f2f2);

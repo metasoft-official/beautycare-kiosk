@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +18,7 @@ import 'package:beauty_care/common/layout/app_theme.dart';
 import 'common/provider/provider.dart';
 
 var logger = Logger();
+final HideNavbar hiding = HideNavbar();
 
 void main() async {
   KakaoSdk.init(nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1');
@@ -58,9 +60,6 @@ class MyApp extends ConsumerWidget {
       theme: appTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
-      // routeInformationProvider: router.routeInformationProvider,
-      // routeInformationParser: router.routeInformationParser,
-      // routerDelegate: router.routerDelegate,
     );
   }
 }
