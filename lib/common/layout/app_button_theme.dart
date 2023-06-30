@@ -11,6 +11,13 @@ class AppButtonTheme {
       textStyle: AppTextTheme.elevatedButton,
       padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
+  static final greyElevatedButtonTheme = ElevatedButton.styleFrom(
+      elevation: 0.0,
+      backgroundColor: AppColor.lowGrey,
+      foregroundColor: Colors.black,
+      textStyle: AppTextTheme.black16m,
+      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
   // static ButtonStyle get basicElevatedButtonTheme48 =>
   //     basicElevatedButtonTheme.copyWith(
   //       minimumSize: MaterialStateProperty.all(

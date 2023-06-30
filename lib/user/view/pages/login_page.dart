@@ -294,9 +294,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         buttonColor: AppColor.lightGreyButtonColor,
         textStyle: AppTextTheme.blue14b,
         label: '회원가입',
-        hiding: hiding,
         onPressed: () {
-          context.pushNamed('register');
+          context.pushNamed('termsAgreement');
         },
       ),
     );

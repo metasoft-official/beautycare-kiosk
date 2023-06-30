@@ -1,25 +1,28 @@
-import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
-import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_page.dart';
-import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
-import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
-import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
-import 'package:beauty_care/surgery/view/pages/surgery_product_page.dart';
-import 'package:beauty_care/user/view/pages/skin_history_page.dart';
+import 'package:beauty_care/user/view/pages/terms_agreement_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_page.dart';
+import 'package:beauty_care/surgery/view/pages/surgery_product_page.dart';
+
 import 'package:beauty_care/common/view/pages/home_page.dart';
-import 'package:beauty_care/common/view/pages/register_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
-import 'package:beauty_care/user/view/pages/find_id_page.dart';
-import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
-import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
-import 'package:beauty_care/user/view/pages/wish_list_page.dart';
+
 import 'package:beauty_care/user/view/pages/login_page.dart';
+import 'package:beauty_care/user/view/pages/register_page.dart';
+import 'package:beauty_care/user/view/pages/find_id_page.dart';
 import 'package:beauty_care/user/view/pages/mypage_page.dart';
 import 'package:beauty_care/user/view/pages/profile_edit_page.dart';
+import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
+import 'package:beauty_care/user/view/pages/skin_history_page.dart';
+import 'package:beauty_care/user/view/pages/wish_list_page.dart';
+
+import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
+import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
+import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
+import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -52,11 +55,6 @@ final GoRouter router = GoRouter(
         child: HomePage(),
       ),
     ),
-    GoRoute(
-      path: '/survey',
-      name: MbtiMainPage.routeName,
-      builder: (context, state) => const MbtiMainPage(),
-    ),
     //   ],
     // ),
     //     ShellRoute(
@@ -70,6 +68,7 @@ final GoRouter router = GoRouter(
     // );
     // ),
 
+    //로그인
     GoRoute(
       // parentNavigatorKey: _rootNavigatorKey,
       path: '/login',
@@ -91,11 +90,20 @@ final GoRouter router = GoRouter(
     //   name: LoginPage.routeName,
     //   builder: (context, state) => LoginPage(),
     // ),
+
+    // 회원가입
+    GoRoute(
+      path: '/terms-agreement',
+      name: TermsAgreementPage.routeName,
+      builder: (context, state) => const TermsAgreementPage(),
+    ),
     GoRoute(
       path: '/register',
       name: RegisterPage.routeName,
       builder: (context, state) => const RegisterPage(),
     ),
+
+    // 마이페이지
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/mypage',
@@ -109,36 +117,42 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const ProfileEditPage(),
     ),
     GoRoute(
-      path: '/history',
-      name: PredictionHistoryPage.routeName,
-      builder: (context, state) => const PredictionHistoryPage(),
-    ),
-    GoRoute(
       path: '/wish-list',
       name: WishListPage.routeName,
       builder: (context, state) => const WishListPage(),
     ),
-
+    GoRoute(
+      path: '/prediction-history',
+      name: PredictionHistoryPage.routeName,
+      builder: (context, state) => const PredictionHistoryPage(),
+    ),
     GoRoute(
       path: '/skin-history',
       name: SkinHistoryPage.routeName,
       builder: (context, state) => const SkinHistoryPage(),
     ),
 
+    // 알림
     GoRoute(
       path: '/noti',
       name: NotiMainPage.routeName,
       builder: (context, state) => const NotiMainPage(),
     ),
 
+    // mbti
     GoRoute(
-      path: '/mbtiResult',
+      path: '/survey',
+      name: MbtiMainPage.routeName,
+      builder: (context, state) => const MbtiMainPage(),
+    ),
+    GoRoute(
+      path: '/mbti-result',
       name: MbtiResultPage.routeName,
       builder: (context, state) => const MbtiResultPage(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/mbtiPreStartCheck',
+      path: '/mbti-pre-start-check',
       name: MBTIPreStartCheckPage.routeName,
       builder: (context, state) => const MBTIPreStartCheckPage(),
     ),
@@ -148,6 +162,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => PredictSkinMbtiPage(),
     ),
 
+    // 피부질환
     GoRoute(
       path: '/predict-skin-disease',
       name: PredictSkinDiseasePage.routeName,

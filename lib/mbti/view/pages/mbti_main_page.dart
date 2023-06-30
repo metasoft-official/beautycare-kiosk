@@ -111,7 +111,6 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
         buttonColor: AppColor.appColor,
         textStyle: AppTextTheme.white14b,
         label: '다음',
-        hiding: hiding,
         onPressed: () {
           quizState.curStep < 3
               ? quizState.increaseStep()

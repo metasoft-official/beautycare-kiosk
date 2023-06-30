@@ -449,6 +449,21 @@ class AppTextTheme {
       fontSize: 14,
       fontWeight: FontWeight.w700,
       color: AppColor.middleGrey);
+  static const middleGrey24 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w300,
+      color: AppColor.middleGrey);
+  static const middleGrey24m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: AppColor.middleGrey);
+  static const middleGrey24b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColor.middleGrey);
   static const middleGrey14m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 14,
@@ -715,6 +730,21 @@ class AppTextTheme {
   static const blue20b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
+  static const blue24 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w300,
+      color: AppColor.appColor);
+  static const blue24m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: AppColor.appColor);
+  static const blue24b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 24,
       fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blueBlack12l = TextStyle(
