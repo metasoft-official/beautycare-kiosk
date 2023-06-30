@@ -1,7 +1,5 @@
-import '../dio/user_api.dart';
-import '../dio/login_api.dart';
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:beauty_care/common/dio/user_api.dart';
+import 'package:beauty_care/common/dio/login_api.dart';
 
 class UserRepository {
   final UserApi _userApi;
@@ -15,12 +13,6 @@ class UserRepository {
 
     String token = authorization.replaceAll("[", "");
     token = token.replaceAll("]", "");
-
-    // token = token.replaceAll('Bearer', '');
-    // token = token.replaceAll("[", "");
-    // token = token.replaceAll(" ", "");
-    //
-    // token = token.replaceAll("-", ".");
 
     return token;
   }

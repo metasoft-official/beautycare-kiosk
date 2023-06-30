@@ -1,17 +1,13 @@
-import 'package:beauty_care/common/provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../model/user_model.dart';
-import '../dio/user_api.dart';
-import '../dio/login_api.dart';
-import 'package:beauty_care/common/provider/auth_provider.dart';
-import '../repository/user_repository.dart';
+import 'package:beauty_care/common/model/user_model.dart';
+import 'package:beauty_care/common/dio/login_api.dart';
+import 'package:beauty_care/common/repository/user_repository.dart';
 
 final loginApiProvider = Provider<LoginApi>((ref) => LoginApi(Dio()));
 
@@ -45,13 +41,6 @@ final passwordControllerProvider = Provider((_) => TextEditingController());
 final storage = FlutterSecureStorage(); // FlutterSecureStorage를 storage로 저장
 dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
 
-// class UserState {
-//   final String? user;
-//   final String? error;
-//
-//   UserState({this.user, this.error});
-// }
-
 class UserNotifier extends StateNotifier<UserModel> {
   final UserRepository _userRepository;
 
@@ -62,19 +51,12 @@ class UserNotifier extends StateNotifier<UserModel> {
       final uuid = await _userRepository.login(username, password);
 
       String token = await _userRepository.getUserInfoTokenList(uuid);
-      print(token);
 
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-      // print("----- state -----");
-      // print(decodedToken);
 
       state = state.copyWith(
           name: decodedToken['user']['name'],
           email: decodedToken['user']['email']);
-
-      // print("----- user -----");
-      // print(decodedToken['user']['name']);
 
       return token;
     } catch (e) {

@@ -7,12 +7,6 @@ import 'package:dio/dio.dart';
 
 import '../dio/user_api.dart';
 
-// user
-final userApiProvider = Provider<UserApi>((ref) {
-  final dio = ref.read(dioProvider);
-  return UserApi(dio, baseUrl: BASE_URL);
-});
-
 // firebase_message
 class FirebaseMessagingState extends StateNotifier<RemoteMessage?> {
   FirebaseMessagingState() : super(null) {

@@ -47,7 +47,8 @@ class HomePageState extends ConsumerState<HomePage> {
     final user = ref.watch(userNotifierProvider);
 
     return Scaffold(
-      body: CustomScrollView(
+        body: CustomBottomNavigationBar(
+      child: CustomScrollView(
         controller: hiding.controller,
         slivers: [
           // 앱바
@@ -147,10 +148,11 @@ class HomePageState extends ConsumerState<HomePage> {
                 onTap: () => context.pushNamed('cosmeticProduct'),
               )
             ]),
-          )
+          ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
-    );
+    )
+        // bottomNavigationBar: const CustomBottomNavigationBar(),
+        );
   }
 }
