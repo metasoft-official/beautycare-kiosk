@@ -57,7 +57,7 @@ class AppColor {
   static const Color grey = Color(0xFF818181);
   static const Color semiGrey = Color(0xFFDDDDDD);
   static const Color middleGrey = Color(0xff888888);
-  static const Color lowGrey = Color(0xffFAFAFA);
+  static const Color lowGrey = Color(0xffEEEEEE);
   static const Color leftGrey = Color(0xff676767);
   static const Color leftLowGrey = Color(0xff515151);
   static const Color divider = Color(0xFFF2F4F6);
