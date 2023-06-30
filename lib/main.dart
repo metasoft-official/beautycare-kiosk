@@ -1,5 +1,5 @@
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
-import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,15 +7,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
 import 'package:beauty_care/common/const/router.dart';
 import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
-
-import 'common/provider/provider.dart';
 
 var logger = Logger();
 final HideNavbar hiding = HideNavbar();

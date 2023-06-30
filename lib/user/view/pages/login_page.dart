@@ -1,9 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
-import 'package:beauty_care/main.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,15 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart'
     as KakaoUser;
 
-import 'package:beauty_care/common/layout/app_color.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/main.dart';
+import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
-import 'package:beauty_care/common/provider/provider.dart';
-
 import 'package:beauty_care/common/provider/login_provider.dart';
+
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_input_theme.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key, required this.onLoginSuccess});

@@ -825,6 +825,19 @@ class AppTextTheme {
       fontWeight: FontWeight.w700,
       color: Color(0xff888888));
 
+  static const color88888810b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: Color(0xff888888));
+
+  // home active font
+  static const homeActive10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
+
   // #BBBBBB
   static const colorBBBBBB12 = TextStyle(
       fontFamily: 'noto_sans_kr',

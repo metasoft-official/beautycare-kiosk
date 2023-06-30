@@ -54,6 +54,11 @@
 	<string>Used to capture audio for image picker plugin</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to demonstrate image picker plugin</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/NotoSansKR-Bold.otf</string>
+		<string>Fonts/NotoSansKR-Regular.otf</string>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
