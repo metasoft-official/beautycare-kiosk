@@ -52,7 +52,26 @@ class SkinHistoryState extends ConsumerState<SkinHistoryPage>
       body: CustomTabbarViewWidget(
         tabController: tabController,
         widgets: const [
-          // todo : 위시리스트 entity 전달
+          // todo : 기획 정해지면 차트 수정
+          // LineChart(
+          //   LineChartData(
+          //       lineBarsData: [
+          //         LineChartBarData(
+          //           spots: skinHistoryState.spots,
+          //           isCurved: false,
+          //         ),
+          //       ],
+          //       gridData: FlGridData(show: true),
+          //       titlesData: FlTitlesData(
+          //         bottomTitles: AxisTitles(sideTitles: skinHistoryState.bottomTitles),
+          //         leftTitles:
+          //             AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          //         topTitles:
+          //             AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          //         rightTitles:
+          //             AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          //       )),
+          // ),
           HistoryWidget(
             itemCount: 0,
             nullMessage: '피부 변화 기록이 없어요!',

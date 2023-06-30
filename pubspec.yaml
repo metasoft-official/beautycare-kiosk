@@ -45,6 +45,7 @@ dependencies:
   url_launcher: ^6.1.11
   percent_indicator: ^4.0.1
   spincircle_bottom_bar: ^2.0.0
+  fl_chart: ^0.62.0
 
 
   kakao_flutter_sdk_talk:
