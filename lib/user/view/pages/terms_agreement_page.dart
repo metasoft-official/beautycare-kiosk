@@ -1,12 +1,13 @@
-import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_button_theme.dart';
 
-import '../../../common/component/widgets/mark_texts_widget.dart';
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 
 class TermsAgreementPage extends ConsumerWidget {
   const TermsAgreementPage({Key? key}) : super(key: key);
@@ -35,14 +36,13 @@ class TermsAgreementPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 23),
-            Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: RichText(
-                text: TextSpan(
-                  style: AppTextTheme.middleGrey24b,
-                  children: markTextsMixin('필수 약관 동의 후\n회원가입이 가능합니다.',
-                      '필수 약관 동의', AppTextTheme.blue24b),
-                ),
+            const Padding(
+              padding: EdgeInsets.only(left: 12),
+              child: MarkTextsWidget(
+                text: '필수 약관 동의 후\n회원가입이 가능합니다.',
+                markText: '필수 약관 동의',
+                markTextStyle: AppTextTheme.blue24b,
+                defaultTextStyle: AppTextTheme.middleGrey24b,
               ),
             ),
             const SizedBox(height: 32),
@@ -140,6 +140,14 @@ class TermsAgreementPage extends ConsumerWidget {
           ],
         ),
       )),
+      bottomNavigationBar: ButtonBottomNavigationBarWidget(
+        buttonColor: AppColor.lightGreyButtonColor,
+        textStyle: AppTextTheme.blue14b,
+        label: '휴대전화 본인인증',
+        onPressed: () {
+          context.pushNamed('register');
+        },
+      ),
     ));
   }
 }
