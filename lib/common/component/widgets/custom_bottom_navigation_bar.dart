@@ -1,6 +1,7 @@
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -31,9 +32,18 @@ class CustomBottomNavigationBar extends ConsumerWidget {
           elevation: 2.0,
           items: [
             // Suggested count : 4
-            SCBottomBarItem(
-                icon: Icons.home_outlined, title: '홈', onPressed: () {}),
-            SCBottomBarItem(icon: Icons.home, title: '스킨케어', onPressed: () {}),
+            CustomSCBottomBarItem(
+                icon: Icons.abc,
+                activeIcon: Icons.abc,
+                assetPath: 'assets/icons/ic_home.svg',
+                title: '홈',
+                onPressed: () => context.pushNamed('home')),
+            CustomSCBottomBarItem(
+                icon: Icons.abc,
+                activeIcon: Icons.abc,
+                assetPath: 'assets/icons/ic_skincare.svg',
+                title: '스킨케어',
+                onPressed: () => context.pushNamed('cosmeticProduct')),
           ],
           circleItems: [
             //Suggested Count: 3
@@ -67,13 +77,9 @@ class CustomSCActionButtonDetails extends SCActionButtonDetails {
     required double elevation,
   }) : super(
           color: color,
-          icon: Icon(Icons.abc), // 아이콘을 사용하지 않으므로 임의의 값으로 설정
+          icon: const Icon(Icons.abc), // 아이콘을 사용하지 않으므로 임의의 값으로 설정
           elevation: elevation,
         );
-
-  // Widget buildIconWidget() {
-  //   return Image.asset(iconAsset);
-  // }
 }
 
 class CustomSpinCircleBottomBar extends StatefulWidget {
@@ -240,7 +246,8 @@ class _CustomSpinCircleBottomBarState extends State<CustomSpinCircleBottomBar> {
                           .entries
                           .map((entry) {
                         final int index = entry.key;
-                        final SCBottomBarItem? itemDetails = entry.value;
+                        final CustomSCBottomBarItem? itemDetails =
+                            entry.value as CustomSCBottomBarItem?;
                         final bool isActive = activeIndex == index;
                         return Flexible(
                             child: itemDetails != null
@@ -255,19 +262,24 @@ class _CustomSpinCircleBottomBarState extends State<CustomSpinCircleBottomBar> {
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
+                                        // 하단바
                                         children: <Widget>[
-                                          Icon(
-                                            isActive
-                                                ? itemDetails.activeIcon ??
-                                                    itemDetails.icon
-                                                : itemDetails.icon,
-                                            color: isActive
-                                                ? activeIconTheme.color
-                                                : iconTheme.color,
-                                            size: isActive
-                                                ? activeIconTheme.size
-                                                : iconTheme.size,
-                                          ),
+                                          // Text(itemDetails.assetPath),
+                                          isActive
+                                              ? SvgPicture.asset(
+                                                  itemDetails.assetPath,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                          AppColor.appColor,
+                                                          BlendMode.srcIn),
+                                                )
+                                              : SvgPicture.asset(
+                                                  itemDetails.assetPath,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                          AppColor.middleGrey,
+                                                          BlendMode.srcIn)),
+
                                           itemDetails.title != null
                                               ? Text(itemDetails.title ?? "",
                                                   style: isActive
@@ -290,7 +302,7 @@ class _CustomSpinCircleBottomBarState extends State<CustomSpinCircleBottomBar> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   child: TweenAnimationBuilder(
                     tween: Tween<double>(
                         begin: shouldOpen ? 0.0 : 6.28319,
@@ -357,7 +369,7 @@ class PrimaryCircle extends StatelessWidget {
           height: radius,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.yellowAccent,
+            color: color,
           ),
           child: Center(
             child: Stack(
@@ -399,7 +411,7 @@ class EmptyLayer extends StatelessWidget {
           height: radius,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.limeAccent,
+            color: color,
           ),
           child: const Center(),
         ),
@@ -442,7 +454,7 @@ class CustomSpinCircleBottomBarHolder extends StatelessWidget {
 
 class CustomSCBottomBarDetails extends SCBottomBarDetails {
   CustomSCBottomBarDetails({
-    required List<SCBottomBarItem?> items,
+    required List<CustomSCBottomBarItem?> items,
     required List<SCItem> circleItems,
     double? bnbHeight,
     SCActionButtonDetails? actionButtonDetails,
@@ -465,5 +477,22 @@ class CustomSCBottomBarDetails extends SCBottomBarDetails {
           circleColors: circleColors,
           backgroundColor: backgroundColor,
           elevation: elevation,
+        );
+}
+
+class CustomSCBottomBarItem extends SCBottomBarItem {
+  final String assetPath;
+
+  CustomSCBottomBarItem({
+    required IconData activeIcon,
+    required IconData icon,
+    required this.assetPath,
+    required String title,
+    required Function onPressed,
+  }) : super(
+          activeIcon: Icons.abc,
+          icon: Icons.abc, // 아이콘을 사용하지 않으므로 임의의 값으로 설정
+          title: title,
+          onPressed: () => {},
         );
 }
