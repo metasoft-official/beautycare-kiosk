@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.textInputType,
     this.textInputAction,
+    this.readOnly,
   }) : super(key: key);
 
   final String? title;
@@ -23,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final dynamic onChanged;
   final dynamic validator;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
           const SizedBox(height: 8)
         ],
         TextFormField(
-          readOnly: false,
+          readOnly: readOnly ?? false,
           autocorrect: false,
           controller: controller,
           focusNode: focusNode,

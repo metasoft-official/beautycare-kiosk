@@ -48,7 +48,8 @@ dependencies:
   material_design_icons_flutter: 7.0.7296
   fl_chart: ^0.62.0
   flutter_svg:
-
+  flutter_inappwebview: ^5.7.2+3
+  remedi_kopo: ^0.0.2
 
 
   kakao_flutter_sdk_talk:

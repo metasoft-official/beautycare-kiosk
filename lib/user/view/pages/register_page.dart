@@ -8,8 +8,7 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
-
-import '../widgets/custom_text_form_field.dart';
+import 'package:beauty_care/user/view/widgets/custom_text_form_field.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -60,11 +59,29 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 const Text('필수 입력 정보', style: AppTextTheme.blue18b),
                 const SizedBox(height: 20),
 
-                CustomTextFormField(
-                    title: '아이디',
-                    controller: registerState.idTextController,
-                    focusNode: registerState.idFocus,
-                    hintText: '아이디'),
+                TextFormField(
+                  readOnly: false,
+                  autocorrect: false,
+                  controller: registerState.idTextController,
+                  focusNode: registerState.idFocus,
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  // onChanged: (){},
+                  // validator: validator,
+                  decoration: InputDecoration(
+                      hintText: '아이디',
+                      suffixIcon: Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            '중복확인',
+                            style: AppTextTheme.blue12b,
+                          ),
+                        ),
+                      )),
+                ),
+                const SizedBox(height: 20),
 
                 // 비밀번호
                 CustomTextFormField(
@@ -282,25 +299,23 @@ class RegisterState extends ConsumerState<RegisterPage> {
                   children: [
                     Expanded(
                         child: TextFormField(
-                      readOnly: false,
+                      readOnly: true,
                       autocorrect: false,
                       controller: registerState.postcordTextController,
-                      focusNode: registerState.postcordFocus,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         hintText: '우편번호',
                       ),
-                      //   onChanged :(value) => {
-                      //     return null;
-                      //   },
                       // validator : (value) => {
                       //   return null;
                       // },
                     )),
                     const SizedBox(width: 8),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        registerState.searchPost(context);
+                      },
                       style: AppButtonTheme.basicElevatedButtonTheme.copyWith(
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -315,8 +330,8 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 ),
                 const SizedBox(height: 8),
                 CustomTextFormField(
-                    controller: registerState.detailAddressTextController,
-                    focusNode: registerState.detailAddressFocus,
+                    readOnly: true,
+                    controller: registerState.addressTextController,
                     hintText: '주소'),
                 // 상세주소
                 CustomTextFormField(
