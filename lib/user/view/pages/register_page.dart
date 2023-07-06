@@ -10,7 +10,7 @@ import 'package:beauty_care/common/layout/app_color.dart';
 
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/user/view/widgets/custom_text_form_field.dart';
-import '../../../common/component/widgets/custom_dropdown_button_2.dart';
+import 'package:beauty_care/common/component/widgets/custom_dropdown_button_2.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
