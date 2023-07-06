@@ -3,12 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/user/provider/register_state_provider.dart';
+
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/user/view/widgets/custom_text_form_field.dart';
+import '../../../common/component/widgets/custom_dropdown_button_2.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -23,8 +25,6 @@ class RegisterState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final registerState = ref.watch(registerStateProvider); //프로바이더 구독
-    String dropdownValue = registerState.list.first;
-    // SignUpController signUpController = ref.read(signUpController);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -113,11 +113,15 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phTextController,
-                        focusNode: registerState.phFocus,
+                        controller: registerState.phFirstTextController,
+                        focusNode: registerState.phFirstFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(hintText: '010'),
+                        decoration: const InputDecoration(
+                          hintText: '010',
+                          counterText: '',
+                        ),
+                        maxLength: 4,
                         //   onChanged :(value) => {
                         //     return null;
                         //   },
@@ -130,18 +134,22 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Text(
                         '-',
-                        style: AppTextTheme.black18,
+                        style: AppTextTheme.deepGrey12m,
                       ),
                     ),
                     Expanded(
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phTextController,
-                        focusNode: registerState.phFocus,
+                        controller: registerState.phSecondTextController,
+                        focusNode: registerState.phSecondFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(hintText: '0000'),
+                        decoration: const InputDecoration(
+                          hintText: '0000',
+                          counterText: '',
+                        ),
+                        maxLength: 4,
                         //   onChanged :(value) => {
                         //     return null;
                         //   },
@@ -154,18 +162,22 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Text(
                         '-',
-                        style: AppTextTheme.black18,
+                        style: AppTextTheme.deepGrey12m,
                       ),
                     ),
                     Expanded(
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phTextController,
-                        focusNode: registerState.phFocus,
+                        controller: registerState.phThirdTextController,
+                        focusNode: registerState.phThirdFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(hintText: '0000'),
+                        decoration: const InputDecoration(
+                          hintText: '0000',
+                          counterText: '',
+                        ),
+                        maxLength: 4,
                         //   onChanged :(value) => {
                         //     return null;
                         //   },
@@ -181,23 +193,44 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 // 생년월일
                 const Text('생년월일', style: AppTextTheme.black12b),
                 const SizedBox(height: 8),
-                TextFormField(
-                  readOnly: false,
-                  autocorrect: false,
-                  controller: registerState.bdayTextController,
-                  focusNode: registerState.bdayFocus,
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.next,
-                  //   onChanged :(value) => {
-                  //     return null;
-                  //   },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "생년월일을 입력해주세요.";
-                    }
-                    return null;
-                  },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                Row(
+                  children: [
+                    //생년
+                    Expanded(
+                      child: CustomDropdownButton2(
+                        items: registerState.yearValue,
+                        hint: '생년',
+                        value: registerState.yearSelectedValue,
+                        onChanged: (value) {
+                          registerState.selectDropdown('year', value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    //월
+                    Expanded(
+                      child: CustomDropdownButton2(
+                        items: registerState.monthValue,
+                        hint: '월',
+                        value: registerState.monthSelectedValue,
+                        onChanged: (value) {
+                          registerState.selectDropdown('month', value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    //일
+                    Expanded(
+                      child: CustomDropdownButton2(
+                        items: registerState.dayValue,
+                        hint: '일',
+                        value: registerState.daySelectedValue,
+                        onChanged: (value) {
+                          registerState.selectDropdown('day', value);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
 
@@ -207,41 +240,36 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 Row(
                   children: [
                     Expanded(
+                        flex: 1,
                         child: TextFormField(
-                      readOnly: false,
-                      autocorrect: false,
-                      controller: registerState.emTextController,
-                      focusNode: registerState.emFocus,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      //   onChanged :(value) => {
-                      //     return null;
-                      //   },
-                      // validator : (value) => {
-                      //   return null;
-                      // },
-                    )),
+                          readOnly: false,
+                          autocorrect: false,
+                          controller: registerState.emTextController,
+                          focusNode: registerState.emFocus,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          //   onChanged :(value) => {
+                          //     return null;
+                          //   },
+                          // validator : (value) => {
+                          //   return null;
+                          // },
+                        )),
                     Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Text('@')),
-                    DropdownButton<String>(
-                      style: AppTextTheme.deepGrey16m,
-                      elevation: 0,
-                      value: dropdownValue,
-                      items: registerState.list
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
-                        setState(() {
-                          dropdownValue = value!;
-                        });
-                      },
-                    ),
+                        child:
+                            const Text('@', style: AppTextTheme.deepGrey12m)),
+                    Expanded(
+                      flex: 1,
+                      child: CustomDropdownButton2(
+                        items: registerState.domainValue,
+                        hint: '선택',
+                        value: registerState.domainSelectedValue,
+                        onChanged: (value) {
+                          registerState.selectDropdown('domain', value);
+                        },
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(height: 20),

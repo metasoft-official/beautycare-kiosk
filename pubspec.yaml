@@ -50,7 +50,7 @@ dependencies:
   flutter_svg:
   flutter_inappwebview: ^5.7.2+3
   remedi_kopo: ^0.0.2
-
+  dropdown_button2:
 
   kakao_flutter_sdk_talk:
 

@@ -628,6 +628,21 @@ class AppTextTheme {
       fontWeight: FontWeight.w700,
       color: AppColor.semiGrey);
   //deepGrey
+  static const deepGrey12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: AppColor.deepGrey);
+  static const deepGrey12m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColor.deepGrey);
+  static const deepGrey12b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: AppColor.semiGrey);
   static const deepGrey20 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 20,
