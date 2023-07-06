@@ -134,17 +134,15 @@ class HomePageState extends ConsumerState<HomePage> {
 
               // 피부 타입 별 랭킹 ==================================================
               ListTitleWidget(
-                text: authState == false ? '피부 타입 별 랭킹' : '건선인 나를 위한 추천',
-                markText: authState == false ? '피부 타입 별' : '건선',
+                text: '피부 타입 별 랭킹',
+                markText: '피부 타입 별',
                 onTap: () => context.pushNamed('cosmeticProduct'),
               ),
 
               // 화장품 추천 ==================================================
               ListTitleWidget(
-                text: authState == false
-                    ? '제품 라인 별 랭킹'
-                    : '${user.name} 님 취향저격 화장품',
-                markText: authState == false ? '제품 라인 별' : '${user.name}',
+                text: '제품 라인 별 랭킹',
+                markText: '제품 라인 별',
                 onTap: () => context.pushNamed('cosmeticProduct'),
               )
             ]),

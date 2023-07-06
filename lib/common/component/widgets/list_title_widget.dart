@@ -24,7 +24,7 @@ class ListTitleWidget extends StatelessWidget {
           markText != null
               ? RichText(
                   text: TextSpan(
-                      style: AppTextTheme.black20b,
+                      style: AppTextTheme.black20m,
                       children: markTextsMixin(
                           text, markText!, AppTextTheme.blue20b)),
                 )
