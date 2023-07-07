@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart';
 import 'package:beauty_care/common/component/widgets/hidable_bottom_navigation_bar.dart';
 import 'package:beauty_care/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -47,109 +48,116 @@ class HomePageState extends ConsumerState<HomePage> {
     final user = ref.watch(userNotifierProvider);
 
     return Scaffold(
+        backgroundColor: Colors.white,
         body: CustomBottomNavigationBar(
-      child: CustomScrollView(
-        controller: hiding.controller,
-        slivers: [
-          // 앱바
-          const CustomAppBar(),
-          // 콘텐츠
-          SliverToBoxAdapter(
-            child: Column(children: [
-              // 메인 배너 =======================================================
-              // 로그인 전
-              if (authState == false) ...[
-                // 피부질환 예측하기
-                HomeBannerWidget(
-                  imgUrl: 'assets/images/main_stack_sample.png',
-                  title: '나의 피부 질환을\n예측해보세요.',
-                  markText: '피부 질환',
-                  caption: '피부에 숨겨진 문제를 찾아,\n맞춤형 시술과 화장품을\n추천해 드립니다.',
-                  onPressed: () => authStateNotifier.navigateToPage(
-                      context, ref, 'predictSkinDisease'),
-                  type: 'surgery',
-                ),
-                // 피부MBTI 예측하기
-                HomeBannerWidget(
-                  imgUrl: 'assets/images/main_stack_sample.png',
-                  title: '나의 피부 MBTI가\n궁금하지 않으세요?',
-                  markText: '피부 MBTI',
-                  caption: 'AI로 진단 받아 보시고,\n체계적으로 관리해보세요!',
-                  onPressed: () => authStateNotifier.navigateToPage(
-                      context, ref, 'predictSkinMbti'),
-                  type: 'mbti',
-                ),
-              ]
-
-              // 로그인 후
-              else ...[
-                // 피부질환 예측하기
-                Stack(
-                  children: [
+          child: CustomScrollView(
+            controller: hiding.controller,
+            slivers: [
+              // 앱바
+              const CustomAppBar(),
+              // 콘텐츠
+              SliverToBoxAdapter(
+                child: Column(children: [
+                  // 메인 배너 =======================================================
+                  // 로그인 전
+                  if (authState == false) ...[
+                    // 피부질환 예측하기
                     HomeBannerWidget(
-                      type: 'surgery',
-                      title: '질환 예측 후 5일\n지났습니다.',
-                      markText: '질환 예측 후 5일',
-                      caption: '3개월 주기 검진 권장',
+                      imgUrl: 'assets/images/main_stack_sample.png',
+                      title: '나의 피부 질환을\n예측해보세요.',
+                      markText: '피부 질환',
+                      caption: '피부에 숨겨진 문제를 찾아,\n맞춤형 시술과 화장품을\n추천해 드립니다.',
                       onPressed: () => authStateNotifier.navigateToPage(
-                          context, ref, 'predictSkinDisease'),
-                      // widget: , todo : 지난 예측 결과 표현
+                          context, ref, 'login'),
+                      type: 'surgery',
                     ),
-                    Positioned(
-                      top: -20,
-                      right: -20,
-                      child: Image.asset(
-                        'assets/images/character_coiz_3.png',
-                        opacity: const AlwaysStoppedAnimation(.5),
-                        width: 200,
-                      ),
+                    // 피부MBTI 예측하기
+                    HomeBannerWidget(
+                      imgUrl: 'assets/images/main_stack_sample.png',
+                      title: '나의 피부 MBTI가\n궁금하지 않으세요?',
+                      markText: '피부 MBTI',
+                      caption: 'AI로 진단 받아 보시고,\n체계적으로 관리해보세요!',
+                      onPressed: () => authStateNotifier.navigateToPage(
+                          context, ref, 'login'),
+                      type: 'mbti',
+                    ),
+                  ]
+
+                  // 로그인 후
+                  else ...[
+                    // 피부질환 예측하기
+                    Stack(
+                      children: [
+                        HomeBannerWidget(
+                          type: 'surgery',
+                          title: '질환 예측 후 5일\n지났습니다.',
+                          markText: '질환 예측 후 5일',
+                          caption: '3개월 주기 검진 권장',
+                          onPressed: () => authStateNotifier.navigateToPage(
+                              context, ref, 'predictSkinDisease'),
+                          // widget: , todo : 지난 예측 결과 표현
+                        ),
+                        Positioned(
+                          top: -20,
+                          right: -20,
+                          child: Image.asset(
+                            'assets/images/character_coiz_3.png',
+                            opacity: const AlwaysStoppedAnimation(.5),
+                            width: 200,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // 피부MBTI 예측하기
+                    HomeBannerWidget(
+                      type: 'mbti',
+                      title: '${user.name} 님의 피부 MBTI는?',
+                      onPressed: () => authStateNotifier.navigateToPage(
+                          context, ref, 'mbtiPreStartCheck'),
+                      widget: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            SizedBox(height: 8),
+                            Text('DRPT', style: AppTextTheme.yellow24b),
+                            SizedBox(height: 4),
+                            Text(
+                              'Oily, Resistant, Non-pigmented, Tight',
+                              style: AppTextTheme.white12,
+                            ),
+                            SizedBox(height: 20),
+                            CustomCircleIndicator(
+                                categories: ['유분', '색소', '민감'],
+                                percents: [0.9, 0.54, 0.34]),
+                            SizedBox(height: 16),
+                          ]),
                     ),
                   ],
-                ),
 
-                // 피부MBTI 예측하기
-                HomeBannerWidget(
-                  type: 'mbti',
-                  title: '${user.name} 님의 피부 MBTI는?',
-                  onPressed: () => authStateNotifier.navigateToPage(
-                      context, ref, 'mbtiPreStartCheck'),
-                  widget: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        SizedBox(height: 8),
-                        Text('DRPT', style: AppTextTheme.yellow24b),
-                        SizedBox(height: 4),
-                        Text(
-                          'Oily, Resistant, Non-pigmented, Tight',
-                          style: AppTextTheme.white12,
-                        ),
-                        SizedBox(height: 20),
-                        CustomCircleIndicator(
-                            categories: ['유분', '색소', '민감'],
-                            percents: [0.9, 0.54, 0.34]),
-                        SizedBox(height: 16),
-                      ]),
-                ),
-              ],
+                  // 피부 타입 별 랭킹 ==================================================
+                  ListTitleWidget(
+                    text: '피부 타입 별 랭킹',
+                    markText: '피부 타입 별',
+                    onTap: () => context.pushNamed('cosmeticProduct'),
+                  ),
 
-              // 피부 타입 별 랭킹 ==================================================
-              ListTitleWidget(
-                text: '피부 타입 별 랭킹',
-                markText: '피부 타입 별',
-                onTap: () => context.pushNamed('cosmeticProduct'),
+                  CustomCarouselSlider(
+                      imageList: const ['assets/images/sample_images_01.png'],
+                      title: '건성피부/수분',
+                      caption:
+                          '피부에 부족한 수분을 공급하여 수분 보습 막을 채워주고 피부를 촉촉하게 유지해 줍니다.'),
+
+                  // 화장품 추천 ==================================================
+                  ListTitleWidget(
+                    text: '제품 라인 별 랭킹',
+                    markText: '제품 라인 별',
+                    onTap: () => context.pushNamed('cosmeticProduct'),
+                  )
+                ]),
               ),
-
-              // 화장품 추천 ==================================================
-              ListTitleWidget(
-                text: '제품 라인 별 랭킹',
-                markText: '제품 라인 별',
-                onTap: () => context.pushNamed('cosmeticProduct'),
-              )
-            ]),
+            ],
           ),
-        ],
-      ),
-    )
+        )
         // bottomNavigationBar: const CustomBottomNavigationBar(),
         );
   }
