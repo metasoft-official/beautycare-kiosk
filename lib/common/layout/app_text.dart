@@ -490,6 +490,21 @@ class AppTextTheme {
       fontWeight: FontWeight.w500,
       color: AppColor.allBlack);
   // white
+  static const white10 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white10m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
   static const white12 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 12,
@@ -566,6 +581,21 @@ class AppTextTheme {
       fontWeight: FontWeight.w700,
       color: Colors.white);
   // grey
+  static const grey10 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: AppColor.grey);
+  static const grey10m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: AppColor.grey);
+  static const grey10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: AppColor.grey);
   static const grey12 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 12,
@@ -609,6 +639,21 @@ class AppTextTheme {
   static const grey15b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 15,
+      fontWeight: FontWeight.w700,
+      color: AppColor.grey);
+  static const grey20 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      color: AppColor.grey);
+  static const grey20m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: AppColor.grey);
+  static const grey20b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 20,
       fontWeight: FontWeight.w700,
       color: AppColor.grey);
   // semiGrey

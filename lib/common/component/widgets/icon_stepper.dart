@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
 
+import '../../../main.dart';
+import '../../layout/app_text.dart';
+
 class IconStepper extends StatelessWidget {
   const IconStepper(
       {Key? key,
@@ -54,33 +57,65 @@ class IconStepper extends StatelessWidget {
   List<Widget> _iconViews() {
     var list = <Widget>[];
     _icons.asMap().forEach((i, icon) {
+      logger.i(_curStep, i);
       //상태에 따른 각 색상
       var circleColor =
-          (i == 0 || _curStep > i) ? _activeColor : _inactiveCircleColor;
+          (i == 0 || _curStep >= i) ? _activeColor : _inactiveCircleColor;
 
-      var lineColor = _curStep > i ? _activeColor : _inactiveLineColor;
+      var lineColor = _curStep >= i ? _activeColor : _inactiveLineColor;
 
-      var iconColor = (i == 0 || _curStep > i)
-          ? _activeIconColor
-          : (_curStep == i ? _activeColor : _inactiveColor);
+      // var iconColor = (i == 0 || _curStep > i)
+      //     ? _activeIconColor
+      //     : (_curStep == i ? _activeColor : _inactiveColor);
 
       list.add(
         Container(
-          width: 50.0,
-          height: 50.0,
+          width: 54,
+          height: 54,
           padding: const EdgeInsets.all(0),
-          decoration: BoxDecoration(
-            color: circleColor,
-            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-            border: Border.all(
-              color: _curStep > i ? _activeColor : _inactiveLineColor,
-              width: 2.0,
+          decoration: _curStep == i
+              ? BoxDecoration(
+                  color: circleColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.25),
+                      blurRadius: 6,
+                      spreadRadius: 1,
+                    )
+                  ],
+                  border: Border.all(
+                    color: _curStep >= i ? _activeColor : _inactiveLineColor,
+                    width: 2.0,
+                  ),
+                )
+              : BoxDecoration(
+                  color: circleColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: _curStep >= i ? _activeColor : _inactiveLineColor,
+                    width: 2.0,
+                  ),
+                ),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'STEP',
+                  style: (i == 0 || _curStep >= i)
+                      ? AppTextTheme.white10
+                      : AppTextTheme.grey10,
+                ),
+                Text(
+                  '${i + 1}',
+                  style: (i == 0 || _curStep >= i)
+                      ? AppTextTheme.white20b
+                      : AppTextTheme.grey20b,
+                )
+              ],
             ),
-          ),
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: 20.0,
           ),
         ),
       );
