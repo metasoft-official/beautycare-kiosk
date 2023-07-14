@@ -11,6 +11,8 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/user/view/widgets/history_widget.dart';
 
+import '../../../common/component/widgets/button_bottom_navigation_bar.dart';
+
 class MypagePage extends ConsumerStatefulWidget {
   const MypagePage({Key? key}) : super(key: key);
 
@@ -27,10 +29,10 @@ class MypageState extends ConsumerState<MypagePage> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('마이페이지')),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
-            color: Colors.white,
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
             child: Column(
@@ -90,23 +92,13 @@ class MypageState extends ConsumerState<MypagePage> {
                 ),
 
                 // 바로가기 버튼 ==================================================
-                Row(
-                  children: [
-                    // 위시리스트
-                    Expanded(
-                        child: ElevatedButton(
-                            style: AppButtonTheme.outlinedBasicButtonTheme,
-                            onPressed: () => context.pushNamed('wishlist'),
-                            child: const Text('위시리스트'))),
-                    const SizedBox(width: 12),
-                    // 피부 변화
-                    Expanded(
-                      child: ElevatedButton(
-                          style: AppButtonTheme.outlinedBasicButtonTheme,
-                          onPressed: () => context.pushNamed('skinHistory'),
-                          child: const Text('피부 변화 그래프')),
-                    ),
-                  ],
+                // 위시리스트
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: AppButtonTheme.outlinedBasicButtonTheme,
+                      onPressed: () => context.pushNamed('wishlist'),
+                      child: const Text('위시리스트')),
                 ),
               ],
             ),
@@ -115,6 +107,7 @@ class MypageState extends ConsumerState<MypagePage> {
           const Divider(
             thickness: 15,
           ),
+
           // 예측 이력 ===========================================================
           // 제목
           ListTitleWidget(
@@ -141,6 +134,19 @@ class MypageState extends ConsumerState<MypagePage> {
             ),
           )
         ],
+      ),
+      bottomNavigationBar: ButtonBottomNavigationBarWidget(
+        buttonColor: AppColor.lightGrey,
+        textStyle: AppTextTheme.blue14b,
+        label: '로그아웃',
+        onPressed: () {
+          // todo 로그아웃
+        },
+        icon: const Icon(
+          Icons.exit_to_app,
+          color: AppColor.appColor,
+          size: 20,
+        ),
       ),
     );
   }
