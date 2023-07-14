@@ -1,21 +1,24 @@
-import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
-import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
-import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart';
-import 'package:beauty_care/common/component/widgets/hidable_bottom_navigation_bar.dart';
-import 'package:beauty_care/main.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:beauty_care/main.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
-import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/provider/home_state_provider.dart';
+
+import 'package:beauty_care/common/layout/app_text.dart';
+
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_circle_indicator.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
-import '../widgets/home_banner_widget.dart';
+import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart';
+import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
+import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
+import 'package:beauty_care/common/view/widgets/home_banner_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -44,6 +47,7 @@ class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final authStateNotifier = ref.watch(authStateProvider.notifier);
+    final homeState = ref.watch(homeStateProvider);
     final authState = ref.watch(authStateProvider);
     final user = ref.watch(userNotifierProvider);
 
@@ -60,6 +64,7 @@ class HomePageState extends ConsumerState<HomePage> {
                 child: Column(children: [
                   // 메인 배너 =======================================================
                   // 로그인 전
+                  // todo 검사를 안 했을 때도 해당
                   if (authState == false) ...[
                     // 피부질환 예측하기
                     HomeBannerWidget(
@@ -117,19 +122,48 @@ class HomePageState extends ConsumerState<HomePage> {
                           context, ref, 'mbtiPreStartCheck'),
                       widget: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            SizedBox(height: 8),
-                            Text('DRPT', style: AppTextTheme.yellow24b),
-                            SizedBox(height: 4),
-                            Text(
+                          children: [
+                            const SizedBox(height: 8),
+                            const Text('DRPT', style: AppTextTheme.yellow24b),
+                            const SizedBox(height: 4),
+                            const Text(
                               'Oily, Resistant, Non-pigmented, Tight',
                               style: AppTextTheme.white12,
                             ),
-                            SizedBox(height: 20),
-                            CustomCircleIndicator(
-                                categories: ['유분', '색소', '민감'],
-                                percents: [0.9, 0.54, 0.34]),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 20),
+                            const Text('피부 고민 키워드',
+                                style: AppTextTheme.white14b),
+                            const SizedBox(height: 10),
+                            GridView.builder(
+                                padding: const EdgeInsets.all(0),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount: homeState.keywords.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: (index + 1) % 3 == 0
+                                        ? const EdgeInsets.fromLTRB(0, 0, 0, 8)
+                                        : const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(35)),
+                                        border:
+                                            Border.all(color: Colors.white)),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        '#${homeState.keywords[index]}',
+                                        style: AppTextTheme.white14b,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        childAspectRatio: 2.5 / 1,
+                                        crossAxisCount: 3)),
+                            const SizedBox(height: 10),
                           ]),
                     ),
                   ],
@@ -140,19 +174,50 @@ class HomePageState extends ConsumerState<HomePage> {
                     markText: '피부 타입 별',
                     onTap: () => context.pushNamed('cosmeticProduct'),
                   ),
-
+                  // 피부 타입 별 카테고리
+                  HorizontalCategoryWidget(
+                    onPressed: homeState.setBannerIndex,
+                    curIndex: homeState.bannerCurIndex,
+                    categories: homeState.typeCategories,
+                  ),
+                  const SizedBox(height: 12),
+                  // 슬라이더
                   CustomCarouselSlider(
-                      imageList: const ['assets/images/sample_images_01.png'],
-                      title: '건성피부/수분',
-                      caption:
-                          '피부에 부족한 수분을 공급하여 수분 보습 막을 채워주고 피부를 촉촉하게 유지해 줍니다.'),
+                    curIndex: homeState.bannerCurIndex,
+                    imageList: homeState.images,
+                    titles: homeState.typeCategories,
+                    captions: homeState.typeCaptions,
+                    onPageChanged: (index, reason) {
+                      homeState.bannerCurIndex = index;
+                      homeState.resetState();
+                    },
+                    controller: homeState.crouselController,
+                  ),
+                  const SizedBox(height: 12),
+                  ProductListWidget(
+                      products: homeState.typeProducts, lankVisible: false),
 
                   // 화장품 추천 ==================================================
                   ListTitleWidget(
                     text: '제품 라인 별 랭킹',
                     markText: '제품 라인 별',
                     onTap: () => context.pushNamed('cosmeticProduct'),
-                  )
+                  ),
+                  // 제품 라인 별 카테고리
+                  HorizontalCategoryWidget(
+                    onPressed: homeState.setLineIndex,
+                    curIndex: homeState.productCurIndex,
+                    categories: homeState.lineCategories,
+                  ),
+                  const SizedBox(height: 12),
+                  ProductListWidget(
+                    products: homeState.lineProducts,
+                    lankVisible: true,
+                    btnVisible: true,
+                    btnText: "인기상품 전체보기",
+                    markText: '인기상품',
+                  ),
+                  const SizedBox(height: 28)
                 ]),
               ),
             ],

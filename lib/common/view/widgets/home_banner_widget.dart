@@ -61,32 +61,35 @@ class HomeBannerWidget extends StatelessWidget {
           ],
 
           // 내용
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 타이틀
-              if (title != null) ...[
-                markText != null
-                    ? RichText(
-                        text: TextSpan(
-                            children: markTextsMixin(
-                                title!, markText!, AppTextTheme.yellow24b),
-                            style: AppTextTheme.white24b))
-                    : Text(title!, style: AppTextTheme.white24b),
-                const SizedBox(height: 8)
-              ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 타이틀
+                if (title != null) ...[
+                  markText != null
+                      ? RichText(
+                          text: TextSpan(
+                              children: markTextsMixin(
+                                  title!, markText!, AppTextTheme.yellow24b),
+                              style: AppTextTheme.white24b))
+                      : Text(title!, style: AppTextTheme.white24b),
+                  const SizedBox(height: 8)
+                ],
 
-              // 캡션
-              if (caption != null) ...[
-                Text(
-                  caption!,
-                  style: AppTextTheme.white14m,
-                )
-              ],
+                // 캡션
+                if (caption != null) ...[
+                  Text(
+                    caption!,
+                    style: AppTextTheme.white14m,
+                  )
+                ],
 
-              // 위젯 추가
-              widget ?? const SizedBox(height: 70),
-            ],
+                // 위젯 추가
+                widget ?? const SizedBox(height: 70),
+              ],
+            ),
           ),
         ]),
       ),

@@ -36,6 +36,7 @@ dependencies:
   spincircle_bottom_bar: 2.0.0 #하단 써클 메뉴
   carousel_slider: #슬라이더
   dropdown_button2: #드롭 다운 커스텀 버전
+  simple_shadow: ^0.3.1 #png 그림자
 
   percent_indicator: ^4.0.1 #원 그래프
   fl_chart: ^0.62.0 #차트

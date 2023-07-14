@@ -323,6 +323,11 @@ class AppTextTheme {
       fontSize: 10,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
+  static const black10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: AppColor.black);
   static const black11 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 11,
@@ -449,19 +454,50 @@ class AppTextTheme {
       fontSize: 16,
       fontWeight: FontWeight.w700,
       color: AppColor.deepGrey);
+  //middleGrey
+  static const middleGrey8 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 8,
+      fontWeight: FontWeight.w400,
+      color: AppColor.middleGrey);
+  static const middleGrey8m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 8,
+      fontWeight: FontWeight.w500,
+      color: AppColor.middleGrey);
+  static const middleGrey8b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 8,
+      fontWeight: FontWeight.w700,
+      color: AppColor.middleGrey);
+  static const middleGrey10 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: AppColor.middleGrey);
+  static const middleGrey10m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: AppColor.middleGrey);
+  static const middleGrey10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: AppColor.middleGrey);
   static const middleGrey12 = TextStyle(
       fontFamily: 'noto_sans_kr',
-      fontSize: 14,
-      fontWeight: FontWeight.w300,
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
       color: AppColor.middleGrey);
   static const middleGrey12m = TextStyle(
       fontFamily: 'noto_sans_kr',
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: FontWeight.w500,
       color: AppColor.middleGrey);
   static const middleGrey12b = TextStyle(
       fontFamily: 'noto_sans_kr',
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: FontWeight.w700,
       color: AppColor.middleGrey);
   static const middleGrey24 = TextStyle(
