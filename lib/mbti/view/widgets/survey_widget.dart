@@ -101,6 +101,7 @@ class SurveyWidget extends ConsumerWidget {
                                   ),
                                   child: Row(
                                     children: [
+                                      // todo 이미지도 받아서 사용
                                       Image.asset(
                                           'assets/images/character_coiz_3.png',
                                           width: 24),
