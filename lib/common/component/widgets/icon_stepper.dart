@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
-
-import '../../../main.dart';
-import '../../layout/app_text.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class IconStepper extends StatelessWidget {
   const IconStepper(
@@ -26,8 +24,6 @@ class IconStepper extends StatelessWidget {
   final List<String>? _titles;
   final int _curStep;
   final Color _activeColor;
-  final Color _inactiveColor = AppColor.grey;
-  final Color _activeIconColor = Colors.white;
   final Color _inactiveCircleColor = Colors.white;
   final Color _inactiveLineColor = AppColor.lightGrey;
   final Color _inactiveTextColor = AppColor.grey;
@@ -57,7 +53,6 @@ class IconStepper extends StatelessWidget {
   List<Widget> _iconViews() {
     var list = <Widget>[];
     _icons.asMap().forEach((i, icon) {
-      logger.i(_curStep, i);
       //상태에 따른 각 색상
       var circleColor =
           (i == 0 || _curStep >= i) ? _activeColor : _inactiveCircleColor;
