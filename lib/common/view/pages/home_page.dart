@@ -12,7 +12,6 @@ import 'package:beauty_care/common/provider/home_state_provider.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
-import 'package:beauty_care/common/component/widgets/custom_circle_indicator.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart';
 import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
@@ -176,7 +175,11 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                   // 피부 타입 별 카테고리
                   HorizontalCategoryWidget(
-                    onPressed: homeState.setBannerIndex,
+                    // onPressed: homeState.setBannerIndex,
+                    onPressed: (index) {
+                      homeState.bannerCurIndex = index;
+                      homeState.crouselController.jumpToPage(index);
+                    },
                     curIndex: homeState.bannerCurIndex,
                     categories: homeState.typeCategories,
                   ),
@@ -205,7 +208,10 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                   // 제품 라인 별 카테고리
                   HorizontalCategoryWidget(
-                    onPressed: homeState.setLineIndex,
+                    onPressed: (index) {
+                      homeState.productCurIndex = index;
+                      homeState.resetState();
+                    },
                     curIndex: homeState.productCurIndex,
                     categories: homeState.lineCategories,
                   ),

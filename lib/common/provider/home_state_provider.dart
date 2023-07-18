@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 
+import '../../main.dart';
+
 final homeStateProvider = ChangeNotifierProvider<HomeState>((ref) {
   return HomeState();
 });
@@ -90,18 +92,6 @@ class HomeState extends ChangeNotifier {
 
   // 피부 고민 키워드
   List<String> keywords = ['건조', '색소침착', '트러블', '민감'];
-
-  setBannerIndex(int? index) {
-    bannerCurIndex = index!;
-    crouselController.jumpToPage(bannerCurIndex);
-    resetState();
-  }
-
-  setLineIndex(int? index) {
-    productCurIndex = index!;
-    // crouselController.jumpToPage(productCurIndex);
-    resetState();
-  }
 
   void resetState() {
     HomeState();

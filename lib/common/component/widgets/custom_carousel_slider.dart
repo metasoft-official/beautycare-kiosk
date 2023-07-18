@@ -5,6 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
+import '../../../main.dart';
+
 // ignore: must_be_immutable
 class CustomCarouselSlider extends StatelessWidget {
   CustomCarouselSlider({
