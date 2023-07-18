@@ -1,12 +1,12 @@
-import 'package:beauty_care/common/layout/app_color.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:spincircle_bottom_bar/modals.dart';
-import 'package:spincircle_bottom_bar/spincircle_bottom_bar.dart';
+
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class CustomBottomNavigationBar extends ConsumerWidget {
   final Widget child;
@@ -53,13 +53,13 @@ class CustomBottomNavigationBar extends ConsumerWidget {
             // ),
             SCItem(
                 icon: Icon(MdiIcons.giftOutline),
-                onPressed: () => context.pushNamed('survey')),
-            SCItem(
-                icon: const Icon(Icons.medical_services_outlined),
                 onPressed: () => context.pushNamed('cosmeticProduct')),
             SCItem(
-                icon: const Icon(Icons.medical_information_outlined),
+                icon: const Icon(Icons.medical_services_outlined),
                 onPressed: () => context.pushNamed('surgeryProduct')),
+            SCItem(
+                icon: const Icon(Icons.medical_information_outlined),
+                onPressed: () => context.pushNamed('survey')),
           ],
           bnbHeight: 80 // Suggested Height 80
           ),
@@ -493,6 +493,6 @@ class CustomSCBottomBarItem extends SCBottomBarItem {
           activeIcon: Icons.abc,
           icon: Icons.abc, // 아이콘을 사용하지 않으므로 임의의 값으로 설정
           title: title,
-          onPressed: () => {},
+          onPressed: onPressed,
         );
 }
