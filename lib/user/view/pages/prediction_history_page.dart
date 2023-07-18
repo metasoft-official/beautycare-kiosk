@@ -56,15 +56,15 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
               itemCount: 0,
-              nullMessage: '예측 이력이 없어요!',
+              nullMessage: '예측 이력',
             ),
             HistoryWidget(
               itemCount: 0,
-              nullMessage: '예측 이력이 없어요!',
+              nullMessage: '예측 이력',
             ),
             HistoryWidget(
               itemCount: 10,
-              nullMessage: '예측 이력이 없어요!',
+              nullMessage: '예측 이력',
             ),
           ],
         ));

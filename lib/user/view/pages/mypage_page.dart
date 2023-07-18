@@ -1,17 +1,18 @@
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
-import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
+
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
-import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/component/mixins/mark_texts_mixin.dart';
+import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/user/view/widgets/history_widget.dart';
-
-import '../../../common/component/widgets/button_bottom_navigation_bar.dart';
 
 class MypagePage extends ConsumerStatefulWidget {
   const MypagePage({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class MypageState extends ConsumerState<MypagePage> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userNotifierProvider);
+    final mypageState = ref.watch(mypageStateProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('마이페이지')),
@@ -116,21 +118,11 @@ class MypageState extends ConsumerState<MypagePage> {
             btnText: '전체보기',
           ),
           // 목록
-          const Expanded(
+          Expanded(
             child: HistoryWidget(
-              itemCount: 3,
-              nullMessage: '예측 결과가 없어요!',
-              titles: ['DRPT', 'DRPT', '습진'],
-              captions: [
-                'Oily, Resistant, Non-pigmented, Tight',
-                'Oily, Resistant, Non-pigmented, Tight',
-                'eczema'
-              ],
-              imgUrl: [
-                'assets/images/emoji_sample_profile.png',
-                'assets/images/sample_images_02.png',
-                'assets/images/sample_images_03.png'
-              ],
+              itemCount: mypageState.histories.length,
+              nullMessage: '예측 이력',
+              histories: mypageState.histories,
             ),
           )
         ],

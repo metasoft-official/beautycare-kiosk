@@ -1,4 +1,3 @@
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,18 +6,15 @@ import 'package:beauty_care/common/layout/app_text.dart';
 
 // 이미지와 내용이 Row 형태인 리스트 공통 위젯
 class HistoryWidget extends StatelessWidget {
-  const HistoryWidget({
-    Key? key,
-    required this.itemCount,
-    required this.nullMessage,
-    this.decoration,
-    this.margin,
-    this.padding,
-    this.imgUrl,
-    this.titles,
-    this.captions,
-    this.dates,
-  }) : super(key: key);
+  const HistoryWidget(
+      {Key? key,
+      required this.itemCount,
+      required this.nullMessage,
+      this.decoration,
+      this.margin,
+      this.padding,
+      this.histories})
+      : super(key: key);
 
   final int itemCount;
   final String nullMessage;
@@ -28,10 +24,7 @@ class HistoryWidget extends StatelessWidget {
   final EdgeInsets? padding;
 
   // todo: history entity 사용
-  final List<String>? imgUrl;
-  final List<String>? titles;
-  final List<String>? captions;
-  final List<String>? dates;
+  final List<Map<String, dynamic>>? histories;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +34,7 @@ class HistoryWidget extends StatelessWidget {
         ? Container(
             margin: const EdgeInsets.fromLTRB(24, 50, 24, 30),
             child: Column(children: [
-              Text(nullMessage, style: AppTextTheme.black18b),
+              Text('$nullMessage이 없습니다.', style: AppTextTheme.black18b),
             ]))
 
         // 아이템이 있는 경우 리스트 생성
@@ -67,7 +60,8 @@ class HistoryWidget extends StatelessWidget {
                           height: 56,
                           // todo : network
                           child: Image.asset(
-                            imgUrl?[index] ?? 'assets/images/sample_cat_01.png',
+                            histories?[index]['imgUrl'] ??
+                                'assets/images/sample_cat_01.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -80,21 +74,20 @@ class HistoryWidget extends StatelessWidget {
                             children: [
                               const SizedBox(height: 2),
                               Text(
-                                titles?[index] ?? 'DRPT',
+                                histories?[index]['title'] ?? '-',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTextTheme.black16b,
                               ),
                               Text(
-                                captions?[index] ??
-                                    'Oily, Resistant, Non-pigmented, Tight',
+                                histories?[index]['caption'] ?? '-',
                                 style: AppTextTheme.middleGrey12m,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                dates?[index] ?? '2023.06.08',
+                                histories?[index]['date'] ?? '-',
                                 style: AppTextTheme.blue12m,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
