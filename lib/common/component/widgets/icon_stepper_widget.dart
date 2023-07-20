@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
-class IconStepper extends StatelessWidget {
-  const IconStepper(
+class IconStepperWidget extends StatelessWidget {
+  const IconStepperWidget(
       {Key? key,
       required List<IconData> icons,
       required double width,

@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/mbti/provider/quiz_state_provider.dart';
 
-import 'package:beauty_care/common/component/widgets/icon_stepper.dart';
+import 'package:beauty_care/common/component/widgets/icon_stepper_widget.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
@@ -56,7 +56,7 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
               minExtent: 140,
               widget: Container(
                 color: Colors.white,
-                child: IconStepper(
+                child: IconStepperWidget(
                   icons: quizState.icons,
                   width: MediaQuery.of(context).size.width,
                   color: AppColor.appColor,
