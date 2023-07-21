@@ -198,7 +198,11 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                   const SizedBox(height: 12),
                   ProductListWidget(
-                      products: homeState.typeProducts, lankVisible: false),
+                    products: homeState.typeProducts,
+                    lankVisible: false,
+                    btnVisible: false,
+                    imgVisible: false,
+                  ),
 
                   // 화장품 추천 ==================================================
                   ListTitleWidget(
@@ -222,6 +226,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     btnVisible: true,
                     btnText: "인기상품 전체보기",
                     markText: '인기상품',
+                    imgVisible: false,
                   ),
                   const SizedBox(height: 28)
                 ]),

@@ -47,7 +47,7 @@ class HistoryWidget extends StatelessWidget {
                   onTap: () => context.pushNamed('mbtiResult'), //todo 각 요소로 이동
                   child: Container(
                     decoration: decoration ??
-                        AppBoxTheme.outlinedRoundedWitheBoxTheme, // 전체 박스
+                        AppBoxTheme.outlinedRoundedGreyWitheBoxTheme, // 전체 박스
                     margin: margin ?? const EdgeInsets.fromLTRB(24, 12, 24, 0),
                     padding: padding ?? const EdgeInsets.all(14),
                     child: Row(
