@@ -18,6 +18,9 @@ final userRepositoryProvider = Provider<UserRepository>((ref) =>
 final userNotifierProvider = StateNotifierProvider<UserNotifier, UserModel>(
     (ref) => UserNotifier(ref.read(userRepositoryProvider)));
 
+final loginNotifierProvider =
+    ChangeNotifierProvider<LoginState>((ref) => LoginState());
+
 // 토큰 저장
 class TokenStateNotifier extends StateNotifier<String> {
   TokenStateNotifier() : super('');
@@ -65,5 +68,18 @@ class UserNotifier extends StateNotifier<UserModel> {
       state = UserModel();
     }
     return 'error';
+  }
+}
+
+class LoginState extends ChangeNotifier {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isCheckedSavedId = false; // 아이디 저장
+  bool isCheckedAutoLogin = false; // 자동 로그인
+
+  void resetState() {
+    LoginState();
+    notifyListeners();
   }
 }

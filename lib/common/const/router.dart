@@ -16,7 +16,6 @@ import 'package:beauty_care/user/view/pages/find_id_page.dart';
 import 'package:beauty_care/user/view/pages/mypage_page.dart';
 import 'package:beauty_care/user/view/pages/profile_edit_page.dart';
 import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
-import 'package:beauty_care/user/view/pages/skin_history_page.dart';
 import 'package:beauty_care/user/view/pages/wish_list_page.dart';
 
 import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
@@ -126,12 +125,6 @@ final GoRouter router = GoRouter(
       name: PredictionHistoryPage.routeName,
       builder: (context, state) => const PredictionHistoryPage(),
     ),
-    GoRoute(
-      path: '/skin-history',
-      name: SkinHistoryPage.routeName,
-      builder: (context, state) => const SkinHistoryPage(),
-    ),
-
     // 알림
     GoRoute(
       path: '/noti',

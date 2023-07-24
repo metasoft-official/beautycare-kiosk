@@ -233,8 +233,6 @@ class HomePageState extends ConsumerState<HomePage> {
               ),
             ],
           ),
-        )
-        // bottomNavigationBar: const CustomBottomNavigationBar(),
-        );
+        ));
   }
 }

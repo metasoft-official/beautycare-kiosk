@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 class PreCheckListWidget extends StatelessWidget {
   final String boldText;
   final String text;
-  final IconData iconData;
-
-  // final Widget child;
+  final String imgUrl;
 
   const PreCheckListWidget(
       {super.key,
-      // required this.child,
       required this.boldText,
       required this.text,
-      required this.iconData});
+      required this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +35,12 @@ class PreCheckListWidget extends StatelessWidget {
           ],
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Icon(iconData)),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-            child: Row(children: [
-              Text(boldText, style: AppTextTheme.black16b),
-              Text(text, style: AppTextTheme.black16)
-            ]),
-          )
+          Image.asset(imgUrl, width: 25),
+          const SizedBox(width: 20),
+          Row(children: [
+            Text(boldText, style: AppTextTheme.black16b),
+            Text(text, style: AppTextTheme.black16)
+          ]),
         ]),
       );
     });

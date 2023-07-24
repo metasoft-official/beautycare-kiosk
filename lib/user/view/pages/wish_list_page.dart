@@ -53,11 +53,11 @@ class WishListState extends ConsumerState<WishListPage>
           // todo : 위시리스트 entity 전달
           HistoryWidget(
             itemCount: 0,
-            nullMessage: '찜한 내역이 없어요!',
+            nullType: 'wishList',
           ),
           HistoryWidget(
             itemCount: 0,
-            nullMessage: '찜한 내역이 없어요!',
+            nullType: 'wishList',
           ),
         ],
       ),

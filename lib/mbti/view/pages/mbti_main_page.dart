@@ -121,7 +121,7 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
       bottomNavigationBar: ButtonBottomNavigationBarWidget(
         buttonColor: AppColor.appColor,
         textStyle: AppTextTheme.white14b,
-        label: '다음 단계',
+        label: quizState.curStep == 3 ? '결과 확인하기' : '다음 단계',
         onPressed: () {
           quizState.curStep < 3
               ? quizState.increaseStep()

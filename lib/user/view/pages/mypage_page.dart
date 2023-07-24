@@ -121,8 +121,8 @@ class MypageState extends ConsumerState<MypagePage> {
           Expanded(
             child: HistoryWidget(
               itemCount: mypageState.histories.length,
-              nullMessage: '예측 이력',
               histories: mypageState.histories,
+              nullType: 'history',
             ),
           )
         ],

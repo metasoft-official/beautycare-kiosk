@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:spincircle_bottom_bar/modals.dart';
 
+import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
@@ -16,6 +17,8 @@ class CustomBottomNavigationBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateProvider.notifier);
+
     return CustomSpinCircleBottomBarHolder(
       bottomNavigationBar: CustomSCBottomBarDetails(
           circleColors: [Colors.white, AppColor.lightBlue, AppColor.appColor],
@@ -33,17 +36,20 @@ class CustomBottomNavigationBar extends ConsumerWidget {
           items: [
             // Suggested count : 4
             CustomSCBottomBarItem(
-                icon: Icons.abc,
-                activeIcon: Icons.abc,
-                assetPath: 'assets/icons/ic_home.svg',
-                title: '홈',
-                onPressed: () => context.pushNamed('home')),
+              icon: Icons.abc,
+              activeIcon: Icons.abc,
+              assetPath: 'assets/icons/ic_home.svg',
+              title: '홈',
+              onPressed: () => context.pushNamed('home'),
+            ),
             CustomSCBottomBarItem(
-                icon: Icons.abc,
-                activeIcon: Icons.abc,
-                assetPath: 'assets/icons/ic_skincare.svg',
-                title: '스킨케어',
-                onPressed: () => context.pushNamed('cosmeticProduct')),
+              icon: Icons.abc,
+              activeIcon: Icons.abc,
+              assetPath: 'assets/icons/ic_skincare.svg',
+              title: '스킨케어',
+              onPressed: () =>
+                  authState.navigateToPage(context, ref, 'cosmeticProduct'),
+            ),
           ],
           circleItems: [
             //Suggested Count: 3

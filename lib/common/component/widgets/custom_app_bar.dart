@@ -33,28 +33,26 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
           ),
         ),
         const Spacer(),
-        IconButton(
-          onPressed: () => context.pushNamed('login'),
-          icon: const Icon(
-            Icons.search,
-            color: AppColor.grey,
-          ),
+        InkWell(
+          onTap: () => context.pushNamed('login'),
+          child: Image.asset('assets/icons/ic_search_grey.png', width: 16),
         ),
-        IconButton(
-          onPressed: () =>
-              authStateNotifier.navigateToPage(context, ref, 'mypage'),
-          icon: const Icon(
-            Icons.person_2_outlined,
-            color: AppColor.grey,
-          ),
+        const SizedBox(width: 16),
+        InkWell(
+          onTap: () => authStateNotifier.navigateToPage(context, ref, 'mypage'),
+          child: Image.asset('assets/icons/ic_person_grey.png', width: 16),
         ),
-        IconButton(
-          onPressed: () => context.pushNamed('noti'),
-          icon: const Icon(
-            Icons.notifications_outlined,
-            color: AppColor.grey,
-          ),
+        const SizedBox(width: 16),
+        // noti.length == null?
+        InkWell(
+          onTap: () => context.pushNamed('noti'),
+          child: Image.asset('assets/icons/ic_notice_grey.png', width: 16),
         ),
+        //   : InkWell(
+        //   onTap: () => context.pushNamed('noti'),
+        //   child: Image.asset('assets/icons/ic_notice.png', width: 16),
+        // ),
+        const SizedBox(width: 10),
       ]),
     );
   }
