@@ -369,30 +369,6 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                         borderRadius: BorderRadius.circular(30)),
                   ),
                 ]),
-                const SizedBox(height: 16),
-
-                // 다른 지역 선택 버튼
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    icon: const Icon(
-                      Icons.location_on_rounded,
-                      size: 24,
-                      color: AppColor.black,
-                    ),
-                    style: AppButtonTheme.greyElevatedButtonTheme.copyWith(
-                        shape: MaterialStateProperty.resolveWith((states) {
-                      return RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10));
-                    })),
-                    onPressed: () {},
-                    label: const Text(
-                      '다른 지역 선택',
-                      style: AppTextTheme.black12b,
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 32),
               ],
             ),

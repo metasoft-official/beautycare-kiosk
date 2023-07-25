@@ -47,17 +47,21 @@ class SurgeryProductPageState extends ConsumerState<SurgeryProductPage> {
                       contentPadding: const EdgeInsets.fromLTRB(0, 10, 20, 10)),
                 ),
                 const Expanded(
-                  child: ProductGridWidget(
-                      // todo : model 생성 후 model 리스트 전달
-                      productUrl: [
-                        'https://oxygenceuticals.co.kr/etc/equipment.html'
-                      ],
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      imgUrl: ["assets/images/sample_m_1.png"],
-                      category: ['엠레드 클리닉'],
-                      title: ['순수산소테라피']),
+                  child: CustomScrollView(
+                    slivers: [
+                      ProductGridWidget(
+                          // todo : model 생성 후 model 리스트 전달
+                          productUrl: [
+                            'https://oxygenceuticals.co.kr/etc/equipment.html'
+                          ],
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          imgUrl: ["assets/images/sample_m_1.png"],
+                          category: ['엠레드 클리닉'],
+                          title: ['순수산소테라피']),
+                    ],
+                  ),
                 ),
               ],
             )));

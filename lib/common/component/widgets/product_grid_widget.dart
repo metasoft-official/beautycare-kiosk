@@ -48,79 +48,77 @@ class ProductGridWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final productState = ref.watch(productStateProvider);
 
-    return CustomScrollView(slivers: [
-      SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            mainAxisSpacing: mainAxisSpacing ?? 10.0,
-            crossAxisSpacing: crossAxisSpacing ?? 10.0),
-        delegate: SliverChildBuilderDelegate(
-          childCount: category.length,
-          (BuildContext context, int index) {
-            return Wrap(
-              children: [
-                Container(
-                  padding: padding ??
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: boxDecoration,
-                  child: InkWell(
-                    onTap: () {
-                      productState.openWeb(productUrl[index]);
-                    },
-                    child: widget ??
-                        Column(
-                          children: [
-                            Container(
-                                width: double.infinity,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColor.lightGrey, width: 2)),
-                                child: Image.asset(imgUrl[index])),
-                            const SizedBox(height: 8),
-                            SizedBox(
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: mainAxisSpacing ?? 10.0,
+          crossAxisSpacing: crossAxisSpacing ?? 10.0),
+      delegate: SliverChildBuilderDelegate(
+        childCount: category.length,
+        (BuildContext context, int index) {
+          return Wrap(
+            children: [
+              Container(
+                padding: padding ??
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: boxDecoration,
+                child: InkWell(
+                  onTap: () {
+                    productState.openWeb(productUrl[index]);
+                  },
+                  child: widget ??
+                      Column(
+                        children: [
+                          Container(
                               width: double.infinity,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      category[index],
-                                      style: AppTextTheme.grey12,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColor.lightGrey, width: 2)),
+                              child: Image.asset(imgUrl[index])),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    category[index],
+                                    style: AppTextTheme.grey12,
+                                  ),
+                                  Text(
+                                    title[index]
+                                        .replaceAll('', '\u{200B}'), //말줄임 적용
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTextTheme.black14m,
+                                  ),
+                                  if (price != null) ...[
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          price![index] ?? '-',
+                                          style: AppTextTheme.black16b,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        const Text(
+                                          '원',
+                                          style: AppTextTheme.grey12,
+                                        )
+                                      ],
                                     ),
-                                    Text(
-                                      title[index]
-                                          .replaceAll('', '\u{200B}'), //말줄임 적용
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTextTheme.black14m,
-                                    ),
-                                    if (price != null) ...[
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            price![index] ?? '-',
-                                            style: AppTextTheme.black16b,
-                                          ),
-                                          const SizedBox(width: 4),
-                                          const Text(
-                                            '원',
-                                            style: AppTextTheme.grey12,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ]),
-                            ),
-                          ],
-                        ),
-                  ),
+                                  ],
+                                ]),
+                          ),
+                        ],
+                      ),
                 ),
-              ],
-            );
-          },
-        ),
-      )
-    ]);
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }

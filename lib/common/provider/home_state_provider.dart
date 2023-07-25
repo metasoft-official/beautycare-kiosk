@@ -91,7 +91,16 @@ class HomeState extends ChangeNotifier {
   ];
 
   // 피부 고민 키워드
-  List<String> keywords = ['건조', '색소침착', '트러블', '민감'];
+  List<String> keywords = [
+    '건조',
+    '색소침착',
+    '트러블',
+    '민감',
+    '건조',
+    '색소침착',
+    '트러블',
+    '민감'
+  ];
 
   void resetState() {
     HomeState();
