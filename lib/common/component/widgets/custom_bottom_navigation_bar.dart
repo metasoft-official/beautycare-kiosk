@@ -40,16 +40,16 @@ class CustomBottomNavigationBar extends ConsumerWidget {
               activeIcon: Icons.abc,
               assetPath: 'assets/icons/ic_home.svg',
               title: '홈',
-              onPressed: () => context.pushNamed('home'),
+              onPressed: () => context.goNamed('home'),
             ),
             CustomSCBottomBarItem(
-              icon: Icons.abc,
-              activeIcon: Icons.abc,
-              assetPath: 'assets/icons/ic_skincare.svg',
-              title: '스킨케어',
-              onPressed: () =>
-                  authState.navigateToPage(context, ref, 'cosmeticProduct'),
-            ),
+                icon: Icons.abc,
+                activeIcon: Icons.abc,
+                assetPath: 'assets/icons/ic_skincare.svg',
+                title: '스킨케어',
+                onPressed: () => context.pushNamed('cosmeticProduct')
+                // authState.navigateToPage(context, ref, 'cosmeticProduct'),
+                ),
           ],
           circleItems: [
             //Suggested Count: 3

@@ -14,6 +14,9 @@ class HomeState extends ChangeNotifier {
   // 제품 현재 인덱스
   int productCurIndex = 0;
 
+  //product - type
+  int typeCurIndex = 0;
+
   // 배너 슬라이드 컨트롤러
   CarouselController crouselController = CarouselController();
 

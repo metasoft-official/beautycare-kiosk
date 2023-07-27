@@ -158,8 +158,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           if (authState == true) {
                             // 로그인 페이지를 pop
                             // context.pop();
-                            // context.pushNamed(routeName);
-                            context.goNamed('home');
+                            context.pushNamed(routeName);
+                            // context.goNamed('home');
                           } else {
                             // 로그인 실패 처리
                           }

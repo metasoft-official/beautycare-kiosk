@@ -113,7 +113,9 @@ class ProductListWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                products[0]['category'] ?? '-',
+                                products[0]['category'] ??
+                                    products[0]['skintypeCategory'] ??
+                                    '-',
                                 style: AppTextTheme.middleGrey8,
                               ),
                               Text(
