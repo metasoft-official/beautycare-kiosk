@@ -60,7 +60,7 @@ class HomeState extends ChangeNotifier {
   List<Map<String, dynamic>> typeProducts = [
     {
       'image': 'assets/images/sample_c_02.png',
-      'category': '건성피부/수분',˚
+      'category': '건성피부/수분',
       'name': '모이스춰 아쿠아세럼 50ml',
       'price': '75,000',
     },
