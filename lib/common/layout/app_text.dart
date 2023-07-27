@@ -516,6 +516,21 @@ class AppTextTheme {
       fontSize: 12,
       fontWeight: FontWeight.w700,
       color: AppColor.middleGrey);
+  static const middleGrey16 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: AppColor.middleGrey);
+  static const middleGrey16m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: AppColor.middleGrey);
+  static const middleGrey16b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: AppColor.middleGrey);
   static const middleGrey24 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,

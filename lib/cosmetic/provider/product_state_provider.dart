@@ -16,8 +16,8 @@ class ProductState extends ChangeNotifier {
   CarouselController carouselController = CarouselController();
 
   List<String> promotionList = [
-    'assets/images/sample_images_01.png',
-    'assets/images/sample_images_02.png'
+    'assets/images/promotion_banner_01.png',
+    'assets/images/promotion_banner_02.png'
   ];
   int curIndex = 0;
 
@@ -29,8 +29,11 @@ class ProductState extends ChangeNotifier {
     '미백',
     '시술 후 처치'
   ];
-  String troubleSelectedValue = '';
-  String periodSelectedValue = '';
+  List<String> periods = ['오늘', '이번 주', '이번 달'];
+  List<String> orders = ['인기순', '가격 낮은 순', '가격 높은 순'];
+  String troubleSelectedValue = '민감';
+  String periodSelectedValue = '오늘';
+  String orderSelectedValue = '인기순';
 
   selectDropdown(String? category, String? value) {
     if (value != null) {

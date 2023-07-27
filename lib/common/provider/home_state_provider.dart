@@ -12,10 +12,9 @@ class HomeState extends ChangeNotifier {
   // 배너 현재 인덱스
   int bannerCurIndex = 0;
   // 제품 현재 인덱스
-  int productCurIndex = 0;
-
-  //product - type
-  int typeCurIndex = 0;
+  int mainTypeCurIndex = 0; //main
+  int productTypeCurIndex = 0; //cosmetic
+  int productLineCurIndex = 0; //cosmetic
 
   // 배너 슬라이드 컨트롤러
   CarouselController crouselController = CarouselController();
@@ -60,13 +59,13 @@ class HomeState extends ChangeNotifier {
 
   List<Map<String, dynamic>> typeProducts = [
     {
-      'image': 'assets/images/sample_c_01.png',
-      'category': '건성피부/수분',
+      'image': 'assets/images/sample_c_02.png',
+      'category': '건성피부/수분',˚
       'name': '모이스춰 아쿠아세럼 50ml',
       'price': '75,000',
     },
     {
-      'image': 'assets/images/sample_c_01.png',
+      'image': 'assets/images/sample_c_03.png',
       'category': '건성피부/수분',
       'name': '하이드레이팅 크림 50ml',
       'price': '88,000',
@@ -80,13 +79,13 @@ class HomeState extends ChangeNotifier {
       'price': '95,000',
     },
     {
-      'image': 'assets/images/sample_c_01.png',
+      'image': 'assets/images/sample_c_02.png',
       'category': '건성피부/수분',
       'name': '모이스춰 아쿠아세럼 50ml',
       'price': '75,000',
     },
     {
-      'image': 'assets/images/sample_c_01.png',
+      'image': 'assets/images/sample_c_03.png',
       'category': '건성피부/수분',
       'name': '하이드레이팅 크림 50ml',
       'price': '88,000',

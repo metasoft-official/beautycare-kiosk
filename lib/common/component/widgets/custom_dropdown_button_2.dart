@@ -16,7 +16,8 @@ class CustomDropdownButton2 extends StatelessWidget {
       this.scrollbarTheme,
       this.buttonStyle,
       this.selectedStyle,
-      this.itemStyle})
+      this.itemStyle,
+      this.boxDecoration})
       : super(key: key);
 
   // null값 허용이어도 필수 작성해야하는 필드
@@ -31,6 +32,7 @@ class CustomDropdownButton2 extends StatelessWidget {
   final ButtonStyleData? buttonStyle;
   final TextStyle? selectedStyle;
   final TextStyle? itemStyle;
+  final BoxDecoration? boxDecoration;
 
   @override
   Widget build(BuildContext context) {

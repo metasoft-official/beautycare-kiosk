@@ -213,10 +213,10 @@ class HomePageState extends ConsumerState<HomePage> {
                   // 제품 라인 별 카테고리
                   HorizontalCategoryWidget(
                     onPressed: (index) {
-                      homeState.productCurIndex = index;
+                      homeState.mainTypeCurIndex = index;
                       homeState.resetState();
                     },
-                    curIndex: homeState.productCurIndex,
+                    curIndex: homeState.mainTypeCurIndex,
                     categories: homeState.lineCategories,
                   ),
                   const SizedBox(height: 12),

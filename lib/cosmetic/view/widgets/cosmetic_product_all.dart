@@ -1,4 +1,3 @@
-import 'package:beauty_care/common/component/widgets/custom_dropdown_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -63,23 +62,34 @@ class CosmeticProductAll extends ConsumerWidget {
 
                 // 프로모션 더보기 버튼
                 Positioned(
-                  bottom: 8,
-                  right: 8,
+                  bottom: 12,
+                  right: 20,
                   child: Container(
-                      padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+                      padding: const EdgeInsets.fromLTRB(12, 5, 6, 5),
                       decoration: BoxDecoration(
-                        color: AppColor.black.withOpacity(0.5),
+                        color: AppColor.black.withOpacity(0.6),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(5),
                         ),
                       ),
-                      child: Text('프로모션 전체보기',
-                          style: AppTextTheme.white12b.copyWith(height: 1.2))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('프로모션 전체보기',
+                              style:
+                                  AppTextTheme.white12b.copyWith(height: 1.2)),
+                          const Icon(
+                            Icons.navigate_next,
+                            size: 16,
+                            color: Colors.white,
+                          )
+                        ],
+                      )),
                 )
               ],
             ),
 
-            // 슬라이더 바 인디케이터
+            // 슬라이더 바 인디케이터 ===============================================
             Stack(children: [
               Container(
                   width: MediaQuery.of(context).size.width,
@@ -95,10 +105,13 @@ class CosmeticProductAll extends ConsumerWidget {
             ]),
             const SizedBox(height: 16),
           ],
+
+          // 취향저격 ===========================================================
           ListTitleWidget(
             text: '${user.name}님 취향저격 화장품',
             markText: user.name,
           ),
+          // 카테고리
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
@@ -128,6 +141,7 @@ class CosmeticProductAll extends ConsumerWidget {
               ),
             ),
           ),
+          // 취향저격 리스트
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: ProductGridWidget(
@@ -135,6 +149,7 @@ class CosmeticProductAll extends ConsumerWidget {
                 products: productState.products),
           ),
           const SizedBox(height: 20),
+          // 광고 배너 ===========================================================
           InkWell(
             onTap: () {
               // context.pushNamed('clinic');
@@ -147,10 +162,47 @@ class CosmeticProductAll extends ConsumerWidget {
               ),
             ),
           ),
+          // 공병템 =============================================================
           ListTitleWidget(
             text: '${user.name}님의 공병템이 될 상품',
             markText: user.name,
           ),
+          // 고민 필터
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: AppColor.appBackgroundColor))),
+                    child: Row(
+                      children: [
+                        Text(
+                          productState.troubleSelectedValue,
+                          style: AppTextTheme.blue16b.copyWith(height: 1.2),
+                        ),
+                        const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 20,
+                          color: AppColor.appColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Text(
+                  '이 고민이라면',
+                  style: AppTextTheme.middleGrey16m,
+                )
+              ],
+            ),
+          ),
+          // 공병템 제품 리스트
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: ProductGridWidget(
@@ -158,18 +210,62 @@ class CosmeticProductAll extends ConsumerWidget {
                 products: productState.products),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              CustomDropdownButton2(
-                items: productState.troubleCategories,
-                hint: '민감',
-                value: productState.troubleSelectedValue,
-                onChanged: (value) {
-                  productState.selectDropdown('trouble', value);
-                },
-              ),
-            ],
+
+          // 인기상품 ===========================================================
+          // 기간 필터
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: AppColor.appBackgroundColor))),
+                    child: Row(
+                      children: [
+                        Text(
+                          productState.periodSelectedValue,
+                          style: AppTextTheme.blue20b.copyWith(height: 1.2),
+                        ),
+                        const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 20,
+                          color: AppColor.appColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Text(
+                  '제일 잘 나갔어요',
+                  style: AppTextTheme.black20m,
+                ),
+                const Spacer(),
+                // 더보기
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: const [
+                      Text('더보기', style: AppTextTheme.blue12b),
+                      // 화살표
+                      Icon(
+                        Icons.navigate_next,
+                        size: 16,
+                        color: AppColor.appColor,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
+          const SizedBox(height: 8),
+          // 인기 제품 리스트
           ProductListWidget(
               products: productState.lankProducts,
               lankVisible: true,

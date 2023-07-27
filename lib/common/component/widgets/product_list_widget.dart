@@ -308,22 +308,23 @@ class ProductListWidget extends StatelessWidget {
                       context.goNamed(btnUrlName!);
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       decoration: const BoxDecoration(
                           color: AppColor.superLightGrey,
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10))),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           MarkTextsWidget(
                             markText: markText ?? '-',
                             text: btnText ?? '-',
                             defaultTextStyle:
-                                AppTextTheme.black12m.copyWith(height: 1.2),
+                                AppTextTheme.black12m.copyWith(height: 1.0),
                             markTextStyle:
-                                AppTextTheme.blue12b.copyWith(height: 1.2),
+                                AppTextTheme.blue12b.copyWith(height: 1.0),
                           ),
                           const Icon(
                             Icons.navigate_next,

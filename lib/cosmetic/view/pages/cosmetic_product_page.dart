@@ -1,16 +1,17 @@
-import 'package:beauty_care/common/provider/home_state_provider.dart';
 import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
+import 'package:beauty_care/common/provider/home_state_provider.dart';
 
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
-import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_sliver_grid_widget.dart';
-import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_all.dart';
+import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
+import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_all.dart';
+import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_order.dart';
 
 class CosmeticProductPage extends ConsumerStatefulWidget {
   const CosmeticProductPage({Key? key}) : super(key: key);
@@ -62,22 +63,25 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                   ),
                 ),
                 bottomSize: 60),
+            // 전체 ============================================================
             if (tabController.index == 0) ...[
               const CosmeticProductAll(),
-            ] else if (tabController.index == 1) ...[
+            ]
+            // 피부 타입 별 =====================================================
+            else if (tabController.index == 1) ...[
+              CosmeticProductOrder(
+                selectedValue: productState.orderSelectedValue,
+                orderCategories: productState.orders,
+                onTap: () {},
+              ),
               SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    HorizontalCategoryWidget(
-                      onPressed: (index) {
-                        homeState.typeCurIndex = index;
-                        homeState.resetState();
-                      },
-                      curIndex: homeState.typeCurIndex,
-                      categories: homeState.typeCategories,
-                    ),
-                  ],
+                child: HorizontalCategoryWidget(
+                  onPressed: (index) {
+                    homeState.productTypeCurIndex = index;
+                    homeState.resetState();
+                  },
+                  curIndex: homeState.productTypeCurIndex,
+                  categories: homeState.typeCategories,
                 ),
               ),
               SliverPadding(
@@ -86,7 +90,24 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                 sliver:
                     ProductSliverGridWidget(products: productState.products),
               )
-            ] else ...[
+            ]
+            // 사용 단계 별 =====================================================
+            else ...[
+              CosmeticProductOrder(
+                selectedValue: productState.orderSelectedValue,
+                orderCategories: productState.orders,
+                onTap: () {},
+              ),
+              SliverToBoxAdapter(
+                child: HorizontalCategoryWidget(
+                  onPressed: (index) {
+                    homeState.productLineCurIndex = index;
+                    homeState.resetState();
+                  },
+                  curIndex: homeState.productLineCurIndex,
+                  categories: homeState.lineCategories,
+                ),
+              ),
               SliverPadding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
