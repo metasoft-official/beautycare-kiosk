@@ -145,52 +145,66 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                     text: '${user.name}님 취향저격 화장품',
                     markText: user.name,
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                    width: double.infinity,
-                    height: 50,
-                    child: ListView.builder(
-                        padding: const EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: homeState.keywords.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 12),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(35)),
-                                border: Border.all(color: AppColor.appColor)),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                '#${homeState.keywords[index]}',
-                                style: AppTextTheme.blue14b,
-                                textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for (var i = 0;
+                              i < homeState.keywords.length;
+                              i++) ...[
+                            Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 12),
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(35)),
+                                  border: Border.all(color: AppColor.appColor)),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '#${homeState.keywords[i]}',
+                                  style: AppTextTheme.blue14b,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        scrollDirection: Axis.horizontal),
+                            )
+                          ]
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            const ProductGridWidget(
-              // todo : model 생성 후 model 리스트 전달
-              productUrl: [
-                'https://oxygenceuticals.co.kr/product/detail.html?product_no=35&cate_no=55&display_group=1'
-              ],
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              imgUrl: ["assets/images/sample_c_01.png"],
-              category: ['수분'],
-              title: ['에이셀300 플루이드 50ml'],
-              price: ['95,000'],
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              sliver: SliverToBoxAdapter(
+                child: ProductGridWidget(
+                    // todo : model 생성 후 model 리스트 전달
+                    products: productState.products),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: InkWell(
+                  onTap: () {
+                    // context.pushNamed('clinic');
+                  },
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Image.asset(
+                      'assets/images/shop_banner.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  )),
+            ),
+            SliverToBoxAdapter(
+              child: ListTitleWidget(
+                text: '${user.name}님의 공병템이 될 상품',
+                markText: user.name,
+              ),
             )
           ],
         ),
