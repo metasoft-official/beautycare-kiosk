@@ -53,10 +53,10 @@ class HomeBannerWidget extends StatelessWidget {
           if (imgUrl != null) ...[
             Positioned(
               top: top,
-              bottom: bottom ?? -40,
+              bottom: bottom ?? 0,
               left: left,
-              right: right ?? -40,
-              child: Image.asset(imgUrl!, width: width ?? 240),
+              right: right ?? 0,
+              child: Image.asset(imgUrl!, width: width ?? 160),
             )
           ],
 

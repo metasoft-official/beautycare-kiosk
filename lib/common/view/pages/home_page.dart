@@ -67,7 +67,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   if (authState == false) ...[
                     // 피부질환 예측하기
                     HomeBannerWidget(
-                      imgUrl: 'assets/images/main_stack_sample.png',
+                      imgUrl: 'assets/images/main_stack_01.png',
                       title: '나의 피부 질환을\n예측해보세요.',
                       markText: '피부 질환',
                       caption: '피부에 숨겨진 문제를 찾아,\n맞춤형 시술과 화장품을\n추천해 드립니다.',
@@ -77,7 +77,8 @@ class HomePageState extends ConsumerState<HomePage> {
                     ),
                     // 피부MBTI 예측하기
                     HomeBannerWidget(
-                      imgUrl: 'assets/images/main_stack_sample.png',
+                      bottom: -30,
+                      imgUrl: 'assets/images/main_stack_02.png',
                       title: '나의 피부 MBTI가\n궁금하지 않으세요?',
                       markText: '피부 MBTI',
                       caption: 'AI로 진단 받아 보시고,\n체계적으로 관리해보세요!',
@@ -105,7 +106,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           top: -20,
                           right: -20,
                           child: Image.asset(
-                            'assets/images/character_coiz_3.png',
+                            'assets/images/main_stack_03.png',
                             opacity: const AlwaysStoppedAnimation(.5),
                             width: 200,
                           ),
