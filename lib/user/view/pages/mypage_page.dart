@@ -1,3 +1,5 @@
+import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +30,7 @@ class MypageState extends ConsumerState<MypagePage> {
   Widget build(BuildContext context) {
     final user = ref.watch(userNotifierProvider);
     final mypageState = ref.watch(mypageStateProvider);
+    logger.d(mypageState.longClickState);
 
     return Scaffold(
       appBar: AppBar(title: const Text('마이페이지')),
@@ -120,6 +123,19 @@ class MypageState extends ConsumerState<MypagePage> {
           // 목록
           Expanded(
             child: HistoryWidget(
+              onTap: () => context.pushNamed('mbtiResult'),
+              onLongPress: (index) => {
+                mypageState.longClickState == -1
+                    ? {
+                        mypageState.isLongClicked[index] = true,
+                        mypageState.longClickState = index
+                      }
+                    : mypageState.longClickState = -1,
+                mypageState.resetState()
+              },
+              longPressedDecoration: mypageState.longClickState > -1
+                  ? AppBoxTheme.outlineRoundedLongPressedBoxTheme
+                  : null,
               itemCount: mypageState.histories.length,
               histories: mypageState.histories,
               nullType: 'history',
@@ -127,19 +143,55 @@ class MypageState extends ConsumerState<MypagePage> {
           )
         ],
       ),
-      bottomNavigationBar: ButtonBottomNavigationBarWidget(
-        buttonColor: AppColor.lightGrey,
-        textStyle: AppTextTheme.blue14b,
-        label: '로그아웃',
-        onPressed: () {
-          // todo 로그아웃
-        },
-        icon: const Icon(
-          Icons.exit_to_app,
-          color: AppColor.appColor,
-          size: 20,
-        ),
-      ),
+      bottomNavigationBar: mypageState.longClickState == -1
+          ? ButtonBottomNavigationBarWidget(
+              buttonColor: AppColor.lightGrey,
+              textStyle: AppTextTheme.blue14b,
+              label: '로그아웃',
+              onPressed: () {
+                // todo 로그아웃
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: AppColor.appColor,
+                size: 20,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: AppButtonTheme.outlinedBasicButtonTheme,
+                        onPressed: () => {
+                          mypageState.longClickState = -1,
+                          mypageState.resetState()
+                        },
+                        child: const Text('취소', style: AppTextTheme.blue16b),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Flexible(
+                      flex: 1,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(
+                            '결과 공유하기',
+                            style: AppTextTheme.white16b,
+                          ),
+                        ),
+                      ))
+                ],
+              ),
+            ),
     );
   }
 }

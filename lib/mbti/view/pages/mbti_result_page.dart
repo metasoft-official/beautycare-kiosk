@@ -43,7 +43,6 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
         leading: IconButton(
           onPressed: () {
             context.pop();
-            context.goNamed('home');
           },
           icon: const Icon(Icons.arrow_back_rounded),
         ),
@@ -280,8 +279,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       itemBuilder:
                           (BuildContext context, int itemIndex, int realIndex) {
                         return Container(
-                          decoration:
-                              AppBoxTheme.outlinedRoundedGreyWitheBoxTheme,
+                          decoration: AppBoxTheme.outlinedRoundedGreyBoxTheme,
                           margin: const EdgeInsets.only(right: 16),
                           child: Column(
                             children: [

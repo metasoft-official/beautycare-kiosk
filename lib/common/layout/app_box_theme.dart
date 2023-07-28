@@ -21,8 +21,13 @@ class AppBoxTheme {
     borderRadius: BorderRadius.circular(30),
     border: Border.all(color: AppColor.appColor),
   );
-  static final outlinedRoundedGreyWitheBoxTheme = BoxDecoration(
-    color: Colors.white,
+  static final outlinedRoundedGreyBoxTheme = BoxDecoration(
+    color: Colors.transparent,
+    borderRadius: const BorderRadius.all(Radius.circular(10)),
+    border: Border.all(color: AppColor.lightGrey),
+  );
+  static final outlineRoundedLongPressedBoxTheme = BoxDecoration(
+    color: AppColor.whiteBlue,
     borderRadius: const BorderRadius.all(Radius.circular(10)),
     border: Border.all(color: AppColor.lightGrey),
   );
