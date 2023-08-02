@@ -24,14 +24,18 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
     return SliverAppBar(
       toolbarHeight: 60,
       pinned: true,
+      automaticallyImplyLeading: false,
       title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         const SizedBox(
           width: 4,
         ),
-        const Image(
-          width: 120,
-          image: AssetImage(
-            "assets/images/oxygen_logo.png",
+        GestureDetector(
+          onTap: () => context.pushNamed('home'),
+          child: const Image(
+            width: 120,
+            image: AssetImage(
+              "assets/images/oxygen_logo.png",
+            ),
           ),
         ),
         const Spacer(),

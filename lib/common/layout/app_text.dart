@@ -814,6 +814,21 @@ class AppTextTheme {
       fontWeight: FontWeight.w300,
       color: AppColor.semiBlue);
   // blue
+  static const blue10 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w300,
+      color: AppColor.appColor);
+  static const blue10m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: AppColor.appColor);
+  static const blue10b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 10,
+      fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
   static const blue12 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 12,

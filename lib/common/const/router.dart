@@ -1,3 +1,4 @@
+import 'package:beauty_care/oxyfacial/view/pages/oxyfacial_main_page.dart';
 import 'package:beauty_care/user/view/pages/terms_agreement_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -179,6 +180,12 @@ final GoRouter router = GoRouter(
       path: '/surgery-product',
       name: SurgeryProductPage.routeName,
       builder: (context, state) => const SurgeryProductPage(),
+    ),
+    // oxyfacial
+    GoRoute(
+      path: '/oxyfacial',
+      name: OxyfacialMainPage.routeName,
+      builder: (context, state) => const OxyfacialMainPage(),
     ),
   ],
 );

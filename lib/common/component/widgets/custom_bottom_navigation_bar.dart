@@ -43,13 +43,14 @@ class CustomBottomNavigationBar extends ConsumerWidget {
               onPressed: () => context.goNamed('home'),
             ),
             CustomSCBottomBarItem(
-                icon: Icons.abc,
-                activeIcon: Icons.abc,
-                assetPath: 'assets/icons/ic_skincare.svg',
-                title: '스킨케어',
-                onPressed: () => context.pushNamed('cosmeticProduct')
-                // authState.navigateToPage(context, ref, 'cosmeticProduct'),
-                ),
+              icon: Icons.abc,
+              activeIcon: Icons.abc,
+              assetPath: 'assets/icons/ic_skincare.svg',
+              title: '스킨케어',
+              // onPressed: () => context.pushNamed('cosmeticProduct')
+              onPressed: () =>
+                  authState.navigateToPage(context, ref, 'cosmeticProduct'),
+            ),
           ],
           circleItems: [
             //Suggested Count: 3
@@ -58,14 +59,14 @@ class CustomBottomNavigationBar extends ConsumerWidget {
             //   onPressed: () {},
             // ),
             SCItem(
-                icon: Icon(MdiIcons.giftOutline),
-                onPressed: () => context.pushNamed('cosmeticProduct')),
-            SCItem(
-                icon: const Icon(Icons.medical_services_outlined),
+                icon: const Icon(Icons.medical_information_outlined),
                 onPressed: () => context.pushNamed('surgeryProduct')),
             SCItem(
-                icon: const Icon(Icons.medical_information_outlined),
-                onPressed: () => context.pushNamed('survey')),
+                icon: const Icon(Icons.medical_services_outlined),
+                onPressed: () => context.pushNamed('oxyfacial')),
+            SCItem(
+                icon: Icon(MdiIcons.giftOutline),
+                onPressed: () => context.pushNamed('surgeryProduct')),
           ],
           bnbHeight: 80 // Suggested Height 80
           ),
