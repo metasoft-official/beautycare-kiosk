@@ -377,7 +377,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
         buttonColor: AppColor.appColor,
         textStyle: AppTextTheme.white14b,
         label: '확인',
-        onPressed: () {},
+        onPressed: () => context.goNamed('home'),
       ),
     );
   }

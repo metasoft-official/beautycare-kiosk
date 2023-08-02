@@ -98,10 +98,6 @@ class HomeState extends ChangeNotifier {
     '색소침착',
     '트러블',
     '민감',
-    '건조',
-    '색소침착',
-    '트러블',
-    '민감'
   ];
 
   void resetState() {

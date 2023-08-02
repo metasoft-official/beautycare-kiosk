@@ -1,11 +1,10 @@
 import 'package:beauty_care/common/layout/app_box_theme.dart';
-import 'package:beauty_care/main.dart';
-import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';

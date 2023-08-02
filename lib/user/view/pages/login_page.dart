@@ -42,11 +42,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Image(
-                        // width: 197,
-                        height: 40,
-                        fit: BoxFit.scaleDown,
-                        image: AssetImage('assets/images/oxygen_logo.png')),
+                    GestureDetector(
+                      onTap: () => context.pop(),
+                      child: const Image(
+                          // width: 197,
+                          height: 40,
+                          fit: BoxFit.scaleDown,
+                          image: AssetImage('assets/images/oxygen_logo.png')),
+                    ),
                     const SizedBox(height: 24),
                     const Text('로그인 후\n이용이 가능합니다.',
                         style: AppTextTheme.middleGrey24b),

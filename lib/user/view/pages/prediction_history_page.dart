@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/user/provider/history_state_provider.dart';
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
+
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_view_widget.dart';
-import '../widgets/history_widget.dart';
+import 'package:beauty_care/user/view/widgets/history_widget.dart';
 
 class PredictionHistoryPage extends ConsumerStatefulWidget {
   const PredictionHistoryPage({Key? key}) : super(key: key);
@@ -39,6 +42,7 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
   @override
   Widget build(BuildContext context) {
     final historyState = ref.watch(historyStateProvider);
+    final mypageState = ref.watch(mypageStateProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -52,18 +56,24 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
         // 탭 내용
         body: CustomTabbarViewWidget(
           tabController: tabController,
-          widgets: const [
+          widgets: [
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
-              itemCount: 0,
+              onTap: () => context.pushNamed('mbtiResult'),
+              itemCount: mypageState.histories.length,
+              histories: mypageState.histories,
               nullType: 'history',
             ),
             HistoryWidget(
-              itemCount: 0,
+              onTap: () => context.pushNamed('mbtiResult'),
+              itemCount: historyState.skinHistories.length,
+              histories: historyState.skinHistories,
               nullType: 'history',
             ),
             HistoryWidget(
-              itemCount: 10,
+              onTap: () => context.pushNamed('mbtiResult'),
+              itemCount: historyState.mbtiHistories.length,
+              histories: historyState.mbtiHistories,
               nullType: 'history',
             ),
           ],
