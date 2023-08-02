@@ -30,7 +30,6 @@ class MypageState extends ConsumerState<MypagePage> {
   Widget build(BuildContext context) {
     final user = ref.watch(userNotifierProvider);
     final mypageState = ref.watch(mypageStateProvider);
-    logger.d(mypageState.longClickState);
 
     return Scaffold(
       appBar: AppBar(title: const Text('마이페이지')),
