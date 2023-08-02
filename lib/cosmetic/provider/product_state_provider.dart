@@ -77,6 +77,51 @@ class ProductState extends ChangeNotifier {
     }
   ];
 
+  List<Map<String, dynamic>> clinics = [
+    {
+      'name': '엠레드 클리닉',
+      'image': 'assets/images/clinic_logo_mred.png',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'E'
+    },
+    {
+      'name': '디알 피부과',
+      'image': 'assets/images/clinic_logo_dr.png',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'C'
+    },
+    {
+      'name': '리젠 피부과',
+      'image': 'assets/images/clinic_logo_rigen.gif',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'C'
+    },
+    {
+      'name': '아르케 의원',
+      'image': 'assets/images/clinic_logo_arke.gif',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'C'
+    },
+    {
+      'name': '파인드 피부과',
+      'image': 'assets/images/clinic_logo_find.png',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'E'
+    },
+    {
+      'name': '에르시아 의원',
+      'image': 'assets/images/clinic_logo_ersia.png',
+      'address': '서울특별시',
+      'kakaotalkChannelLink': 'https://oxygenceuticals.co.kr/surl/P/24',
+      'visibilityStatus': 'C'
+    },
+  ];
+
   List<Map<String, dynamic>> lankProducts = [
     {
       'name': '에이셀300 플루이드 50ml',

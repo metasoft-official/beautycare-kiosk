@@ -73,8 +73,10 @@ class HomeBannerWidget extends StatelessWidget {
                           text: TextSpan(
                               children: markTextsMixin(
                                   title!, markText!, AppTextTheme.yellow24b),
-                              style: AppTextTheme.white24b))
-                      : Text(title!, style: AppTextTheme.white24b),
+                              style:
+                                  AppTextTheme.white24b.copyWith(height: 1.4)))
+                      : Text(title!,
+                          style: AppTextTheme.white24b.copyWith(height: 1.4)),
                   const SizedBox(height: 8)
                 ],
 

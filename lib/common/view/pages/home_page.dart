@@ -103,12 +103,12 @@ class HomePageState extends ConsumerState<HomePage> {
                           // widget: , todo : 지난 예측 결과 표현
                         ),
                         Positioned(
-                          top: -20,
-                          right: -20,
+                          top: -30,
+                          right: -90,
                           child: Image.asset(
                             'assets/images/main_stack_03.png',
                             opacity: const AlwaysStoppedAnimation(.5),
-                            width: 200,
+                            width: 350,
                           ),
                         ),
                       ],
