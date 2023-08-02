@@ -65,7 +65,7 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
               nullType: 'history',
             ),
             HistoryWidget(
-              onTap: () => context.pushNamed('mbtiResult'),
+              onTap: () => context.pushNamed('skinResult'),
               itemCount: historyState.skinHistories.length,
               histories: historyState.skinHistories,
               nullType: 'history',
