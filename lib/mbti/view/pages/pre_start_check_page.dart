@@ -1,15 +1,14 @@
-import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/pre_check_list_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/survey_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/component/widgets/icon_stepper.dart';
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
-import 'package:beauty_care/mbti/provider/quiz_state_provider.dart';
+
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/widgets/pre_check_list_widget.dart';
 
 class MBTIPreStartCheckPage extends ConsumerWidget {
   const MBTIPreStartCheckPage({super.key});
@@ -119,22 +118,22 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
                   // child: child,
                   boldText: '화장하지 않은 상태',
                   text: '로 진단하세요',
-                  iconData: Icons.clear),
+                  imgUrl: 'assets/icons/ic_no_makeup.png'),
               const PreCheckListWidget(
                   // child: child,
                   boldText: '조명이 어둡지 않은지',
                   text: ' 확인하세요',
-                  iconData: Icons.wb_sunny_outlined),
+                  imgUrl: 'assets/icons/ic_bright.png'),
               const PreCheckListWidget(
                   // child: child,
                   boldText: '앞머리는 넘긴 채',
                   text: '로 유지해주세요',
-                  iconData: Icons.face_3),
+                  imgUrl: 'assets/icons/ic_no_hair.png'),
               const PreCheckListWidget(
                   // child: child,
                   boldText: '안경, 마스크, 모자',
                   text: '는 벗어주세요',
-                  iconData: Icons.masks_outlined)
+                  imgUrl: 'assets/icons/ic_no_acc.png')
             ])),
       ),
       bottomNavigationBar: ButtonBottomNavigationBarWidget(

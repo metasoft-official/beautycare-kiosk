@@ -1,4 +1,3 @@
-import 'package:beauty_care/user/view/pages/terms_agreement_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,13 +15,17 @@ import 'package:beauty_care/user/view/pages/find_id_page.dart';
 import 'package:beauty_care/user/view/pages/mypage_page.dart';
 import 'package:beauty_care/user/view/pages/profile_edit_page.dart';
 import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
-import 'package:beauty_care/user/view/pages/skin_history_page.dart';
 import 'package:beauty_care/user/view/pages/wish_list_page.dart';
+import 'package:beauty_care/user/view/pages/terms_agreement_page.dart';
 
 import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
 import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
 import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
 import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
+
+import 'package:beauty_care/oxyfacial/view/pages/oxyfacial_main_page.dart';
+
+import 'package:beauty_care/skin/view/pages/skin_result_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -126,12 +129,6 @@ final GoRouter router = GoRouter(
       name: PredictionHistoryPage.routeName,
       builder: (context, state) => const PredictionHistoryPage(),
     ),
-    GoRoute(
-      path: '/skin-history',
-      name: SkinHistoryPage.routeName,
-      builder: (context, state) => const SkinHistoryPage(),
-    ),
-
     // 알림
     GoRoute(
       path: '/noti',
@@ -173,6 +170,11 @@ final GoRouter router = GoRouter(
       name: CameraExample.routeName,
       builder: (context, state) => const CameraExample(),
     ),
+    GoRoute(
+      path: '/skin-result',
+      name: SkinResultPage.routeName,
+      builder: (context, state) => const SkinResultPage(),
+    ),
 
     // cosmetic
     GoRoute(
@@ -186,6 +188,12 @@ final GoRouter router = GoRouter(
       path: '/surgery-product',
       name: SurgeryProductPage.routeName,
       builder: (context, state) => const SurgeryProductPage(),
+    ),
+    // oxyfacial
+    GoRoute(
+      path: '/oxyfacial',
+      name: OxyfacialMainPage.routeName,
+      builder: (context, state) => const OxyfacialMainPage(),
     ),
   ],
 );

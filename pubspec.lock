@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1+4"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   characters:
     dependency: transitive
     description:
@@ -313,6 +321,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.6"
+  dropdown_button2:
+    dependency: "direct main"
+    description:
+      name: dropdown_button2
+      sha256: "107444581478342c6511040c2eb52850748400df4f3295df3da8be75693180a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.4"
   encrypt:
     dependency: transitive
     description:
@@ -502,6 +518,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.6"
+  flutter_inappwebview:
+    dependency: "direct main"
+    description:
+      name: flutter_inappwebview
+      sha256: f73505c792cf083d5566e1a94002311be497d984b5607f25be36d685cf6361cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.2+3"
+  flutter_layout_grid:
+    dependency: "direct main"
+    description:
+      name: flutter_layout_grid
+      sha256: "3c03d28f884d816d6f483bdd64dd79663abfb00eea7cb27ffe98380e8357af95"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.4"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -1104,6 +1136,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  remedi_kopo:
+    dependency: "direct main"
+    description:
+      name: remedi_kopo
+      sha256: "6f1df613d795fb38726632a9df6c17adee06c662c271cd381f65e6a6f6610721"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   retrofit:
     dependency: "direct main"
     description:
@@ -1224,6 +1264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  simple_shadow:
+    dependency: "direct main"
+    description:
+      name: simple_shadow
+      sha256: "0c0872b2baffaf12fc91416643785a88081120bac61d704f3f9dbd7e712360fa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   skeletons:
     dependency: "direct main"
     description:
@@ -1501,6 +1549,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      sha256: "6886b3ceef1541109df5001054aade5ee3c36b5780302e41701c78357233721c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.8.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      sha256: "8b3b2450e98876c70bfcead876d9390573b34b9418c19e28168b74f6cb252dbd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.4"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      sha256: "812165e4e34ca677bdfbfa58c01e33b27fd03ab5fa75b70832d4b7d4ca1fa8cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.9.5"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      sha256: a5364369c758892aa487cbf59ea41d9edd10f9d9baf06a94e80f1bd1b4c7bbc0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.5"
   win32:
     dependency: transitive
     description:

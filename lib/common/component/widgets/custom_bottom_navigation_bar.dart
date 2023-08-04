@@ -1,12 +1,13 @@
-import 'package:beauty_care/common/layout/app_color.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:spincircle_bottom_bar/modals.dart';
-import 'package:spincircle_bottom_bar/spincircle_bottom_bar.dart';
+
+import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 
 class CustomBottomNavigationBar extends ConsumerWidget {
   final Widget child;
@@ -16,6 +17,8 @@ class CustomBottomNavigationBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateProvider.notifier);
+
     return CustomSpinCircleBottomBarHolder(
       bottomNavigationBar: CustomSCBottomBarDetails(
           circleColors: [Colors.white, AppColor.lightBlue, AppColor.appColor],
@@ -33,17 +36,21 @@ class CustomBottomNavigationBar extends ConsumerWidget {
           items: [
             // Suggested count : 4
             CustomSCBottomBarItem(
-                icon: Icons.abc,
-                activeIcon: Icons.abc,
-                assetPath: 'assets/icons/ic_home.svg',
-                title: '홈',
-                onPressed: () => context.pushNamed('home')),
+              icon: Icons.abc,
+              activeIcon: Icons.abc,
+              assetPath: 'assets/icons/ic_home.svg',
+              title: '홈',
+              onPressed: () => context.goNamed('home'),
+            ),
             CustomSCBottomBarItem(
-                icon: Icons.abc,
-                activeIcon: Icons.abc,
-                assetPath: 'assets/icons/ic_skincare.svg',
-                title: '스킨케어',
-                onPressed: () => context.pushNamed('cosmeticProduct')),
+              icon: Icons.abc,
+              activeIcon: Icons.abc,
+              assetPath: 'assets/icons/ic_skincare.svg',
+              title: '스킨케어',
+              // onPressed: () => context.pushNamed('cosmeticProduct')
+              onPressed: () =>
+                  authState.navigateToPage(context, ref, 'cosmeticProduct'),
+            ),
           ],
           circleItems: [
             //Suggested Count: 3
@@ -52,13 +59,13 @@ class CustomBottomNavigationBar extends ConsumerWidget {
             //   onPressed: () {},
             // ),
             SCItem(
-                icon: Icon(MdiIcons.giftOutline),
-                onPressed: () => context.pushNamed('survey')),
+                icon: const Icon(Icons.medical_information_outlined),
+                onPressed: () => context.pushNamed('surgeryProduct')),
             SCItem(
                 icon: const Icon(Icons.medical_services_outlined),
-                onPressed: () => context.pushNamed('cosmeticProduct')),
+                onPressed: () => context.pushNamed('oxyfacial')),
             SCItem(
-                icon: const Icon(Icons.medical_information_outlined),
+                icon: Icon(MdiIcons.giftOutline),
                 onPressed: () => context.pushNamed('surgeryProduct')),
           ],
           bnbHeight: 80 // Suggested Height 80
@@ -493,6 +500,6 @@ class CustomSCBottomBarItem extends SCBottomBarItem {
           activeIcon: Icons.abc,
           icon: Icons.abc, // 아이콘을 사용하지 않으므로 임의의 값으로 설정
           title: title,
-          onPressed: () => {},
+          onPressed: onPressed,
         );
 }

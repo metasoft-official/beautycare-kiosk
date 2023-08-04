@@ -28,8 +28,7 @@ class NotiMainPageState extends ConsumerState<NotiMainPage> {
   Widget build(BuildContext context) {
     final notiState = ref.watch(notiStateProvider);
 
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('알림'),
       ),
@@ -123,6 +122,6 @@ class NotiMainPageState extends ConsumerState<NotiMainPage> {
                 )
               ],
             ),
-    ));
+    );
   }
 }

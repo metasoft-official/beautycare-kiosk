@@ -12,7 +12,8 @@ class CustomTabbarWidget extends StatelessWidget {
   final List<String> titles;
   final TabController tabController;
 
-  ///  사용법 prediction_history_page.dart 참조
+  ///  사용법 **prediction_history_page.dart 참조
+  ///  bottom : PreferredSize 위젯으로 감싸서 읿력
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +52,13 @@ List<Widget> getTabs(List<String> titles, TabController tabController) {
   for (int i = 0; i < titles.length; i++) {
     widgets.add(Padding(
       padding: const EdgeInsets.all(9),
-      child: Text(titles[i],
-          style: tabController.index == i
-              ? AppTextTheme.blue14b
-              : AppTextTheme.blue14m),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(titles[i],
+            style: tabController.index == i
+                ? AppTextTheme.blue14b
+                : AppTextTheme.blue14m),
+      ),
     ));
   }
 

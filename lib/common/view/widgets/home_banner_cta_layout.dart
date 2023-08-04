@@ -20,7 +20,7 @@ class HomeBannerCtaLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(44, 40, 44, 28),
+      padding: const EdgeInsets.fromLTRB(28, 40, 28, 28),
       color: type == 'surgery' ? AppColor.primary : AppColor.blue,
       child: SizedBox(
           width: double.infinity,
@@ -32,9 +32,7 @@ class HomeBannerCtaLayout extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: type == 'surgery'
-                            ? AppColor.semiBlue
-                            : AppColor.deepBlue,
+                        backgroundColor: AppColor.appColor,
                         padding: const EdgeInsets.fromLTRB(0, 9, 0, 9)),
                     onPressed: onPressed,
                     child: SizedBox(

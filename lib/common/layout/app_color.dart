@@ -20,6 +20,7 @@ class AppColor {
   static const Color boldGrey = Color(0xff969696);
   static const Color regularGrey = Color(0xfff6f4f4);
   static const Color lightGrey = Color(0xffF2F2F2);
+  static const Color superLightGrey = Color(0xffF9F9F9);
 
   // Text Color
   static const Color tabBarColor = Color(0xff3fb7ad);
@@ -45,7 +46,7 @@ class AppColor {
   static const Color fileUploadTextIcon = Color(0xff3FB8AE);
 
   // Common Color
-  static const Color primary = Color(0xFF67DAD5);
+  static const Color primary = Color(0xFF23D9D1);
   static const Color deepPrimary = Color(0xFF3FB8AE);
   static const Color semiPrimary = Color(0xFFE0F5F3);
   static const Color lightPrimary = Color(0xFFF1FBFA);
@@ -56,6 +57,7 @@ class AppColor {
   static const Color deepGrey = Color(0xFF5A5A5B);
   static const Color grey = Color(0xFF818181);
   static const Color semiGrey = Color(0xFFDDDDDD);
+  static const Color semiRowGrey = Color(0xFFBBBBBB);
   static const Color middleGrey = Color(0xff888888);
   static const Color lowGrey = Color(0xffEEEEEE);
   static const Color leftGrey = Color(0xff676767);
@@ -63,7 +65,7 @@ class AppColor {
   static const Color divider = Color(0xFFF2F4F6);
   static const Color orange = Color(0xFFD7A21E);
   static const Color yellow = Color(0xFFFFF478);
-  static const Color blue = Color(0xFF2295FF);
+  static const Color blue = Color(0xFF0085FF);
   static const Color deepBlue = Color(0xFF0055D4);
   static const Color blueBlack = Color(0xff555D6A);
   static const Color semiBlue = Color(0xFF446CE3);

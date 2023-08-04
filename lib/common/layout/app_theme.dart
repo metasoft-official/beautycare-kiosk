@@ -5,6 +5,7 @@ import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
 final appTheme = ThemeData(
+  unselectedWidgetColor: AppColor.semiRowGrey,
   appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,

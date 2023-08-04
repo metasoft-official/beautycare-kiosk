@@ -16,8 +16,18 @@ class AppBoxTheme {
       )
     ],
   );
-  static final outlinedRoundedWitheBoxTheme = BoxDecoration(
-    color: Colors.white,
+  static final outlinedRoundedBlueTransparentBoxTheme = BoxDecoration(
+    color: Colors.transparent,
+    borderRadius: BorderRadius.circular(30),
+    border: Border.all(color: AppColor.appColor),
+  );
+  static final outlinedRoundedGreyBoxTheme = BoxDecoration(
+    color: Colors.transparent,
+    borderRadius: const BorderRadius.all(Radius.circular(10)),
+    border: Border.all(color: AppColor.lightGrey),
+  );
+  static final outlineRoundedLongPressedBoxTheme = BoxDecoration(
+    color: AppColor.whiteBlue,
     borderRadius: const BorderRadius.all(Radius.circular(10)),
     border: Border.all(color: AppColor.lightGrey),
   );
