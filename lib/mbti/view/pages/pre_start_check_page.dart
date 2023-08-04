@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/pre_check_list_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/survey_widget.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +137,13 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
                   iconData: Icons.masks_outlined)
             ])),
       ),
+      bottomNavigationBar: ButtonBottomNavigationBarWidget(
+          buttonColor: AppColor.appColor,
+          textStyle: AppTextTheme.white14b,
+          label: '확인 후 촬영하기',
+          onPressed: () {
+            context.pushNamed('survey');
+          }),
     );
   }
 }

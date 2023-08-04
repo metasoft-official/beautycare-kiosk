@@ -127,12 +127,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
               ),
               // 로그인 실패
-              // if (userState.username == null)
-              //   Text(
-              //     // userState.error!,
-              //     '로그인 실패',
-              //     style: const TextStyle(color: Colors.red),
-              //   ),
+
               Container(
                   width: double.infinity,
                   child: Column(
@@ -160,16 +155,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             final authState = ref.read(authStateProvider);
                             // print('변경 후 : $authState');
 
-                            String routeName = widget.onLoginSuccess();
-
                             if (authState == true) {
                               // 로그인 페이지를 pop
                               // context.pop();
-                              context.pop();
+                              String routeName = widget.onLoginSuccess();
                               context.pushNamed(routeName);
                               // context.goNamed(routeName);
                             } else {
                               // 로그인 실패 처리
+                              _showDialog(context, "로그인 실패", '확인');
+                              return;
                             }
                           },
                           child: Container(
@@ -300,4 +295,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       ),
     );
   }
+}
+
+void _showDialog(BuildContext context, String message, String okButtonMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        // title: new Text("Alert!!"),
+        content: Text(message),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text(okButtonMessage),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
