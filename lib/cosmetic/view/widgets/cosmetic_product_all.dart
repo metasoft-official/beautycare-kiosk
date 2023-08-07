@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -173,7 +174,10 @@ class CosmeticProductAll extends ConsumerWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    ModalMixin.filterModalBottomSheet(
+                        context, "피부고민", productState.troubleCategories);
+                  },
                   child: Container(
                     decoration: const BoxDecoration(
                         border: Border(
