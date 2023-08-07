@@ -70,8 +70,6 @@ class QuizState extends ChangeNotifier {
 
   void resetState() {
     QuizState();
-    logger.d(curStep);
-    logger.d(_isClicked);
     notifyListeners();
   }
 }

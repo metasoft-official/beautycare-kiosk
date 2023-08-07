@@ -35,7 +35,6 @@ class SurveyState extends StateNotifier<AsyncValue<List<SurveyQuestionModel>>> {
   }
 
   Future<void> loadData() async {
-    logger.d('load');
     try {
       final data = await repository.getSurveyQuestionsAll();
       if (data != null && data.items != null && data.items!.isNotEmpty) {
@@ -47,7 +46,6 @@ class SurveyState extends StateNotifier<AsyncValue<List<SurveyQuestionModel>>> {
   }
 
   Future<void> reloadData() async {
-    logger.d('reload');
     state = const AsyncValue.loading();
     await loadData();
   }
