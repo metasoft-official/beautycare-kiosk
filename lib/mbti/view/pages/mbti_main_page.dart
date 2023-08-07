@@ -1,4 +1,5 @@
 import 'package:beauty_care/main.dart';
+import 'package:beauty_care/mbti/provider/survey_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,6 +33,13 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final dataAsyncValue = ref.watch(surveyStateProvider);
+    dataAsyncValue.when(
+      data: (data) => logger.d(data),
+      loading: () => const CircularProgressIndicator(),
+      error: (e, s) => logger.e("", e, s),
+    );
+
     final quizState = ref.watch(quizStateProvider);
 
     return Scaffold(

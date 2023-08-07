@@ -25,6 +25,8 @@ class SkinResultPage extends ConsumerStatefulWidget {
   SkinResultState createState() => SkinResultState();
 }
 
+// 상태관리 중인 부분 provider 분리 필요
+
 class SkinResultState extends ConsumerState<SkinResultPage> {
   @override
   Widget build(BuildContext context) {
