@@ -1,10 +1,10 @@
-import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 import 'package:beauty_care/common/provider/home_state_provider.dart';
 
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
@@ -25,6 +25,7 @@ class CosmeticProductPage extends ConsumerStatefulWidget {
 class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
     with TickerProviderStateMixin {
   late TabController tabController;
+  HideNavbar cosmeticHiding = HideNavbar();
 
   @override
   void initState() {
@@ -52,7 +53,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
       backgroundColor: Colors.white,
       body: CustomBottomNavigationBar(
         child: CustomScrollView(
-          controller: hiding.controller,
+          controller: cosmeticHiding.controller,
           slivers: [
             CustomAppBar(
                 bottom: PreferredSize(

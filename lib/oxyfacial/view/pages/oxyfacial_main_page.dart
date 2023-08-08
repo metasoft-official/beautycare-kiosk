@@ -1,14 +1,13 @@
-import 'package:beauty_care/common/layout/app_color.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
-import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/provider/home_state_provider.dart';
 import 'package:beauty_care/oxyfacial/provider/oxyfacial_state_provider.dart';
 
+import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 
 class OxyfacialMainPage extends ConsumerStatefulWidget {
   const OxyfacialMainPage({Key? key}) : super(key: key);
@@ -20,6 +19,8 @@ class OxyfacialMainPage extends ConsumerStatefulWidget {
 }
 
 class OxyfacialMainPageState extends ConsumerState<OxyfacialMainPage> {
+  HideNavbar oxyfacialHiding = HideNavbar();
+
   @override
   Widget build(BuildContext context) {
     final oxyfacialState = ref.watch(oxyfacialStateProvider);
@@ -28,7 +29,7 @@ class OxyfacialMainPageState extends ConsumerState<OxyfacialMainPage> {
       backgroundColor: Colors.white,
       body: CustomBottomNavigationBar(
         child: CustomScrollView(
-          controller: hiding.controller,
+          controller: oxyfacialHiding.controller,
           slivers: [
             const CustomAppBar(),
             SliverList(

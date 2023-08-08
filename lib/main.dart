@@ -15,7 +15,6 @@ import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
 
 var logger = Logger();
-final HideNavbar hiding = HideNavbar();
 
 void main() async {
   KakaoSdk.init(nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1');
