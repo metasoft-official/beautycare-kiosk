@@ -1,20 +1,28 @@
-import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:beauty_care/mbti/provider/survey_state_provider.dart';
+import 'package:beauty_care/mbti/model/survey_question_model.dart';
+
 import 'package:beauty_care/common/layout/app_text.dart';
-import 'package:beauty_care/mbti/provider/quiz_state_provider.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
 
 class SurveyWidget extends ConsumerWidget {
-  const SurveyWidget({super.key});
+  const SurveyWidget({
+    Key? key,
+    required this.questions,
+  }) : super(key: key);
+
+  final List<SurveyQuestionModel> questions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quizState = ref.watch(quizStateProvider);
+    final progressState = ref.watch(surveyProgressStateProvider.notifier);
+    final progressData = ref.watch(surveyProgressStateProvider);
 
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-          childCount: quizState.questions.length, (context, index) {
+      delegate: SliverChildBuilderDelegate(childCount: questions.length,
+          (context, index) {
         return Container(
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.fromLTRB(24, 36, 24, 0),
@@ -27,7 +35,7 @@ class SurveyWidget extends ConsumerWidget {
                 children: [
                   // 질문 번호
                   Opacity(
-                    opacity: quizState.isClicked[index] == 0 ? 1 : 0.35,
+                    opacity: progressData.isClicked[index] == 0 ? 1 : 0.35,
                     child: Container(
                       width: 28,
                       height: 28,
@@ -36,10 +44,10 @@ class SurveyWidget extends ConsumerWidget {
                           border:
                               Border.all(color: AppColor.appColor, width: 2)),
                       child: FittedBox(
-                        fit: BoxFit.contain,
+                        fit: BoxFit.scaleDown,
                         child: Text(
                           '${index + 1}',
-                          style: AppTextTheme.blue14b.copyWith(height: 1.3),
+                          style: AppTextTheme.blue14b.copyWith(height: 1.2),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -61,8 +69,8 @@ class SurveyWidget extends ConsumerWidget {
                             // 질문 내용
                             Expanded(
                                 child: Text(
-                              quizState.questions[index],
-                              style: quizState.isClicked[index] == 0
+                              questions[index].question ?? '-',
+                              style: progressData.isClicked[index] == 0
                                   ? AppTextTheme.black14b
                                   : AppTextTheme.middleGrey14m,
                             )),
@@ -76,18 +84,20 @@ class SurveyWidget extends ConsumerWidget {
 
                       // 한 질문에 대한 답변은 lazy 하게 나올 필요가 없다고 판단하여 ListView 사용
                       // 답변 ===================================================
-                      if (quizState.isClicked[index] == 0) ...[
+                      if (progressData.isClicked[index] == 0) ...[
                         ListView.builder(
                             shrinkWrap: true,
                             primary: false, //스크롤 제한
-                            itemCount: quizState.answers[index].length,
+                            itemCount:
+                                questions[index].surveyAnswerList?.length,
                             itemBuilder:
                                 (BuildContext context, int answerIndex) {
                               return Container(
                                 margin: const EdgeInsets.fromLTRB(10, 4, 10, 0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    quizState.selectAnswer(index, answerIndex);
+                                    progressState.selectAnswer(
+                                        index, answerIndex);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
@@ -108,7 +118,11 @@ class SurveyWidget extends ConsumerWidget {
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
-                                          quizState.answers[index][answerIndex],
+                                          questions[index]
+                                                  .surveyAnswerList?[
+                                                      answerIndex]
+                                                  .answer ??
+                                              '-',
                                           maxLines: 5,
                                           style: AppTextTheme.black14m,
                                         ),
@@ -124,7 +138,7 @@ class SurveyWidget extends ConsumerWidget {
                           margin: const EdgeInsets.fromLTRB(10, 4, 10, 0),
                           child: ElevatedButton(
                             onPressed: () {
-                              quizState.selectAnswer(index, -1);
+                              progressState.selectAnswer(index, -1);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.appColor,
@@ -147,8 +161,13 @@ class SurveyWidget extends ConsumerWidget {
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
-                                          quizState.answers[index]
-                                              [quizState.isClicked[index] - 1],
+                                          questions[index]
+                                                  .surveyAnswerList?[
+                                                      progressData.isClicked[
+                                                              index] -
+                                                          1]
+                                                  .answer ??
+                                              '-',
                                           style: AppTextTheme.white12m,
                                           maxLines: 5,
                                         ),

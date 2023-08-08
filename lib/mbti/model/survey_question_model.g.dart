@@ -22,7 +22,7 @@ _$_SurveyQuestionModel _$$_SurveyQuestionModelFromJson(
       lastModifiedDate: json['lastModifiedDate'] == null
           ? null
           : DateTime.parse(json['lastModifiedDate'] as String),
-      surveyAnswerModels: (json['surveyAnswerModels'] as List<dynamic>?)
+      surveyAnswerList: (json['surveyAnswerList'] as List<dynamic>?)
           ?.map((e) => SurveyAnswerModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -39,5 +39,5 @@ Map<String, dynamic> _$$_SurveyQuestionModelToJson(
       'visibilityStatus': instance.visibilityStatus,
       'createdTime': instance.createdTime?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
-      'surveyAnswerModels': instance.surveyAnswerModels,
+      'surveyAnswerList': instance.surveyAnswerList,
     };
