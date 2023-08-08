@@ -1,4 +1,3 @@
-import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,7 +36,6 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
     return asyncValue.when(
       data: (data) {
         questions = data;
-        logger.d(data);
 
         return Scaffold(
           appBar: AppBar(
