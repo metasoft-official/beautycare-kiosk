@@ -43,6 +43,15 @@ class AppTextTheme {
     color: AppColor.appColor,
   );
 
+  static const app13b = TextStyle(
+    fontFamily: 'NotoSansKR',
+    fontSize: 13,
+    fontWeight: FontWeight.w700,
+    height: 1.4475,
+    letterSpacing: 0.36,
+    color: AppColor.appColor,
+  );
+
   // 메인 - 탭바에 사용
   static const tabBarText = TextStyle(
       fontFamily: 'NotoSansKR',

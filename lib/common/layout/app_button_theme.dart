@@ -82,4 +82,26 @@ class AppButtonTheme {
     textStyle: AppTextTheme.textButton,
     // padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
   );
+
+  static final shootingIndicationButtonInactiveTheme = TextButton.styleFrom(
+    minimumSize: const Size(150, 32),
+    elevation: 0.0,
+    backgroundColor: Colors.white.withOpacity(0.2),
+    foregroundColor: AppColor.appColor.withOpacity(0.2),
+    side: BorderSide(color: AppColor.appColor.withOpacity(0.2)),
+    textStyle: AppTextTheme.app13b,
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+  );
+
+  static final shootingIndicationButtonActiveTheme = TextButton.styleFrom(
+    minimumSize: const Size(150, 32),
+    elevation: 0.0,
+    backgroundColor: Colors.white.withOpacity(0.5),
+    foregroundColor: AppColor.appColor,
+    side: const BorderSide(color: AppColor.appColor),
+    textStyle: AppTextTheme.app13b,
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+  );
 }
