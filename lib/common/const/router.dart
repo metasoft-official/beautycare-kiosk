@@ -8,6 +8,7 @@ import 'package:beauty_care/common/view/pages/home_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
+import 'package:beauty_care/mbti/view/pages/mbti_shooting_page.dart';
 
 import 'package:beauty_care/user/view/pages/login_page.dart';
 import 'package:beauty_care/user/view/pages/register_page.dart';
@@ -165,15 +166,17 @@ final GoRouter router = GoRouter(
       name: PredictSkinDiseasePage.routeName,
       builder: (context, state) => PredictSkinDiseasePage(),
     ),
-    GoRoute(
-      path: '/camera',
-      name: CameraExample.routeName,
-      builder: (context, state) => const CameraExample(),
-    ),
+
     GoRoute(
       path: '/skin-result',
       name: SkinResultPage.routeName,
       builder: (context, state) => const SkinResultPage(),
+    ),
+
+    GoRoute(
+      path: '/shooting',
+      name: MBTIShootingPage.routeName,
+      builder: (context, state) => const MBTIShootingPage(),
     ),
 
     // cosmetic

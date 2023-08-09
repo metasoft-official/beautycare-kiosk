@@ -141,7 +141,7 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
           textStyle: AppTextTheme.white14b,
           label: '확인 후 촬영하기',
           onPressed: () {
-            context.pushNamed('survey');
+            context.pushNamed('mbtiShooting');
           }),
     );
   }
