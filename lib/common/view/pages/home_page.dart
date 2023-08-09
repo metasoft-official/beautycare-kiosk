@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:beauty_care/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -18,6 +17,7 @@ import 'package:beauty_care/common/component/widgets/horizontal_category_widget.
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
 import 'package:beauty_care/common/view/widgets/home_banner_widget.dart';
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -43,6 +43,8 @@ class HomePageState extends ConsumerState<HomePage> {
     );
   }
 
+  HideNavbar mainHiding = HideNavbar();
+
   @override
   Widget build(BuildContext context) {
     final authStateNotifier = ref.watch(authStateProvider.notifier);
@@ -54,7 +56,7 @@ class HomePageState extends ConsumerState<HomePage> {
         backgroundColor: Colors.white,
         body: CustomBottomNavigationBar(
           child: CustomScrollView(
-            controller: hiding.controller,
+            controller: mainHiding.controller,
             slivers: [
               // 앱바
               const CustomAppBar(),

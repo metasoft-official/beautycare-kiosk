@@ -18,7 +18,7 @@ class SurveyQuestionModel with _$SurveyQuestionModel {
     String? visibilityStatus,
     DateTime? createdTime,
     DateTime? lastModifiedDate,
-    List<SurveyAnswerModel>? surveyAnswerModels,
+    List<SurveyAnswerModel>? surveyAnswerList,
   }) = _SurveyQuestionModel;
 
   factory SurveyQuestionModel.fromJson(Map<String, dynamic> json) =>

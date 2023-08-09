@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/common/dio/survey_api.dart';
 import 'package:beauty_care/common/model/page_response_model.dart';
-import 'package:beauty_care/main.dart';
 import 'package:beauty_care/mbti/model/survey_question_model.dart';
 
 class SurveyRepository {
@@ -14,6 +12,8 @@ class SurveyRepository {
   Future<PageResponse<SurveyQuestionModel>?> getSurveyQuestionsAll() async {
     try {
       final response = await surveyApi.getSurveyQuestionAll();
+      logger.d(response);
+      logger.d(response.rowSize);
       return response;
     } catch (e, s) {
       logger.e("", e, s);

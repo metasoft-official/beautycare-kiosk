@@ -29,7 +29,7 @@ mixin _$SurveyQuestionModel {
   String? get visibilityStatus => throw _privateConstructorUsedError;
   DateTime? get createdTime => throw _privateConstructorUsedError;
   DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
-  List<SurveyAnswerModel>? get surveyAnswerModels =>
+  List<SurveyAnswerModel>? get surveyAnswerList =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +54,7 @@ abstract class $SurveyQuestionModelCopyWith<$Res> {
       String? visibilityStatus,
       DateTime? createdTime,
       DateTime? lastModifiedDate,
-      List<SurveyAnswerModel>? surveyAnswerModels});
+      List<SurveyAnswerModel>? surveyAnswerList});
 }
 
 /// @nodoc
@@ -79,7 +79,7 @@ class _$SurveyQuestionModelCopyWithImpl<$Res, $Val extends SurveyQuestionModel>
     Object? visibilityStatus = freezed,
     Object? createdTime = freezed,
     Object? lastModifiedDate = freezed,
-    Object? surveyAnswerModels = freezed,
+    Object? surveyAnswerList = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -118,9 +118,9 @@ class _$SurveyQuestionModelCopyWithImpl<$Res, $Val extends SurveyQuestionModel>
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      surveyAnswerModels: freezed == surveyAnswerModels
-          ? _value.surveyAnswerModels
-          : surveyAnswerModels // ignore: cast_nullable_to_non_nullable
+      surveyAnswerList: freezed == surveyAnswerList
+          ? _value.surveyAnswerList
+          : surveyAnswerList // ignore: cast_nullable_to_non_nullable
               as List<SurveyAnswerModel>?,
     ) as $Val);
   }
@@ -144,7 +144,7 @@ abstract class _$$_SurveyQuestionModelCopyWith<$Res>
       String? visibilityStatus,
       DateTime? createdTime,
       DateTime? lastModifiedDate,
-      List<SurveyAnswerModel>? surveyAnswerModels});
+      List<SurveyAnswerModel>? surveyAnswerList});
 }
 
 /// @nodoc
@@ -167,7 +167,7 @@ class __$$_SurveyQuestionModelCopyWithImpl<$Res>
     Object? visibilityStatus = freezed,
     Object? createdTime = freezed,
     Object? lastModifiedDate = freezed,
-    Object? surveyAnswerModels = freezed,
+    Object? surveyAnswerList = freezed,
   }) {
     return _then(_$_SurveyQuestionModel(
       id: freezed == id
@@ -206,9 +206,9 @@ class __$$_SurveyQuestionModelCopyWithImpl<$Res>
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      surveyAnswerModels: freezed == surveyAnswerModels
-          ? _value._surveyAnswerModels
-          : surveyAnswerModels // ignore: cast_nullable_to_non_nullable
+      surveyAnswerList: freezed == surveyAnswerList
+          ? _value._surveyAnswerList
+          : surveyAnswerList // ignore: cast_nullable_to_non_nullable
               as List<SurveyAnswerModel>?,
     ));
   }
@@ -227,8 +227,8 @@ class _$_SurveyQuestionModel implements _SurveyQuestionModel {
       this.visibilityStatus,
       this.createdTime,
       this.lastModifiedDate,
-      final List<SurveyAnswerModel>? surveyAnswerModels})
-      : _surveyAnswerModels = surveyAnswerModels;
+      final List<SurveyAnswerModel>? surveyAnswerList})
+      : _surveyAnswerList = surveyAnswerList;
 
   factory _$_SurveyQuestionModel.fromJson(Map<String, dynamic> json) =>
       _$$_SurveyQuestionModelFromJson(json);
@@ -251,20 +251,20 @@ class _$_SurveyQuestionModel implements _SurveyQuestionModel {
   final DateTime? createdTime;
   @override
   final DateTime? lastModifiedDate;
-  final List<SurveyAnswerModel>? _surveyAnswerModels;
+  final List<SurveyAnswerModel>? _surveyAnswerList;
   @override
-  List<SurveyAnswerModel>? get surveyAnswerModels {
-    final value = _surveyAnswerModels;
+  List<SurveyAnswerModel>? get surveyAnswerList {
+    final value = _surveyAnswerList;
     if (value == null) return null;
-    if (_surveyAnswerModels is EqualUnmodifiableListView)
-      return _surveyAnswerModels;
+    if (_surveyAnswerList is EqualUnmodifiableListView)
+      return _surveyAnswerList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'SurveyQuestionModel(id: $id, categoryCode: $categoryCode, question: $question, order: $order, kioskVisibilityStatus: $kioskVisibilityStatus, appVisibilityStatus: $appVisibilityStatus, visibilityStatus: $visibilityStatus, createdTime: $createdTime, lastModifiedDate: $lastModifiedDate, surveyAnswerModels: $surveyAnswerModels)';
+    return 'SurveyQuestionModel(id: $id, categoryCode: $categoryCode, question: $question, order: $order, kioskVisibilityStatus: $kioskVisibilityStatus, appVisibilityStatus: $appVisibilityStatus, visibilityStatus: $visibilityStatus, createdTime: $createdTime, lastModifiedDate: $lastModifiedDate, surveyAnswerList: $surveyAnswerList)';
   }
 
   @override
@@ -289,7 +289,7 @@ class _$_SurveyQuestionModel implements _SurveyQuestionModel {
             (identical(other.lastModifiedDate, lastModifiedDate) ||
                 other.lastModifiedDate == lastModifiedDate) &&
             const DeepCollectionEquality()
-                .equals(other._surveyAnswerModels, _surveyAnswerModels));
+                .equals(other._surveyAnswerList, _surveyAnswerList));
   }
 
   @JsonKey(ignore: true)
@@ -305,7 +305,7 @@ class _$_SurveyQuestionModel implements _SurveyQuestionModel {
       visibilityStatus,
       createdTime,
       lastModifiedDate,
-      const DeepCollectionEquality().hash(_surveyAnswerModels));
+      const DeepCollectionEquality().hash(_surveyAnswerList));
 
   @JsonKey(ignore: true)
   @override
@@ -333,7 +333,7 @@ abstract class _SurveyQuestionModel implements SurveyQuestionModel {
           final String? visibilityStatus,
           final DateTime? createdTime,
           final DateTime? lastModifiedDate,
-          final List<SurveyAnswerModel>? surveyAnswerModels}) =
+          final List<SurveyAnswerModel>? surveyAnswerList}) =
       _$_SurveyQuestionModel;
 
   factory _SurveyQuestionModel.fromJson(Map<String, dynamic> json) =
@@ -358,7 +358,7 @@ abstract class _SurveyQuestionModel implements SurveyQuestionModel {
   @override
   DateTime? get lastModifiedDate;
   @override
-  List<SurveyAnswerModel>? get surveyAnswerModels;
+  List<SurveyAnswerModel>? get surveyAnswerList;
   @override
   @JsonKey(ignore: true)
   _$$_SurveyQuestionModelCopyWith<_$_SurveyQuestionModel> get copyWith =>

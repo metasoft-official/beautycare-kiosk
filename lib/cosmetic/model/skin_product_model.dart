@@ -1,0 +1,27 @@
+import 'package:beauty_care/common/model/integrated_attach_file_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'skin_product_model.freezed.dart';
+part 'skin_product_model.g.dart';
+
+@freezed
+@JsonSerializable(fieldRename: FieldRename.snake)
+class SkinProductModel with _$SkinProductModel {
+  factory SkinProductModel({
+    int? id,
+    String? name,
+    int? price,
+    int? popularityCategoryId,
+    String? description,
+    int? skintypeCategoryId,
+    int? productLineCategoryId,
+    String? productUrl,
+    int? imageId,
+    DateTime? createdDate,
+    DateTime? lastModifiedDate,
+    IntegratedAttachFileModel? image,
+  }) = _SkinProductModel;
+
+  factory SkinProductModel.fromJson(Map<String, dynamic> json) =>
+      _$SkinProductModelFromJson(json);
+}

@@ -113,32 +113,35 @@ class CosmeticProductAll extends ConsumerWidget {
             markText: user.name,
           ),
           // 카테고리
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  for (var i = 0; i < homeState.keywords.length; i++) ...[
-                    Container(
-                      margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 12),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(35)),
-                          border: Border.all(color: AppColor.appColor)),
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          '#${homeState.keywords[i]}',
-                          style: AppTextTheme.blue14b,
-                          textAlign: TextAlign.center,
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < homeState.keywords.length; i++) ...[
+                      Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 12),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(35)),
+                            border: Border.all(color: AppColor.appColor)),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            '#${homeState.keywords[i]}',
+                            style: AppTextTheme.blue14b,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                    )
-                  ]
-                ],
+                      )
+                    ]
+                  ],
+                ),
               ),
             ),
           ),
