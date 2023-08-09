@@ -1,3 +1,6 @@
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
+import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -18,8 +21,7 @@ class ProductSliverGridWidget extends ConsumerWidget {
       this.addWishlist})
       : super(key: key);
 
-  // todo : product model 리스트 넘기면 model 정보 활용하도록 수정
-  final List<Map<String, dynamic>> products; // 상품 리스트
+  final List<SkinProductModel> products; // 상품 리스트
 
   // 그 외 커스텀 가능한 설정값
   final double mainAxisSpacing; //행 간 거리
@@ -75,16 +77,22 @@ class ProductSliverGridWidget extends ConsumerWidget {
                           border:
                               Border.all(color: AppColor.lightGrey, width: 2)),
                       child: Center(
-                        child: SimpleShadow(
-                            offset: const Offset(0, 1),
-                            sigma: 3,
-                            opacity: 0.3,
-                            child: Image.asset(
-                              products[index]['image'],
-                              height: 90,
-                              fit: BoxFit.scaleDown,
-                            )),
-                      ),
+                          child: SimpleShadow(
+                        offset: const Offset(0, 1),
+                        sigma: 3,
+                        opacity: 0.3,
+                        child: products[index].imageId != null
+                            ? Image.network(
+                                '${Strings.imageUrl}${products[index].imageId}',
+                                height: 90,
+                                fit: BoxFit.scaleDown,
+                              )
+                            : Image.asset(
+                                'assets/images/character_coiz_3.png',
+                                height: 90,
+                                fit: BoxFit.scaleDown,
+                              ),
+                      )),
                     ),
                     Positioned(
                       top: 10,
@@ -100,7 +108,7 @@ class ProductSliverGridWidget extends ConsumerWidget {
                 const SizedBox(height: 8),
                 GestureDetector(
                   onTap: () async {
-                    Uri url = Uri.parse(products[index]['productUrl']);
+                    Uri url = Uri.parse(products[index].productUrl ?? '-');
                     if (!await launchUrl(url)) {
                       throw Exception('Could not launch $url');
                     }
@@ -111,32 +119,33 @@ class ProductSliverGridWidget extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            products[index]['skintypeCategory'],
+                            products[index].skintypeCategoryId.toString() ??
+                                '-',
                             style: AppTextTheme.grey12.copyWith(height: 1.2),
                           ),
                           Text(
-                            products[index]['name']
-                                .replaceAll('', '\u{200B}'), //말줄임 적용
+                            products[index].name!.replaceAll('', '\u{200B}') ??
+                                '-', //말줄임 적용
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppTextTheme.black14m.copyWith(height: 1.2),
                           ),
-                          if (products[index]['price'] != null) ...[
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Text(
-                                  products[index]['price'] ?? '-',
-                                  style: AppTextTheme.black16b,
-                                ),
-                                const SizedBox(width: 4),
-                                const Text(
-                                  '원',
-                                  style: AppTextTheme.grey12,
-                                )
-                              ],
-                            ),
-                          ],
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                products[index].price != null
+                                    ? products[index].price.toString()
+                                    : '-',
+                                style: AppTextTheme.black16b,
+                              ),
+                              const SizedBox(width: 4),
+                              const Text(
+                                '원',
+                                style: AppTextTheme.grey12,
+                              )
+                            ],
+                          ),
                         ]),
                   ),
                 ),
