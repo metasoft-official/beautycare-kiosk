@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -21,7 +23,9 @@ void main() async {
   KakaoSdk.init(nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1');
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
