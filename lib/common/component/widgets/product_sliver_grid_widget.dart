@@ -18,7 +18,8 @@ class ProductSliverGridWidget extends ConsumerWidget {
       this.widget,
       this.mainAxisSpacing = 20.0,
       this.crossAxisSpacing = 16.0,
-      this.addWishlist})
+      this.addWishlist,
+      this.filterCategory})
       : super(key: key);
 
   final List<SkinProductModel> products; // 상품 리스트
@@ -29,6 +30,7 @@ class ProductSliverGridWidget extends ConsumerWidget {
   final BoxDecoration? boxDecoration;
   final Widget? widget;
   final dynamic addWishlist;
+  final String? filterCategory;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,6 +88,14 @@ class ProductSliverGridWidget extends ConsumerWidget {
                                 '${Strings.imageUrl}${products[index].imageId}',
                                 height: 90,
                                 fit: BoxFit.scaleDown,
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/character_coiz_3.png',
+                                    height: 90,
+                                    fit: BoxFit.scaleDown,
+                                  );
+                                },
                               )
                             : Image.asset(
                                 'assets/images/character_coiz_3.png',
@@ -119,7 +129,8 @@ class ProductSliverGridWidget extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            products[index].skintypeCategoryId.toString() ??
+                            filterCategory ??
+                                products[index].skintypeCategoryId.toString() ??
                                 '-',
                             style: AppTextTheme.grey12.copyWith(height: 1.2),
                           ),

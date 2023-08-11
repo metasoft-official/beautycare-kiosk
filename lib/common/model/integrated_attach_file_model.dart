@@ -6,6 +6,8 @@ part 'integrated_attach_file_model.g.dart';
 @freezed
 @JsonSerializable(fieldRename: FieldRename.snake)
 class IntegratedAttachFileModel with _$IntegratedAttachFileModel {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(explicitToJson: true)
   factory IntegratedAttachFileModel({
     int? integratedAttachFileNum,
     int? attachFileTypeCode,

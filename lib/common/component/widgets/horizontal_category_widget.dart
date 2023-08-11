@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/model/skincare_category_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beauty_care/common/layout/app_button_theme.dart';
@@ -14,7 +15,7 @@ class HorizontalCategoryWidget extends StatelessWidget {
 
   int curIndex;
   final dynamic onPressed;
-  final List<String> categories;
+  final List<SkincareCategoryModel> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class HorizontalCategoryWidget extends StatelessWidget {
                   onPressed(curIndex);
                 },
                 child: Text(
-                  categories[index] ?? '-',
+                  categories[index].name ?? '-',
                   style: index == curIndex
                       ? AppTextTheme.white12b.copyWith(height: 1.0)
                       : AppTextTheme.blue12b.copyWith(height: 1.0),

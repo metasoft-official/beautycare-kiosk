@@ -13,8 +13,6 @@ class HomeState extends ChangeNotifier {
   int bannerCurIndex = 0;
   // 제품 현재 인덱스
   int mainTypeCurIndex = 0; //main
-  int productTypeCurIndex = 0; //cosmetic
-  int productLineCurIndex = 0; //cosmetic
 
   // 배너 슬라이드 컨트롤러
   CarouselController crouselController = CarouselController();
