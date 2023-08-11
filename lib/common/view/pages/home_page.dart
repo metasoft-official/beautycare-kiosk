@@ -177,15 +177,15 @@ class HomePageState extends ConsumerState<HomePage> {
                     onTap: () => context.pushNamed('cosmeticProduct'),
                   ),
                   // 피부 타입 별 카테고리
-                  HorizontalCategoryWidget(
-                    // onPressed: homeState.setBannerIndex,
-                    onPressed: (index) {
-                      homeState.bannerCurIndex = index;
-                      homeState.crouselController.jumpToPage(index);
-                    },
-                    curIndex: homeState.bannerCurIndex,
-                    categories: homeState.typeCategories,
-                  ),
+                  // HorizontalCategoryWidget(
+                  //   // onPressed: homeState.setBannerIndex,
+                  //   onPressed: (index) {
+                  //     homeState.bannerCurIndex = index;
+                  //     homeState.crouselController.jumpToPage(index);
+                  //   },
+                  //   curIndex: homeState.bannerCurIndex,
+                  //   categories: homeState.typeCategories,
+                  // ),
                   const SizedBox(height: 12),
                   // 슬라이더
                   CustomCarouselSlider(
@@ -214,14 +214,14 @@ class HomePageState extends ConsumerState<HomePage> {
                     onTap: () => context.pushNamed('cosmeticProduct'),
                   ),
                   // 제품 라인 별 카테고리
-                  HorizontalCategoryWidget(
-                    onPressed: (index) {
-                      homeState.mainTypeCurIndex = index;
-                      homeState.resetState();
-                    },
-                    curIndex: homeState.mainTypeCurIndex,
-                    categories: homeState.lineCategories,
-                  ),
+                  // HorizontalCategoryWidget(
+                  //   onPressed: (index) {
+                  //     homeState.mainTypeCurIndex = index;
+                  //     homeState.resetState();
+                  //   },
+                  //   curIndex: homeState.mainTypeCurIndex,
+                  //   categories: homeState.lineCategories,
+                  // ),
                   const SizedBox(height: 12),
                   ProductListWidget(
                     products: homeState.lineProducts,

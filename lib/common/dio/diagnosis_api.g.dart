@@ -46,7 +46,6 @@ class _DiagnosisApi implements DiagnosisApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    logger.d(_result);
     final value = DiagnosisResultModel.fromJson(_result.data!);
     return value;
   }

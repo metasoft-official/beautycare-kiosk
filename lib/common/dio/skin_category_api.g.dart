@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'survey_api.dart';
+part of 'skin_category_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'survey_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _SurveyApi implements SurveyApi {
-  _SurveyApi(
+class _SkinCategoryApi implements SkinCategoryApi {
+  _SkinCategoryApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,33 +21,33 @@ class _SurveyApi implements SurveyApi {
   String? baseUrl;
 
   @override
-  Future<PageResponse<SurveyQuestionModel>> getSurveyQuestionAll() async {
+  Future<PageResponse<SkincareCategoryModel>> getSkincareCategoryAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<SurveyQuestionModel>>(Options(
+        _setStreamType<PageResponse<SkincareCategoryModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/common/survey-questions',
+              '/common/skincare-categories',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<SurveyQuestionModel>.fromJson(
+    final value = PageResponse<SkincareCategoryModel>.fromJson(
       _result.data!,
-      (json) => SurveyQuestionModel.fromJson(json as Map<String, dynamic>),
+      (json) => SkincareCategoryModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<PageResponse<SurveyQuestionModel>> getSurveyQuestionLByCategory(
+  Future<PageResponse<SkincareCategoryModel>> getSkincareCategoryByParentId(
       query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -55,21 +55,21 @@ class _SurveyApi implements SurveyApi {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<SurveyQuestionModel>>(Options(
+        _setStreamType<PageResponse<SkincareCategoryModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/common/survey-questions',
+              '/common/skincare-categories',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<SurveyQuestionModel>.fromJson(
+    final value = PageResponse<SkincareCategoryModel>.fromJson(
       _result.data!,
-      (json) => SurveyQuestionModel.fromJson(json as Map<String, dynamic>),
+      (json) => SkincareCategoryModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
