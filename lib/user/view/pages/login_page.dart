@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/dialog/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -142,29 +143,34 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       child: ElevatedButton(
                         style: AppButtonTheme.basicElevatedButtonTheme,
                         onPressed: () async {
-                          final token = await ref
-                              .read(userNotifierProvider.notifier)
-                              .login(
-                                loginState.usernameController.text,
-                                loginState.passwordController.text,
-                              );
+                          try {
+                            final token = await ref
+                                .read(userNotifierProvider.notifier)
+                                .login(
+                                  loginState.usernameController.text,
+                                  loginState.passwordController.text,
+                                );
 
-                          if (token != 'error') {
-                            ref.read(authStateProvider.notifier).logIn();
-                          }
+                            if (token != 'error') {
+                              ref.read(authStateProvider.notifier).logIn();
+                            }
 
-                          final authState = ref.read(authStateProvider);
-                          // print('변경 후 : $authState');
+                            final authState = ref.read(authStateProvider);
+                            // print('변경 후 : $authState');
 
-                          String routeName = widget.onLoginSuccess();
-
-                          if (authState == true) {
-                            // 로그인 페이지를 pop
-                            // context.pop();
-                            context.pushNamed(routeName);
-                            // context.goNamed('home');
-                          } else {
-                            // 로그인 실패 처리
+                            if (authState == true) {
+                              // 로그인 페이지를 pop
+                              // context.pop();
+                              String routeName = widget.onLoginSuccess();
+                              context.pushNamed(routeName);
+                              // context.goNamed(routeName);
+                            } else {
+                              // 로그인 실패 처리
+                              _showDialog(context, "로그인 실패", '확인');
+                              return;
+                            }
+                          } catch (error) {
+                            showError("API 통신 중 오류 발생: $error");
                           }
                         },
                         child: const Text('로그인', style: AppTextTheme.white16b),
@@ -277,4 +283,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       ),
     );
   }
+}
+
+void _showDialog(BuildContext context, String message, String okButtonMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        // title: new Text("Alert!!"),
+        content: Text(message),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text(okButtonMessage),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

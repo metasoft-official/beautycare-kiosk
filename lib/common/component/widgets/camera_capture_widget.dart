@@ -141,7 +141,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
 
                               try {
                                 final response = await dio.post(
-                                  'http://220.76.251.246:18812',
+                                  'YOUR_ENDPOINT_HERE',
                                   data: formData,
                                   options: Options(
                                     headers: {
@@ -233,23 +233,21 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                               .shootingIndicationButtonActiveTheme,
                         ),
                       ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            child: Center(
-                              child: Image(
-                                image: const AssetImage(
-                                    'assets/images/face_guideline.png'),
-                                width: size.height * 0.4,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
                 ],
+              ),
+
+              Positioned(
+                child: Expanded(
+                  child: SizedBox(
+                    child: Center(
+                      child: Image(
+                        image: const AssetImage(
+                            'assets/images/face_guideline.png'),
+                        width: size.height * 0.4,
+                      ),
+                    ),
+                  ),
+                ),
               ),
 
               // 카메라 버튼 아래에 고정
