@@ -6,41 +6,6 @@ part of 'survey_question_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SurveyQuestionModel _$SurveyQuestionModelFromJson(Map<String, dynamic> json) =>
-    SurveyQuestionModel(
-      id: json['id'] as int?,
-      categoryCode: json['category_code'] as int?,
-      question: json['question'] as String?,
-      order: json['order'] as int?,
-      kioskVisibilityStatus: json['kiosk_visibility_status'] as String?,
-      appVisibilityStatus: json['app_visibility_status'] as String?,
-      visibilityStatus: json['visibility_status'] as String?,
-      createdTime: json['created_time'] == null
-          ? null
-          : DateTime.parse(json['created_time'] as String),
-      lastModifiedDate: json['last_modified_date'] == null
-          ? null
-          : DateTime.parse(json['last_modified_date'] as String),
-      surveyAnswerList: (json['survey_answer_list'] as List<dynamic>?)
-          ?.map((e) => SurveyAnswerModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$SurveyQuestionModelToJson(
-        SurveyQuestionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'category_code': instance.categoryCode,
-      'question': instance.question,
-      'order': instance.order,
-      'kiosk_visibility_status': instance.kioskVisibilityStatus,
-      'app_visibility_status': instance.appVisibilityStatus,
-      'visibility_status': instance.visibilityStatus,
-      'created_time': instance.createdTime?.toIso8601String(),
-      'last_modified_date': instance.lastModifiedDate?.toIso8601String(),
-      'survey_answer_list': instance.surveyAnswerList,
-    };
-
 _$_SurveyQuestionModel _$$_SurveyQuestionModelFromJson(
         Map<String, dynamic> json) =>
     _$_SurveyQuestionModel(

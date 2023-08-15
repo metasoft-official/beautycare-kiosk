@@ -213,6 +213,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     markText: '제품 라인 별',
                     onTap: () => context.pushNamed('cosmeticProduct'),
                   ),
+                  // todo 카테고리 데이터 연동 적용
                   // 제품 라인 별 카테고리
                   // HorizontalCategoryWidget(
                   //   onPressed: (index) {
