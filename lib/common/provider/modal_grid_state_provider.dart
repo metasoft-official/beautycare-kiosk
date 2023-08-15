@@ -1,27 +1,12 @@
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-//
-// final changeCategoryStateProvider =
-// ChangeNotifierProvider((ref) => SkinCategoryState());
-//
-// class ModalGridState
-//     extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
-//
-//   ModalGridState()
-//       : super(const AsyncValue.loading()) {
-//     loadData();
-//   }
-//   final data = [];
-//   final
-//
-//   Future<void> loadData() async {
-//     try {
-//       state = AsyncValue.data(data);
-//     } catch (e, s) {
-//       state = AsyncValue.error(e, s);
-//     }
-//   }
-//
-//   Future<void> reloadData() async {
-//     state = const AsyncValue.loading();
-//     await loadData();
-//   }
+import 'package:beauty_care/common/provider/state/modal_data_state.dart';
+import 'package:beauty_care/common/provider/state/modal_selected_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final modalGridStateProvider =
+    StateNotifierProvider<ModalDataState, AsyncValue<Map<String, dynamic>>>(
+        (ref) => ModalDataState());
+
+final modalSelectProvider =
+    StateNotifierProvider<ModalSelectedState, ModalState>((ref) {
+  return ModalSelectedState();
+});

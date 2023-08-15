@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
+import 'package:beauty_care/common/provider/modal_grid_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -177,9 +178,14 @@ class CosmeticProductAll extends ConsumerWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    ModalMixin.filterModalBottomSheet(
-                        context, "피부고민", productState.troubleCategories);
+                  onTap: () async {
+                    final selectedData =
+                        await ModalMixin.filterModalBottomSheet(
+                            modalId: 'cosmeticAllKeyword',
+                            context: context,
+                            title: '피부고민',
+                            parentId: 43,
+                            selectedValue: 0);
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -226,7 +232,15 @@ class CosmeticProductAll extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    final selectedData =
+                        await ModalMixin.filterModalBottomSheet(
+                            modalId: 'cosmeticAllPeriod',
+                            context: context,
+                            title: '조회기간',
+                            parentId: 50,
+                            selectedValue: 0);
+                  },
                   child: Container(
                     decoration: const BoxDecoration(
                         border: Border(
