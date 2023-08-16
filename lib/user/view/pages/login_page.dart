@@ -224,9 +224,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               ref.read(userNotifierProvider.notifier).state =
                                   response.items![0];
                               logger.d(response.items![0]);
+                              login(context, ref);
+                            } else {
+                              context.pushNamed('register');
                             }
-
-                            login(context, ref);
                           },
                           icon: Image.asset(
                             'assets/icons/naver.png',
@@ -288,17 +289,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ref.read(authStateProvider.notifier).logIn();
                                 ref.read(userNotifierProvider.notifier).state =
                                     response.items![0];
-                                logger.d(response.items![0]);
+                                login(context, ref);
                               }
 
-                              login(context, ref);
-
                               // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
-
-                              //   final kakaoUser = UserModel(username: user.id);
-                              //   final response = await ref
-                              //       .watch(userApiProvider)
-                              //       .getUserList(kakaoUser.toJson());
+                              else {
+                                context.pushNamed('register');
+                              }
                             } catch (error) {
                               logger.d(error);
                             }

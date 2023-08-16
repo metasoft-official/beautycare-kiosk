@@ -29,11 +29,5 @@ class MBTIShootingPage extends ConsumerWidget {
         child: CameraWidget(),
       )),
     );
-    // bottomNavigationBar: ButtonBottomNavigationBarWidget(
-    //   buttonColor: AppColor.appColor,
-    //   textStyle: AppTextTheme.white14b,
-    //   label: '확인 후 촬영하기',
-    //   onPressed: () {},
-    // ));
   }
 }
