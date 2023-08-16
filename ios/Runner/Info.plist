@@ -33,7 +33,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+			    <!--kakao login-->
 				<string>kakao0411529dd3d4b984f8f6e1753471f0a1</string>
+				<!--naver login-->
+                <string>naverlogin</string>
 			</array>
 		</dict>
 	</array>
@@ -100,7 +103,7 @@
     <key>naverServiceAppName</key>
     <string>beautycare</string>
     <key>naverServiceAppUrlScheme</key>
-    <string>naver</string>
+    <string>naverlogin</string>
 </dict>
 </plist>
 

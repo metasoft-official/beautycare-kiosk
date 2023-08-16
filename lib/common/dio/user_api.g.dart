@@ -13,7 +13,7 @@ class _UserApi implements UserApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.52:9000/api';
+    baseUrl ??= 'http://192.168.0.36:9000/api';
   }
 
   final Dio _dio;
@@ -44,25 +44,29 @@ class _UserApi implements UserApi {
   }
 
   @override
-  Future<String> getUserList(user) async {
+  Future<PageResponse<UserModel>> getUserList(user) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(user);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PageResponse<UserModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/common/users',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+            .compose(
+              _dio.options,
+              '/common/users',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PageResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 

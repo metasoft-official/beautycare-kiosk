@@ -257,7 +257,8 @@ class __$$_SkinProductModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_SkinProductModel implements _SkinProductModel {
   _$_SkinProductModel(
       {this.id,

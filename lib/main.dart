@@ -22,7 +22,9 @@ import 'package:beauty_care/common/layout/app_theme.dart';
 var logger = Logger();
 
 void main() async {
-  KakaoSdk.init(nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1');
+  KakaoSdk.init(
+      nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1',
+      javaScriptAppKey: 'ea72724bc4dbaef409ee2d2c9020e6e5');
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

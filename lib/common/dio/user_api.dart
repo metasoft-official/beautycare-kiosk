@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -14,5 +15,6 @@ abstract class UserApi {
       @Header("Authorization") String authHeader);
 
   @GET('/common/users')
-  Future<String> getUserList(@Queries() Map<String, dynamic> user);
+  Future<PageResponse<UserModel>> getUserList(
+      @Queries() Map<String, dynamic> user);
 }

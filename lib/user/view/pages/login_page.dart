@@ -1,16 +1,18 @@
-import 'package:beauty_care/common/component/dialog/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart'
     as KakaoUser;
 
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 
+import 'package:beauty_care/common/component/dialog/toast_message.dart';
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_input_theme.dart';
@@ -163,7 +165,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               // context.pop();
                               String routeName = widget.onLoginSuccess();
                               context.pushNamed(routeName);
-                              // context.goNamed(routeName);
                             } else {
                               // 로그인 실패 처리
                               _showDialog(context, "로그인 실패", '확인');
@@ -202,7 +203,30 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       children: [
                         // 네이버 로그인
                         IconButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            NaverLoginResult res =
+                                await FlutterNaverLogin.logIn();
+
+                            logger.d(res);
+
+                            final account = res.account;
+
+                            final response = await ref
+                                .watch(userApiProvider)
+                                .getUserList({
+                              'socialLoginType': 'NAVER',
+                              'username': account.id
+                            });
+
+                            if (response.items != null &&
+                                response.items!.isNotEmpty) {
+                              ref.read(authStateProvider.notifier).logIn();
+                              ref.read(userNotifierProvider.notifier).state =
+                                  response.items![0];
+                            }
+
+                            login(context, ref);
+                          },
                           icon: Image.asset(
                             'assets/icons/naver.png',
                             width: 48,
@@ -251,10 +275,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                               // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
 
-                              final kakaoUser = UserModel(username: user.id);
-                              final response = await ref
-                                  .watch(userApiProvider)
-                                  .getUserList(kakaoUser.toJson());
+                              //   final kakaoUser = UserModel(username: user.id);
+                              //   final response = await ref
+                              //       .watch(userApiProvider)
+                              //       .getUserList(kakaoUser.toJson());
                             } catch (error) {}
                           },
                           icon: Image.asset(
@@ -282,6 +306,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         },
       ),
     );
+  }
+
+  void login(BuildContext context, WidgetRef ref) {
+    final authState = ref.read(authStateProvider);
+
+    if (authState == true) {
+      // 로그인 페이지를 pop
+      // context.pop();
+      String routeName = widget.onLoginSuccess();
+      context.pushNamed(routeName);
+      // context.goNamed(routeName);
+    } else {
+      // 로그인 실패 처리
+      _showDialog(context, "로그인 실패", '확인');
+      return;
+    }
   }
 }
 

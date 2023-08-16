@@ -245,7 +245,8 @@ class __$$_IntegratedAttachFileModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_IntegratedAttachFileModel implements _IntegratedAttachFileModel {
   _$_IntegratedAttachFileModel(
       {this.integratedAttachFileNum,

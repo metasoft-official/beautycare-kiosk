@@ -42,5 +42,5 @@ Map<String, dynamic> _$$_SkinProductModelToJson(_$_SkinProductModel instance) =>
       'imageId': instance.imageId,
       'createdDate': instance.createdDate?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
-      'image': instance.image,
+      'image': instance.image?.toJson(),
     };

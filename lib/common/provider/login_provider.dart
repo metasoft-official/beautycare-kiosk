@@ -49,6 +49,10 @@ class UserNotifier extends StateNotifier<UserModel> {
 
   UserNotifier(this._userRepository) : super(UserModel());
 
+  void update(UserModel userModel) {
+    state = userModel;
+  }
+
   Future<String> login(String username, String password) async {
     try {
       final uuid = await _userRepository.login(username, password);
