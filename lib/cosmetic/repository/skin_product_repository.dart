@@ -20,9 +20,9 @@ class SkinProductRepository {
   }
 
   // 특정 값 제품 가져오기
-  Future<PageResponse<SkinProductModel>?> getSurveyQuestionsByQuery(
-      SkinProductModel questionModel) async {
-    final Map<String, dynamic> query = {...questionModel.toJson()};
+  Future<PageResponse<SkinProductModel>?> getSkinProductByQuery(
+      SkinProductModel skinProductModel) async {
+    final Map<String, dynamic> query = {...skinProductModel.toJson()};
     try {
       final response = await skinProductApi.getSkinProductByQuery(query);
       return response;

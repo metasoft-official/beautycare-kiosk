@@ -1,11 +1,9 @@
-import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
-import 'package:beauty_care/common/model/skincare_category_model.dart';
-import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
+import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
+import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
-import 'package:beauty_care/common/provider/home_state_provider.dart';
 import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
 
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
@@ -14,6 +12,7 @@ import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_ba
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_sliver_grid_widget.dart';
 import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
+import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_all.dart';
 import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_order.dart';
 
@@ -36,9 +35,19 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
     super.initState();
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      final productState = ref.watch(productStateProvider);
-      productState.stateIndex = tabController.index;
-      productState.resetState();
+      final categoryState = ref.watch(skinCategoryStateProvider);
+      final productState = ref.watch(skinProductStateProvider.notifier);
+      productState.tabState = tabController.index;
+      if (tabController.index == 1) {
+        productState.getProductList(
+            skintypeCategoryId: productState.data['typeCategory'][0].id);
+      } else if (tabController.index == 2) {
+        logger.d(productState.data['lineCategory'][0].id);
+        productState.getProductList(
+            productLineCategoryId: productState.data['lineCategory'][0].id);
+      } else {
+        productState.getProductList();
+      }
     });
   }
 
@@ -50,9 +59,10 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
 
   @override
   Widget build(BuildContext context) {
+    final productDataState = ref.watch(skinProductStateProvider.notifier);
     final asyncValue = ref.watch(skinProductStateProvider);
     final productState = ref.watch(productStateProvider);
-    final categoryState = ref.watch(changeCategoryStateProvider);
+    final categoryState = ref.watch(skinCategoryStateProvider);
 
     return asyncValue.when(
       data: (data) {
@@ -80,13 +90,22 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                   CosmeticProductOrder(
                     selectedValue: productState.orderSelectedValue,
                     orderCategories: productState.orders,
-                    onTap: () {},
+                    onTap: () async {
+                      final selectedData =
+                          await ModalMixin.filterModalBottomSheet(
+                              modalId: 'cosmeticAllKeyword',
+                              context: context,
+                              title: '정렬',
+                              parentId: 43,
+                              selectedValue: 0);
+                    },
                   ),
                   SliverToBoxAdapter(
                     child: HorizontalCategoryWidget(
                       onPressed: (index) {
                         categoryState.productTypeCurIndex = index;
-                        categoryState.resetState();
+                        productDataState.getProductList(
+                            skintypeCategoryId: data['typeCategory'][index].id);
                       },
                       curIndex: categoryState.productTypeCurIndex,
                       categories: data['typeCategory'],
@@ -113,7 +132,9 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                     child: HorizontalCategoryWidget(
                       onPressed: (index) {
                         categoryState.productLineCurIndex = index;
-                        categoryState.resetState();
+                        productDataState.getProductList(
+                            productLineCategoryId:
+                                data['lineCategory'][index].id);
                       },
                       curIndex: categoryState.productLineCurIndex,
                       categories: data['lineCategory'],

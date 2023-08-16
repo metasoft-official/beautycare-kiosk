@@ -1,3 +1,5 @@
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // todo 찜 로직 추가
 class ProductGridWidget extends ConsumerWidget {
@@ -17,11 +20,12 @@ class ProductGridWidget extends ConsumerWidget {
       this.widget,
       this.mainAxisSpacing = 20.0,
       this.crossAxisSpacing = 16.0,
-      this.addWishlist})
+      this.addWishlist,
+      this.filterCategory,
+      this.itemCount})
       : super(key: key);
 
-  // todo : product model 리스트 넘기면 model 정보 활용하도록 수정
-  final List<Map<String, dynamic>> products; // 상품 리스트
+  final List<SkinProductModel> products; // 상품 리스트
   final int columnSizes;
 
   // 그 외 커스텀 가능한 설정값
@@ -30,21 +34,23 @@ class ProductGridWidget extends ConsumerWidget {
   final BoxDecoration? boxDecoration;
   final Widget? widget;
   final dynamic addWishlist;
+  final String? filterCategory;
+  final int? itemCount;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productState = ref.watch(productStateProvider);
+    final count = itemCount ?? products.length;
 
     return SingleChildScrollView(
       child: LayoutGrid(
         columnGap: crossAxisSpacing,
         rowGap: mainAxisSpacing,
         columnSizes: List<TrackSize>.filled(columnSizes, 1.fr),
-        rowSizes: List<TrackSize>.filled(
-            (products.length / columnSizes).ceil(), auto),
+        rowSizes: List<TrackSize>.filled((count / columnSizes).ceil(), auto),
         children: [
           ...List.generate(
-            products.length,
+            count,
             (index) {
               return Container(
                 decoration: boxDecoration,
@@ -64,14 +70,30 @@ class ProductGridWidget extends ConsumerWidget {
                                       color: AppColor.lightGrey, width: 2)),
                               child: Center(
                                 child: SimpleShadow(
-                                    offset: const Offset(0, 1),
-                                    sigma: 3,
-                                    opacity: 0.3,
-                                    child: Image.asset(
-                                      products[index]['image'],
-                                      height: 90,
-                                      fit: BoxFit.scaleDown,
-                                    )),
+                                  offset: const Offset(0, 1),
+                                  sigma: 3,
+                                  opacity: 0.3,
+                                  child: products[index].imageId != null
+                                      ? Image.network(
+                                          '${Strings.imageUrl}${products[index].imageId}',
+                                          height: 90,
+                                          fit: BoxFit.scaleDown,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/character_coiz_3.png',
+                                              height: 90,
+                                              fit: BoxFit.scaleDown,
+                                            );
+                                          },
+                                        )
+                                      : Image.asset(
+                                          'assets/images/character_coiz_3.png',
+                                          height: 90,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                ),
                               ),
                             ),
                             Positioned(
@@ -89,41 +111,50 @@ class ProductGridWidget extends ConsumerWidget {
                         ),
                         const SizedBox(height: 8),
                         GestureDetector(
-                          onTap: () {
-                            productState.openWeb(products[index]['productUrl']);
+                          onTap: () async {
+                            Uri url =
+                                Uri.parse(products[index].productUrl ?? '-');
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
+                            }
                           },
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  products[index]['skintypeCategory'],
+                                  filterCategory ??
+                                      products[index]
+                                          .skintypeCategoryId
+                                          .toString() ??
+                                      '-',
                                   style:
                                       AppTextTheme.grey12.copyWith(height: 1.2),
                                 ),
                                 Text(
-                                  products[index]['name']
-                                      .replaceAll('', '\u{200B}'), //말줄임 적용
+                                  products[index]
+                                          .name!
+                                          .replaceAll('', '\u{200B}') ??
+                                      '-', //말줄임 적//말줄임 적용
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: AppTextTheme.black14m
                                       .copyWith(height: 1.2),
                                 ),
-                                if (products[index]['price'] != null) ...[
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        products[index]['price'] ?? '-',
-                                        style: AppTextTheme.black16b,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      const Text(
-                                        '원',
-                                        style: AppTextTheme.grey12,
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                Row(
+                                  children: [
+                                    Text(
+                                      products[index].price != null
+                                          ? products[index].price.toString()
+                                          : '-',
+                                      style: AppTextTheme.black16b,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Text(
+                                      '원',
+                                      style: AppTextTheme.grey12,
+                                    )
+                                  ],
+                                ),
                               ]),
                         )
                       ],

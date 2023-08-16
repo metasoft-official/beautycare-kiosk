@@ -1,11 +1,16 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../main.dart';
+
 class ModalSelectedState extends StateNotifier<ModalState> {
-  ModalSelectedState() : super(ModalState.initial());
+  ModalSelectedState(modalId, selectedValue, length)
+      : super(ModalState.initial(modalId, selectedValue, length));
 
   void initializeModal(String modalId, int length, int selectedValue) {
-    state.modals[modalId] = ModalSelectedData(
-        List.generate(length, (index) => false), selectedValue);
+    logger.d(selectedValue);
+    final isClicked = List.generate(length, (index) => false);
+    final initialIsClicked = List<bool>.from(isClicked)..[selectedValue] = true;
+    state.modals[modalId] = ModalSelectedData(initialIsClicked, selectedValue);
   }
 
   void selectButton(String modalId, int curIndex) {
@@ -32,5 +37,9 @@ class ModalState {
 
   ModalState(this.modals);
 
-  ModalState.initial() : modals = {};
+  ModalState.initial(String modalId, int selectedValue, int length)
+      : modals = {
+          modalId: ModalSelectedData(
+              List.generate(length, (index) => false), selectedValue)
+        };
 }

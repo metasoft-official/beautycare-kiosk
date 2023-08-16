@@ -1,3 +1,5 @@
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -5,6 +7,9 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../main.dart';
 
 class ProductListWidget extends StatelessWidget {
   const ProductListWidget(
@@ -16,11 +21,15 @@ class ProductListWidget extends StatelessWidget {
       this.markText,
       this.btnUrlName,
       required this.imgVisible,
-      this.imgUrl})
+      this.imgUrl,
+      this.filterCategory,
+      required this.itemCount})
       : super(key: key);
 
-  // final List<Cosmetic>? products;
-  final List<Map<String, dynamic>> products;
+  final List<SkinProductModel> products; // 상품 리스트
+
+  final String? filterCategory;
+  final int itemCount;
 
   // lank
   final bool lankVisible;
@@ -37,7 +46,8 @@ class ProductListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return products.length == 1
+    final count = itemCount ?? products.length;
+    return count == 1
         ? Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
@@ -63,7 +73,7 @@ class ProductListWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${products[0]['category']} 제품',
+                          '$filterCategory 제품',
                           style: AppTextTheme.black14b,
                         ),
                         const SizedBox(height: 8),
@@ -82,8 +92,11 @@ class ProductListWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(28, 14, 28, 14),
                   child: InkWell(
-                    onTap: () {
-                      context.goNamed(products[0]['productUrl']);
+                    onTap: () async {
+                      Uri url = Uri.parse(products[0].productUrl ?? '-');
+                      if (!await launchUrl(url)) {
+                        throw Exception('Could not launch $url');
+                      }
                     },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,13 +110,26 @@ class ProductListWidget extends StatelessWidget {
                               opacity: 0.2,
                               sigma: 4,
                               color: AppColor.black,
-                              child: Image.asset(
-                                products[0]['image'] ??
-                                    'assets/images/sample_c_01.png',
-                                width: 50,
-                                height: 60,
-                                fit: BoxFit.scaleDown,
-                              ),
+                              child: products[0].imageId != null
+                                  ? Image.network(
+                                      '${Strings.imageUrl}${products[0].imageId}',
+                                      height: 90,
+                                      fit: BoxFit.scaleDown,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return Image.asset(
+                                          'assets/images/character_coiz_3.png',
+                                          height: 90,
+                                          fit: BoxFit.scaleDown,
+                                        );
+                                      },
+                                    )
+                                  : Image.asset(
+                                      'assets/images/character_coiz_3.png',
+                                      height: 90,
+                                      fit: BoxFit.scaleDown,
+                                    ),
                             ),
                           ),
                         ),
@@ -113,13 +139,14 @@ class ProductListWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                products[0]['category'] ??
-                                    products[0]['skintypeCategory'] ??
+                                filterCategory ??
+                                    products[0].skintypeCategoryId.toString() ??
                                     '-',
                                 style: AppTextTheme.middleGrey8,
                               ),
                               Text(
-                                products[0]['name'] ?? '-',
+                                products[0].name!.replaceAll('', '\u{200B}') ??
+                                    '-',
                                 style: AppTextTheme.black10b,
                                 maxLines: 1,
                                 overflow: TextOverflow.clip,
@@ -130,7 +157,9 @@ class ProductListWidget extends StatelessWidget {
                                       style: AppTextTheme.middleGrey10,
                                       children: [
                                     TextSpan(
-                                        text: products[0]['price'] ?? '-',
+                                        text: products[0].price != null
+                                            ? products[0].price.toString()
+                                            : '-',
                                         style: AppTextTheme.black14b),
                                     const TextSpan(text: '원')
                                   ]))
@@ -193,21 +222,22 @@ class ProductListWidget extends StatelessWidget {
               children: [
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                   child: ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       primary: false, //스크롤 제한
-                      itemCount: products.length,
+                      itemCount: itemCount,
                       itemBuilder: (BuildContext context, int index) {
                         return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (lankVisible == true) ...[
                               const SizedBox(width: 24),
                               Text(
                                 '${index + 1}',
                                 style:
-                                    AppTextTheme.black14b.copyWith(height: 1.2),
+                                    AppTextTheme.black14b.copyWith(height: 1.0),
                               ),
                             ],
                             Expanded(
@@ -215,11 +245,15 @@ class ProductListWidget extends StatelessWidget {
                                 children: [
                                   Container(
                                     margin:
-                                        const EdgeInsets.fromLTRB(8, 8, 16, 8),
+                                        const EdgeInsets.fromLTRB(8, 4, 16, 4),
                                     child: InkWell(
-                                      onTap: () {
-                                        context
-                                            .goNamed(products[0]['productUrl']);
+                                      onTap: () async {
+                                        Uri url = Uri.parse(
+                                            products[index].productUrl ?? '-');
+                                        if (!await launchUrl(url)) {
+                                          throw Exception(
+                                              'Could not launch $url');
+                                        }
                                       },
                                       child: Row(
                                         crossAxisAlignment:
@@ -227,7 +261,9 @@ class ProductListWidget extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          SizedBox(
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 0),
                                             width: 70,
                                             child: Align(
                                               alignment: Alignment.center,
@@ -235,13 +271,33 @@ class ProductListWidget extends StatelessWidget {
                                                 opacity: 0.2,
                                                 sigma: 4,
                                                 color: AppColor.black,
-                                                child: Image.asset(
-                                                  products[index]['image'] ??
-                                                      'assets/images/sample_c_01.png',
-                                                  width: 50,
-                                                  height: 60,
-                                                  fit: BoxFit.scaleDown,
-                                                ),
+                                                child: products[index]
+                                                            .imageId !=
+                                                        null
+                                                    ? Image.network(
+                                                        '${Strings.imageUrl}${products[index].imageId}',
+                                                        height: 90,
+                                                        fit: BoxFit.scaleDown,
+                                                        errorBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                Object
+                                                                    exception,
+                                                                StackTrace?
+                                                                    stackTrace) {
+                                                          return Image.asset(
+                                                            'assets/images/character_coiz_3.png',
+                                                            height: 90,
+                                                            fit: BoxFit
+                                                                .scaleDown,
+                                                          );
+                                                        },
+                                                      )
+                                                    : Image.asset(
+                                                        'assets/images/character_coiz_3.png',
+                                                        height: 90,
+                                                        fit: BoxFit.scaleDown,
+                                                      ),
                                               ),
                                             ),
                                           ),
@@ -252,13 +308,19 @@ class ProductListWidget extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  products[index]['category'] ??
+                                                  filterCategory ??
+                                                      products[index]
+                                                          .skintypeCategoryId
+                                                          .toString() ??
                                                       '-',
                                                   style:
                                                       AppTextTheme.middleGrey8,
                                                 ),
                                                 Text(
-                                                  products[index]['name'] ??
+                                                  products[index]
+                                                          .name!
+                                                          .replaceAll(
+                                                              '', '\u{200B}') ??
                                                       '-',
                                                   style: AppTextTheme.black10b,
                                                   maxLines: 1,
@@ -272,8 +334,12 @@ class ProductListWidget extends StatelessWidget {
                                                         children: [
                                                       TextSpan(
                                                           text: products[index]
-                                                                  ['price'] ??
-                                                              '-',
+                                                                      .price !=
+                                                                  null
+                                                              ? products[index]
+                                                                  .price
+                                                                  .toString()
+                                                              : '-',
                                                           style: AppTextTheme
                                                               .black14b),
                                                       const TextSpan(text: '원')
@@ -292,7 +358,7 @@ class ProductListWidget extends StatelessWidget {
                                   ),
                                   if (index != products.length - 1) ...[
                                     const Divider(
-                                      height: 16,
+                                      height: 1,
                                     )
                                   ]
                                 ],

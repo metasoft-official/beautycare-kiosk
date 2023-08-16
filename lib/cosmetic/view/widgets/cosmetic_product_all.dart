@@ -1,12 +1,10 @@
-import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
-import 'package:beauty_care/common/provider/modal_grid_state_provider.dart';
+import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/provider/home_state_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
-import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
@@ -14,13 +12,16 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_grid_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
+import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
+
+import '../../../main.dart';
 
 class CosmeticProductAll extends ConsumerWidget {
   const CosmeticProductAll({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productState = ref.watch(productStateProvider);
+    final productState = ref.watch(skinProductStateProvider.notifier);
     final user = ref.watch(userNotifierProvider);
     final homeState = ref.watch(homeStateProvider);
 
@@ -150,8 +151,7 @@ class CosmeticProductAll extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: ProductGridWidget(
-                // todo : model 생성 후 model 리스트 전달
-                products: productState.products),
+                products: productState.data['products'], itemCount: 4),
           ),
           const SizedBox(height: 20),
           // 광고 배너 ===========================================================
@@ -186,6 +186,7 @@ class CosmeticProductAll extends ConsumerWidget {
                             title: '피부고민',
                             parentId: 43,
                             selectedValue: 0);
+                    logger.d(selectedData);
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -219,8 +220,7 @@ class CosmeticProductAll extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: ProductGridWidget(
-                // todo : model 생성 후 model 리스트 전달
-                products: productState.products),
+                products: productState.data['products'], itemCount: 4),
           ),
           const SizedBox(height: 20),
 
@@ -288,7 +288,8 @@ class CosmeticProductAll extends ConsumerWidget {
           const SizedBox(height: 8),
           // 인기 제품 리스트
           ProductListWidget(
-              products: productState.lankProducts,
+              itemCount: 3,
+              products: productState.data['products'],
               lankVisible: true,
               btnVisible: true,
               btnText: '인기상품 전체보기',

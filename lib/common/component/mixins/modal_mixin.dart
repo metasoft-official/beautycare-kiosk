@@ -1,6 +1,6 @@
 import 'package:beauty_care/common/model/code_model.dart';
 import 'package:beauty_care/common/provider/code_provider.dart';
-import 'package:beauty_care/common/provider/modal_grid_state_provider.dart';
+import 'package:beauty_care/common/provider/modal/modal_grid_state_provider.dart';
 import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
@@ -9,6 +9,7 @@ import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 class ModalMixin extends ChangeNotifier {
   static Future<int> filterModalBottomSheet(
@@ -27,15 +28,19 @@ class ModalMixin extends ChangeNotifier {
         builder: (BuildContext context) {
           return Consumer(
             builder: (context, ref, child) {
-              final btnState = ref.watch(modalSelectProvider.notifier);
-              final btnStateData = ref.watch(modalSelectProvider);
               final asyncValue = ref.watch(orderProvider(parentId));
+
               List<CodeModel>? list;
 
-              logger.d(btnStateData.modals[modalId]?.curIndex);
               return asyncValue.when(
                 data: (data) {
                   list = data;
+                  final btnState = ref.watch(modalSelectProvider(
+                          Tuple3(modalId, selectedValue, data?.length ?? 0))
+                      .notifier);
+                  final btnStateData = ref.watch(modalSelectProvider(
+                      Tuple3(modalId, selectedValue, data?.length ?? 0)));
+
                   return list != null
                       ? Container(
                           height: 250,

@@ -13,8 +13,6 @@ class ProductState extends ChangeNotifier {
 
   List<String> titles = ['전체', '피부타입별', '사용단계별'];
 
-  CarouselController carouselController = CarouselController();
-
   List<String> promotionList = [
     'assets/images/promotion_banner_01.png',
     'assets/images/promotion_banner_02.png'
