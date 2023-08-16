@@ -223,6 +223,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               ref.read(authStateProvider.notifier).logIn();
                               ref.read(userNotifierProvider.notifier).state =
                                   response.items![0];
+                              logger.d(response.items![0]);
                             }
 
                             login(context, ref);
@@ -272,6 +273,25 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             try {
                               KakaoUser.User user =
                                   await KakaoUser.UserApi.instance.me();
+                              logger.d(user);
+
+                              final response = await ref
+                                  .watch(userApiProvider)
+                                  .getUserList({
+                                'socialLoginType': 'KAKAO',
+                                'username': user.id.toString()
+                              });
+                              logger.d(response);
+
+                              if (response.items != null &&
+                                  response.items!.isNotEmpty) {
+                                ref.read(authStateProvider.notifier).logIn();
+                                ref.read(userNotifierProvider.notifier).state =
+                                    response.items![0];
+                                logger.d(response.items![0]);
+                              }
+
+                              login(context, ref);
 
                               // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
 
@@ -279,7 +299,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               //   final response = await ref
                               //       .watch(userApiProvider)
                               //       .getUserList(kakaoUser.toJson());
-                            } catch (error) {}
+                            } catch (error) {
+                              logger.d(error);
+                            }
                           },
                           icon: Image.asset(
                             'assets/icons/kakaotalk.png',

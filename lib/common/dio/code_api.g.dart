@@ -13,7 +13,7 @@ class _CodeApi implements CodeApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.36:9000/api';
+    baseUrl ??= 'http://192.168.0.101:9000/api';
   }
 
   final Dio _dio;
