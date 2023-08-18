@@ -1,5 +1,3 @@
-import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
-import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,16 +6,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
-import 'package:beauty_care/common/provider/home_state_provider.dart';
+import 'package:beauty_care/common/provider/home/home_state_provider.dart';
 
 import 'package:beauty_care/common/layout/app_text.dart';
-
+import 'package:beauty_care/common/view/widgets/home_banner_widget.dart';
+import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
+import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart';
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
-import 'package:beauty_care/common/view/widgets/home_banner_widget.dart';
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -48,9 +47,9 @@ class HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final asyncValue = ref.watch(skinProductStateProvider);
+    final asyncValue = ref.watch(homeDataStateProvider);
+    final homeDataState = ref.watch(homeDataStateProvider.notifier);
     final authStateNotifier = ref.watch(authStateProvider.notifier);
-    final homeState = ref.watch(homeStateProvider);
     final authState = ref.watch(authStateProvider);
     final user = ref.watch(userNotifierProvider);
 
@@ -145,7 +144,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                     padding: const EdgeInsets.all(0),
                                     shrinkWrap: true,
                                     primary: false,
-                                    itemCount: homeState.keywords.length,
+                                    itemCount: homeDataState.keywords.length,
                                     itemBuilder: (context, index) {
                                       return Container(
                                         margin: (index + 1) % 3 == 0
@@ -162,7 +161,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '#${homeState.keywords[index]}',
+                                            '#${homeDataState.keywords[index]}',
                                             style: AppTextTheme.white14b,
                                             textAlign: TextAlign.center,
                                           ),
@@ -185,36 +184,42 @@ class HomePageState extends ConsumerState<HomePage> {
                         onTap: () => context.pushNamed('cosmeticProduct'),
                       ),
                       // 피부 타입 별 카테고리
-                      // HorizontalCategoryWidget(
-                      //   // onPressed: homeState.setBannerIndex,
-                      //   onPressed: (index) {
-                      //     homeState.bannerCurIndex = index;
-                      //     homeState.crouselController.jumpToPage(index);
-                      //   },
-                      //   curIndex: homeState.bannerCurIndex,
-                      //   categories: homeState.typeCategories,
-                      // ),
+                      HorizontalCategoryWidget(
+                        // onPressed: homeState.setBannerIndex,
+                        onPressed: (index) {
+                          homeDataState.bannerCurIndex = index;
+                          homeDataState.mainTypeCurIndex = index;
+                          homeDataState.moveSlidePage(index);
+                        },
+                        curIndex: homeDataState.bannerCurIndex,
+                        categories: data['typeCategory'],
+                      ),
                       const SizedBox(height: 12),
                       // 슬라이더
                       CustomCarouselSlider(
-                        curIndex: homeState.bannerCurIndex,
-                        imageList: homeState.images,
-                        titles: homeState.typeCategories,
-                        captions: homeState.typeCaptions,
+                        curIndex: homeDataState.bannerCurIndex,
+                        imageList: homeDataState.images,
+                        titles: data['typeCategory'],
+                        captions: homeDataState.typeCaptions,
                         onPageChanged: (index, reason) {
-                          homeState.bannerCurIndex = index;
-                          homeState.resetState();
+                          homeDataState.bannerCurIndex = index;
+                          homeDataState.getTypeProductList();
                         },
-                        controller: homeState.crouselController,
+                        controller: homeDataState.crouselController,
                       ),
                       const SizedBox(height: 12),
-                      ProductListWidget(
-                        products: data['products'],
-                        lankVisible: false,
-                        btnVisible: false,
-                        imgVisible: false,
-                        itemCount: 2,
-                      ),
+                      if (data['homeLankType'] != null &&
+                          data['homeLankType'].length != 0) ...[
+                        ProductListWidget(
+                            products: data['homeLankType'],
+                            lankVisible: false,
+                            btnVisible: false,
+                            imgVisible: false,
+                            itemCount: 2,
+                            categoryName: data['typeCategory']
+                                    [homeDataState.mainTypeCurIndex]
+                                .name)
+                      ],
 
                       // 화장품 추천 ==================================================
                       ListTitleWidget(
@@ -224,24 +229,28 @@ class HomePageState extends ConsumerState<HomePage> {
                       ),
                       // todo 카테고리 데이터 연동 적용
                       // 제품 라인 별 카테고리
-                      // HorizontalCategoryWidget(
-                      //   onPressed: (index) {
-                      //     homeState.mainTypeCurIndex = index;
-                      //     homeState.resetState();
-                      //   },
-                      //   curIndex: homeState.mainTypeCurIndex,
-                      //   categories: homeState.lineCategories,
-                      // ),
-                      const SizedBox(height: 12),
-                      ProductListWidget(
-                        itemCount: 3,
-                        products: data['products'],
-                        lankVisible: true,
-                        btnVisible: true,
-                        btnText: "인기상품 전체보기",
-                        markText: '인기상품',
-                        imgVisible: false,
+                      HorizontalCategoryWidget(
+                        onPressed: (index) {
+                          homeDataState.mainLineCurIndex = index;
+                          homeDataState.getLineProductList();
+                        },
+                        curIndex: homeDataState.mainLineCurIndex,
+                        categories: data['lineCategory'],
                       ),
+                      const SizedBox(height: 12),
+                      if (data['homeLankLine'] != null &&
+                          data['homeLankLine'].length != 0) ...[
+                        ProductListWidget(
+                            products: data['homeLankLine'],
+                            lankVisible: true,
+                            btnVisible: true,
+                            btnText: "인기상품 전체보기",
+                            markText: '인기상품',
+                            imgVisible: false,
+                            categoryName: data['lineCategory']
+                                    [homeDataState.mainLineCurIndex]
+                                .name)
+                      ],
                       const SizedBox(height: 28)
                     ]),
                   ),

@@ -225,7 +225,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       ProductListWidget(
                         itemCount: 1,
                         imgVisible: true,
-                        products: data['products'].first,
+                        products: data['products'],
                         lankVisible: false,
                         btnVisible: true,
                         btnText: '더 많은 상품 보러가기',

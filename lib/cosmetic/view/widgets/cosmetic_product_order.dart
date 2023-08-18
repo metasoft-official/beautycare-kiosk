@@ -1,10 +1,11 @@
 import 'package:beauty_care/common/component/widgets/horizontal_category_widget.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/common/model/code_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/provider/home_state_provider.dart';
+import 'package:beauty_care/common/provider/home/home_state_provider.dart';
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 
 class CosmeticProductOrder extends ConsumerWidget {
@@ -14,11 +15,9 @@ class CosmeticProductOrder extends ConsumerWidget {
     this.onTap,
     this.textStyle,
     this.iconSize,
-    required this.orderCategories,
   }) : super(key: key);
 
   // filter
-  final List<String> orderCategories;
   final String selectedValue;
   final dynamic onTap;
 

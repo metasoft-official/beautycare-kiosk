@@ -1,13 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../main.dart';
-
+// 모달 창 안에서 선택 값에 대한 상태관리
 class ModalSelectedState extends StateNotifier<ModalState> {
   ModalSelectedState(modalId, selectedValue, length)
       : super(ModalState.initial(modalId, selectedValue, length));
 
   void initializeModal(String modalId, int length, int selectedValue) {
-    logger.d(selectedValue);
     final isClicked = List.generate(length, (index) => false);
     final initialIsClicked = List<bool>.from(isClicked)..[selectedValue] = true;
     state.modals[modalId] = ModalSelectedData(initialIsClicked, selectedValue);
@@ -27,7 +25,7 @@ class ModalSelectedState extends StateNotifier<ModalState> {
 
 class ModalSelectedData {
   final List<bool> isClicked;
-  final int curIndex;
+  final int curIndex; //선택된 인덱스
 
   ModalSelectedData(this.isClicked, this.curIndex);
 }
