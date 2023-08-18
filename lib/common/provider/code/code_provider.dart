@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../dio_provider.dart';
+
+import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/dio/code_api.dart';
 import 'package:beauty_care/common/repository/code_repository.dart';
 
