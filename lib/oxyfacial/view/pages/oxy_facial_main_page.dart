@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/oxyfacial/provider/oxyfacial_state_provider.dart';
+import 'package:beauty_care/oxyfacial/provider/oxy_facial_state_provider.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
@@ -9,34 +9,34 @@ import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 
-class OxyfacialMainPage extends ConsumerStatefulWidget {
-  const OxyfacialMainPage({Key? key}) : super(key: key);
+class OxyFacialMainPage extends ConsumerStatefulWidget {
+  const OxyFacialMainPage({Key? key}) : super(key: key);
 
-  static String get routeName => 'oxyfacial';
+  static String get routeName => 'oxyFacial';
 
   @override
-  OxyfacialMainPageState createState() => OxyfacialMainPageState();
+  OxyFacialMainPageState createState() => OxyFacialMainPageState();
 }
 
-class OxyfacialMainPageState extends ConsumerState<OxyfacialMainPage> {
-  HideNavbar oxyfacialHiding = HideNavbar();
+class OxyFacialMainPageState extends ConsumerState<OxyFacialMainPage> {
+  HideNavbar oxyFacialHiding = HideNavbar();
 
   @override
   Widget build(BuildContext context) {
-    final oxyfacialState = ref.watch(oxyfacialStateProvider);
+    final oxyFacialState = ref.watch(oxyFacialStateProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomBottomNavigationBar(
         child: CustomScrollView(
-          controller: oxyfacialHiding.controller,
+          controller: oxyFacialHiding.controller,
           slivers: [
             const CustomAppBar(),
             SliverList(
                 delegate: SliverChildBuilderDelegate(
-                    childCount: oxyfacialState.oxyfacials.length,
+                    childCount: oxyFacialState.oxyfacials.length,
                     (context, index) {
-              final oxy = oxyfacialState.oxyfacials[index];
+              final oxy = oxyFacialState.oxyfacials[index];
               return Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: AppColor.lightGrey),
