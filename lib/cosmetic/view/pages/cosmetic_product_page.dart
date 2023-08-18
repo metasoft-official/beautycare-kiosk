@@ -38,16 +38,13 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
     tabController.addListener(() {
       final productState = ref.watch(skinProductStateProvider.notifier);
       productState.tabState = tabController.index;
-      if (tabController.index == 0) {
-        productState.getProductListByKey(productKey: 'shopMain');
-        productState.reload();
-      } else if (tabController.index == 1) {
-        productState.getProductListByKey(productKey: 'shopType');
-        productState.reload();
-      } else if (tabController.index == 2) {
-        productState.getProductListByKey(productKey: 'shopLine');
-        productState.reload();
-      }
+      final key = tabController.index == 0
+          ? 'shopMain'
+          : tabController.index == 1
+              ? 'shopType'
+              : 'shopLine';
+      productState.getProductListByKey(productKey: key);
+      productState.reload();
     });
   }
 
