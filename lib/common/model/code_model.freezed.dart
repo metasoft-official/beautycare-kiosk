@@ -199,8 +199,7 @@ class __$$_CodeModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_CodeModel implements _CodeModel {
   _$_CodeModel(
       {this.id,

@@ -7,9 +7,8 @@ part 'oxy_facial_item_model.g.dart';
 
 @freezed
 @JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true)
 class OxyFacialItemModel with _$OxyFacialItemModel {
-  // ignore: invalid_annotation_target
-  @JsonSerializable(explicitToJson: true)
   factory OxyFacialItemModel({int? id, int? oxyFacialId, String? item}) =
       _OxyFacialItemModel;
 

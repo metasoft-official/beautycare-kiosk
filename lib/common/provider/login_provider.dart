@@ -62,6 +62,7 @@ class UserNotifier extends StateNotifier<UserModel> {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
       state = state.copyWith(
+          id: decodedToken['user']['id'],
           name: decodedToken['user']['name'],
           email: decodedToken['user']['email']);
 

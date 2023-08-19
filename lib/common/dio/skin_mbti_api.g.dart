@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_disease_api.dart';
+part of 'skin_mbti_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'user_disease_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _UserDiseaseApi implements UserDiseaseApi {
-  _UserDiseaseApi(
+class _SkinMbtiApi implements SkinMbtiApi {
+  _SkinMbtiApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,76 +21,55 @@ class _UserDiseaseApi implements UserDiseaseApi {
   String? baseUrl;
 
   @override
-  Future<PageResponse<UserDiseaseModel>> getUserDiseaseList(query) async {
+  Future<PageResponse<SkinMbtiModel>> getSkinMbtiAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<UserDiseaseModel>>(Options(
+        _setStreamType<PageResponse<SkinMbtiModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/common/user-diseases',
+              '/common/skin-mbtis',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<UserDiseaseModel>.fromJson(
+    final value = PageResponse<SkinMbtiModel>.fromJson(
       _result.data!,
-      (json) => UserDiseaseModel.fromJson(json as Map<String, dynamic>),
+      (json) => SkinMbtiModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<int> createUserDisease(userDiseaseModel) async {
+  Future<PageResponse<SkinMbtiModel>> getSkinMbtiByQuery(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
-    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
-      method: 'POST',
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PageResponse<SkinMbtiModel>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/common/user-diseases',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
-    return value;
-  }
-
-  @override
-  Future<int> saveImage(
-    id,
-    userDiseaseModel,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
-    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/common/user-diseases/attach-file/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+            .compose(
+              _dio.options,
+              '/common/skin-mbtis',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PageResponse<SkinMbtiModel>.fromJson(
+      _result.data!,
+      (json) => SkinMbtiModel.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 

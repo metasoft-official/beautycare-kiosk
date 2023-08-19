@@ -6,23 +6,23 @@ import 'package:beauty_care/common/layout/app_text.dart';
 class IconStepperWidget extends StatelessWidget {
   const IconStepperWidget(
       {Key? key,
-      required List<IconData> icons,
       required double width,
       required Color color,
       required int curStep,
+      required int length,
       List<String>? titles})
-      : _icons = icons,
-        _width = width,
+      : _width = width,
         _activeColor = color,
         _titles = titles,
         _curStep = curStep,
+        _length = length,
         assert(width > 0),
         super(key: key);
 
   final double _width;
-  final List<IconData> _icons;
   final List<String>? _titles;
   final int _curStep;
+  final int _length;
   final Color _activeColor;
   final Color _inactiveCircleColor = Colors.white;
   final Color _inactiveLineColor = AppColor.lightGrey;
@@ -52,16 +52,12 @@ class IconStepperWidget extends StatelessWidget {
   // 아이콘
   List<Widget> _iconViews() {
     var list = <Widget>[];
-    _icons.asMap().forEach((i, icon) {
+    for (int i = 0; i < _length; i++) {
       //상태에 따른 각 색상
       var circleColor =
           (i == 0 || _curStep >= i) ? _activeColor : _inactiveCircleColor;
 
       var lineColor = _curStep >= i ? _activeColor : _inactiveLineColor;
-
-      // var iconColor = (i == 0 || _curStep > i)
-      //     ? _activeIconColor
-      //     : (_curStep == i ? _activeColor : _inactiveColor);
 
       list.add(
         Container(
@@ -116,14 +112,14 @@ class IconStepperWidget extends StatelessWidget {
       );
 
       //진행 바
-      if (i != _icons.length - 1) {
+      if (i != _length - 1) {
         list.add(Expanded(
             child: Container(
           height: lineWidth,
           color: lineColor,
         )));
       }
-    });
+    }
 
     return list;
   }

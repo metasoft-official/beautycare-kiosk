@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
+import 'package:beauty_care/mbti/model/skin_mbti_skincare_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -47,6 +48,7 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final count = itemCount ?? products.length;
+
     return count == 1
         ? Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),

@@ -9,7 +9,7 @@ import 'package:beauty_care/common/layout/app_color.dart';
 
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
-import 'package:beauty_care/surgery/view/widgets/clinic_sliver_grid_widget.dart';
+import 'package:beauty_care/clinic/view/widgets/clinic_sliver_grid_widget.dart';
 
 class SurgeryProductPage extends ConsumerStatefulWidget {
   const SurgeryProductPage({Key? key}) : super(key: key);

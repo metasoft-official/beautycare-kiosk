@@ -17,4 +17,7 @@ abstract class SurveyApi {
   @GET('/common/survey-questions')
   Future<PageResponse<SurveyQuestionModel>> getSurveyQuestionLByCategory(
       @Queries() Map<String, dynamic> query);
+
+  @POST('/common/surveys')
+  Future<int> postSkinMbti(@Body() Map<String, dynamic> query);
 }

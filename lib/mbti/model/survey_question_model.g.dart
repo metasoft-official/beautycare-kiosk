@@ -39,6 +39,5 @@ Map<String, dynamic> _$$_SurveyQuestionModelToJson(
       'visibilityStatus': instance.visibilityStatus,
       'createdTime': instance.createdTime?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
-      'surveyAnswerList':
-          instance.surveyAnswerList?.map((e) => e.toJson()).toList(),
+      'surveyAnswerList': instance.surveyAnswerList,
     };

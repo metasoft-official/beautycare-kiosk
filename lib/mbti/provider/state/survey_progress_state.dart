@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SurveyProgressState extends StateNotifier<SurveyProgressData> {
-  SurveyProgressState() : super(SurveyProgressData.initial());
+import '../../../main.dart';
 
-  // 정답을 선택하는 경우
-  void selectAnswer(int questionIndex, int answerIndex) {
-    state = state.copyWith(
-        isClicked: [...state.isClicked]..[questionIndex] = answerIndex + 1);
+class SurveyProgressState extends StateNotifier<SurveyProgressData> {
+  Map<String, dynamic> map;
+
+  SurveyProgressState(this.map) : super(SurveyProgressData.initial(map));
+
+  void selectAnswer(int questionCode, int questionIndex, int answerIndex) {
+    state = state.copyWith(isClicked: {
+      ...state.isClicked,
+      '$questionCode': [
+        ...state.isClicked['$questionCode']..[questionIndex] = answerIndex + 1
+      ]
+    });
   }
 
   // curStep 증가
@@ -26,7 +33,7 @@ class SurveyProgressState extends StateNotifier<SurveyProgressData> {
 
   // 상태를 초기화하는 경우
   void resetState() {
-    state = SurveyProgressData.initial();
+    state = SurveyProgressData.initial(map);
   }
 }
 
@@ -37,16 +44,16 @@ class SurveyProgressData {
     Icons.colorize,
     Icons.waves
   ];
-  final List<int> isClicked;
-  final int curStep;
+  final Map<String, dynamic> isClicked; // 정답 선택
+  final int curStep; // category code
 
   SurveyProgressData({required this.isClicked, required this.curStep});
 
-  SurveyProgressData.initial()
-      : isClicked = List<int>.filled(10, 0, growable: false),
+  SurveyProgressData.initial(Map<String, dynamic> map)
+      : isClicked = map,
         curStep = 0;
 
-  SurveyProgressData copyWith({List<int>? isClicked, int? curStep}) {
+  SurveyProgressData copyWith({Map<String, dynamic>? isClicked, int? curStep}) {
     return SurveyProgressData(
       isClicked: isClicked ?? this.isClicked,
       curStep: curStep ?? this.curStep,
