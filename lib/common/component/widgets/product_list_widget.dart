@@ -12,24 +12,24 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../main.dart';
 
 class ProductListWidget extends StatelessWidget {
-  const ProductListWidget(
-      {Key? key,
-      required this.products,
-      required this.lankVisible,
-      required this.btnVisible,
-      this.btnText,
-      this.markText,
-      this.btnUrlName,
-      required this.imgVisible,
-      this.imgUrl,
-      this.filterCategory,
-      required this.itemCount})
-      : super(key: key);
+  const ProductListWidget({
+    Key? key,
+    required this.products,
+    required this.lankVisible,
+    required this.btnVisible,
+    this.btnText,
+    this.markText,
+    this.btnUrlName,
+    required this.imgVisible,
+    this.imgUrl,
+    this.categoryName,
+    this.itemCount,
+  }) : super(key: key);
 
   final List<SkinProductModel> products; // 상품 리스트
 
-  final String? filterCategory;
-  final int itemCount;
+  final String? categoryName;
+  final int? itemCount;
 
   // lank
   final bool lankVisible;
@@ -73,7 +73,7 @@ class ProductListWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '$filterCategory 제품',
+                          '$categoryName 제품',
                           style: AppTextTheme.black14b,
                         ),
                         const SizedBox(height: 8),
@@ -102,8 +102,11 @@ class ProductListWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                           width: 70,
+                          height: 90,
                           child: Align(
                             alignment: Alignment.center,
                             child: SimpleShadow(
@@ -113,21 +116,18 @@ class ProductListWidget extends StatelessWidget {
                               child: products[0].imageId != null
                                   ? Image.network(
                                       '${Strings.imageUrl}${products[0].imageId}',
-                                      height: 90,
                                       fit: BoxFit.scaleDown,
                                       errorBuilder: (BuildContext context,
                                           Object exception,
                                           StackTrace? stackTrace) {
                                         return Image.asset(
                                           'assets/images/character_coiz_3.png',
-                                          height: 90,
                                           fit: BoxFit.scaleDown,
                                         );
                                       },
                                     )
                                   : Image.asset(
                                       'assets/images/character_coiz_3.png',
-                                      height: 90,
                                       fit: BoxFit.scaleDown,
                                     ),
                             ),
@@ -139,7 +139,7 @@ class ProductListWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                filterCategory ??
+                                categoryName ??
                                     products[0].skintypeCategoryId.toString() ??
                                     '-',
                                 style: AppTextTheme.middleGrey8,
@@ -227,7 +227,7 @@ class ProductListWidget extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       primary: false, //스크롤 제한
-                      itemCount: itemCount,
+                      itemCount: count,
                       itemBuilder: (BuildContext context, int index) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -263,8 +263,9 @@ class ProductListWidget extends StatelessWidget {
                                         children: [
                                           Container(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 0),
+                                                horizontal: 10, vertical: 10),
                                             width: 70,
+                                            height: 90,
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: SimpleShadow(
@@ -276,8 +277,7 @@ class ProductListWidget extends StatelessWidget {
                                                         null
                                                     ? Image.network(
                                                         '${Strings.imageUrl}${products[index].imageId}',
-                                                        height: 90,
-                                                        fit: BoxFit.scaleDown,
+                                                        fit: BoxFit.contain,
                                                         errorBuilder:
                                                             (BuildContext
                                                                     context,
@@ -287,7 +287,6 @@ class ProductListWidget extends StatelessWidget {
                                                                     stackTrace) {
                                                           return Image.asset(
                                                             'assets/images/character_coiz_3.png',
-                                                            height: 90,
                                                             fit: BoxFit
                                                                 .scaleDown,
                                                           );
@@ -295,7 +294,6 @@ class ProductListWidget extends StatelessWidget {
                                                       )
                                                     : Image.asset(
                                                         'assets/images/character_coiz_3.png',
-                                                        height: 90,
                                                         fit: BoxFit.scaleDown,
                                                       ),
                                               ),
@@ -308,7 +306,7 @@ class ProductListWidget extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  filterCategory ??
+                                                  categoryName ??
                                                       products[index]
                                                           .skintypeCategoryId
                                                           .toString() ??
@@ -368,7 +366,7 @@ class ProductListWidget extends StatelessWidget {
                         );
                       }),
                 ),
-                if (btnVisible != null && btnVisible == true) ...[
+                if (btnVisible == true) ...[
                   InkWell(
                     onTap: () {
                       context.goNamed(btnUrlName!);

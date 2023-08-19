@@ -1,15 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/dio/survey_api.dart';
 import 'package:beauty_care/mbti/repository/survey_repository.dart';
 import 'package:beauty_care/mbti/model/survey_question_model.dart';
 
 import 'package:beauty_care/mbti/provider/state/survey_progress_state.dart';
 import 'package:beauty_care/mbti/provider/state/survey_data_state.dart';
-
-// Dio 인스턴스를 생성하는 Provider
-final dioProvider = Provider<Dio>((_) => Dio());
 
 // SurveyApi 인스턴스를 생성하는 Provider
 final surveyApiProvider = Provider<SurveyApi>((ref) {

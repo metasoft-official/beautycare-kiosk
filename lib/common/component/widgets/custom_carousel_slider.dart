@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/model/skincare_category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -23,7 +24,7 @@ class CustomCarouselSlider extends StatelessWidget {
 
   final List<String> imageList;
   final CarouselController controller;
-  final List<String>? titles;
+  final List<SkincareCategoryModel>? titles;
   final List<String>? captions;
   int? curIndex;
   final bool? autoPlay;
@@ -82,7 +83,7 @@ class CustomCarouselSlider extends StatelessWidget {
                                   Image.asset('assets/icons/ic_corner_left.png',
                                       width: 16),
                                   const Spacer(),
-                                  Text(titles?[itemIndex] ?? '-',
+                                  Text(titles?[itemIndex].name ?? '-',
                                       style: AppTextTheme.blue14b),
                                   const Spacer(),
                                   Image.asset(

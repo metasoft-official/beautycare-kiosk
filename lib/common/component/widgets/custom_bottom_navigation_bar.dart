@@ -63,7 +63,7 @@ class CustomBottomNavigationBar extends ConsumerWidget {
                 onPressed: () => context.pushNamed('surgeryProduct')),
             SCItem(
                 icon: const Icon(Icons.medical_services_outlined),
-                onPressed: () => context.pushNamed('oxyfacial')),
+                onPressed: () => context.pushNamed('oxyFacial')),
             SCItem(
                 icon: Icon(MdiIcons.giftOutline),
                 onPressed: () => context.pushNamed('surgeryProduct')),

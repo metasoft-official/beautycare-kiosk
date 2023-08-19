@@ -1,11 +1,10 @@
-import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
-import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
 import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
 
+import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/component/widgets/custom_app_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_bottom_navigation_bar.dart';
@@ -15,6 +14,8 @@ import 'package:beauty_care/common/component/widgets/horizontal_category_widget.
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_all.dart';
 import 'package:beauty_care/cosmetic/view/widgets/cosmetic_product_order.dart';
+
+import '../../../main.dart';
 
 class CosmeticProductPage extends ConsumerStatefulWidget {
   const CosmeticProductPage({Key? key}) : super(key: key);
@@ -35,19 +36,15 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
     super.initState();
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      final categoryState = ref.watch(skinCategoryStateProvider);
       final productState = ref.watch(skinProductStateProvider.notifier);
       productState.tabState = tabController.index;
-      if (tabController.index == 1) {
-        productState.getProductList(
-            skintypeCategoryId: productState.data['typeCategory'][0].id);
-      } else if (tabController.index == 2) {
-        logger.d(productState.data['lineCategory'][0].id);
-        productState.getProductList(
-            productLineCategoryId: productState.data['lineCategory'][0].id);
-      } else {
-        productState.getProductList();
-      }
+      final key = tabController.index == 0
+          ? 'shopMain'
+          : tabController.index == 1
+              ? 'shopType'
+              : 'shopLine';
+      productState.getProductListByKey(productKey: key);
+      productState.reload();
     });
   }
 
@@ -66,6 +63,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
 
     return asyncValue.when(
       data: (data) {
+        logger.d(data);
         return Scaffold(
           backgroundColor: Colors.white,
           body: CustomBottomNavigationBar(
@@ -73,39 +71,50 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
               controller: cosmeticHiding.controller,
               slivers: [
                 CustomAppBar(
-                    bottom: PreferredSize(
-                      preferredSize: const Size.fromHeight(60),
-                      child: CustomTabbarWidget(
-                        titles: productState.titles,
-                        tabController: tabController,
-                      ),
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(60),
+                    child: CustomTabbarWidget(
+                      titles: productState.titles,
+                      tabController: tabController,
                     ),
-                    bottomSize: 60),
+                  ),
+                  bottomSize: 60,
+                ),
                 // 전체 ============================================================
                 if (tabController.index == 0) ...[
-                  const CosmeticProductAll(),
+                  SliverToBoxAdapter(child: CosmeticProductAll(data: data)),
                 ]
                 // 피부 타입 별 =====================================================
                 else if (tabController.index == 1) ...[
                   CosmeticProductOrder(
-                    selectedValue: productState.orderSelectedValue,
-                    orderCategories: productState.orders,
+                    selectedValue: data['selectedOrder']['shopType'],
                     onTap: () async {
                       final selectedData =
                           await ModalMixin.filterModalBottomSheet(
-                              modalId: 'cosmeticAllKeyword',
+                              modalKey: 'shopTypeOrder',
                               context: context,
                               title: '정렬',
-                              parentId: 43,
-                              selectedValue: 0);
+                              selectedValue: 0,
+                              list: data['order']['shopTypeOrder']);
+                      // 선택 내용 변경
+                      data['selectedOrder']['shopType'] =
+                          data['order']['shopTypeOrder'][selectedData].name;
+
+                      // 선택에 따른 내용 다시 가져오기
+                      productDataState.getProductListByKey(
+                          productKey: 'shopType',
+                          selectedData: categoryState.productTypeCurIndex);
+
+                      productDataState.reload();
                     },
                   ),
                   SliverToBoxAdapter(
                     child: HorizontalCategoryWidget(
                       onPressed: (index) {
                         categoryState.productTypeCurIndex = index;
-                        productDataState.getProductList(
-                            skintypeCategoryId: data['typeCategory'][index].id);
+                        productDataState.getProductListByKey(
+                            productKey: 'shopType', selectedData: index);
+                        productDataState.reload();
                       },
                       curIndex: categoryState.productTypeCurIndex,
                       categories: data['typeCategory'],
@@ -115,7 +124,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 20),
                     sliver: ProductSliverGridWidget(
-                        products: data['products'],
+                        products: data['shopType'],
                         filterCategory: data['typeCategory']
                                 [categoryState.productTypeCurIndex]
                             .name),
@@ -124,17 +133,32 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                 // 사용 단계 별 =====================================================
                 else ...[
                   CosmeticProductOrder(
-                    selectedValue: productState.orderSelectedValue,
-                    orderCategories: productState.orders,
-                    onTap: () {},
+                    selectedValue: data['selectedOrder']['shopLine'],
+                    onTap: () async {
+                      final selectedData =
+                          await ModalMixin.filterModalBottomSheet(
+                              modalKey: 'shopLineOrder',
+                              context: context,
+                              title: '정렬',
+                              selectedValue: 0,
+                              list: data['order']['shopLineOrder']);
+                      // 선택 내용 변경
+                      data['selectedOrder']['shopLine'] =
+                          data['order']['shopLineOrder'][selectedData].name;
+                      // 선택에 따른 내용 다시 가져오기
+                      productDataState.getProductListByKey(
+                          productKey: 'shopLine',
+                          selectedData: categoryState.productLineCurIndex);
+                      productDataState.reload();
+                    },
                   ),
                   SliverToBoxAdapter(
                     child: HorizontalCategoryWidget(
                       onPressed: (index) {
                         categoryState.productLineCurIndex = index;
-                        productDataState.getProductList(
-                            productLineCategoryId:
-                                data['lineCategory'][index].id);
+                        productDataState.getProductListByKey(
+                            selectedData: index, productKey: 'shopLine');
+                        productDataState.reload();
                       },
                       curIndex: categoryState.productLineCurIndex,
                       categories: data['lineCategory'],
@@ -144,7 +168,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 24, vertical: 20),
                       sliver: ProductSliverGridWidget(
-                          products: data['products'],
+                          products: data['shopLine'],
                           filterCategory: data['lineCategory']
                                   [categoryState.productLineCurIndex]
                               .name)),

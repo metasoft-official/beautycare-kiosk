@@ -24,7 +24,7 @@ import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
 import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
 import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
 
-import 'package:beauty_care/oxyfacial/view/pages/oxyfacial_main_page.dart';
+import 'package:beauty_care/oxyfacial/view/pages/oxy_facial_main_page.dart';
 
 import 'package:beauty_care/skin/view/pages/skin_result_page.dart';
 
@@ -194,9 +194,9 @@ final GoRouter router = GoRouter(
     ),
     // oxyfacial
     GoRoute(
-      path: '/oxyfacial',
-      name: OxyfacialMainPage.routeName,
-      builder: (context, state) => const OxyfacialMainPage(),
+      path: '/oxy-facial',
+      name: OxyFacialMainPage.routeName,
+      builder: (context, state) => const OxyFacialMainPage(),
     ),
   ],
 );

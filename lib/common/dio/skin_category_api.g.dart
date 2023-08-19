@@ -13,7 +13,7 @@ class _SkinCategoryApi implements SkinCategoryApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.36:9000/api';
+    baseUrl ??= 'http://192.168.35.113:9000/api';
   }
 
   final Dio _dio;

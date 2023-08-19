@@ -13,7 +13,7 @@ class _UserDiseaseApi implements UserDiseaseApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.36:9000/api';
+    baseUrl ??= 'http://192.168.35.113:9000/api';
   }
 
   final Dio _dio;
@@ -21,14 +21,14 @@ class _UserDiseaseApi implements UserDiseaseApi {
   String? baseUrl;
 
   @override
-  Future<PageResponse<UserDiseaseModel>> getUserDiseaseList(query) async {
+  Future<PageResponse<UserDieseaseModel>> getUserDiseaseList(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<UserDiseaseModel>>(Options(
+        _setStreamType<PageResponse<UserDieseaseModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -40,19 +40,19 @@ class _UserDiseaseApi implements UserDiseaseApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<UserDiseaseModel>.fromJson(
+    final value = PageResponse<UserDieseaseModel>.fromJson(
       _result.data!,
-      (json) => UserDiseaseModel.fromJson(json as Map<String, dynamic>),
+      (json) => UserDieseaseModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<int> createUserDisease(userDiseaseModel) async {
+  Future<int> createUserDisease(userDieseaseModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
+    final _data = userDieseaseModel;
     final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'POST',
       headers: _headers,
@@ -61,31 +61,6 @@ class _UserDiseaseApi implements UserDiseaseApi {
         .compose(
           _dio.options,
           '/common/user-diseases',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
-    return value;
-  }
-
-  @override
-  Future<int> saveImage(
-    id,
-    userDiseaseModel,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
-    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/common/user-diseases/attach-file/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
