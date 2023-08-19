@@ -34,6 +34,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
     return asyncValue.when(
       data: (data) {
         final disease = data['diseaseInfo'];
+        final clinicList = data['clinics'];
 
         return Scaffold(
           backgroundColor: AppColor.lightGrey,
@@ -155,6 +156,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
+                        //todo 이미지 수정
                         child: Image.asset(
                           'assets/images/추천받기샘플.png',
                           height: 96,
@@ -179,7 +181,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 24),
                       child: CarouselSlider.builder(
-                          itemCount: resultState.clinicList.length,
+                          itemCount: clinicList.length,
                           carouselController: changeState.carouselController,
                           options: CarouselOptions(
                             onPageChanged: (index, reason) {
@@ -204,9 +206,9 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                                         topRight: Radius.circular(10),
                                         topLeft: Radius.circular(10)),
                                     child: Image.asset(
-                                      resultState.clinicList[itemIndex]
-                                              ['img'] ??
-                                          'assets/images/sample_images_01.png',
+                                      //todo image 수정
+                                      // clinicList[itemIndex].mainImageId ??
+                                      'assets/images/sample_images_01.png',
                                       height: 100,
                                       width: double.infinity,
                                       fit: BoxFit.cover,
@@ -222,13 +224,13 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              resultState.clinicList[itemIndex]
-                                                  ['address'],
+                                              clinicList[itemIndex]
+                                                      .addressDepth1Id ??
+                                                  '-',
                                               style: AppTextTheme.middleGrey8,
                                             ),
                                             Text(
-                                              resultState.clinicList[itemIndex]
-                                                  ['name'],
+                                              clinicList[itemIndex].name ?? '-',
                                               style: AppTextTheme.black10b,
                                             )
                                           ],
@@ -248,8 +250,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                                     padding: const EdgeInsets.only(
                                         left: 12, right: 12),
                                     child: Text(
-                                      resultState.clinicList[itemIndex]
-                                          ['description'],
+                                      clinicList[itemIndex].description ?? '-',
                                       style: AppTextTheme.middleGrey10
                                           .copyWith(height: 1.6),
                                       maxLines: 5,
@@ -275,8 +276,8 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                       ),
                       Container(
                         width: ((MediaQuery.of(context).size.width - 50) /
-                                (resultState.clinicList.length - 1)) *
-                            (resultState.curIndex + 1),
+                                (clinicList.length - 1)) *
+                            (changeState.curIndex + 1),
                         height: 4,
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         decoration: BoxDecoration(

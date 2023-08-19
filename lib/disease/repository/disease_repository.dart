@@ -1,7 +1,7 @@
-import 'package:beauty_care/common/dio/disease_api.dart';
-import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/main.dart';
+import 'package:beauty_care/common/dio/disease_api.dart';
 import 'package:beauty_care/common/model/page_response_model.dart';
+import 'package:beauty_care/disease/model/disease_model.dart';
 
 class DiseaseRepository {
   final DiseaseApi diseaseApi;
