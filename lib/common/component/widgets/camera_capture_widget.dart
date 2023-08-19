@@ -6,7 +6,7 @@ import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/main.dart';
-import 'package:beauty_care/skin/model/disease_result_model.dart';
+import 'package:beauty_care/disease/model/disease_result_model.dart';
 import 'package:beauty_care/mbti/model/user_disease_model.dart';
 import 'package:beauty_care/mbti/provider/caemra_provider.dart';
 import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';

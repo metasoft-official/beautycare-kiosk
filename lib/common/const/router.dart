@@ -8,7 +8,6 @@ import 'package:beauty_care/clinic/view/pages/surgery_product_page.dart';
 import 'package:beauty_care/common/view/pages/home_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
-import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
 
 import 'package:beauty_care/user/view/pages/login_page.dart';
 import 'package:beauty_care/user/view/pages/register_page.dart';
@@ -27,7 +26,7 @@ import 'package:beauty_care/mbti/view/pages/mbti_shooting_page.dart';
 
 import 'package:beauty_care/oxyfacial/view/pages/oxy_facial_main_page.dart';
 
-import 'package:beauty_care/skin/view/pages/skin_result_page.dart';
+import 'package:beauty_care/disease/view/pages/disease_result_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -170,11 +169,13 @@ final GoRouter router = GoRouter(
       builder: (context, state) => PredictSkinDiseasePage(),
     ),
 
-    // GoRoute(
-    //   path: '/skin-result',
-    //   name: SkinResultPage.routeName,
-    //   builder: (context, state) => const SkinResultPage(),
-    // ),
+    GoRoute(
+      path: '/skin-result',
+      name: DiseaseResultPage.routeName,
+      builder: (context, state) => DiseaseResultPage(
+        diseaseId: state.queryParameters['diseaseId'],
+      ),
+    ),
 
     GoRoute(
       path: '/shooting',
