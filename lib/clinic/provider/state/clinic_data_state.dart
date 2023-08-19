@@ -15,7 +15,7 @@ class ClinicDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> loadData() async {
     try {
-      await Future.wait([]);
+      await Future.wait([getClinicList()]);
       state = AsyncValue.data(data);
     } catch (e, s) {
       state = AsyncValue.error(e, s);
@@ -33,7 +33,7 @@ class ClinicDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   }
 
   Future<void> getExpertClinicList() async {
-    ClinicModel clinicModel = ClinicModel(visibilityStatus: 'E');
+    ClinicModel clinicModel = ClinicModel(specialtyStoreStatus: 'T');
     final response = await repository.getClinicByQuery(clinicModel);
     if (response != null && response.items != null) {
       data['experts'] = response.items!;

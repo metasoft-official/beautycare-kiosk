@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_page.dart';
 
-import 'package:beauty_care/clinic/view/pages/surgery_product_page.dart';
+import 'package:beauty_care/clinic/view/pages/clinic_page.dart';
 
 import 'package:beauty_care/common/view/pages/home_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
@@ -193,8 +193,8 @@ final GoRouter router = GoRouter(
     // surgery
     GoRoute(
       path: '/surgery-product',
-      name: SurgeryProductPage.routeName,
-      builder: (context, state) => const SurgeryProductPage(),
+      name: ClinicPage.routeName,
+      builder: (context, state) => const ClinicPage(),
     ),
     // oxyfacial
     GoRoute(

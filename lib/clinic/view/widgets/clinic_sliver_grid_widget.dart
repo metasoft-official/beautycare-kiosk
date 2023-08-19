@@ -1,3 +1,4 @@
+import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -16,7 +17,7 @@ class ClinicSliverGridWidget extends ConsumerWidget {
       this.addWishlist})
       : super(key: key);
 
-  final List<Map<String, dynamic>> clinics; // 상품 리스트
+  final List<ClinicModel> clinics; // 상품 리스트
 
   // 그 외 커스텀 가능한 설정값
   final double mainAxisSpacing; //행 간 거리
@@ -54,12 +55,15 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Container(
-                          constraints:
-                              const BoxConstraints(minWidth: 1, minHeight: 1),
-                          child: Image.asset(clinics[index]['image'])),
+                        constraints:
+                            const BoxConstraints(minWidth: 1, minHeight: 1),
+                        child:
+                            Image.asset('assets/images/sample_images_01.png'),
+                      ),
                     ),
                   ),
-                  if (clinics[index]['visibilityStatus'].contains('E')) ...[
+                  if (clinics[index].specialtyStoreStatus != null &&
+                      clinics[index].specialtyStoreStatus!.contains('T')) ...[
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -101,13 +105,13 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              clinics[index]['address'],
+                              clinics[index].addressDepth1Name ?? '-',
                               style: AppTextTheme.middleGrey8
                                   .copyWith(height: 1.2),
                             ),
                             Text(
-                              clinics[index]['name']
-                                  .replaceAll('', '\u{200B}'), //말줄임 적용
+                              clinics[index].name?.replaceAll('', '\u{200B}') ??
+                                  '-', //말줄임 적용
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style:
