@@ -1,15 +1,17 @@
 import 'dart:ffi';
 
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_disease_model.freezed.dart';
 part 'user_disease_model.g.dart';
 
 @freezed
-class UserDieseaseModel with _$UserDieseaseModel {
-  factory UserDieseaseModel({
+class UserDiseaseModel with _$UserDiseaseModel {
+  factory UserDiseaseModel({
     int? id,
     int? userId,
+    int? imageId,
     String? topk1Label,
     double? topk1Value,
     int? topk1Id,
@@ -21,8 +23,8 @@ class UserDieseaseModel with _$UserDieseaseModel {
     int? topk3Id,
     DateTime? createdDate,
     DateTime? lastModifiedDate,
-  }) = _UserDieseaseModel;
+  }) = _UserDiseaseModel;
 
-  factory UserDieseaseModel.fromJson(Map<String, dynamic> json) =>
-      _$UserDieseaseModelFromJson(json);
+  factory UserDiseaseModel.fromJson(Map<String, dynamic> json) =>
+      _$UserDiseaseModelFromJson(json);
 }

@@ -12,9 +12,13 @@ abstract class UserDiseaseApi {
   factory UserDiseaseApi(Dio dio, {String baseUrl}) = _UserDiseaseApi;
 
   @GET('/common/user-diseases')
-  Future<PageResponse<UserDieseaseModel>> getUserDiseaseList(
+  Future<PageResponse<UserDiseaseModel>> getUserDiseaseList(
       @Queries() Map<String, dynamic> query);
 
   @POST('/common/user-diseases')
-  Future<int> createUserDisease(@Body() UserDieseaseModel userDieseaseModel);
+  Future<int> createUserDisease(@Body() UserDiseaseModel userDiseaseModel);
+
+  @PUT('/common/user-diseases/attach-file/{id}')
+  Future<int> saveImage(
+      @Path('id') int id, @Body() UserDiseaseModel userDiseaseModel);
 }

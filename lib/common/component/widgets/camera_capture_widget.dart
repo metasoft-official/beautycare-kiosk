@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/main.dart';
 import 'package:beauty_care/mbti/model/disease_result_model.dart';
 import 'package:beauty_care/mbti/model/user_disease_model.dart';
+import 'package:beauty_care/mbti/provider/caemra_provider.dart';
 import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/mbti/provider/user_disease_provider.dart';
 import 'package:camera/camera.dart';
@@ -17,11 +21,14 @@ import 'package:http_parser/http_parser.dart';
 import 'package:beauty_care/common/const/values.dart';
 
 class CameraWidget extends ConsumerStatefulWidget {
-  const CameraWidget({super.key, isDisease});
+  const CameraWidget(
+      {super.key, required this.isDisease, required this.onInitialized});
+
+  final VoidCallback onInitialized;
 
   static String get routeName => 'camera';
 
-  final bool isDisease = false;
+  final bool isDisease;
 
   @override
   CameraWidgetState createState() => CameraWidgetState();
@@ -54,6 +61,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
         CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
     _initCameraControllerFuture = _cameraController!.initialize().then((value) {
       setState(() {});
+      widget.onInitialized();
     });
   }
 
@@ -63,10 +71,17 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
     super.dispose();
   }
 
+  Future<void> _initializeCamera() async {
+    await _initCameraControllerFuture;
+    ref.read(cameraStateProvider.notifier).state = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     var image = null;
     bool isDisease = widget.isDisease;
+
+    final userState = ref.watch(userNotifierProvider);
 
     final imageQualityNotifier = ref.read(imageQualityProvider);
 
@@ -80,12 +95,6 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                   Flexible(
                     flex: 5,
                     fit: FlexFit.tight,
-                    // child: Container(
-                    //   width: size.width,
-                    //   height: size.width,
-                    // child: ClipRect(
-                    //   child: FittedBox(
-                    //     fit: BoxFit.fitWidth,
                     child: SizedBox(
                       width: size.width,
                       height: size.height,
@@ -94,7 +103,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                         child: AspectRatio(
                           aspectRatio: 1 / _cameraController!.value.aspectRatio,
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(16, 20, 16, 80),
+                            padding: EdgeInsets.fromLTRB(16, 20, 16, 16),
                             child: Image(
                               image:
                                   MemoryImage(captureImage!.readAsBytesSync()),
@@ -104,23 +113,20 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                       ),
                     ),
                   ),
-                ],
-              ),
-              // 하단 영역
-              Column(children: [
-                Positioned(
-                  // left: 16.0,
-                  bottom: 16.0,
-                  child: Container(
-                    color: Colors.grey,
+                  Container(
+                    color: Color(0xff222222),
+                    padding: EdgeInsets.fromLTRB(18, 30, 18, 40),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        Container(
+                          width: (size.width - 16 * 3) / 2,
                           child: ElevatedButton(
                             style: AppButtonTheme.outlinedBasicButtonTheme,
                             onPressed: () {
+                              ref.read(cameraStateProvider.notifier).state =
+                                  false;
+
                               setState(() {
                                 isCapture = false;
                                 imageQualityNotifier.updateData(
@@ -134,11 +140,14 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                             child: Text('재촬영'),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        Container(
+                          width: (size.width - 16 * 3) / 2,
                           child: ElevatedButton(
                             style: AppButtonTheme.basicElevatedButtonTheme,
                             onPressed: () async {
+                              ref.read(cameraStateProvider.notifier).state =
+                                  false;
+
                               final imageBytes =
                                   captureImage!.readAsBytesSync();
                               final multipartFile = MultipartFile.fromBytes(
@@ -156,51 +165,67 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                 'file': multipartFile,
                               });
 
-                              try {
-                                final response = await dio.post(
-                                  'http://220.76.251.246:18812',
-                                  data: formData,
-                                  options: Options(
-                                    headers: {
-                                      'content-type': 'multipart/form-data',
-                                    },
-                                  ),
-                                );
+                              // 피부 질환 예측 API 연동
+                              if (isDisease == true) {
+                                try {
+                                  final response = await dio.post(
+                                    'http://220.76.251.246:18812',
+                                    data: formData,
+                                    options: Options(
+                                      headers: {
+                                        'content-type': 'multipart/form-data',
+                                      },
+                                    ),
+                                  );
 
-                                logger.d(response);
+                                  logger.d(response);
 
-                                Map<String, dynamic> jsonData =
-                                    json.decode(response.data);
+                                  Map<String, dynamic> jsonData =
+                                      json.decode(response.data);
 
-                                // DieseaseResultModel diseaseResult =
-                                //     DieseaseResultModel.fromJson(jsonData);
+                                  UserDiseaseModel userDiseaseModel =
+                                      UserDiseaseModel(
+                                    userId: userState.id,
+                                    topk1Label: jsonData['topk_label'][0],
+                                    topk1Value: jsonData['topk_values'][0],
+                                    topk2Label: jsonData['topk_label'][1],
+                                    topk2Value: jsonData['topk_values'][1],
+                                    topk3Label: jsonData['topk_label'][2],
+                                    topk3Value: jsonData['topk_values'][2],
+                                  );
 
-                                UserDieseaseModel userDiseaseModel =
-                                    UserDieseaseModel(
-                                  userId: 1,
-                                  topk1Label: jsonData['topk_label'][0],
-                                  topk1Value: jsonData['topk_values'][0],
-                                  topk2Label: jsonData['topk_label'][1],
-                                  topk2Value: jsonData['topk_values'][1],
-                                  topk3Label: jsonData['topk_label'][2],
-                                  topk3Value: jsonData['topk_values'][2],
-                                );
+                                  logger.d(userDiseaseModel);
 
-                                logger.d(userDiseaseModel);
+                                  final userDiseaseId = await ref
+                                      .watch(userDiseaseApiProvider)
+                                      .createUserDisease(userDiseaseModel);
+                                  logger.d(userDiseaseId);
 
-                                final updateResponse = await ref
-                                    .watch(userDiseaseApiProvider)
-                                    .createUserDisease(userDiseaseModel);
-                                logger.d(response);
+                                  // 이미지 저장
 
-                                // Success handling
-                              } catch (e) {
-                                // Error handling
-                                print(e);
+                                  final multipartFileForUpload =
+                                      MultipartFile.fromBytes(imageBytes,
+                                          filename: "my_image.jpg",
+                                          contentType:
+                                              MediaType("image", "jpeg"));
+
+                                  final updateForfmData = FormData.fromMap({
+                                    'image': multipartFileForUpload,
+                                    'id': userDiseaseId
+                                  });
+
+                                  final updateResponse = await dio.put(
+                                    '$BASE_URL/common/user-diseases/attach-file/$userDiseaseId',
+                                    data: updateForfmData,
+                                  );
+
+                                  logger.d(updateResponse);
+                                  // Success handling
+                                } catch (e) {
+                                  // Error handling
+                                  print(e);
+                                }
                               }
-
-                              // await diagnosisApi
-                              //     .uploadDiagnosisImage(multipartFile);
                             },
                             child: Text('확인'),
                           ),
@@ -208,10 +233,16 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                       ],
                     ),
                   ),
-                ),
+                  // SizedBox(
+                  //   height: 50,
+                  // )
+                ],
+              ),
+              // 하단 영역
+              Column(children: [
                 Column(
                   children: [
-                    if (isDisease == false)
+                    if (isDisease == false) ...[
                       // 카메라 앱 작동시 이미지 품질 검증에 필요한 사항, 얼굴 외곽선 등을 표시하는 부분
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -241,34 +272,35 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                       .shootingIndicationButtonActiveTheme,
                             ),
                           ]),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text('눈을 뜨세요'),
-                            style: ref
-                                        .read(imageQualityProvider.notifier)
-                                        .eyesOpen ==
-                                    true
-                                ? AppButtonTheme
-                                    .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
-                                    .shootingIndicationButtonActiveTheme,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text('입을 벌리지 마세요'),
-                            style: ref
-                                        .read(imageQualityProvider.notifier)
-                                        .mouseNotOpen ==
-                                    true
-                                ? AppButtonTheme
-                                    .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
-                                    .shootingIndicationButtonActiveTheme,
-                          ),
-                        ]),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: Text('눈을 뜨세요'),
+                              style: ref
+                                          .read(imageQualityProvider.notifier)
+                                          .eyesOpen ==
+                                      true
+                                  ? AppButtonTheme
+                                      .shootingIndicationButtonInactiveTheme
+                                  : AppButtonTheme
+                                      .shootingIndicationButtonActiveTheme,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: Text('입을 벌리지 마세요'),
+                              style: ref
+                                          .read(imageQualityProvider.notifier)
+                                          .mouseNotOpen ==
+                                      true
+                                  ? AppButtonTheme
+                                      .shootingIndicationButtonInactiveTheme
+                                  : AppButtonTheme
+                                      .shootingIndicationButtonActiveTheme,
+                            ),
+                          ]),
+                    ],
                   ],
                 ),
               ]),
@@ -281,15 +313,18 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                     flex: 5,
                     fit: FlexFit.tight,
                     child: FutureBuilder<void>(
-                      future: _initCameraControllerFuture,
+                      future: _initializeCamera(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return SizedBox(
                             width: size.width,
                             height: size.width,
                             child: AspectRatio(
-                                aspectRatio:
-                                    1 / _cameraController!.value.aspectRatio,
+                                aspectRatio: _cameraController
+                                            ?.value.aspectRatio ==
+                                        null
+                                    ? 1.0
+                                    : 1 / _cameraController!.value.aspectRatio,
                                 child: CameraPreview(_cameraController!)),
                           );
                         } else {
@@ -304,7 +339,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
               ),
               Column(
                 children: [
-                  if (isDisease == false)
+                  if (isDisease == false) ...[
                     // 카메라 앱 작동시 이미지 품질 검증에 필요한 사항, 얼굴 외곽선 등을 표시하는 부분
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -334,50 +369,52 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                     .shootingIndicationButtonActiveTheme,
                           ),
                         ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text('눈을 뜨세요'),
-                          style: ref
-                                      .read(imageQualityProvider.notifier)
-                                      .eyesOpen ==
-                                  true
-                              ? AppButtonTheme
-                                  .shootingIndicationButtonInactiveTheme
-                              : AppButtonTheme
-                                  .shootingIndicationButtonActiveTheme,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text('입을 벌리지 마세요'),
-                          style: ref
-                                      .read(imageQualityProvider.notifier)
-                                      .mouseNotOpen ==
-                                  true
-                              ? AppButtonTheme
-                                  .shootingIndicationButtonInactiveTheme
-                              : AppButtonTheme
-                                  .shootingIndicationButtonActiveTheme,
-                        ),
-                      ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            child: Center(
-                              child: Image(
-                                image: const AssetImage(
-                                    'assets/images/face_guideline.png'),
-                                width: size.height * 0.4,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text('눈을 뜨세요'),
+                            style: ref
+                                        .read(imageQualityProvider.notifier)
+                                        .eyesOpen ==
+                                    true
+                                ? AppButtonTheme
+                                    .shootingIndicationButtonInactiveTheme
+                                : AppButtonTheme
+                                    .shootingIndicationButtonActiveTheme,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text('입을 벌리지 마세요'),
+                            style: ref
+                                        .read(imageQualityProvider.notifier)
+                                        .mouseNotOpen ==
+                                    true
+                                ? AppButtonTheme
+                                    .shootingIndicationButtonInactiveTheme
+                                : AppButtonTheme
+                                    .shootingIndicationButtonActiveTheme,
+                          ),
+                        ]),
+
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              child: Center(
+                                child: Image(
+                                  image: const AssetImage(
+                                      'assets/images/face_guideline.png'),
+                                  width: size.height * 0.4,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ]),
+                        ]),
+                  ],
                 ],
               ),
 
@@ -534,6 +571,36 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
             ]),
     );
   }
+
+  // Future<void> saveImage(
+  //     String id, UserDiseaseModel model, MultipartFile file) async {
+  //   // Construct your URL based on the id or any other data
+  //   String url = "$BASE_URL/$id";
+  //
+  //   // Call the uploadFile function
+  //   await uploadFile(url, file, model);
+  // }
+  //
+  // Future<void> uploadFile(
+  //     String url, MultipartFile file, UserDiseaseModel model) async {
+  //   var request = http.MultipartRequest('POST', Uri.parse(url));
+  //
+  //   // Attach the file to the request
+  //   request.files.add(file as http.MultipartFile);
+  //
+  //   // Optionally, send other data along with the request (like model fields)
+  //   request.fields['image'] = model.image;
+  //
+  //   // Send the request
+  //   var response = await request.send();
+  //
+  //   // Handle the response as needed
+  //   if (response.statusCode == 200) {
+  //     print('Upload successful');
+  //   } else {
+  //     print('Upload failed');
+  //   }
+  // }
 }
 
 final imageQualityProvider =
