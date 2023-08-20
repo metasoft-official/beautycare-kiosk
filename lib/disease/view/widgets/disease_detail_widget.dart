@@ -55,7 +55,7 @@ class DiseaseDetailWidget extends ConsumerWidget {
             ),
           )
         : Container(
-            padding: const EdgeInsets.fromLTRB(20, 26, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

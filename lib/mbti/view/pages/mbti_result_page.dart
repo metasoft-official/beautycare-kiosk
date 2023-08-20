@@ -46,7 +46,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
 
     return asyncValue.when(
       data: (data) {
-        final clinicList = List.from(data['clinics']);
+        final clinicList = List.from(clinicState.data['clinics']);
         final regions = clinicState.data['regions'];
 
         double calculatedWidth = ((MediaQuery.of(context).size.width - 50) /
