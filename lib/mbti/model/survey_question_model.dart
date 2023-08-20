@@ -6,7 +6,6 @@ part 'survey_question_model.freezed.dart';
 part 'survey_question_model.g.dart';
 
 @freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
 @JsonSerializable(explicitToJson: true)
 class SurveyQuestionModel with _$SurveyQuestionModel {
   factory SurveyQuestionModel({

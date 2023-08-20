@@ -6,31 +6,6 @@ part of 'user_disease_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$UserDiseaseModelToJson(UserDiseaseModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'userId': instance.userId,
-      'imageId': instance.imageId,
-      'image': instance.image?.toJson(),
-      'topk1Label': instance.topk1Label,
-      'topk1Id': instance.topk1Id,
-      'topk1Value': instance.topk1Value,
-      'topk2Label': instance.topk2Label,
-      'topk2Id': instance.topk2Id,
-      'topk2Value': instance.topk2Value,
-      'topk3Label': instance.topk3Label,
-      'topk3Id': instance.topk3Id,
-      'topk3Value': instance.topk3Value,
-      'createdDate': instance.createdDate?.toIso8601String(),
-      'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
-      'topk1Disease': instance.topk1Disease?.toJson(),
-      'topk1DiseaseImage': instance.topk1DiseaseImage?.toJson(),
-      'topk2Disease': instance.topk2Disease?.toJson(),
-      'topk2DiseaseImage': instance.topk2DiseaseImage?.toJson(),
-      'topk3Disease': instance.topk3Disease?.toJson(),
-      'topk3DiseaseImage': instance.topk3DiseaseImage?.toJson(),
-    };
-
 _$_UserDiseaseModel _$$_UserDiseaseModelFromJson(Map<String, dynamic> json) =>
     _$_UserDiseaseModel(
       id: json['id'] as int?,
