@@ -28,7 +28,6 @@ class MbtiResultDataState
         getMbtiResult(),
       ]);
       await Future.wait([
-        getExpertClinicList(),
         getMbtiTypeInfo(data['result'].skinMbtiId),
       ]);
       subtitle = splitMarkText(data['typeInfo'].subtitle ?? '-');
@@ -72,22 +71,6 @@ class MbtiResultDataState
   }
 
   void reload() {
-    state = AsyncValue.data(data);
-  }
-
-  // todo 클리닉 전문점만 조건 설정
-  // 전문점 클리닉 리스트 가져오기
-  Future<void> getExpertClinicList() async {
-    final clinicRepository = ref.read(clinicRepositoryProvider);
-
-    // ClinicModel clinicModel = ClinicModel(specialtyStoreStatus: 'T');
-    // final response = await clinicRepository.getClinicByQuery(clinicModel);
-    final response = await clinicRepository.getClinicAll();
-    if (response != null && response.items != null) {
-      data['clinics'] = response.items!;
-    } else {
-      data['clinics'] = [];
-    }
     state = AsyncValue.data(data);
   }
 }

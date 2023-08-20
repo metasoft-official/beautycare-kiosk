@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
+import 'package:beauty_care/common/const/values.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -39,11 +41,13 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
     final int id = int.tryParse(widget.surveyId ?? '') ?? -1;
     final user = ref.watch(userNotifierProvider);
     final asyncValue = ref.watch(mbtiResultStateProvider(id));
+    final clinicState = ref.read(clinicStateProvider.notifier);
     final changeState = ref.watch(mbtiResultChangeProvider);
 
     return asyncValue.when(
       data: (data) {
-        final clinicList = data['clinics'];
+        final clinicList = List.from(data['clinics']);
+        final regions = clinicState.data['regions'];
 
         double calculatedWidth = ((MediaQuery.of(context).size.width - 50) /
                 (clinicList.length - 1)) *
@@ -315,16 +319,34 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                 margin: const EdgeInsets.only(right: 16),
                                 child: Column(
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(10),
-                                          topLeft: Radius.circular(10)),
-                                      child: Image.asset(
-                                        // clinicList[itemIndex]??
-                                        'assets/images/sample_images_01.png',
-                                        height: 100,
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
+                                    SizedBox(
+                                      height: 100,
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                            topRight: Radius.circular(10),
+                                            topLeft: Radius.circular(10)),
+                                        child: clinicList[itemIndex]
+                                                    .mainImageId !=
+                                                null
+                                            ? Image.network(
+                                                '${Strings.imageUrl}${clinicList[itemIndex].mainImageId}',
+                                                fit: BoxFit.cover,
+                                                // 네트워크 Empty 예외처리
+                                                errorBuilder: (BuildContext
+                                                        context,
+                                                    Object exception,
+                                                    StackTrace? stackTrace) {
+                                                  return Image.asset(
+                                                    'assets/images/sample_images_01.png',
+                                                    fit: BoxFit.cover,
+                                                  );
+                                                },
+                                              )
+                                            // 이미지 아이디 Null 예외처리
+                                            : Image.asset(
+                                                'assets/images/sample_images_01.png',
+                                                fit: BoxFit.cover,
+                                              ),
                                       ),
                                     ),
                                     Padding(
@@ -337,9 +359,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                clinicList[itemIndex]
-                                                        .addressDepth1Id
-                                                        .toString() ??
+                                                regions[clinicList[itemIndex]
+                                                        .addressDepth1Id] ??
                                                     '-',
                                                 style: AppTextTheme.middleGrey8,
                                               ),
@@ -364,13 +385,17 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 12, right: 12),
-                                      child: Text(
-                                        clinicList[itemIndex].description ??
-                                            '-',
-                                        style: AppTextTheme.middleGrey10
-                                            .copyWith(height: 1.6),
-                                        maxLines: 5,
-                                        overflow: TextOverflow.ellipsis,
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Text(
+                                          clinicList[itemIndex].description ??
+                                              '-',
+                                          style: AppTextTheme.middleGrey10
+                                              .copyWith(height: 1.6),
+                                          maxLines: 5,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.start,
+                                        ),
                                       ),
                                     )
                                   ],

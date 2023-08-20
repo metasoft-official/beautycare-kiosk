@@ -1,5 +1,6 @@
 import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
+import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/provider/disease_state_provider.dart';
 import 'package:beauty_care/disease/view/widgets/disease_detail_widget.dart';
@@ -14,6 +15,8 @@ import 'package:beauty_care/common/layout/app_text.dart';
 
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
+
+import '../../../main.dart';
 
 class DiseaseSelectedPage extends ConsumerStatefulWidget {
   final DiseaseModel? disease;
@@ -35,7 +38,9 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
 
     return asyncValue.when(
       data: (data) {
-        final clinicList = data['clinics'];
+        final clinicList = List.from(data['clinics']);
+        final regions = data['regions'];
+        logger.d(regions);
 
         return Scaffold(
           backgroundColor: AppColor.lightGrey,
@@ -100,13 +105,27 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                   ),
                 ),
               ),
-              // todo 이미지 수정
               // 질환 이미지
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/images/sample_images_01.png'),
+                  child: disease.diseaseImageId != null
+                      ? Image.network(
+                          '${Strings.imageUrl}${disease.diseaseImageId}',
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return Image.asset(
+                              'assets/images/sample_images_01.png',
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          'assets/images/sample_images_01.png',
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
 
@@ -220,17 +239,34 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                               margin: const EdgeInsets.only(right: 16),
                               child: Column(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10)),
-                                    child: Image.asset(
-                                      //todo image 수정
-                                      // clinicList[itemIndex].mainImageId ??
-                                      'assets/images/sample_images_01.png',
-                                      height: 100,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
+                                  SizedBox(
+                                    height: 100,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10)),
+                                      child: clinicList[itemIndex]
+                                                  .mainImageId !=
+                                              null
+                                          ? Image.network(
+                                              '${Strings.imageUrl}${clinicList[itemIndex].mainImageId}',
+                                              fit: BoxFit.cover,
+                                              // 네트워크 Empty 예외처리
+                                              errorBuilder:
+                                                  (BuildContext context,
+                                                      Object exception,
+                                                      StackTrace? stackTrace) {
+                                                return Image.asset(
+                                                  'assets/images/sample_images_01.png',
+                                                  fit: BoxFit.cover,
+                                                );
+                                              },
+                                            )
+                                          // 이미지 아이디 Null 예외처리
+                                          : Image.asset(
+                                              'assets/images/sample_images_01.png',
+                                              fit: BoxFit.cover,
+                                            ),
                                     ),
                                   ),
                                   Padding(
@@ -243,9 +279,8 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              clinicList[itemIndex]
-                                                      .addressDepth1Id
-                                                      .toString() ??
+                                              regions[clinicList[itemIndex]
+                                                      .addressDepth1Id] ??
                                                   '-',
                                               style: AppTextTheme.middleGrey8,
                                             ),
@@ -269,12 +304,17 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 12, right: 12),
-                                    child: Text(
-                                      clinicList[itemIndex].description ?? '-',
-                                      style: AppTextTheme.middleGrey10
-                                          .copyWith(height: 1.6),
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: Text(
+                                        clinicList[itemIndex].description ??
+                                            '-',
+                                        style: AppTextTheme.middleGrey10
+                                            .copyWith(height: 1.6),
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                      ),
                                     ),
                                   )
                                 ],
