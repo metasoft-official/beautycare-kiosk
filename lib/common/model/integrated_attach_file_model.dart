@@ -4,8 +4,6 @@ part 'integrated_attach_file_model.freezed.dart';
 part 'integrated_attach_file_model.g.dart';
 
 @freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable(explicitToJson: true)
 class IntegratedAttachFileModel with _$IntegratedAttachFileModel {
   factory IntegratedAttachFileModel({
     int? integratedAttachFileNum,

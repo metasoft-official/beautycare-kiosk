@@ -6,10 +6,7 @@ part 'oxy_facial_model.freezed.dart';
 part 'oxy_facial_model.g.dart';
 
 @freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
 class OxyFacialModel with _$OxyFacialModel {
-  // ignore: invalid_annotation_target
-  @JsonSerializable(explicitToJson: true)
   factory OxyFacialModel({
     int? id,
     String? name,

@@ -6,7 +6,6 @@ part 'user_disease_model.freezed.dart';
 part 'user_disease_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true)
 class UserDiseaseModel with _$UserDiseaseModel {
   factory UserDiseaseModel({
     int? id,

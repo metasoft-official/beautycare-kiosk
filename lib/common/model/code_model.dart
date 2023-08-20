@@ -4,8 +4,6 @@ part 'code_model.freezed.dart';
 part 'code_model.g.dart';
 
 @freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable(explicitToJson: true)
 class CodeModel with _$CodeModel {
   factory CodeModel({
     int? id,

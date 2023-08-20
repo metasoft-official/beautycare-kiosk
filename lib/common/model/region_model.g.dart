@@ -6,21 +6,6 @@ part of 'region_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegionModel _$RegionModelFromJson(Map<String, dynamic> json) => RegionModel(
-      id: json['id'] as int?,
-      parentId: json['parentId'] as int?,
-      name: json['name'] as String?,
-      orderNo: json['orderNo'] as int?,
-    );
-
-Map<String, dynamic> _$RegionModelToJson(RegionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'parentId': instance.parentId,
-      'name': instance.name,
-      'orderNo': instance.orderNo,
-    };
-
 _$_RegionModel _$$_RegionModelFromJson(Map<String, dynamic> json) =>
     _$_RegionModel(
       id: json['id'] as int?,

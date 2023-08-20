@@ -5,7 +5,6 @@ part 'skin_product_model.freezed.dart';
 part 'skin_product_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true)
 class SkinProductModel with _$SkinProductModel {
   factory SkinProductModel({
     int? id,

@@ -4,7 +4,6 @@ part 'survey_param_model.freezed.dart';
 part 'survey_param_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true)
 class SurveyParamModel with _$SurveyParamModel {
   factory SurveyParamModel({
     int? userId,

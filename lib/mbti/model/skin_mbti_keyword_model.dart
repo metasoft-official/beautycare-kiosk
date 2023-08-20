@@ -4,7 +4,6 @@ part 'skin_mbti_keyword_model.freezed.dart';
 part 'skin_mbti_keyword_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true)
 class SkinMbtiKeywordModel with _$SkinMbtiKeywordModel {
   factory SkinMbtiKeywordModel({
     int? id,

@@ -7,7 +7,6 @@ part 'skin_mbti_model.freezed.dart';
 part 'skin_mbti_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true)
 class SkinMbtiModel with _$SkinMbtiModel {
   factory SkinMbtiModel({
     int? id,

@@ -5,8 +5,6 @@ part 'skincare_category_model.g.dart';
 
 @freezed
 class SkincareCategoryModel with _$SkincareCategoryModel {
-  // ignore: invalid_annotation_target
-  @JsonSerializable(explicitToJson: true)
   factory SkincareCategoryModel({
     int? id,
     int? parentId,
