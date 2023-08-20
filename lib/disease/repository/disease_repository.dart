@@ -22,7 +22,10 @@ class DiseaseRepository {
   // by query
   Future<PageResponse<DiseaseModel>?> getDiseaseByQuery(
       DiseaseModel diseaseModel) async {
-    final Map<String, dynamic> query = {...diseaseModel.toJson()};
+    final Map<String, dynamic> query = {
+      ...diseaseModel.toJson(),
+      'rowSize': 1000
+    };
     try {
       final response = await diseaseApi.getDiseaseByQuery(query);
       return response;

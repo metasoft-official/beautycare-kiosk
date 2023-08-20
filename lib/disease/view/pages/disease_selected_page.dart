@@ -1,4 +1,5 @@
 import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
+import 'package:beauty_care/common/component/mixins/modal_mixin.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
@@ -33,14 +34,18 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
   @override
   Widget build(BuildContext context) {
     DiseaseModel disease = widget.disease ?? DiseaseModel();
-    final asyncValue = ref.watch(clinicStateProvider);
     final changeState = ref.watch(diseaseChangeProvider);
+    final asyncValue = ref.watch(diseaseStateProvider(disease.id ?? -1));
+    final clinicState = ref.watch(clinicStateProvider.notifier);
+    final diseaseState =
+        ref.watch(diseaseStateProvider(disease.id ?? -1).notifier);
 
     return asyncValue.when(
       data: (data) {
-        final clinicList = List.from(data['clinics']);
-        final regions = data['regions'];
-        logger.d(regions);
+        final clinicList = List.from(clinicState.data['clinics']);
+        final regions = clinicState.data['regions'];
+
+        DiseaseModel diseaseModel = data['diseaseInfo'];
 
         return Scaffold(
           backgroundColor: AppColor.lightGrey,
@@ -69,36 +74,53 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                         children: [
                           FittedBox(
                             fit: BoxFit.scaleDown,
-                            child: Text(disease.name ?? '-',
+                            child: Text(diseaseModel.name ?? '-',
                                 style: AppTextTheme.blue20b),
                           ),
                           Text(
-                            disease.nameEng ?? '-',
+                            diseaseModel.nameEng ?? '-',
                             style: AppTextTheme.middleGrey14m,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(8, 6, 4, 6),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: AppColor.appColor),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              '다른 피부질환 살펴보기',
-                              style: AppTextTheme.blue12m.copyWith(height: 1.2),
-                            ),
-                            const Icon(
-                              Icons.expand_more,
-                              size: 14,
-                              color: AppColor.appColor,
-                            )
-                          ],
+                      GestureDetector(
+                        onTap: () async {
+                          final selectedData =
+                              await ModalMixin.filterModalBottomSheet(
+                                  modalKey: 'disease',
+                                  context: context,
+                                  selectedValue: 0,
+                                  list: data['modalData']);
+                          // 선택에 따른 내용 다시 가져오기
+                          diseaseState.getDiseaseById(
+                              data['modalData'][selectedData].id);
+
+                          () => context.pushNamed('disease',
+                              extra: diseaseState.data['diseaseInfo']);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(8, 6, 4, 6),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: AppColor.appColor),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                '다른 피부질환 살펴보기',
+                                style:
+                                    AppTextTheme.blue12m.copyWith(height: 1.2),
+                              ),
+                              const Icon(
+                                Icons.expand_more,
+                                size: 14,
+                                color: AppColor.appColor,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -110,9 +132,9 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: disease.diseaseImageId != null
+                  child: diseaseModel.diseaseImageId != null
                       ? Image.network(
-                          '${Strings.imageUrl}${disease.diseaseImageId}',
+                          '${Strings.imageUrl}${diseaseModel.diseaseImageId}',
                           fit: BoxFit.cover,
                           errorBuilder: (BuildContext context, Object exception,
                               StackTrace? stackTrace) {
@@ -156,7 +178,7 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      disease.symptoms ?? '-',
+                      diseaseModel.symptoms ?? '-',
                       style: AppTextTheme.middleGrey12,
                     ),
                   ],
@@ -166,7 +188,7 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
               // 자세히 보기 ====================================================
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: DiseaseDetailWidget(diseaseInfo: disease),
+                child: DiseaseDetailWidget(diseaseInfo: diseaseModel),
               ),
 
               const SizedBox(height: 24),

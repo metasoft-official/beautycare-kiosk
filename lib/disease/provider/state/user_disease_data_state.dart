@@ -1,5 +1,6 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
+import 'package:beauty_care/common/provider/modal/modal_grid_state_provider.dart';
 import 'package:beauty_care/user/repository/user_disease_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,16 +22,15 @@ class UserDiseaseDataState
 
   Future<void> loadData() async {
     try {
-      await Future.wait([getDiseaseById()]);
+      await Future.wait([getDiseaseById(id)]);
       state = AsyncValue.data(data);
     } catch (e, s) {
       state = AsyncValue.error(e, s);
     }
   }
 
-  // 무조건 프로바이더에서 파라미터로 질환 아이디값 받아서 조회
-  Future<void> getDiseaseById() async {
-    final response = await repository.getUserDiseaseById(id);
+  Future<void> getDiseaseById(int? id) async {
+    final response = await repository.getUserDiseaseById(id ?? -1);
     if (response != null) {
       data['result'] = response;
     } else {

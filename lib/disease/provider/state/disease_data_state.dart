@@ -1,5 +1,6 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
+import 'package:beauty_care/common/provider/modal/modal_grid_state_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/disease/model/disease_model.dart';
@@ -19,15 +20,14 @@ class DiseaseDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> loadData() async {
     try {
-      await Future.wait([getDiseaseById(), getExpertClinicList()]);
+      await Future.wait([getDiseaseById(id), getDiseaseList()]);
       state = AsyncValue.data(data);
     } catch (e, s) {
       state = AsyncValue.error(e, s);
     }
   }
 
-  // 무조건 프로바이더에서 파라미터로 질환 아이디값 받아서 조회
-  Future<void> getDiseaseById() async {
+  Future<void> getDiseaseById(int? id) async {
     DiseaseModel diseaseModel = DiseaseModel(id: id);
     final response = await repository.getDiseaseByQuery(diseaseModel);
     if (response != null && response.items != null) {
@@ -37,22 +37,20 @@ class DiseaseDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
     }
   }
 
-  void reload() {
-    state = AsyncValue.data(data);
+  List<DiseaseModel>? modalData = [];
+  String? selectedData = '';
+
+  Future<void> getDiseaseList() async {
+    final modalDataState = ref.read(modalGridStateProvider.notifier);
+
+    modalData = await modalDataState.getDiseaseList('disease');
+    // selectedData = modalData?[0].name ?? '-';
+
+    data['modalData'] = modalData;
+    // data['selectedData'] = selectedData;
   }
 
-  // 전문점 클리닉 리스트 가져오기
-  Future<void> getExpertClinicList() async {
-    final clinicRepository = ref.read(clinicRepositoryProvider);
-
-    ClinicModel clinicModel = ClinicModel(visibilityStatus: 'T');
-
-    final response = await clinicRepository.getClinicByQuery(clinicModel);
-    if (response != null && response.items != null) {
-      data['clinics'] = response.items!;
-    } else {
-      data['clinics'] = [];
-    }
+  void reload() {
     state = AsyncValue.data(data);
   }
 }
