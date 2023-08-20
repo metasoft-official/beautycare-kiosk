@@ -8,16 +8,19 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 
 class TypeDetailWidget extends ConsumerWidget {
-  const TypeDetailWidget({Key? key}) : super(key: key);
+  const TypeDetailWidget({Key? key, this.id}) : super(key: key);
+
+  final int? id;
 
   // 관리법
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detailState = ref.watch(mbtiResultStateProvider);
+    final changeState = ref.watch(mbtiResultChangeProvider);
+    final dataState = ref.watch(mbtiResultStateProvider(id ?? -1).notifier);
 
-    return detailState.isDetailClicked == false
+    return changeState.isDetailClicked == false
         ? InkWell(
-            onTap: detailState.clickDetailBtn,
+            onTap: changeState.clickDetailBtn,
             child: Container(
               color: AppColor.lightGrey,
               padding: const EdgeInsets.only(bottom: 28),
@@ -37,9 +40,9 @@ class TypeDetailWidget extends ConsumerWidget {
                       bottomLeft: Radius.circular(30)),
                 ),
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(
                       Icons.expand_more,
                       size: 20,
@@ -93,20 +96,20 @@ class TypeDetailWidget extends ConsumerWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(detailState.types[index][0]),
+                                    Text(dataState.types[index][0]),
                                     RichText(
                                         text: TextSpan(children: [
                                       TextSpan(
-                                        text: detailState.fourType[index],
+                                        text: dataState.fourType[index],
                                         style: AppTextTheme.black12m,
                                       ),
                                       TextSpan(
                                         text:
-                                            '${detailState.result[0]['score'][detailState.fourType[index]].toString()}%',
+                                            '${dataState.result[0]['score'][dataState.fourType[index]].toString()}%',
                                         style: AppTextTheme.black12b,
                                       ),
                                     ])),
-                                    Text(detailState.types[index][1]),
+                                    Text(dataState.types[index][1]),
                                   ],
                                 )
                               ],
@@ -129,82 +132,87 @@ class TypeDetailWidget extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   // 케어법
-                  Container(
-                    decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
-                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-                    child: Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                                decoration: BoxDecoration(
-                                  color: AppColor
-                                      .appColor, // arbitrary color choice
-                                  borderRadius: BorderRadius.circular(
-                                      25), // rounded corner for nicer look
+                  if (dataState.data['typeInfo'].caretipList != null) ...[
+                    Container(
+                      decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
+                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                      child: Column(
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                                  decoration: BoxDecoration(
+                                    color: AppColor
+                                        .appColor, // arbitrary color choice
+                                    borderRadius: BorderRadius.circular(
+                                        25), // rounded corner for nicer look
+                                  ),
+                                  child: Text(
+                                    '케어법',
+                                    style: AppTextTheme.white16b
+                                        .copyWith(height: 1.2),
+                                  ),
                                 ),
-                                child: Text(
-                                  '케어법',
-                                  style: AppTextTheme.white16b
-                                      .copyWith(height: 1.2),
-                                ),
-                              ),
-                            ]),
-                        const SizedBox(height: 12),
-                        SingleChildScrollView(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              primary: false,
-                              itemCount: detailState
-                                  .result[0]['skinMbtiCareTip'].length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '\u2022',
-                                            style: AppTextTheme.blue12b
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w900,
-                                                    height: 1.0),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            detailState.result[0]
-                                                ['skinMbtiCareTip'][index],
-                                            style: AppTextTheme.black12m
-                                                .copyWith(height: 1.0),
-                                          )
-                                        ],
-                                      ),
-                                      if (index !=
-                                          detailState
-                                                  .result[0]['skinMbtiCareTip']
-                                                  .length -
-                                              1) ...[const SizedBox(height: 12)]
-                                    ]);
-                              }),
-                        ),
-                      ],
-                    ),
-                  ),
+                              ]),
+                          const SizedBox(height: 12),
+                          SingleChildScrollView(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount: dataState
+                                    .data['typeInfo'].caretipList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final careTip = dataState
+                                      .data['typeInfo'].caretipList[index];
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '\u2022',
+                                              style: AppTextTheme.blue12b
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                      height: 1.0),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              careTip.content,
+                                              style: AppTextTheme.black12m
+                                                  .copyWith(height: 1.0),
+                                            )
+                                          ],
+                                        ),
+                                        if (index !=
+                                            dataState.data['typeInfo']
+                                                    .caretipList.length -
+                                                1) ...[
+                                          const SizedBox(height: 12)
+                                        ]
+                                      ]);
+                                }),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                   const SizedBox(height: 36),
                   InkWell(
-                    onTap: detailState.clickDetailBtn,
+                    onTap: changeState.clickDetailBtn,
                     child: Container(
                       color: Colors.transparent,
                       width: double.infinity,
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.expand_less,
                             size: 20,

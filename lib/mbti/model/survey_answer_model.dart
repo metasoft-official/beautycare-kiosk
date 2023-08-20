@@ -5,9 +5,8 @@ part 'survey_answer_model.g.dart';
 
 @freezed
 @JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true)
 class SurveyAnswerModel with _$SurveyAnswerModel {
-  // ignore: invalid_annotation_target
-  @JsonSerializable(explicitToJson: true)
   factory SurveyAnswerModel({
     int? id,
     int? questionId,

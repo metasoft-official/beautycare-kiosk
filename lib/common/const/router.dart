@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:beauty_care/cosmetic/view/pages/cosmetic_product_page.dart';
-import 'package:beauty_care/surgery/view/pages/surgery_product_page.dart';
+
+import 'package:beauty_care/clinic/view/pages/clinic_page.dart';
 
 import 'package:beauty_care/common/view/pages/home_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_disease_page.dart';
 import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
-import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
-import 'package:beauty_care/mbti/view/pages/mbti_shooting_page.dart';
 
 import 'package:beauty_care/user/view/pages/login_page.dart';
 import 'package:beauty_care/user/view/pages/register_page.dart';
@@ -23,10 +22,11 @@ import 'package:beauty_care/mbti/view/pages/mbti_main_page.dart';
 import 'package:beauty_care/mbti/view/pages/mbti_result_page.dart';
 import 'package:beauty_care/mbti/view/pages/pre_start_check_page.dart';
 import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
+import 'package:beauty_care/mbti/view/pages/mbti_shooting_page.dart';
 
 import 'package:beauty_care/oxyfacial/view/pages/oxy_facial_main_page.dart';
 
-import 'package:beauty_care/skin/view/pages/skin_result_page.dart';
+import 'package:beauty_care/disease/view/pages/disease_result_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -146,7 +146,9 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/mbti-result',
       name: MbtiResultPage.routeName,
-      builder: (context, state) => const MbtiResultPage(),
+      builder: (context, state) => MbtiResultPage(
+        surveyId: state.queryParameters['surveyId'],
+      ),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -169,8 +171,10 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: '/skin-result',
-      name: SkinResultPage.routeName,
-      builder: (context, state) => const SkinResultPage(),
+      name: DiseaseResultPage.routeName,
+      builder: (context, state) => DiseaseResultPage(
+        diseaseId: state.queryParameters['diseaseId'],
+      ),
     ),
 
     GoRoute(
@@ -189,8 +193,8 @@ final GoRouter router = GoRouter(
     // surgery
     GoRoute(
       path: '/surgery-product',
-      name: SurgeryProductPage.routeName,
-      builder: (context, state) => const SurgeryProductPage(),
+      name: ClinicPage.routeName,
+      builder: (context, state) => const ClinicPage(),
     ),
     // oxyfacial
     GoRoute(

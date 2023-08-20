@@ -46,6 +46,7 @@ dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
 
 class UserNotifier extends StateNotifier<UserModel> {
   final UserRepository _userRepository;
+  UserModel user = UserModel();
 
   UserNotifier(this._userRepository) : super(UserModel());
 
@@ -61,9 +62,17 @@ class UserNotifier extends StateNotifier<UserModel> {
 
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
+      final response = await _userRepository
+          .getUserByUserName(decodedToken['user']['username']);
+      if (response != null && response.items != null) {
+        user = response.items!.first;
+      }
+
       state = state.copyWith(
-          name: decodedToken['user']['name'],
-          email: decodedToken['user']['email']);
+        id: decodedToken['user']['id'],
+        name: decodedToken['user']['name'],
+        email: decodedToken['user']['email'],
+      );
 
       return token;
     } catch (e) {

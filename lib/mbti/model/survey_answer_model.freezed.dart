@@ -139,8 +139,7 @@ class __$$_SurveyAnswerModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_SurveyAnswerModel implements _SurveyAnswerModel {
   _$_SurveyAnswerModel(
       {this.id, this.questionId, this.answer, this.order, this.score});

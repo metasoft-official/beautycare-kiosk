@@ -1,5 +1,3 @@
-import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
-import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,19 +8,23 @@ import 'package:beauty_care/mbti/provider/mbti_result_state_provider.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
-import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
+import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/type_detail_widget.dart';
 
+import '../../../main.dart';
+
 final sizeProvider = StateProvider<Size>((ref) => Size.zero);
 
 // ignore: camel_case_types
 class MbtiResultPage extends ConsumerStatefulWidget {
-  const MbtiResultPage({Key? key}) : super(key: key);
+  final String? surveyId;
+
+  const MbtiResultPage({Key? key, this.surveyId}) : super(key: key);
 
   static String get routeName => 'mbtiResult';
 
@@ -33,14 +35,17 @@ class MbtiResultPage extends ConsumerStatefulWidget {
 class MbtiResultState extends ConsumerState<MbtiResultPage> {
   @override
   Widget build(BuildContext context) {
+    final int id = int.tryParse(widget.surveyId ?? '') ?? -1;
     final user = ref.watch(userNotifierProvider);
-    final resultState = ref.watch(mbtiResultStateProvider);
-    Map<String, dynamic> subtitle =
-        splitMarkText(resultState.result[0]['subtitle']);
-    final asyncValue = ref.watch(skinProductStateProvider);
+    final asyncValue = ref.watch(mbtiResultStateProvider(id));
+    final changeState = ref.watch(mbtiResultChangeProvider);
+    final mbtiDataState = ref.watch(mbtiResultStateProvider(id).notifier);
 
     return asyncValue.when(
       data: (data) {
+        Map<String, dynamic> subtitle =
+            splitMarkText(data['typeInfo'].subtitle);
+
         return Scaffold(
             backgroundColor: AppColor.lightGrey,
             appBar: AppBar(
@@ -75,16 +80,16 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                         Container(
                           margin: EdgeInsets.only(
                               top: 106,
-                              bottom: resultState.isDetailClicked == false
+                              bottom: changeState.isDetailClicked == false
                                   ? 0
                                   : 10),
                           width: double.infinity,
                           // margin: const EdgeInsets.only(top: 44),
                           padding: EdgeInsets.fromLTRB(24, 74, 22,
-                              resultState.isDetailClicked == false ? 0 : 24),
+                              changeState.isDetailClicked == false ? 0 : 24),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: resultState.isDetailClicked == false
+                            borderRadius: changeState.isDetailClicked == false
                                 ? const BorderRadius.only(
                                     topLeft: Radius.circular(30),
                                     topRight: Radius.circular(30))
@@ -112,11 +117,11 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                     style: AppTextTheme.black14)
                               ])),
                               Text(
-                                resultState.result[0]['skinMbtiName'],
+                                data['typeInfo'][0].skinMbtiName ?? '-',
                                 style: AppTextTheme.blue36b,
                               ),
                               Text(
-                                resultState.result[0]['descriptionEng'],
+                                data['typeInfo'][0].descriptionEng ?? '-',
                                 style: AppTextTheme.middleGrey12m,
                                 textAlign: TextAlign.center,
                               ),
@@ -135,13 +140,13 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 24),
                                 child: Text(
-                                  resultState.result[0]['description'] ?? '-',
+                                  data['typeInfo'][0].description ?? '-',
                                   style: AppTextTheme.middleGrey12,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              if (resultState.result[0]['skinMbtiKeyword'] !=
+                              if (data['typeInfo'][0].skinMbtiKeyword !=
                                   null) ...[
                                 const SizedBox(
                                     width: double.infinity,
@@ -152,8 +157,9 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                   padding: const EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   primary: false,
-                                  itemCount: resultState
-                                      .result[0]['skinMbtiKeyword'].length,
+                                  itemCount: data['typeInfo'][0]
+                                      .skinMbtiKeyword
+                                      .length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: (index + 1) % 3 == 0
@@ -170,7 +176,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          '#${resultState.result[0]['skinMbtiKeyword'][index]}',
+                                          '#${data['typeInfo'][0].skinMbtiKeyword[index].keyword}',
                                           style: AppTextTheme.blue13b,
                                           textAlign: TextAlign.center,
                                         ),
@@ -189,6 +195,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       ],
                     ),
 
+                    //todo mbti image asset 추가
                     // mtbi별 이미지
                     Container(
                       margin: const EdgeInsets.only(top: 12),
@@ -207,31 +214,31 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                 ),
 
                 // 자세히 보기 ====================================================
-                const TypeDetailWidget(),
+                TypeDetailWidget(id: id),
 
                 // 제품 추천받기 ===================================================
                 Container(
                   color: Colors.white,
                   child: Column(
                     children: [
-                      ListTitleWidget(
-                        text: '제품 추천받기',
-                        markText: '제품',
-                        onTap: () {
-                          context.pushNamed('cosmeticProduct');
-                        },
-                      ),
-
-                      ProductListWidget(
-                        itemCount: 1,
-                        imgVisible: true,
-                        products: data['products'],
-                        lankVisible: false,
-                        btnVisible: true,
-                        btnText: '더 많은 상품 보러가기',
-                        markText: '더 많은 상품',
-                        imgUrl: 'assets/images/포스트케어.jpg',
-                      ),
+                      if (data['typeInfo'][0].skincareProductList != null) ...[
+                        ListTitleWidget(
+                          text: '제품 추천받기',
+                          markText: '제품',
+                          onTap: () {
+                            context.pushNamed('cosmeticProduct');
+                          },
+                        ),
+                        ProductListWidget(
+                          imgVisible: true,
+                          products: data['typeInfo'][0].skincareProductList,
+                          lankVisible: false,
+                          btnVisible: true,
+                          btnText: '더 많은 상품 보러가기',
+                          markText: '더 많은 상품',
+                          imgUrl: 'assets/images/포스트케어.jpg',
+                        ),
+                      ],
 
                       const SizedBox(height: 8),
 
@@ -277,11 +284,11 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
                         child: CarouselSlider.builder(
-                            itemCount: resultState.clinicList.length,
-                            carouselController: resultState.carouselController,
+                            itemCount: mbtiDataState.clinicList.length,
+                            carouselController: changeState.carouselController,
                             options: CarouselOptions(
                               onPageChanged: (index, reason) {
-                                resultState.changePage(index);
+                                changeState.changePage(index);
                               },
                               autoPlay: false,
                               height: 236,
@@ -302,7 +309,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                           topRight: Radius.circular(10),
                                           topLeft: Radius.circular(10)),
                                       child: Image.asset(
-                                        resultState.clinicList[itemIndex]
+                                        mbtiDataState.clinicList[itemIndex]
                                                 ['img'] ??
                                             'assets/images/sample_images_01.png',
                                         height: 100,
@@ -320,13 +327,13 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                resultState
+                                                mbtiDataState
                                                         .clinicList[itemIndex]
                                                     ['address'],
                                                 style: AppTextTheme.middleGrey8,
                                               ),
                                               Text(
-                                                resultState
+                                                mbtiDataState
                                                         .clinicList[itemIndex]
                                                     ['name'],
                                                 style: AppTextTheme.black10b,
@@ -348,7 +355,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                       padding: const EdgeInsets.only(
                                           left: 12, right: 12),
                                       child: Text(
-                                        resultState.clinicList[itemIndex]
+                                        mbtiDataState.clinicList[itemIndex]
                                             ['description'],
                                         style: AppTextTheme.middleGrey10
                                             .copyWith(height: 1.6),
@@ -375,8 +382,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                         ),
                         Container(
                           width: ((MediaQuery.of(context).size.width - 50) /
-                                  (resultState.clinicList.length - 1)) *
-                              (resultState.curIndex + 1),
+                                  (mbtiDataState.clinicList.length - 1)) *
+                              (changeState.curIndex + 1),
                           height: 4,
                           margin: const EdgeInsets.symmetric(horizontal: 24),
                           decoration: BoxDecoration(

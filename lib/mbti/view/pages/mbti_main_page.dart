@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,6 +13,8 @@ import 'package:beauty_care/common/component/widgets/button_bottom_navigation_ba
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/survey_widget.dart';
+
+import '../../../main.dart';
 
 class MbtiMainPage extends ConsumerStatefulWidget {
   const MbtiMainPage({super.key});
@@ -28,14 +31,14 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
   @override
   Widget build(BuildContext context) {
     final asyncValue = ref.watch(surveyStateProvider);
-    final surveyData = ref.watch(surveyProgressStateProvider);
-    final surveyState = ref.watch(surveyProgressStateProvider.notifier);
-
-    List<SurveyQuestionModel> questions = [];
+    final surveyData = ref.watch(surveyStateProvider.notifier);
 
     return asyncValue.when(
       data: (data) {
-        questions = data;
+        final surveyState =
+            ref.watch(surveyProgressStateProvider(data['isClicked']).notifier);
+        final surveyProgressData =
+            ref.watch(surveyProgressStateProvider(data['isClicked']));
 
         return Scaffold(
           appBar: AppBar(
@@ -60,10 +63,10 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                   widget: Container(
                     color: Colors.white,
                     child: IconStepperWidget(
-                      icons: surveyData.icons,
+                      length: 4,
                       width: MediaQuery.of(context).size.width,
                       color: AppColor.appColor,
-                      curStep: surveyData.curStep,
+                      curStep: surveyProgressData.curStep,
                     ),
                   ),
                 ),
@@ -73,16 +76,16 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(24, 36, 24, 0),
                   child: Column(
-                    children: const [
+                    children: [
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          'STEP 1. 유수분 밸런스',
+                          'STEP ${surveyProgressData.curStep + 1}. ${surveyData.categoryName[surveyProgressData.curStep]}',
                           style: AppTextTheme.blue20b,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      SizedBox(
+                      const SizedBox(height: 8),
+                      const SizedBox(
                         width: double.infinity,
                         child: Text(
                           '피부의 상태를 더욱 자세히 파악하기 위한 질문입니다.',
@@ -96,41 +99,54 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
 
               //문진 내용
               SurveyWidget(
-                questions: questions,
-              ),
-
-              //버튼
-              if (surveyData.curStep > 0) ...[
-                SliverToBoxAdapter(
-                  child: InkWell(
-                    onTap: () {
-                      surveyState.decreaseStep();
-                    },
-                    child: Container(
-                        margin: const EdgeInsets.only(top: 30),
-                        height: 60,
-                        width: double.infinity,
-                        color: Colors.white,
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "이전 단계",
-                            style: AppTextTheme.blue14b,
-                          ),
-                        )),
-                  ),
-                ),
-              ]
+                  questionList: data['questions'],
+                  isClicked: data['isClicked'],
+                  questionCode: surveyProgressData.curStep + 6),
             ],
           ),
           bottomNavigationBar: ButtonBottomNavigationBarWidget(
             buttonColor: AppColor.appColor,
             textStyle: AppTextTheme.white14b,
-            label: surveyData.curStep == 3 ? '결과 확인하기' : '다음 단계',
-            onPressed: () {
-              surveyData.curStep < 3
-                  ? surveyState.increaseStep()
-                  : context.pushNamed('mbtiResult');
+            label: surveyProgressData.curStep == 3 ? '결과 확인하기' : '다음 단계',
+            onPressed: () async {
+              // 모두 답변 되었는지 확인
+              if (surveyProgressData
+                      .isClicked['${surveyProgressData.curStep + 6}']
+                      .contains(0) ==
+                  false) {
+                // 데이터 업데이트
+                data['isClicked']['${surveyProgressData.curStep + 6}'] =
+                    surveyProgressData
+                        .isClicked['${surveyProgressData.curStep + 6}'];
+                // 다음 단계 또는 저장 후 이동
+                if (surveyProgressData.curStep < 3) {
+                  setState(() {
+                    mbtiHiding.controller.animateTo(
+                      0.0,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    );
+                    logger.d(mbtiHiding.controller);
+                  });
+                  surveyState.increaseStep();
+                } else {
+                  final response = await surveyData.postSurveyResult();
+                  if (response != null) {
+                    if (!mounted) return;
+                    context.pushNamed('mbtiResult?typeId=$response');
+                  }
+                }
+                // 모두 답변되지 않았을 때 경고
+              } else {
+                Fluttertoast.showToast(
+                    msg: "모든 질문의 답변을 선택해주세요!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.TOP,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: AppColor.yellow.withOpacity(1),
+                    textColor: AppColor.appColor,
+                    fontSize: 16.0);
+              }
             },
           ),
         );

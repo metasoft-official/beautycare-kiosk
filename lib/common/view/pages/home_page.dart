@@ -88,7 +88,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           markText: '피부 MBTI',
                           caption: 'AI로 진단 받아 보시고,\n체계적으로 관리해보세요!',
                           onPressed: () => authStateNotifier.navigateToPage(
-                              context, ref, 'mbtiPreStartCheck'),
+                              context, ref, 'survey'),
                           type: 'mbti',
                         ),
                       ]
@@ -124,7 +124,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           type: 'mbti',
                           title: '${user.name} 님의 피부 MBTI는?',
                           onPressed: () => authStateNotifier.navigateToPage(
-                              context, ref, 'mbtiPreStartCheck'),
+                              context, ref, 'survey'),
                           widget: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -179,10 +179,12 @@ class HomePageState extends ConsumerState<HomePage> {
 
                       // 피부 타입 별 랭킹 ==================================================
                       ListTitleWidget(
-                        text: '피부 타입 별 랭킹',
-                        markText: '피부 타입 별',
-                        onTap: () => context.pushNamed('cosmeticProduct'),
-                      ),
+                          text: '피부 타입 별 랭킹',
+                          markText: '피부 타입 별',
+                          onTap: () => {
+                                authStateNotifier.navigateToPage(
+                                    context, ref, 'cosmeticProduct'),
+                              }),
                       // 피부 타입 별 카테고리
                       HorizontalCategoryWidget(
                         // onPressed: homeState.setBannerIndex,

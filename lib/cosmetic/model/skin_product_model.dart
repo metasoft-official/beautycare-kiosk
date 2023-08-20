@@ -5,10 +5,8 @@ part 'skin_product_model.freezed.dart';
 part 'skin_product_model.g.dart';
 
 @freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true)
 class SkinProductModel with _$SkinProductModel {
-  // ignore: invalid_annotation_target
-  @JsonSerializable(explicitToJson: true)
   factory SkinProductModel({
     int? id,
     String? name,
