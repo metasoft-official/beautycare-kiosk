@@ -22,7 +22,10 @@ class ClinicRepository {
   // by query
   Future<PageResponse<ClinicModel>?> getClinicByQuery(
       ClinicModel clinicModel) async {
-    final Map<String, dynamic> query = {...clinicModel.toJson()};
+    final Map<String, dynamic> query = {
+      ...clinicModel.toJson(),
+      'rowSize': 1000
+    };
     try {
       final response = await clinicApi.getClinicByQuery(query);
       return response;

@@ -45,7 +45,7 @@ class DiseaseDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   Future<void> getExpertClinicList() async {
     final clinicRepository = ref.read(clinicRepositoryProvider);
 
-    ClinicModel clinicModel = ClinicModel(visibilityStatus: 'E');
+    ClinicModel clinicModel = ClinicModel(visibilityStatus: 'T');
 
     final response = await clinicRepository.getClinicByQuery(clinicModel);
     if (response != null && response.items != null) {

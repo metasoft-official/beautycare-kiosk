@@ -18,4 +18,7 @@ abstract class SkinMbtiApi {
   @GET('/common/skin-mbtis')
   Future<PageResponse<SkinMbtiModel>> getSkinMbtiByQuery(
       @Queries() Map<String, dynamic> query);
+
+  @GET('/common/skin-mbtis/{id}')
+  Future<SkinMbtiModel> getSkinMbtiById(@Path("id") int id);
 }

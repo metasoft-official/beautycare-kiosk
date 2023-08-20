@@ -1,4 +1,8 @@
+import 'package:beauty_care/common/component/widgets/gradient_bar_chart_widget.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/mbti/model/skin_mbti_caretip_model.dart';
+import 'package:beauty_care/mbti/model/skin_mbti_model.dart';
+import 'package:beauty_care/user/model/user_skin_mbti_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,15 +12,17 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 
 class TypeDetailWidget extends ConsumerWidget {
-  const TypeDetailWidget({Key? key, this.id}) : super(key: key);
+  const TypeDetailWidget({Key? key, this.id, this.result, this.info})
+      : super(key: key);
 
   final int? id;
+  final UserSkinMbtiModel? result;
+  final SkinMbtiModel? info;
 
   // 관리법
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final changeState = ref.watch(mbtiResultChangeProvider);
-    final dataState = ref.watch(mbtiResultStateProvider(id ?? -1).notifier);
 
     return changeState.isDetailClicked == false
         ? InkWell(
@@ -88,31 +94,14 @@ class TypeDetailWidget extends ConsumerWidget {
                         primary: false, //스크롤 제한
                         itemCount: 4,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 4),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(dataState.types[index][0]),
-                                    RichText(
-                                        text: TextSpan(children: [
-                                      TextSpan(
-                                        text: dataState.fourType[index],
-                                        style: AppTextTheme.black12m,
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            '${dataState.result[0]['score'][dataState.fourType[index]].toString()}%',
-                                        style: AppTextTheme.black12b,
-                                      ),
-                                    ])),
-                                    Text(dataState.types[index][1]),
-                                  ],
-                                )
-                              ],
+                          return Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  scoreWidget(index, result!, context)!
+                                ],
+                              ),
                             ),
                           );
                         }),
@@ -132,7 +121,7 @@ class TypeDetailWidget extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   // 케어법
-                  if (dataState.data['typeInfo'].caretipList != null) ...[
+                  if (info != null && info?.caretipList != null) ...[
                     Container(
                       decoration: AppBoxTheme.basicShadowWhiteBoxTheme,
                       padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
@@ -162,42 +151,50 @@ class TypeDetailWidget extends ConsumerWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 primary: false,
-                                itemCount: dataState
-                                    .data['typeInfo'].caretipList.length,
+                                itemCount: info?.caretipList?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final careTip = dataState
-                                      .data['typeInfo'].caretipList[index];
-                                  return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
+                                  SkinMbtiCaretipModel? careTip =
+                                      info?.caretipList?[index];
+                                  return careTip != null
+                                      ? Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              '\u2022',
-                                              style: AppTextTheme.blue12b
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      height: 1.0),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              careTip.content,
-                                              style: AppTextTheme.black12m
-                                                  .copyWith(height: 1.0),
-                                            )
-                                          ],
-                                        ),
-                                        if (index !=
-                                            dataState.data['typeInfo']
-                                                    .caretipList.length -
-                                                1) ...[
-                                          const SizedBox(height: 12)
-                                        ]
-                                      ]);
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '\u2022',
+                                                    style: AppTextTheme.blue12b
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            height: 1.2),
+                                                  ),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: Text(
+                                                      careTip.content ?? '-',
+                                                      style: AppTextTheme
+                                                          .black12
+                                                          .copyWith(
+                                                              height: 1.3),
+                                                      softWrap: true,
+                                                      maxLines: 5,
+                                                      textAlign:
+                                                          TextAlign.justify,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              if (index !=
+                                                  info!.caretipList!.length -
+                                                      1) ...[
+                                                const SizedBox(height: 8)
+                                              ]
+                                            ])
+                                      : null;
                                 }),
                           ),
                         ],
@@ -228,4 +225,72 @@ class TypeDetailWidget extends ConsumerWidget {
                 ]),
           );
   }
+}
+
+Widget? scoreWidget(int index, UserSkinMbtiModel result, BuildContext context) {
+  List<String>? types = [];
+  String? category = "";
+  double? score = 0;
+
+  switch (index) {
+    case 0:
+      types = ['건성 피부', '지성 피부'];
+      category = '지건성';
+      score = result.category1Score?.ceilToDouble();
+      break;
+    case 1:
+      types = ['저항성 강한 피부', '매우 민감한 피부'];
+      category = '색소';
+      score = result.category2Score?.ceilToDouble();
+      break;
+    case 2:
+      types = ['비색소성', '색소성'];
+      category = '민감';
+      score = result.category3Score?.ceilToDouble();
+      break;
+    case 3:
+      types = ['탄력 피부', '주름 취약 피부'];
+      category = '주름';
+      score = result.category4Score?.ceilToDouble();
+      break;
+  }
+
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+              child: Text(
+            types[0],
+            style: AppTextTheme.purple12b,
+            textAlign: TextAlign.left,
+          )),
+          Align(
+            alignment: Alignment.center,
+            child: RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                text: category,
+                style: AppTextTheme.black12m,
+              ),
+              TextSpan(
+                text: ' $score%',
+                style: AppTextTheme.black12b,
+              ),
+            ])),
+          ),
+          Expanded(
+              child: Text(types[1],
+                  style: AppTextTheme.blue12b, textAlign: TextAlign.right)),
+        ],
+      ),
+      GradientBarChartWidget(
+        percent: score,
+        backgourndColor: Colors.white,
+        width: MediaQuery.of(context).size.width,
+      ),
+      const SizedBox(height: 16)
+    ],
+  );
 }

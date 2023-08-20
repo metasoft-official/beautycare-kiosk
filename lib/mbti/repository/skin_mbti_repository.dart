@@ -31,4 +31,15 @@ class SkinMbtiRepository {
     }
     return null;
   }
+
+  // by id
+  Future<SkinMbtiModel?> getSkinMbtiById(int id) async {
+    try {
+      final response = await skinMbtiApi.getSkinMbtiById(id);
+      return response;
+    } catch (e, s) {
+      logger.e("", e, s);
+    }
+    return null;
+  }
 }

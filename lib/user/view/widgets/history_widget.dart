@@ -70,7 +70,9 @@ class HistoryWidget extends StatelessWidget {
                 return Padding(
                   padding: margin ?? const EdgeInsets.fromLTRB(24, 12, 24, 0),
                   child: InkWell(
-                    onTap: onTap,
+                    onTap: () {
+                      onTap(index);
+                    },
                     onLongPress: () {
                       onLongPress(index);
                     },

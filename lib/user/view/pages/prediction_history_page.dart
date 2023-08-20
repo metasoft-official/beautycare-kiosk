@@ -59,19 +59,22 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
           widgets: [
             // todo : mbti, 피부질환 이력 데이터에 맞게 전달
             HistoryWidget(
-              onTap: () => context.pushNamed('mbtiResult'),
+              onTap: (index) => context.pushNamed(
+                  '/mbti-result?surveyId=${mypageState.histories[index]['id']}'),
               itemCount: mypageState.histories.length,
               histories: mypageState.histories,
               nullType: 'history',
             ),
             HistoryWidget(
-              onTap: () => context.pushNamed('skinResult'),
+              onTap: (index) => context.pushNamed(
+                  '/skin-result?diseaseId=${mypageState.histories[index]['id']}'),
               itemCount: historyState.skinHistories.length,
               histories: historyState.skinHistories,
               nullType: 'history',
             ),
             HistoryWidget(
-              onTap: () => context.pushNamed('mbtiResult'),
+              onTap: (index) => context.pushNamed(
+                  '/mbti-result?surveyId=${mypageState.histories[index]['id']}'),
               itemCount: historyState.mbtiHistories.length,
               histories: historyState.mbtiHistories,
               nullType: 'history',

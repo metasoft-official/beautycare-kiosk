@@ -182,7 +182,7 @@ class ProductListWidget extends StatelessWidget {
                 if (btnVisible == true) ...[
                   InkWell(
                     onTap: () {
-                      btnUrlName ?? context.goNamed(btnUrlName!);
+                      btnUrlName ?? context.pushNamed(btnUrlName!);
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),

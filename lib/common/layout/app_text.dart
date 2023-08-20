@@ -822,6 +822,23 @@ class AppTextTheme {
       decoration: TextDecoration.underline,
       fontWeight: FontWeight.w300,
       color: AppColor.semiBlue);
+  // purple
+
+  static const purple12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w300,
+      color: AppColor.purple);
+  static const purple12m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColor.purple);
+  static const purple12b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: AppColor.purple);
   // blue
   static const blue10 = TextStyle(
       fontFamily: 'noto_sans_kr',

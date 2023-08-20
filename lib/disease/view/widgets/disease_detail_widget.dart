@@ -63,7 +63,8 @@ class DiseaseDetailWidget extends ConsumerWidget {
                     bottomLeft: Radius.circular(10))),
             child: Column(children: [
               ...detail(title: '원인', content: diseaseInfo.cause ?? '-'),
-              ...detail(title: '검사', content: diseaseInfo.test ?? '-'),
+              if (diseaseInfo.treatment != null)
+                ...detail(title: '검사', content: diseaseInfo.test ?? '-'),
               ...detail(title: '치료', content: diseaseInfo.treatment ?? '-'),
               ...detail(title: '예방', content: diseaseInfo.prevention ?? '-'),
               InkWell(
@@ -102,7 +103,10 @@ List<Widget> detail({required String title, required String content}) {
           size: 16,
         ),
         const SizedBox(width: 4),
-        Text(title)
+        Text(
+          title,
+          style: AppTextTheme.blue12b,
+        )
       ],
     ),
     const SizedBox(height: 8),

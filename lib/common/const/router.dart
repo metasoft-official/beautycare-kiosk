@@ -1,3 +1,5 @@
+import 'package:beauty_care/disease/model/disease_model.dart';
+import 'package:beauty_care/disease/view/pages/disease_selected_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -175,6 +177,14 @@ final GoRouter router = GoRouter(
       builder: (context, state) => DiseaseResultPage(
         diseaseId: state.queryParameters['diseaseId'],
       ),
+    ),
+    GoRoute(
+      path: '/disease',
+      name: DiseaseSelectedPage.routeName,
+      builder: (context, state) {
+        DiseaseModel diseaseModel = state.extra as DiseaseModel;
+        return DiseaseSelectedPage(disease: diseaseModel);
+      },
     ),
 
     GoRoute(

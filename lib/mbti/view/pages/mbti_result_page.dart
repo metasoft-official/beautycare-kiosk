@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +22,6 @@ import '../../../main.dart';
 
 final sizeProvider = StateProvider<Size>((ref) => Size.zero);
 
-// ignore: camel_case_types
 class MbtiResultPage extends ConsumerStatefulWidget {
   final String? surveyId;
 
@@ -39,12 +40,17 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
     final user = ref.watch(userNotifierProvider);
     final asyncValue = ref.watch(mbtiResultStateProvider(id));
     final changeState = ref.watch(mbtiResultChangeProvider);
-    final mbtiDataState = ref.watch(mbtiResultStateProvider(id).notifier);
 
     return asyncValue.when(
       data: (data) {
-        Map<String, dynamic> subtitle =
-            splitMarkText(data['typeInfo'].subtitle);
+        final clinicList = data['clinics'];
+
+        double calculatedWidth = ((MediaQuery.of(context).size.width - 50) /
+                (clinicList.length - 1)) *
+            (changeState.curIndex + 1);
+
+        // width가 0보다 작아지는 경우를 방지
+        calculatedWidth = max(0, calculatedWidth);
 
         return Scaffold(
             backgroundColor: AppColor.lightGrey,
@@ -66,7 +72,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 400,
+                      height: 200,
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Color(0xFFCDE1F9),
@@ -117,11 +123,11 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                     style: AppTextTheme.black14)
                               ])),
                               Text(
-                                data['typeInfo'][0].skinMbtiName ?? '-',
+                                data['typeInfo']?.skinMbtiName ?? '-',
                                 style: AppTextTheme.blue36b,
                               ),
                               Text(
-                                data['typeInfo'][0].descriptionEng ?? '-',
+                                data['typeInfo']?.descriptionEng ?? '-',
                                 style: AppTextTheme.middleGrey12m,
                                 textAlign: TextAlign.center,
                               ),
@@ -129,25 +135,26 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                               RichText(
                                 text: TextSpan(children: [
                                   TextSpan(
-                                      text: subtitle['exceptText'],
+                                      text: data['subtitle']?['exceptText'] ??
+                                          '-',
                                       style: AppTextTheme.black16b),
                                   TextSpan(
-                                      text: subtitle['markText'],
+                                      text:
+                                          data['subtitle']?['markText'] ?? '-',
                                       style: AppTextTheme.blue16b),
                                 ]),
                               ),
                               Container(
                                 margin:
-                                    const EdgeInsets.symmetric(horizontal: 24),
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  data['typeInfo'][0].description ?? '-',
+                                  data['typeInfo']?.description ?? '-',
                                   style: AppTextTheme.middleGrey12,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              const SizedBox(height: 20),
-                              if (data['typeInfo'][0].skinMbtiKeyword !=
-                                  null) ...[
+                              if (data['typeInfo']?.keywordList != null) ...[
+                                const SizedBox(height: 20),
                                 const SizedBox(
                                     width: double.infinity,
                                     child: Text('피부 고민 키워드',
@@ -157,9 +164,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                   padding: const EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   primary: false,
-                                  itemCount: data['typeInfo'][0]
-                                      .skinMbtiKeyword
-                                      .length,
+                                  itemCount:
+                                      data['typeInfo']?.keywordList.length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: (index + 1) % 3 == 0
@@ -176,7 +182,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          '#${data['typeInfo'][0].skinMbtiKeyword[index].keyword}',
+                                          '#${data['typeInfo']?.keywordList[index].keyword}',
                                           style: AppTextTheme.blue13b,
                                           textAlign: TextAlign.center,
                                         ),
@@ -214,14 +220,17 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                 ),
 
                 // 자세히 보기 ====================================================
-                TypeDetailWidget(id: id),
+                TypeDetailWidget(
+                    id: id, result: data['result'], info: data['typeInfo']),
 
-                // 제품 추천받기 ===================================================
+                // 제품 추천받기 ======================================히=============
                 Container(
                   color: Colors.white,
                   child: Column(
                     children: [
-                      if (data['typeInfo'][0].skincareProductList != null) ...[
+                      if (data['typeInfo']?.skincareProductList != null &&
+                          data['typeInfo']?.skincareProductList.length ==
+                              0) ...[
                         ListTitleWidget(
                           text: '제품 추천받기',
                           markText: '제품',
@@ -231,12 +240,14 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                         ),
                         ProductListWidget(
                           imgVisible: true,
-                          products: data['typeInfo'][0].skincareProductList,
+                          products:
+                              List.from(data['typeInfo']?.skincareProductList),
                           lankVisible: false,
                           btnVisible: true,
                           btnText: '더 많은 상품 보러가기',
                           markText: '더 많은 상품',
                           imgUrl: 'assets/images/포스트케어.jpg',
+                          btnUrlName: 'cosmeticProduct',
                         ),
                       ],
 
@@ -284,7 +295,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
                         child: CarouselSlider.builder(
-                            itemCount: mbtiDataState.clinicList.length,
+                            itemCount: clinicList.length,
                             carouselController: changeState.carouselController,
                             options: CarouselOptions(
                               onPageChanged: (index, reason) {
@@ -309,9 +320,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                           topRight: Radius.circular(10),
                                           topLeft: Radius.circular(10)),
                                       child: Image.asset(
-                                        mbtiDataState.clinicList[itemIndex]
-                                                ['img'] ??
-                                            'assets/images/sample_images_01.png',
+                                        // clinicList[itemIndex]??
+                                        'assets/images/sample_images_01.png',
                                         height: 100,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
@@ -327,15 +337,15 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                mbtiDataState
-                                                        .clinicList[itemIndex]
-                                                    ['address'],
+                                                clinicList[itemIndex]
+                                                        .addressDepth1Id
+                                                        .toString() ??
+                                                    '-',
                                                 style: AppTextTheme.middleGrey8,
                                               ),
                                               Text(
-                                                mbtiDataState
-                                                        .clinicList[itemIndex]
-                                                    ['name'],
+                                                clinicList[itemIndex].name ??
+                                                    '-',
                                                 style: AppTextTheme.black10b,
                                               )
                                             ],
@@ -355,8 +365,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                       padding: const EdgeInsets.only(
                                           left: 12, right: 12),
                                       child: Text(
-                                        mbtiDataState.clinicList[itemIndex]
-                                            ['description'],
+                                        clinicList[itemIndex].description ??
+                                            '-',
                                         style: AppTextTheme.middleGrey10
                                             .copyWith(height: 1.6),
                                         maxLines: 5,
@@ -381,9 +391,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                               borderRadius: BorderRadius.circular(30)),
                         ),
                         Container(
-                          width: ((MediaQuery.of(context).size.width - 50) /
-                                  (mbtiDataState.clinicList.length - 1)) *
-                              (changeState.curIndex + 1),
+                          width: calculatedWidth,
                           height: 4,
                           margin: const EdgeInsets.symmetric(horizontal: 24),
                           decoration: BoxDecoration(
@@ -413,14 +421,4 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
       ),
     );
   }
-}
-
-Map<String, String> splitMarkText(String text) {
-  List<String> splitTexts = text.split(' ');
-  int i = text.indexOf(splitTexts[splitTexts.length - 1]);
-
-  String markText = splitTexts[(splitTexts.length - 1)];
-  String exceptText = text.substring(0, i);
-
-  return {'exceptText': exceptText, 'markText': markText};
 }

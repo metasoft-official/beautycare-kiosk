@@ -121,7 +121,8 @@ class MypageState extends ConsumerState<MypagePage> {
           // 목록
           Expanded(
             child: HistoryWidget(
-              onTap: () => context.pushNamed('mbtiResult'),
+              onTap: (index) => context.push(
+                  '/mbti-result?surveyId=${mypageState.histories[index]['id']}'),
               onLongPress: (index) => {
                 mypageState.longClickState == -1
                     ? {

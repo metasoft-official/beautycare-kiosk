@@ -1,6 +1,12 @@
+import 'package:beauty_care/common/component/widgets/gradient_bar_chart_widget.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
+import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/provider/disease_state_provider.dart';
 import 'package:beauty_care/disease/view/widgets/disease_detail_widget.dart';
+import 'package:beauty_care/user/model/user_disease_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -28,13 +34,12 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
   @override
   Widget build(BuildContext context) {
     final id = int.tryParse(widget.diseaseId ?? '') ?? -1;
-    final asyncValue = ref.watch(diseaseStateProvider(id));
-    final changeState = ref.watch(diseaseChangeProvider);
+    final asyncValue = ref.watch(userDiseaseStateProvider(id));
+    final user = ref.read(userNotifierProvider.notifier).user;
 
     return asyncValue.when(
       data: (data) {
-        final disease = data['diseaseInfo'];
-        final clinicList = data['clinics'];
+        UserDiseaseModel result = data['result'];
 
         return Scaffold(
           backgroundColor: AppColor.lightGrey,
@@ -47,255 +52,88 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
               icon: const Icon(Icons.arrow_back_rounded),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Column(children: [
-              // 질환 제목 및 소개 ===============================================
-              // 텍스트
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
-                child: Row(
-                  children: [
-                    Text(disease.name ?? '-', style: AppTextTheme.blue20b),
-                    const SizedBox(width: 4),
-                    Text(disease.nameEng ?? '-',
-                        style: AppTextTheme.middleGrey14m),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: AppColor.appColor),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            '다른 피부질환 살펴보기',
-                            style: AppTextTheme.blue12m.copyWith(height: 1.2),
-                          ),
-                          const Icon(
-                            Icons.arrow_drop_down,
-                            size: 10,
-                            color: AppColor.appColor,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          body: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              // 제목 및 소개 ===============================================
+              const SizedBox(
+                height: 40,
               ),
-              // todo 이미지 수정
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+              // 텍스트
+              MarkTextsWidget(
+                text: '${user.name} 님의 피부 질환 예측결과',
+                defaultTextStyle: AppTextTheme.blue20b,
+                markText: '${user.name}',
+                markTextStyle: AppTextTheme.black20b,
+              ),
+              const Text(
+                '증상과 가장 비슷한 피부질환 3가지를 알려드립니다.',
+                style: AppTextTheme.middleGrey14m,
+              ),
+              const SizedBox(height: 20),
+              // 이미지
+              Container(
+                color: Colors.transparent,
+                padding: const EdgeInsets.all(8),
+                height: 180,
+                width: 180,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/images/sample_images_01.png'),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                padding: const EdgeInsets.fromLTRB(20, 26, 20, 0),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
-                child: Column(
-                  children: [
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.insert_drive_file_outlined,
-                          color: AppColor.appColor,
-                          size: 16,
-                        ),
-                        SizedBox(width: 4),
-                        Text('증상')
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      disease.symptoms ?? '-',
-                      style: AppTextTheme.middleGrey12,
-                    ),
-                  ],
-                ),
-              ),
-
-              // 자세히 보기 ====================================================
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: DiseaseDetailWidget(diseaseInfo: disease),
-              ),
-
-              const SizedBox(height: 24),
-
-              // 추천받기 ===================================================
-              Container(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    // 시술클리닉 추천받기 ==============================================
-                    ListTitleWidget(
-                      text: '시술 / 클리닉 추천받기',
-                      markText: '시술 / 클리닉',
-                      onTap: () {
-                        context.pushNamed('surgeryProduct');
-                      },
-                    ),
-
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 24),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.lightGrey),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        //todo 이미지 수정 ? 추천받기 이미지 어떻게 할 건지
-                        child: Image.asset(
-                          'assets/images/추천받기샘플.png',
-                          height: 96,
+                  child: result.imageId != null
+                      ? Image.network(
+                          '${Strings.imageUrl}${result.imageId}',
                           fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 33),
-
-                    // 옥시페이셜 전문점 ================================================
-                    // 제목
-                    Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 24),
-                        width: double.infinity,
-                        child: const Text('옥시페이셜 전문점',
-                            style: AppTextTheme.blue16b)),
-                    const SizedBox(height: 13),
-
-                    // 전문점 소개 슬라이더
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24),
-                      child: CarouselSlider.builder(
-                          itemCount: clinicList.length,
-                          carouselController: changeState.carouselController,
-                          options: CarouselOptions(
-                            onPageChanged: (index, reason) {
-                              changeState.changePage(index);
-                            },
-                            autoPlay: false,
-                            height: 236,
-                            viewportFraction: 0.48,
-                            enableInfiniteScroll: false,
-                            padEnds: false,
-                          ),
-                          itemBuilder: (BuildContext context, int itemIndex,
-                              int realIndex) {
-                            return Container(
-                              decoration:
-                                  AppBoxTheme.outlinedRoundedGreyBoxTheme,
-                              margin: const EdgeInsets.only(right: 16),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10)),
-                                    child: Image.asset(
-                                      //todo image 수정
-                                      // clinicList[itemIndex].mainImageId ??
-                                      'assets/images/sample_images_01.png',
-                                      height: 100,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(12, 10, 6, 8),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              clinicList[itemIndex]
-                                                      .addressDepth1Id ??
-                                                  '-',
-                                              style: AppTextTheme.middleGrey8,
-                                            ),
-                                            Text(
-                                              clinicList[itemIndex].name ?? '-',
-                                              style: AppTextTheme.black10b,
-                                            )
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        Expanded(
-                                          child: Image.asset(
-                                            'assets/icons/ic_kakao_channel.png',
-                                            width: 22,
-                                            height: 22,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 12, right: 12),
-                                    child: Text(
-                                      clinicList[itemIndex].description ?? '-',
-                                      style: AppTextTheme.middleGrey10
-                                          .copyWith(height: 1.6),
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  )
-                                ],
-                              ),
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return Image.asset(
+                              'assets/images/sample_images_01.png',
+                              fit: BoxFit.cover,
                             );
-                          }),
-                    ),
-
-                    const SizedBox(height: 10),
-                    // 슬라이더 바 인디케이터
-                    Stack(children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width - 50,
-                        height: 4,
-                        margin: const EdgeInsets.symmetric(horizontal: 24),
-                        decoration: BoxDecoration(
-                            color: AppColor.lowGrey,
-                            borderRadius: BorderRadius.circular(30)),
-                      ),
-                      Container(
-                        width: ((MediaQuery.of(context).size.width - 50) /
-                                (clinicList.length - 1)) *
-                            (changeState.curIndex + 1),
-                        height: 4,
-                        margin: const EdgeInsets.symmetric(horizontal: 24),
-                        decoration: BoxDecoration(
-                            color: AppColor.appColor,
-                            borderRadius: BorderRadius.circular(30)),
-                      ),
+                          },
+                        )
+                      : Image.asset(
+                          'assets/images/sample_images_01.png',
+                          fit: BoxFit.cover,
+                        ),
+                ),
+              ),
+              const SizedBox(height: 23),
+              Expanded(
+                  child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          offset: const Offset(0, 3),
+                          blurRadius: 2,
+                          spreadRadius: 0)
                     ]),
-                    const SizedBox(height: 32),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30),
+                    const Text(
+                      "상세 내용을 확인하고 싶은 질환을 선택하세요.",
+                      style: AppTextTheme.black14m,
+                    ),
+                    const SizedBox(height: 20),
+                    diseaseButton(context, 0, result)!,
+                    diseaseButton(context, 1, result)!,
+                    diseaseButton(context, 2, result)!
                   ],
                 ),
-              )
+              ))
             ]),
           ),
           bottomNavigationBar: ButtonBottomNavigationBarWidget(
             buttonColor: AppColor.appColor,
             textStyle: AppTextTheme.white14b,
-            label: '확인',
-            onPressed: () => context.goNamed('home'),
+            label: '다시 예측하기',
+            onPressed: () => context.pushNamed('predictSkinDisease'),
           ),
         );
       },
@@ -310,12 +148,75 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
   }
 }
 
-Map<String, String> splitMarkText(String text) {
-  List<String> splitTexts = text.split(' ');
-  int i = text.indexOf(splitTexts[splitTexts.length - 1]);
+Widget? diseaseButton(
+    BuildContext context, int index, UserDiseaseModel result) {
+  String? name = "";
+  double? score = 0;
+  DiseaseModel? extra = DiseaseModel();
 
-  String markText = splitTexts[(splitTexts.length - 1)];
-  String exceptText = text.substring(0, i);
+  switch (index) {
+    case 0:
+      name = result.topk1Disease?.name ?? '-';
+      score = (result.topk1Value! * 500).ceilToDouble();
+      extra = result.topk1Disease;
+      break;
+    case 1:
+      name = result.topk2Disease?.name ?? '-';
+      score = (result.topk2Value! * 500).ceilToDouble();
+      extra = result.topk2Disease;
+      break;
+    case 2:
+      name = result.topk3Disease?.name ?? '-';
+      score = (result.topk3Value! * 500).ceilToDouble();
+      extra = result.topk3Disease;
+      break;
+  }
 
-  return {'exceptText': exceptText, 'markText': markText};
+  return GestureDetector(
+    onTap: () => context.pushNamed('disease', extra: extra),
+    child: Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      width: double.infinity,
+      decoration: index == 0
+          ? AppBoxTheme.outlinedRoundedBlueBoxTheme
+          : AppBoxTheme.outlinedRoundedGreyBoxTheme,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            fit: FlexFit.loose,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: name,
+                        style: AppTextTheme.blue14b,
+                      ),
+                      TextSpan(
+                          text: ' ${score.toString()}%' ?? '-',
+                          style: AppTextTheme.blue14m)
+                    ],
+                  ),
+                ),
+                GradientBarChartWidget(
+                  percent: score,
+                  width: MediaQuery.of(context).size.width - 100,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          Icon(
+            Icons.navigate_next,
+            color: index == 0 ? AppColor.appColor : AppColor.black,
+            size: 20,
+          )
+        ],
+      ),
+    ),
+  );
 }
