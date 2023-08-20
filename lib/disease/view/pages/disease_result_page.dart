@@ -156,7 +156,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        //todo 이미지 수정
+                        //todo 이미지 수정 ? 추천받기 이미지 어떻게 할 건지
                         child: Image.asset(
                           'assets/images/추천받기샘플.png',
                           height: 96,

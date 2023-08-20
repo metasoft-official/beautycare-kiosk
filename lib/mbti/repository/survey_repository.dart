@@ -25,6 +25,7 @@ class SurveyRepository {
   // 카테고리 별 질문 가져오기
   Future<PageResponse<SurveyQuestionModel>?> getSurveyQuestionsByCategory(
       SurveyQuestionModel questionModel) async {
+    questionModel = questionModel.copyWith(appVisibilityStatus: 'T');
     final Map<String, dynamic> query = {
       ...questionModel.toJson(),
       'rowSize': 1000

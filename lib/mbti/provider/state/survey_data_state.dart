@@ -1,8 +1,8 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:beauty_care/common/provider/code/code_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
-import 'package:beauty_care/main.dart';
 import 'package:beauty_care/mbti/model/survey_param_model.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:beauty_care/mbti/model/survey_question_model.dart';
 import 'package:beauty_care/mbti/repository/survey_repository.dart';
 
@@ -39,7 +39,7 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   // 질문 목록 카테고리 별로 가져오기
   Future<void> getSurveyQuestionList(int startCode) async {
-    ref.read(codeRepositoryProvider);
+    final user = ref.read(userNotifierProvider.notifier).user;
     for (int i = startCode; i < startCode + 4; i++) {
       SurveyQuestionModel surveyQuestionModel =
           SurveyQuestionModel(categoryCode: i, visibilityStatus: 'A');
@@ -52,6 +52,10 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
           if (questions['$i'][j].surveyAnswerList == null ||
               questions['$i'][j].surveyAnswerList.length == 0) {
             questions['$i'].removeAt(j);
+          } else if (user.gender == 'M' &&
+              i == 8 &&
+              questions['8'][j].id == 25) {
+            questions['8'].removeAt(j);
           } else {
             j++;
           }
@@ -68,6 +72,7 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   // 전체 질문 아이디 리스트 (보낼 용)
   Future<void> getSurveyQuestionIdList() async {
+    final user = ref.read(userNotifierProvider);
     final List<SurveyQuestionModel> allQuestions;
     final response = await repository.getSurveyQuestionsByCategory(
         SurveyQuestionModel(visibilityStatus: 'A'));
@@ -79,6 +84,8 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
         if (allQuestions[i].surveyAnswerList == null ||
             allQuestions[i].surveyAnswerList!.isEmpty) {
           allQuestions.removeAt(i);
+        } else if (user.gender == 'M' && allQuestions[i].id == 25) {
+          allQuestions.removeAt(i);
         } else {
           i++;
         }
@@ -89,7 +96,7 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
     }
   }
 
-  // 질문 목록 카테고리 별로 가져오기
+  // 카테고리 이름
   Future<void> getCategoryName(parentId) async {
     final codeRepository = ref.read(codeRepositoryProvider);
     final response = await codeRepository.getCodeListByParentId(parentId);
