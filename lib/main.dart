@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
+import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,12 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userApi = ref.read(userApiProvider);
+    final authStateNotifier = ref.watch(authStateProvider.notifier);
+
+    // 앱 시작 시 자동 로그인 시도
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      authStateNotifier.tryAutoLogin();
+    });
 
     return MaterialApp.router(
       theme: appTheme,

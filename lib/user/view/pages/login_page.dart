@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
@@ -204,6 +205,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         // 네이버 로그인
                         IconButton(
                           onPressed: () async {
+                            // fcm topic 구독
+                            FirebaseMessaging.instance.subscribeToTopic("all");
+
                             NaverLoginResult res =
                                 await FlutterNaverLogin.logIn();
 
