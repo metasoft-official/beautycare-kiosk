@@ -61,7 +61,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
         CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
     _initCameraControllerFuture = _cameraController!.initialize().then((value) {
       setState(() {});
-      widget.onInitialized();
+      // widget.onInitialized();
     });
   }
 
@@ -202,7 +202,6 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                   logger.d(userDiseaseId);
 
                                   // 이미지 저장
-
                                   final multipartFileForUpload =
                                       MultipartFile.fromBytes(imageBytes,
                                           filename: "my_image.jpg",
@@ -317,16 +316,17 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return SizedBox(
-                            width: size.width,
-                            height: size.width,
-                            child: AspectRatio(
-                                aspectRatio: _cameraController
-                                            ?.value.aspectRatio ==
-                                        null
+                              width: size.width,
+                              height: size.width,
+                              child: AspectRatio(
+                                aspectRatio: (_cameraController
+                                                ?.value.aspectRatio ??
+                                            0) <
+                                        0.001
                                     ? 1.0
                                     : 1 / _cameraController!.value.aspectRatio,
-                                child: CameraPreview(_cameraController!)),
-                          );
+                                child: CameraPreview(_cameraController!),
+                              ));
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());

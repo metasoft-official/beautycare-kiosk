@@ -33,10 +33,8 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-			    <!--kakao login-->
 				<string>kakao0411529dd3d4b984f8f6e1753471f0a1</string>
-				<!--naver login-->
-                <string>naverlogin</string>
+				<string>naverlogin</string>
 			</array>
 		</dict>
 	</array>
@@ -51,7 +49,7 @@
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 		<string>naversearchapp</string>
-        <string>naversearchthirdlogin</string>
+		<string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -97,13 +95,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>naverConsumerKey</key>
-    <string>tCO_uF8cZtspOTbnk3MV</string>
-    <key>naverConsumerSecret</key>
-    <string>g3icruzS49</string>
-    <key>naverServiceAppName</key>
-    <string>beautycare</string>
-    <key>naverServiceAppUrlScheme</key>
-    <string>naverlogin</string>
+	<string>tCO_uF8cZtspOTbnk3MV</string>
+	<key>naverConsumerSecret</key>
+	<string>g3icruzS49</string>
+	<key>naverServiceAppName</key>
+	<string>beautycare</string>
+	<key>naverServiceAppUrlScheme</key>
+	<string>naverlogin</string>
 </dict>
 </plist>
-

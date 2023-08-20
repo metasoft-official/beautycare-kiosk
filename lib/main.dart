@@ -1,6 +1,8 @@
+import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
+import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +10,8 @@ import 'firebase_options.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
@@ -57,16 +61,17 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userApi = ref.read(userApiProvider);
-    return ScreenUtilInit(
-      designSize: const Size(340, 690),
-      builder: (context, child) => MaterialApp.router(
-        theme: appTheme,
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
-        builder: (BuildContext innerContext, Widget? innerChild) {
-          return innerChild ?? const SizedBox.shrink();
-        },
-      ),
+    final authStateNotifier = ref.watch(authStateProvider.notifier);
+
+    // 앱 시작 시 자동 로그인 시도
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      authStateNotifier.tryAutoLogin();
+    });
+
+    return MaterialApp.router(
+      theme: appTheme,
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }

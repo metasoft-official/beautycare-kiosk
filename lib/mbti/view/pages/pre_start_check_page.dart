@@ -1,6 +1,7 @@
 import 'package:beauty_care/common/component/widgets/camera_capture_widget.dart';
 import 'package:beauty_care/common/component/widgets/pre_check_list_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/survey_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -142,6 +143,9 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
           textStyle: AppTextTheme.white14b,
           label: '확인 후 촬영하기',
           onPressed: () {
+            // fcm topic 구독
+            FirebaseMessaging.instance.subscribeToTopic("all");
+
             ref.read(imageQualityProvider.notifier).updateData(
                 exposure: true,
                 eyesOpen: true,
