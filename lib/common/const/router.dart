@@ -1,5 +1,6 @@
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/view/pages/disease_selected_page.dart';
+import 'package:beauty_care/promotion/view/pages/promotion_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -211,6 +212,12 @@ final GoRouter router = GoRouter(
       path: '/oxy-facial',
       name: OxyFacialMainPage.routeName,
       builder: (context, state) => const OxyFacialMainPage(),
+    ),
+    // promotion
+    GoRoute(
+      path: '/promotion',
+      name: PromotionMainPage.routeName,
+      builder: (context, state) => const PromotionMainPage(),
     ),
   ],
 );
