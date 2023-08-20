@@ -9,7 +9,7 @@ class UserDiseaseRepository {
   UserDiseaseRepository(this.userDiseaseApi);
 
   // all
-  Future<PageResponse<UserDiseaseModel>?> getUserSkinMbtiAll() async {
+  Future<PageResponse<UserDiseaseModel>?> getUserDiseaseAll() async {
     try {
       final response = await userDiseaseApi.getUserDiseaseAll();
       return response;
@@ -20,7 +20,7 @@ class UserDiseaseRepository {
   }
 
   // by query
-  Future<PageResponse<UserDiseaseModel>?> getUserSkinMbtiByQuery(
+  Future<PageResponse<UserDiseaseModel>?> getUserDiseaseByQuery(
       UserDiseaseModel userDiseaseModel) async {
     final Map<String, dynamic> query = {...userDiseaseModel.toJson()};
     try {

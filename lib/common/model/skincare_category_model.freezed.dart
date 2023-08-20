@@ -190,8 +190,7 @@ class __$$_SkincareCategoryModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_SkincareCategoryModel implements _SkincareCategoryModel {
   _$_SkincareCategoryModel(
       {this.id,

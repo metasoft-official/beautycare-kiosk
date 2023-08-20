@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,44 +43,53 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
   @override
   Widget build(BuildContext context) {
     final historyState = ref.watch(historyStateProvider);
-    final mypageState = ref.watch(mypageStateProvider);
+    final mypageState = ref.watch(mypageStateChangeProvider);
+    final asyncValue = ref.watch(myPageStateProvider);
+    return asyncValue.when(
+      data: (data) {
+        final allResult = List.from(data['allResult']);
+        final disease = List.from(data['disease']);
+        final mbti = List.from(data['mbti']);
 
-    return Scaffold(
-        appBar: AppBar(
-            title: const Text('예측 이력'),
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(60),
-                child: CustomTabbarWidget(
-                    titles: historyState.titles,
-                    tabController: tabController))),
+        return Scaffold(
+            appBar: AppBar(
+                title: const Text('예측 이력'),
+                bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(60),
+                    child: CustomTabbarWidget(
+                        titles: historyState.titles,
+                        tabController: tabController))),
 
-        // 탭 내용
-        body: CustomTabbarViewWidget(
-          tabController: tabController,
-          widgets: [
-            // todo : mbti, 피부질환 이력 데이터에 맞게 전달
-            HistoryWidget(
-              onTap: (index) => context.push(
-                  '/mbti-result?surveyId=${mypageState.histories[index]['id']}'),
-              itemCount: mypageState.histories.length,
-              histories: mypageState.histories,
-              nullType: 'history',
-            ),
-            HistoryWidget(
-              onTap: (index) => context.push(
-                  '/skin-result?diseaseId=${mypageState.histories[index]['id']}'),
-              itemCount: historyState.skinHistories.length,
-              histories: historyState.skinHistories,
-              nullType: 'history',
-            ),
-            HistoryWidget(
-              onTap: (index) => context.push(
-                  '/mbti-result?surveyId=${mypageState.histories[index]['id']}'),
-              itemCount: historyState.mbtiHistories.length,
-              histories: historyState.mbtiHistories,
-              nullType: 'history',
-            ),
-          ],
-        ));
+            // 탭 내용
+            body: CustomTabbarViewWidget(
+              tabController: tabController,
+              widgets: [
+                // todo : mbti, 피부질환 이력 데이터에 맞게 전달
+                HistoryWidget(
+                  itemCount: allResult.length,
+                  histories: allResult,
+                  nullType: 'history',
+                ),
+                HistoryWidget(
+                  itemCount: disease.length,
+                  histories: disease,
+                  nullType: 'history',
+                ),
+                HistoryWidget(
+                  itemCount: mbti.length,
+                  histories: mbti,
+                  nullType: 'history',
+                ),
+              ],
+            ));
+      },
+      loading: () => const LoadingCircleAnimationWidget(),
+      error: (e, s) => Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Text('Error: $e'),
+        ),
+      ),
+    );
   }
 }

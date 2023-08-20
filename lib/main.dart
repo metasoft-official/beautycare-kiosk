@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
+import 'package:beauty_care/common/component/mixins/string_util.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/user/provider/user_provider.dart';
@@ -21,6 +22,7 @@ import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
 
 var logger = Logger();
+var stringUtil = StringUtil();
 
 void main() async {
   KakaoSdk.init(

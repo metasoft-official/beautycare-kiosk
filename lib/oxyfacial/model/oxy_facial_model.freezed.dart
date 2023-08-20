@@ -276,8 +276,7 @@ class __$$_OxyFacialModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$_OxyFacialModel implements _OxyFacialModel {
   _$_OxyFacialModel(
       {this.id,

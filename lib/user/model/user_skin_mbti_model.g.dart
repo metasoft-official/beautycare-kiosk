@@ -20,9 +20,9 @@ _$_UserSkinMbtiModel _$$_UserSkinMbtiModelFromJson(Map<String, dynamic> json) =>
       category3Type: json['category3Type'] as String?,
       category4Score: (json['category4Score'] as num?)?.toDouble(),
       category4Type: json['category4Type'] as String?,
-      createdTime: json['createdTime'] == null
+      createdDate: json['createdDate'] == null
           ? null
-          : DateTime.parse(json['createdTime'] as String),
+          : DateTime.parse(json['createdDate'] as String),
       lastModifiedDate: json['lastModifiedDate'] == null
           ? null
           : DateTime.parse(json['lastModifiedDate'] as String),
@@ -45,7 +45,7 @@ Map<String, dynamic> _$$_UserSkinMbtiModelToJson(
       'category3Type': instance.category3Type,
       'category4Score': instance.category4Score,
       'category4Type': instance.category4Type,
-      'createdTime': instance.createdTime?.toIso8601String(),
+      'createdDate': instance.createdDate?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
       'skinMbtiName': instance.skinMbtiName,
       'descriptionEng': instance.descriptionEng,

@@ -32,7 +32,7 @@ mixin _$UserSkinMbtiModel {
   String? get category3Type => throw _privateConstructorUsedError;
   double? get category4Score => throw _privateConstructorUsedError;
   String? get category4Type => throw _privateConstructorUsedError;
-  DateTime? get createdTime => throw _privateConstructorUsedError;
+  DateTime? get createdDate => throw _privateConstructorUsedError;
   DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
   String? get skinMbtiName => throw _privateConstructorUsedError;
   String? get descriptionEng => throw _privateConstructorUsedError;
@@ -62,7 +62,7 @@ abstract class $UserSkinMbtiModelCopyWith<$Res> {
       String? category3Type,
       double? category4Score,
       String? category4Type,
-      DateTime? createdTime,
+      DateTime? createdDate,
       DateTime? lastModifiedDate,
       String? skinMbtiName,
       String? descriptionEng});
@@ -93,7 +93,7 @@ class _$UserSkinMbtiModelCopyWithImpl<$Res, $Val extends UserSkinMbtiModel>
     Object? category3Type = freezed,
     Object? category4Score = freezed,
     Object? category4Type = freezed,
-    Object? createdTime = freezed,
+    Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
     Object? skinMbtiName = freezed,
     Object? descriptionEng = freezed,
@@ -147,9 +147,9 @@ class _$UserSkinMbtiModelCopyWithImpl<$Res, $Val extends UserSkinMbtiModel>
           ? _value.category4Type
           : category4Type // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdTime: freezed == createdTime
-          ? _value.createdTime
-          : createdTime // ignore: cast_nullable_to_non_nullable
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       lastModifiedDate: freezed == lastModifiedDate
           ? _value.lastModifiedDate
@@ -188,7 +188,7 @@ abstract class _$$_UserSkinMbtiModelCopyWith<$Res>
       String? category3Type,
       double? category4Score,
       String? category4Type,
-      DateTime? createdTime,
+      DateTime? createdDate,
       DateTime? lastModifiedDate,
       String? skinMbtiName,
       String? descriptionEng});
@@ -217,7 +217,7 @@ class __$$_UserSkinMbtiModelCopyWithImpl<$Res>
     Object? category3Type = freezed,
     Object? category4Score = freezed,
     Object? category4Type = freezed,
-    Object? createdTime = freezed,
+    Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
     Object? skinMbtiName = freezed,
     Object? descriptionEng = freezed,
@@ -271,9 +271,9 @@ class __$$_UserSkinMbtiModelCopyWithImpl<$Res>
           ? _value.category4Type
           : category4Type // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdTime: freezed == createdTime
-          ? _value.createdTime
-          : createdTime // ignore: cast_nullable_to_non_nullable
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       lastModifiedDate: freezed == lastModifiedDate
           ? _value.lastModifiedDate
@@ -307,7 +307,7 @@ class _$_UserSkinMbtiModel implements _UserSkinMbtiModel {
       this.category3Type,
       this.category4Score,
       this.category4Type,
-      this.createdTime,
+      this.createdDate,
       this.lastModifiedDate,
       this.skinMbtiName,
       this.descriptionEng});
@@ -340,7 +340,7 @@ class _$_UserSkinMbtiModel implements _UserSkinMbtiModel {
   @override
   final String? category4Type;
   @override
-  final DateTime? createdTime;
+  final DateTime? createdDate;
   @override
   final DateTime? lastModifiedDate;
   @override
@@ -350,7 +350,7 @@ class _$_UserSkinMbtiModel implements _UserSkinMbtiModel {
 
   @override
   String toString() {
-    return 'UserSkinMbtiModel(id: $id, userId: $userId, surveyId: $surveyId, skinMbtiId: $skinMbtiId, category1Score: $category1Score, category1Type: $category1Type, category2Score: $category2Score, category2Type: $category2Type, category3Score: $category3Score, category3Type: $category3Type, category4Score: $category4Score, category4Type: $category4Type, createdTime: $createdTime, lastModifiedDate: $lastModifiedDate, skinMbtiName: $skinMbtiName, descriptionEng: $descriptionEng)';
+    return 'UserSkinMbtiModel(id: $id, userId: $userId, surveyId: $surveyId, skinMbtiId: $skinMbtiId, category1Score: $category1Score, category1Type: $category1Type, category2Score: $category2Score, category2Type: $category2Type, category3Score: $category3Score, category3Type: $category3Type, category4Score: $category4Score, category4Type: $category4Type, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, skinMbtiName: $skinMbtiName, descriptionEng: $descriptionEng)';
   }
 
   @override
@@ -380,8 +380,8 @@ class _$_UserSkinMbtiModel implements _UserSkinMbtiModel {
                 other.category4Score == category4Score) &&
             (identical(other.category4Type, category4Type) ||
                 other.category4Type == category4Type) &&
-            (identical(other.createdTime, createdTime) ||
-                other.createdTime == createdTime) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate) &&
             (identical(other.lastModifiedDate, lastModifiedDate) ||
                 other.lastModifiedDate == lastModifiedDate) &&
             (identical(other.skinMbtiName, skinMbtiName) ||
@@ -406,7 +406,7 @@ class _$_UserSkinMbtiModel implements _UserSkinMbtiModel {
       category3Type,
       category4Score,
       category4Type,
-      createdTime,
+      createdDate,
       lastModifiedDate,
       skinMbtiName,
       descriptionEng);
@@ -440,7 +440,7 @@ abstract class _UserSkinMbtiModel implements UserSkinMbtiModel {
       final String? category3Type,
       final double? category4Score,
       final String? category4Type,
-      final DateTime? createdTime,
+      final DateTime? createdDate,
       final DateTime? lastModifiedDate,
       final String? skinMbtiName,
       final String? descriptionEng}) = _$_UserSkinMbtiModel;
@@ -473,7 +473,7 @@ abstract class _UserSkinMbtiModel implements UserSkinMbtiModel {
   @override
   String? get category4Type;
   @override
-  DateTime? get createdTime;
+  DateTime? get createdDate;
   @override
   DateTime? get lastModifiedDate;
   @override

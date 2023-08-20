@@ -18,7 +18,7 @@ class UserSkinMbtiModel with _$UserSkinMbtiModel {
       String? category3Type,
       double? category4Score,
       String? category4Type,
-      DateTime? createdTime,
+      DateTime? createdDate,
       DateTime? lastModifiedDate,
       String? skinMbtiName,
       String? descriptionEng}) = _UserSkinMbtiModel;
