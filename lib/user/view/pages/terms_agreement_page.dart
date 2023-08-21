@@ -121,9 +121,11 @@ class TermsAgreementPage extends ConsumerWidget {
                   },
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.check,
-                        color: AppColor.middleGrey,
+                        color: registerState.termsStates[1] == true
+                            ? AppColor.blue
+                            : AppColor.middleGrey,
                         size: 15,
                       ),
                       const SizedBox(width: 10),
@@ -167,7 +169,7 @@ class TermsAgreementPage extends ConsumerWidget {
         textStyle: registerState.allTermsState == true
             ? AppTextTheme.blue14b
             : AppTextTheme.white14b,
-        label: '휴대전화 본인인증',
+        label: '가입하기',
         onPressed: () {
           registerState.allTermsState == true
               ? context.pushNamed('register')

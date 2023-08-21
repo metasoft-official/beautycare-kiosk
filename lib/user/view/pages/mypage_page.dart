@@ -131,18 +131,18 @@ class MypageState extends ConsumerState<MypagePage> {
               // 목록
               Expanded(
                 child: HistoryWidget(
-                  onLongPress: (index) => {
-                    mypageState.longClickState == -1
-                        ? {
-                            mypageState.isLongClicked[index] = true,
-                            mypageState.longClickState = index
-                          }
-                        : mypageState.longClickState = -1,
-                    mypageState.resetState()
-                  },
-                  longPressedDecoration: mypageState.longClickState > -1
-                      ? AppBoxTheme.outlineRoundedLongPressedBoxTheme
-                      : null,
+                  // onLongPress: (index) => {
+                  //   mypageState.longClickState == -1
+                  //       ? {
+                  //           mypageState.isLongClicked[index] = true,
+                  //           mypageState.longClickState = index
+                  //         }
+                  //       : mypageState.longClickState = -1,
+                  //   mypageState.resetState()
+                  // },
+                  // longPressedDecoration: mypageState.longClickState > -1
+                  //     ? AppBoxTheme.outlineRoundedLongPressedBoxTheme
+                  //     : null,
                   itemCount: allResult.length,
                   histories: allResult,
                   nullType: 'history',

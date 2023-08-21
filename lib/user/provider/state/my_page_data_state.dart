@@ -50,9 +50,8 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   Future<void> getDiseaseResult(int? userId) async {
     UserDiseaseModel userDiseaseModel = UserDiseaseModel(userId: userId ?? -1);
     final userResponse =
-        //todo 500에러 해결되면 쿼리로 변경
-        // await userDiseaseRepository.getUserDiseaseByQuery(userDiseaseModel);
-        await userDiseaseRepository.getUserDiseaseAll();
+        await userDiseaseRepository.getUserDiseaseByQuery(userDiseaseModel);
+    // await userDiseaseRepository.getUserDiseaseAll();
     if (userResponse != null && userResponse.items != null) {
       data['disease'] = List.from(userResponse.items!);
     } else {

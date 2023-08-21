@@ -21,4 +21,7 @@ abstract class UserApi {
   @GET('/common/users')
   Future<PageResponse<UserModel>> getUserByUserName(
       @Queries() Map<String, dynamic> username);
+
+  @POST('/app/accounts')
+  Future<int> postUser(@Body() Map<String, dynamic> query);
 }
