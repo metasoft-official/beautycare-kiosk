@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:beauty_care/user/model/user_disease_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:beauty_care/common/layout/app_button_theme.dart';
@@ -148,25 +149,27 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                               ref.read(cameraStateProvider.notifier).state =
                                   false;
 
-                              final imageBytes =
-                                  captureImage!.readAsBytesSync();
-                              final multipartFile = MultipartFile.fromBytes(
-                                  imageBytes,
-                                  filename: "my_image.jpg",
-                                  contentType: MediaType("image", "jpeg"));
-
-                              final _data = FormData();
-                              _data.files.add(MapEntry(
-                                  'file', // 서버에서 기대하는 키 이름
-                                  multipartFile));
-
-                              final dio = ref.read(dioProvider);
-                              final formData = FormData.fromMap({
-                                'file': multipartFile,
-                              });
-
-                              // 피부 질환 예측 API 연동
                               if (isDisease == true) {
+                                print("질환");
+
+                                final imageBytes =
+                                    captureImage!.readAsBytesSync();
+                                final multipartFile = MultipartFile.fromBytes(
+                                    imageBytes,
+                                    filename: "my_image.jpg",
+                                    contentType: MediaType("image", "jpeg"));
+
+                                final _data = FormData();
+                                _data.files.add(MapEntry(
+                                    'file', // 서버에서 기대하는 키 이름
+                                    multipartFile));
+
+                                final dio = ref.read(dioProvider);
+                                final formData = FormData.fromMap({
+                                  'file': multipartFile,
+                                });
+
+                                // 피부 질환 예측 API 연동
                                 try {
                                   final response = await dio.post(
                                     'http://220.76.251.246:18812',
@@ -219,11 +222,21 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                   );
 
                                   logger.d(updateResponse);
+
+                                  if (!mounted) return;
+                                  context.push(
+                                      '/skin-result?diseaseId=$userDiseaseId');
+
                                   // Success handling
                                 } catch (e) {
                                   // Error handling
                                   print(e);
                                 }
+                              }
+                              // 피부 MBTI
+                              else {
+                                print("MBTI");
+                                context.pushNamed('survey');
                               }
                             },
                             child: Text('확인'),
