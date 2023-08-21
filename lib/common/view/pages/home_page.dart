@@ -1,3 +1,4 @@
+import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,6 +52,7 @@ class HomePageState extends ConsumerState<HomePage> {
     final homeDataState = ref.watch(homeDataStateProvider.notifier);
     final authStateNotifier = ref.watch(authStateProvider.notifier);
     final authState = ref.watch(authStateProvider);
+    ref.read(clinicStateProvider);
     final user = ref.watch(userNotifierProvider);
 
     return asyncValue.when(

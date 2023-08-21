@@ -35,4 +35,15 @@ class UserRepository {
     }
     return null;
   }
+
+  Future<int?> postUser(UserModel userModel) async {
+    final Map<String, dynamic> query = {...userModel.toJson()};
+    try {
+      final response = await _userApi.postUser(query);
+      return response;
+    } catch (e, s) {
+      logger.e("", e, s);
+    }
+    return null;
+  }
 }

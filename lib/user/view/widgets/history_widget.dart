@@ -94,9 +94,9 @@ class HistoryWidget extends StatelessWidget {
                       onTap: () {
                         context.push(url!);
                       },
-                      onLongPress: () {
-                        onLongPress(index);
-                      },
+                      // onLongPress: () {
+                      //   onLongPress(index);
+                      // },
                       child: Container(
                         decoration: longPressedIndex != null &&
                                 index == longPressedIndex
