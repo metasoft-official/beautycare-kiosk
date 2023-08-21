@@ -33,6 +33,15 @@ class PromotionDataState
     }
   }
 
+  Future<void> getPromotionCode() async {
+    final response = await promotionRepository.getPromotionAll();
+    if (response != null && response.items != null) {
+      data['promotionCode'] = response.items;
+    } else {
+      data['promotionCode'] = [];
+    }
+  }
+
   void reload() {
     state = AsyncValue.data(data);
   }

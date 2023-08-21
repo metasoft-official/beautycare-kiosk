@@ -36,6 +36,11 @@ class PromotionMainPageState extends ConsumerState<PromotionMainPage> {
               controller: promotionHiding.controller,
               slivers: [
                 const CustomAppBar(),
+                const SliverToBoxAdapter(
+                  child: Row(
+                    children: [],
+                  ),
+                ),
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                   (context, index) {
