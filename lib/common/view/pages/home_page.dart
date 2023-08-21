@@ -90,7 +90,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           markText: '피부 MBTI',
                           caption: 'AI로 진단 받아 보시고,\n체계적으로 관리해보세요!',
                           onPressed: () => authStateNotifier.navigateToPage(
-                              context, ref, 'survey'),
+                              context, ref, 'mbtiPreStartCheck'),
                           type: 'mbti',
                         ),
                       ]
@@ -126,7 +126,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           type: 'mbti',
                           title: '${user.name} 님의 피부 MBTI는?',
                           onPressed: () => authStateNotifier.navigateToPage(
-                              context, ref, 'survey'),
+                              context, ref, 'mbtiPreStartCheck'),
                           widget: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
