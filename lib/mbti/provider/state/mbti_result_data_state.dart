@@ -19,8 +19,10 @@ class MbtiResultDataState
     loadData();
   }
 
+  UserSkinMbtiModel? userData = UserSkinMbtiModel();
   Map<String, dynamic> data = {};
   Map<String, dynamic> subtitle = {};
+  SkinMbtiModel typeData = SkinMbtiModel();
 
   Future<void> loadData() async {
     try {
@@ -40,11 +42,14 @@ class MbtiResultDataState
 
   Future<void> getMbtiResult() async {
     final userSkinMbtiRepository = ref.read(userSkinMbtiRepositoryProvider);
-    final userResponse = await userSkinMbtiRepository.getUserSkinMbtiById(id);
-    if (userResponse != null) {
-      data['result'] = userResponse;
+    UserSkinMbtiModel userSkinMbtiModel = UserSkinMbtiModel(surveyId: id);
+    final userResponse =
+        await userSkinMbtiRepository.getUserSkinMbtiByQuery(userSkinMbtiModel);
+    if (userResponse != null && userResponse.items != null) {
+      userData = userResponse.items!.first;
+      data['result'] = userData;
     } else {
-      data['result'] = [];
+      data['result'] = UserSkinMbtiModel();
     }
   }
 
@@ -52,9 +57,10 @@ class MbtiResultDataState
     final response = await skinMbtiRepository
         .getSkinMbtiById(id ?? data['result'].skinMbtiId ?? -1);
     if (response != null) {
-      data['typeInfo'] = response;
+      typeData = response;
+      data['typeInfo'] = typeData;
     } else {
-      data['typeInfo'] = [];
+      data['typeInfo'] = SkinMbtiModel();
     }
   }
 

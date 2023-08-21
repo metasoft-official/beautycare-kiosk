@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/mbti/model/skin_mbti_model.dart';
+import 'package:beauty_care/user/model/user_skin_mbti_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -46,6 +48,8 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
 
     return asyncValue.when(
       data: (data) {
+        UserSkinMbtiModel result = data['result'];
+        SkinMbtiModel typeInfo = data['typeInfo'];
         final clinicList = List.from(clinicState.data['clinics']);
         final regions = clinicState.data['regions'];
 
@@ -127,11 +131,11 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                     style: AppTextTheme.black14)
                               ])),
                               Text(
-                                data['typeInfo']?.skinMbtiName ?? '-',
+                                typeInfo.skinMbtiName ?? '-',
                                 style: AppTextTheme.blue36b,
                               ),
                               Text(
-                                data['typeInfo']?.descriptionEng ?? '-',
+                                typeInfo.descriptionEng ?? '-',
                                 style: AppTextTheme.middleGrey12m,
                                 textAlign: TextAlign.center,
                               ),
@@ -152,12 +156,12 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
-                                  data['typeInfo']?.description ?? '-',
+                                  typeInfo.description ?? '-',
                                   style: AppTextTheme.middleGrey12,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              if (data['typeInfo']?.keywordList != null) ...[
+                              if (typeInfo.keywordList != null) ...[
                                 const SizedBox(height: 20),
                                 const SizedBox(
                                     width: double.infinity,
@@ -168,8 +172,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                   padding: const EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   primary: false,
-                                  itemCount:
-                                      data['typeInfo']?.keywordList.length,
+                                  itemCount: typeInfo.keywordList?.length ?? 0,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: (index + 1) % 3 == 0
@@ -186,7 +189,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          '#${data['typeInfo']?.keywordList[index].keyword}',
+                                          '#${typeInfo.keywordList?[index].keyword}',
                                           style: AppTextTheme.blue13b,
                                           textAlign: TextAlign.center,
                                         ),
@@ -224,17 +227,14 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                 ),
 
                 // 자세히 보기 ====================================================
-                TypeDetailWidget(
-                    id: id, result: data['result'], info: data['typeInfo']),
+                TypeDetailWidget(id: id, result: result, info: typeInfo),
 
                 // 제품 추천받기 ======================================히=============
                 Container(
                   color: Colors.white,
                   child: Column(
                     children: [
-                      if (data['typeInfo']?.skincareProductList != null &&
-                          data['typeInfo']?.skincareProductList.length ==
-                              0) ...[
+                      if (typeInfo.skincareProductList != null) ...[
                         ListTitleWidget(
                           text: '제품 추천받기',
                           markText: '제품',
