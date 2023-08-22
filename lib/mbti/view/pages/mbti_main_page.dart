@@ -138,14 +138,7 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                 }
                 // 모두 답변되지 않았을 때 경고
               } else {
-                Fluttertoast.showToast(
-                    msg: "모든 질문의 답변을 선택해주세요!",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.TOP,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: AppColor.yellow.withOpacity(1),
-                    textColor: AppColor.appColor,
-                    fontSize: 16.0);
+                toastMessage.topYellowBoxBlueText("모든 질문의 답변을 선택해주세요!");
               }
             },
           ),

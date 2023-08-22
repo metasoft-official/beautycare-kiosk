@@ -166,10 +166,10 @@ class HistoryWidget extends StatelessWidget {
                                   Text(
                                     type?.contains('disease') == true
                                         ? stringUtil.dateTimeToString(
-                                            disease.createdDate!)!
+                                            value: disease.createdDate!)!
                                         : type?.contains('mbti') == true
                                             ? stringUtil.dateTimeToString(
-                                                mbti.createdDate!)!
+                                                value: mbti.createdDate!)!
                                             : '-',
                                     style: AppTextTheme.blue12m,
                                     maxLines: 1,

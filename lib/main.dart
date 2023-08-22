@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/dialog/toast_message.dart';
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
 import 'package:beauty_care/common/component/mixins/string_util.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
@@ -23,6 +24,7 @@ import 'package:beauty_care/common/layout/app_theme.dart';
 
 var logger = Logger();
 var stringUtil = StringUtil();
+var toastMessage = ToastMessage();
 
 void main() async {
   KakaoSdk.init(

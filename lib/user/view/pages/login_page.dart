@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/dialog/failed_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -172,7 +173,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               return;
                             }
                           } catch (error) {
-                            showError("API 통신 중 오류 발생: $error");
+                            toastMessage.showError("API 통신 중 오류 발생: $error");
                           }
                         },
                         child: const Text('로그인', style: AppTextTheme.white16b),
@@ -352,18 +353,7 @@ void _showDialog(BuildContext context, String message, String okButtonMessage) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        // title: new Text("Alert!!"),
-        content: Text(message),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text(okButtonMessage),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
+      return FailedDialog(content: message);
     },
   );
 }

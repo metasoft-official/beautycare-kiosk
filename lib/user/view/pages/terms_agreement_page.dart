@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:beauty_care/main.dart';
 
 import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
@@ -173,7 +174,7 @@ class TermsAgreementPage extends ConsumerWidget {
         onPressed: () {
           registerState.allTermsState == true
               ? context.pushNamed('register')
-              : null;
+              : toastMessage.topYellowBoxBlueText("필수 약관에 모두 동의해주세요!");
         },
       ),
     );

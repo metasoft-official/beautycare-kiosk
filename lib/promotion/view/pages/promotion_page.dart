@@ -124,7 +124,7 @@ class PromotionMainPageState extends ConsumerState<PromotionMainPage> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        '${stringUtil.dateTimeToString(promotion.endDate)}까지' ??
+                                        '${stringUtil.dateTimeToString(value: promotion.endDate, pattern: 'MM.dd')}까지' ??
                                             '-',
                                         style: AppTextTheme.middleGrey10,
                                       )
