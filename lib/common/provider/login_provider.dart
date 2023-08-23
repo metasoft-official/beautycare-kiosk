@@ -63,7 +63,7 @@ class UserNotifier extends StateNotifier<UserModel> {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
       final response = await _userRepository
-          .getUserByUserName(decodedToken['user']['username']);
+          .getUserByUsername(decodedToken['user']['username']);
       if (response != null && response.items != null) {
         user = response.items!.first;
       }
@@ -72,6 +72,7 @@ class UserNotifier extends StateNotifier<UserModel> {
         id: decodedToken['user']['id'],
         name: decodedToken['user']['name'],
         email: decodedToken['user']['email'],
+        username: decodedToken['user']['username'],
       );
 
       return token;

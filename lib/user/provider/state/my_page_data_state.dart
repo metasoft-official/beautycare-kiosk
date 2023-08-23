@@ -23,7 +23,7 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> loadData() async {
     try {
-      final user = ref.read(userNotifierProvider.notifier).user;
+      final user = ref.watch(userNotifierProvider.notifier).user;
       await Future.wait([
         getMbtiResult(user.id),
         getDiseaseResult(user.id),

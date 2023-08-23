@@ -44,10 +44,10 @@ class _UserApi implements UserApi {
   }
 
   @override
-  Future<PageResponse<UserModel>> getUserList(user) async {
+  Future<PageResponse<UserModel>> getUserList(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(user);
+    queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -71,40 +71,13 @@ class _UserApi implements UserApi {
   }
 
   @override
-  Future<PageResponse<UserModel>> getUserByUserName(username) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(username);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<UserModel>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/common/users',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<UserModel>.fromJson(
-      _result.data!,
-      (json) => UserModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
-  Future<int> postUser(query) async {
+  Future<String> postUser(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(query);
-    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,

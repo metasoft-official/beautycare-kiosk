@@ -83,11 +83,7 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
                 height: 28,
               ),
               // 이름
-              CustomTextFormField(
-                  title: '이름',
-                  controller: editState.nmTextController,
-                  focusNode: editState.nmFocus,
-                  hintText: '이름'),
+              CustomTextFormField(title: '이름', hintText: '이름'),
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/component/dialog/failed_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,6 +13,8 @@ import 'package:beauty_care/common/component/widgets/button_bottom_navigation_ba
 import 'package:beauty_care/user/view/widgets/custom_text_form_field.dart';
 import 'package:beauty_care/common/component/widgets/custom_dropdown_button_2.dart';
 
+import '../../../main.dart';
+
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -24,8 +27,12 @@ class RegisterPage extends ConsumerStatefulWidget {
 class RegisterState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    final registerState = ref.watch(registerStateProvider); //프로바이더 구독
-
+    final asyncValue = ref.watch(registerDataStateProvider);
+    final registerState = ref.watch(registerDataStateProvider.notifier);
+    final dropdownState = ref.watch(dropdownChangeStateProvider);
+    final addressState = ref.watch(addressChangeStateProvider);
+    final formState = ref.watch(formStateProvider);
+    final validState = ref.watch(formStateProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -62,18 +69,30 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 TextFormField(
                   readOnly: false,
                   autocorrect: false,
-                  controller: registerState.idTextController,
-                  focusNode: registerState.idFocus,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  // onChanged: (){},
-                  // validator: validator,
+                  initialValue: formState.username,
+                  onChanged: (value) => {
+                    registerState.confirmedId = false,
+                    validState.updateInputState(value, 'username')
+                  },
                   decoration: InputDecoration(
+                      errorText: formState.isUsernameValid == true ||
+                              formState.isUsernameValid == null
+                          ? null
+                          : '아이디는 영문과 숫자로 4자 이상, 12자 이하 이어야 합니다.',
                       hintText: '아이디',
                       suffixIcon: Container(
                         margin: const EdgeInsets.only(right: 10),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (formState.username != null) {
+                              registerState.confirmId(formState.username!);
+                            } else {
+                              toastMessage
+                                  .topRedBoxWhiteText('아이디를 정확히 입력해주세요.');
+                            }
+                          },
                           child: const Text(
                             '중복확인',
                             style: AppTextTheme.blue12b,
@@ -85,27 +104,51 @@ class RegisterState extends ConsumerState<RegisterPage> {
 
                 // 비밀번호
                 CustomTextFormField(
-                    title: '비밀번호',
-                    controller: registerState.pwTextController,
-                    focusNode: registerState.pwFocus,
-                    hintText: '비밀번호'),
+                  title: '비밀번호',
+                  hintText: '비밀번호',
+                  errorText: formState.isPasswordValid == true ||
+                          formState.isPasswordValid == null
+                      ? null
+                      : '비밀번호는 영문과 숫자로 8자 이상 이어야 합니다.',
+                  initialValue: formState.password,
+                  onChanged: (value) => {
+                    validState.updateInputState(value, 'password'),
+                    validState.updateInputState(
+                        formState.rePassword ?? '', 'rePassword')
+                  },
+                ),
 
                 // 비밀번호 확인
                 CustomTextFormField(
-                    title: '비밀번호 확인',
-                    controller: registerState.rePwTextController,
-                    focusNode: registerState.rePwFocus,
-                    hintText: '비밀번호 확인'),
+                  title: '비밀번호 확인',
+                  hintText: '비밀번호 확인',
+                  errorText: formState.isRePasswordValid == true ||
+                          formState.isRePasswordValid == null
+                      ? null
+                      : '비밀번호와 일치하지 않습니다.',
+                  initialValue: formState.rePassword,
+                  onChanged: (value) =>
+                      {validState.updateInputState(value, 'rePassword')},
+                ),
 
                 // 이름
                 CustomTextFormField(
-                    title: '이름',
-                    controller: registerState.nmTextController,
-                    focusNode: registerState.nmFocus,
-                    hintText: '이름'),
+                  title: '이름',
+                  hintText: '이름',
+                  errorText: formState.isNameValid == true ||
+                          formState.isNameValid == null
+                      ? null
+                      : '이름에 공백을 사용할 수 없습니다.',
+                  initialValue: formState.name,
+                  onChanged: (value) =>
+                      {validState.updateInputState(value, 'name')},
+                ),
 
                 // 전화번호
-                const Text('전화번호', style: AppTextTheme.black12b),
+                const Text(
+                  '전화번호',
+                  style: AppTextTheme.black12b,
+                ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -113,21 +156,20 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phFirstTextController,
-                        focusNode: registerState.phFirstFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: '010',
                           counterText: '',
+                          errorText: formState.isPhFirstValid == true ||
+                                  formState.isPhFirstValid == null
+                              ? null
+                              : '전화번호 형식을 다시 확인해주세요.',
                         ),
                         maxLength: 4,
-                        //   onChanged :(value) => {
-                        //     return null;
-                        //   },
-                        // validator : (value) => {
-                        //   return null;
-                        // },
+                        initialValue: formState.phFirst,
+                        onChanged: (value) =>
+                            {validState.updateInputState(value, 'phFirst')},
                       ),
                     ),
                     const Padding(
@@ -141,21 +183,20 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phSecondTextController,
-                        focusNode: registerState.phSecondFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: '0000',
                           counterText: '',
+                          errorText: formState.isPhSecondValid == true ||
+                                  formState.isPhSecondValid == null
+                              ? null
+                              : '전화번호 형식을 다시 확인해주세요.',
                         ),
                         maxLength: 4,
-                        //   onChanged :(value) => {
-                        //     return null;
-                        //   },
-                        // validator : (value) => {
-                        //   return null;
-                        // },
+                        initialValue: formState.phSecond,
+                        onChanged: (value) =>
+                            {validState.updateInputState(value, 'phSecond')},
                       ),
                     ),
                     const Padding(
@@ -169,21 +210,22 @@ class RegisterState extends ConsumerState<RegisterPage> {
                       child: TextFormField(
                         readOnly: false,
                         autocorrect: false,
-                        controller: registerState.phThirdTextController,
-                        focusNode: registerState.phThirdFocus,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: '0000',
                           counterText: '',
+                          errorText: formState.isPhThirdValid == true ||
+                                  formState.isPhThirdValid == null
+                              ? null
+                              : '전화번호 형식을 다시 확인해주세요.',
                         ),
+                        initialValue: formState.phThird,
                         maxLength: 4,
-                        //   onChanged :(value) => {
-                        //     return null;
-                        //   },
-                        // validator : (value) => {
-                        //   return null;
-                        // },
+                        onChanged: (value) => {
+                          validState.updateInputState(value, 'phThird'),
+                          logger.d(value.length)
+                        },
                       ),
                     ),
                   ],
@@ -198,11 +240,11 @@ class RegisterState extends ConsumerState<RegisterPage> {
                     //생년
                     Expanded(
                       child: CustomDropdownButton2(
-                        items: registerState.yearValue,
+                        items: dropdownState.yearValue,
                         hint: '생년',
-                        value: registerState.yearSelectedValue,
+                        value: dropdownState.yearSelectedValue,
                         onChanged: (value) {
-                          registerState.selectDropdown('year', value);
+                          dropdownState.selectDropdown('year', value);
                         },
                       ),
                     ),
@@ -210,11 +252,11 @@ class RegisterState extends ConsumerState<RegisterPage> {
                     //월
                     Expanded(
                       child: CustomDropdownButton2(
-                        items: registerState.monthValue,
+                        items: dropdownState.monthValue,
                         hint: '월',
-                        value: registerState.monthSelectedValue,
+                        value: dropdownState.monthSelectedValue,
                         onChanged: (value) {
-                          registerState.selectDropdown('month', value);
+                          dropdownState.selectDropdown('month', value);
                         },
                       ),
                     ),
@@ -222,11 +264,11 @@ class RegisterState extends ConsumerState<RegisterPage> {
                     //일
                     Expanded(
                       child: CustomDropdownButton2(
-                        items: registerState.dayValue,
+                        items: dropdownState.dayValue,
                         hint: '일',
-                        value: registerState.daySelectedValue,
+                        value: dropdownState.daySelectedValue,
                         onChanged: (value) {
-                          registerState.selectDropdown('day', value);
+                          dropdownState.selectDropdown('day', value);
                         },
                       ),
                     ),
@@ -244,16 +286,17 @@ class RegisterState extends ConsumerState<RegisterPage> {
                         child: TextFormField(
                           readOnly: false,
                           autocorrect: false,
-                          controller: registerState.emTextController,
-                          focusNode: registerState.emFocus,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          //   onChanged :(value) => {
-                          //     return null;
-                          //   },
-                          // validator : (value) => {
-                          //   return null;
-                          // },
+                          initialValue: formState.email,
+                          onChanged: (value) =>
+                              {validState.updateInputState(value, 'email')},
+                          decoration: InputDecoration(
+                            errorText: formState.isEmailVallid == true ||
+                                    formState.isEmailVallid == null
+                                ? null
+                                : '이메일을 확인해주세요.',
+                          ),
                         )),
                     Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -262,11 +305,11 @@ class RegisterState extends ConsumerState<RegisterPage> {
                     Expanded(
                       flex: 1,
                       child: CustomDropdownButton2(
-                        items: registerState.domainValue,
+                        items: dropdownState.domainValue,
                         hint: '선택',
-                        value: registerState.domainSelectedValue,
+                        value: dropdownState.domainSelectedValue,
                         onChanged: (value) {
-                          registerState.selectDropdown('domain', value);
+                          dropdownState.selectDropdown('domain', value);
                         },
                       ),
                     )
@@ -287,7 +330,7 @@ class RegisterState extends ConsumerState<RegisterPage> {
                         groupValue: registerState.selectedGender,
                         onChanged: (String? value) {
                           registerState.selectedGender = value!;
-                          registerState.resetState();
+                          registerState.reload();
                         },
                       ),
                     ),
@@ -304,7 +347,7 @@ class RegisterState extends ConsumerState<RegisterPage> {
                         groupValue: registerState.selectedGender,
                         onChanged: (String? value) {
                           registerState.selectedGender = value!;
-                          registerState.resetState();
+                          registerState.reload();
                         },
                       ),
                     ),
@@ -323,49 +366,56 @@ class RegisterState extends ConsumerState<RegisterPage> {
                 // 주소
                 const Text('주소', style: AppTextTheme.black12b),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                        child: TextFormField(
-                      readOnly: true,
-                      autocorrect: false,
-                      controller: registerState.postcordTextController,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        hintText: '우편번호',
+                Consumer(builder: (ref, innerContext, child) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                              child: TextFormField(
+                            readOnly: true,
+                            autocorrect: false,
+                            controller: addressState.postcordTextController,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            decoration: const InputDecoration(
+                              hintText: '우편번호',
+                            ),
+                          )),
+                          const SizedBox(width: 8),
+                          ElevatedButton(
+                            onPressed: () {
+                              addressState.searchPost(context);
+                            },
+                            style: AppButtonTheme.basicElevatedButtonTheme
+                                .copyWith(
+                                    shape:
+                                        MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(0))),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 14, vertical: 15))),
+                            child: const Text('우편번호 검색',
+                                style: AppTextTheme.white12b),
+                          )
+                        ],
                       ),
-                      // validator : (value) => {
-                      //   return null;
-                      // },
-                    )),
-                    const SizedBox(width: 8),
-                    ElevatedButton(
-                      onPressed: () {
-                        registerState.searchPost(context);
-                      },
-                      style: AppButtonTheme.basicElevatedButtonTheme.copyWith(
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0))),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 14, vertical: 15))),
-                      child:
-                          const Text('우편번호 검색', style: AppTextTheme.white12b),
-                    )
-                  ],
-                ),
+                    ],
+                  );
+                }),
+
                 const SizedBox(height: 8),
                 CustomTextFormField(
                     readOnly: true,
-                    controller: registerState.addressTextController,
-                    hintText: '주소'),
+                    hintText: '주소',
+                    controller: addressState.addressTextController),
                 // 상세주소
                 CustomTextFormField(
-                    controller: registerState.detailAddressTextController,
-                    focusNode: registerState.detailAddressFocus,
-                    hintText: '상세주소를 입력해 주세요.'),
+                  hintText: '상세주소를 입력해 주세요.',
+                  controller: addressState.detailAddressTextController,
+                ),
               ],
             ),
           ),
@@ -375,8 +425,40 @@ class RegisterState extends ConsumerState<RegisterPage> {
         buttonColor: AppColor.lightGreyButtonColor,
         textStyle: AppTextTheme.blue14b,
         label: '가입하기',
-        onPressed: () {
-          context.goNamed('login');
+        onPressed: () async {
+          if ((formState.isUsernameValid == true &&
+                  formState.isPasswordValid == true &&
+                  formState.isRePasswordValid == true &&
+                  formState.isNameValid == true &&
+                  formState.isPhFirstValid == true &&
+                  formState.isPhSecondValid == true &&
+                  formState.isPhThirdValid == true &&
+                  formState.isEmailVallid == true) !=
+              true) {
+            toastMessage.showError('필수값 입력을 확인해주세요!');
+          } else if ((dropdownState.domainSelectedValue != null &&
+                  dropdownState.yearSelectedValue != null &&
+                  dropdownState.monthSelectedValue != null &&
+                  dropdownState.daySelectedValue != null) !=
+              true) {
+            toastMessage.showError('필수값 선택을 확인해주세요!');
+          } else if (registerState.confirmedId == false) {
+            toastMessage.showError('아이디 중복확인을 해주세요!');
+          } else {
+            final response = await registerState.createUser();
+            if (response != null) {
+              if (!mounted) return;
+              context.goNamed('login');
+            } else {
+              if (!mounted) return;
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const FailedDialog(
+                        content: '가입에 실패했습니다.\n잠시 후 다시 시도해주세요.');
+                  });
+            }
+          }
         },
       ),
     );

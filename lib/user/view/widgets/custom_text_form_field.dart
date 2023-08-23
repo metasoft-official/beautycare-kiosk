@@ -7,26 +7,28 @@ class CustomTextFormField extends StatelessWidget {
       {Key? key,
       this.title,
       this.hintText,
-      required this.controller,
-      this.focusNode,
+      this.controller,
+      this.initialValue,
       this.onChanged,
       this.validator,
       this.textInputType,
       this.textInputAction,
       this.readOnly,
-      this.maxLength})
+      this.maxLength,
+      this.errorText})
       : super(key: key);
 
   final String? title;
   final String? hintText;
-  final TextEditingController controller;
-  final FocusNode? focusNode;
+  final String? initialValue;
+  final TextEditingController? controller;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
   final dynamic onChanged;
   final dynamic validator;
   final bool? readOnly;
   final int? maxLength;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,13 @@ class CustomTextFormField extends StatelessWidget {
             readOnly: readOnly ?? false,
             autocorrect: false,
             controller: controller,
-            focusNode: focusNode,
+            initialValue: initialValue,
             keyboardType: textInputType ?? TextInputType.text,
             textInputAction: textInputAction ?? TextInputAction.next,
             onChanged: onChanged,
-            validator: validator,
             decoration: InputDecoration(
               hintText: hintText,
+              errorText: errorText,
             ),
             maxLength: maxLength),
         SizedBox(height: title != null ? 20 : 8),

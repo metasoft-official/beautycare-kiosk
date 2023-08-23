@@ -2,6 +2,7 @@ import 'package:beauty_care/common/dio/user_api.dart';
 import 'package:beauty_care/common/dio/login_api.dart';
 import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/user_model.dart';
+import 'package:beauty_care/user/model/account_dto_model.dart';
 
 import '../../main.dart';
 
@@ -26,9 +27,9 @@ class UserRepository {
     return authorization;
   }
 
-  Future<PageResponse<UserModel>?> getUserByUserName(String username) async {
+  Future<PageResponse<UserModel>?> getUserByUsername(String username) async {
     try {
-      final response = await _userApi.getUserByUserName({username: username});
+      final response = await _userApi.getUserList({'username': username});
       return response;
     } catch (e, s) {
       logger.e("", e, s);
@@ -36,10 +37,15 @@ class UserRepository {
     return null;
   }
 
-  Future<int?> postUser(UserModel userModel) async {
-    final Map<String, dynamic> query = {...userModel.toJson()};
+  Future<String?> postUser(UserModel userModel) async {
+    AccountDtoModel accountDtoModel =
+        AccountDtoModel(userDto: userModel, roleId: 2);
+    final Map<String, dynamic> query = {
+      ...accountDtoModel.toJson(),
+    };
     try {
       final response = await _userApi.postUser(query);
+      logger.d(response);
       return response;
     } catch (e, s) {
       logger.e("", e, s);

@@ -1,3 +1,4 @@
+import 'package:beauty_care/user/provider/register_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,8 +11,6 @@ import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 
-import 'package:beauty_care/user/provider/register_state_provider.dart';
-
 class TermsAgreementPage extends ConsumerWidget {
   const TermsAgreementPage({Key? key}) : super(key: key);
 
@@ -19,7 +18,7 @@ class TermsAgreementPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final registerState = ref.watch(registerStateProvider);
+    final termsState = ref.watch(termsChangeStateProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -53,14 +52,14 @@ class TermsAgreementPage extends ConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                style: registerState.allTermsState == false
+                style: termsState.allTermsState == false
                     ? AppButtonTheme.greyElevatedButtonTheme
                     : AppButtonTheme.basicElevatedButtonTheme.copyWith(
                         textStyle: MaterialStateProperty.resolveWith((states) {
                         return AppTextTheme.blue16m;
                       })),
                 onPressed: () {
-                  registerState.agreeAllTerms();
+                  termsState.agreeAllTerms();
                 },
                 icon: const Icon(Icons.check),
                 label: const Text('전체 동의'),
@@ -71,13 +70,13 @@ class TermsAgreementPage extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    registerState.agreeTerms(0);
+                    termsState.agreeTerms(0);
                   },
                   child: Row(
                     children: [
                       Icon(
                         Icons.check,
-                        color: registerState.termsStates[0] == true
+                        color: termsState.termsStates[0] == true
                             ? AppColor.blue
                             : AppColor.middleGrey,
                         size: 15,
@@ -86,7 +85,7 @@ class TermsAgreementPage extends ConsumerWidget {
                       MarkTextsWidget(
                           text: '이용 약관 (필수)',
                           markText: '(필수)',
-                          defaultTextStyle: registerState.termsStates[0]
+                          defaultTextStyle: termsState.termsStates[0]
                               ? AppTextTheme.blue14m
                               : AppTextTheme.black14m,
                           markTextStyle: AppTextTheme.blue14m),
@@ -118,13 +117,13 @@ class TermsAgreementPage extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    registerState.agreeTerms(1);
+                    termsState.agreeTerms(1);
                   },
                   child: Row(
                     children: [
                       Icon(
                         Icons.check,
-                        color: registerState.termsStates[1] == true
+                        color: termsState.termsStates[1] == true
                             ? AppColor.blue
                             : AppColor.middleGrey,
                         size: 15,
@@ -133,7 +132,7 @@ class TermsAgreementPage extends ConsumerWidget {
                       MarkTextsWidget(
                           text: '개인정보 수집 및 이용 동의 (필수)',
                           markText: '(필수)',
-                          defaultTextStyle: registerState.termsStates[1]
+                          defaultTextStyle: termsState.termsStates[1]
                               ? AppTextTheme.blue14m
                               : AppTextTheme.black14m,
                           markTextStyle: AppTextTheme.blue14m),
@@ -164,15 +163,15 @@ class TermsAgreementPage extends ConsumerWidget {
         ),
       )),
       bottomNavigationBar: ButtonBottomNavigationBarWidget(
-        buttonColor: registerState.allTermsState == true
+        buttonColor: termsState.allTermsState == true
             ? AppColor.lightGreyButtonColor
             : AppColor.middleGrey,
-        textStyle: registerState.allTermsState == true
+        textStyle: termsState.allTermsState == true
             ? AppTextTheme.blue14b
             : AppTextTheme.white14b,
         label: '가입하기',
         onPressed: () {
-          registerState.allTermsState == true
+          termsState.allTermsState == true
               ? context.pushNamed('register')
               : toastMessage.topYellowBoxBlueText("필수 약관에 모두 동의해주세요!");
         },

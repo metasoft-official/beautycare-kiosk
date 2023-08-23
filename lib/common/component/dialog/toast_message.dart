@@ -8,7 +8,17 @@ class ToastMessage {
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
+        backgroundColor: AppColor.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  void topRedBoxWhiteText(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: AppColor.red,
         textColor: Colors.white,
         fontSize: 16.0);
   }
