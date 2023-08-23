@@ -33,4 +33,4 @@ final addressChangeStateProvider =
 
 // 폼 데이터
 final formStateProvider = StateNotifierProvider<FormNotifier, FormStateModel>(
-    (ref) => FormNotifier());
+    (ref) => FormNotifier(ref));

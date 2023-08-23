@@ -1,12 +1,9 @@
-import 'package:beauty_care/common/model/page_response_model.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:beauty_care/user/provider/register_state_provider.dart';
+
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/repository/user_repository.dart';
-import 'package:beauty_care/user/provider/register_state_provider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:remedi_kopo/remedi_kopo.dart';
-
-import '../../../main.dart';
 
 class RegisterDataState
     extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
@@ -14,21 +11,7 @@ class RegisterDataState
   final UserRepository userRepository;
 
   RegisterDataState(this.ref, this.userRepository)
-      : super(const AsyncValue.loading()) {
-    loadData();
-  }
-
-  Map<String, dynamic> data = {};
-
-  Future<void> loadData() async {
-    try {
-      await Future.wait([]);
-      await Future.wait([]);
-      state = AsyncValue.data(data);
-    } catch (e, s) {
-      state = AsyncValue.error(e, s);
-    }
-  }
+      : super(const AsyncValue.loading());
 
   // 라디오 버튼
   List<bool> isGenderSelected = [true, false];
@@ -92,9 +75,5 @@ class RegisterDataState
     }
 
     return age;
-  }
-
-  void reload() {
-    state = AsyncValue.data(data);
   }
 }

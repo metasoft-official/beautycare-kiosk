@@ -1,3 +1,4 @@
+import 'package:beauty_care/user/provider/state/edit_state.dart';
 import 'package:beauty_care/user/provider/state/my_page_change_state.dart';
 import 'package:beauty_care/user/provider/state/my_page_data_state.dart';
 import 'package:beauty_care/user/provider/user_disease_provider.dart';
@@ -17,3 +18,7 @@ final myPageStateProvider =
     ref.read(userDiseaseRepositoryProvider),
   ),
 );
+
+final editStateProvider = AutoDisposeChangeNotifierProvider<EditState>((ref) {
+  return EditState(ref);
+});

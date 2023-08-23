@@ -1080,4 +1080,19 @@ class AppTextTheme {
       fontSize: 10,
       fontWeight: FontWeight.w700,
       color: AppColor.red);
+  static const red12 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: AppColor.red);
+  static const red12m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColor.red);
+  static const red12b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: AppColor.red);
 }

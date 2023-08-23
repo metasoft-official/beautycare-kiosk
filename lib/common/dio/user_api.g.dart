@@ -13,7 +13,7 @@ class _UserApi implements UserApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.52:9000/api';
+    baseUrl ??= 'http://192.168.35.113:9000/api';
   }
 
   final Dio _dio;
@@ -71,6 +71,33 @@ class _UserApi implements UserApi {
   }
 
   @override
+  Future<PageResponse<RoleUserModel>> getUserRoleByUserId(query) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PageResponse<RoleUserModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/common/role-users',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PageResponse<RoleUserModel>.fromJson(
+      _result.data!,
+      (json) => RoleUserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<String> postUser(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -79,6 +106,29 @@ class _UserApi implements UserApi {
     _data.addAll(query);
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/app/accounts',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<String> putUser(query) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(query);
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )

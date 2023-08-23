@@ -330,7 +330,6 @@ class RegisterState extends ConsumerState<RegisterPage> {
                         groupValue: registerState.selectedGender,
                         onChanged: (String? value) {
                           registerState.selectedGender = value!;
-                          registerState.reload();
                         },
                       ),
                     ),
@@ -347,7 +346,6 @@ class RegisterState extends ConsumerState<RegisterPage> {
                         groupValue: registerState.selectedGender,
                         onChanged: (String? value) {
                           registerState.selectedGender = value!;
-                          registerState.reload();
                         },
                       ),
                     ),

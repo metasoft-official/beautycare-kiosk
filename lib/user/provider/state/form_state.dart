@@ -1,10 +1,11 @@
+import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/user/model/form_state_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../main.dart';
 
 class FormNotifier extends StateNotifier<FormStateModel> {
-  FormNotifier()
+  FormNotifier(this.ref)
       : super(FormStateModel(
           username: '',
           password: '',
@@ -26,6 +27,8 @@ class FormNotifier extends StateNotifier<FormStateModel> {
           },
         ));
 
+  Ref ref;
+
   void updateInputState(String updateValue, String fieldName) {
     // 입력 시작 상태관리
     bool startedInput = updateValue.isNotEmpty && updateValue != '';
@@ -34,7 +37,6 @@ class FormNotifier extends StateNotifier<FormStateModel> {
 
     state = state.copyWith(inputStartedFlags: updatedFlags);
 
-    logger.d(updateValue.isNotEmpty && updateValue != '');
     updateForm(updateValue, fieldName);
   }
 
@@ -103,15 +105,15 @@ class FormNotifier extends StateNotifier<FormStateModel> {
 
   bool _validateName(String name) {
     // 이름 확인 : 이름이 한 글자 이상인지, 공백 없는지
-    return containsWhitespace(name) == false;
+    return name.isNotEmpty && !containsWhitespace(name);
   }
 
   bool _validatePhFirst(String phFirst) {
     // 첫번째 전화번호 0으로 시작하고 3글자 이하인지
     return phFirst.length >= 3 &&
-        phFirst.substring(0, 1).contains('0') == true &&
-        containsWhitespace(phFirst) == false &&
-        containsOnlyNum(phFirst) == true;
+        phFirst.substring(0, 1).contains('0') &&
+        !containsWhitespace(phFirst) &&
+        containsOnlyNum(phFirst);
   }
 
   bool _validatePhSecond(String phSecond) {
@@ -150,5 +152,9 @@ class FormNotifier extends StateNotifier<FormStateModel> {
   bool containsOnlyNum(String text) {
     bool hasNumber = text.contains(RegExp(r'[0-9]'));
     return hasNumber;
+  }
+
+  List<String> splitEmail(String email) {
+    return email.split('@');
   }
 }
