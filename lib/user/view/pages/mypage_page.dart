@@ -37,7 +37,6 @@ class MypageState extends ConsumerState<MypagePage> {
     return asyncValue.when(
       data: (data) {
         final allResult = List.from(data['allResult']);
-        logger.d(allResult.length);
         return Scaffold(
           appBar: AppBar(title: const Text('마이페이지')),
           backgroundColor: Colors.white,
