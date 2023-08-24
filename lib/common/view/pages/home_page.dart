@@ -219,7 +219,6 @@ class HomePageState extends ConsumerState<HomePage> {
                             lankVisible: false,
                             btnVisible: false,
                             imgVisible: false,
-                            itemCount: 2,
                             categoryName: data['typeCategory']
                                     [homeDataState.mainTypeCurIndex]
                                 .name)
