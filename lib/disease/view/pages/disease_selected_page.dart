@@ -391,13 +391,3 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
     );
   }
 }
-
-Map<String, String> splitMarkText(String text) {
-  List<String> splitTexts = text.split(' ');
-  int i = text.indexOf(splitTexts[splitTexts.length - 1]);
-
-  String markText = splitTexts[(splitTexts.length - 1)];
-  String exceptText = text.substring(0, i);
-
-  return {'exceptText': exceptText, 'markText': markText};
-}

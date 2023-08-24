@@ -122,8 +122,12 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
                     ),
                     const SizedBox(height: 20),
                     diseaseButton(context, 0, result)!,
-                    diseaseButton(context, 1, result)!,
-                    diseaseButton(context, 2, result)!
+                    if (result.topk2Id != null) ...[
+                      diseaseButton(context, 1, result)!
+                    ],
+                    if (result.topk3Id != null) ...[
+                      diseaseButton(context, 2, result)!
+                    ]
                   ],
                 ),
               ))

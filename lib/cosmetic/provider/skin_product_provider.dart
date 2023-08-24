@@ -20,8 +20,8 @@ final skinProductRepositoryProvider = Provider<SkinProductRepository>((ref) {
 });
 
 // 데이터 관리 클래스의 인스턴스를 생성하는 Provider
-final skinProductStateProvider = StateNotifierProvider<SkinProductDataState,
-    AsyncValue<Map<String, dynamic>>>(
+final skinProductStateProvider = AutoDisposeStateNotifierProvider<
+    SkinProductDataState, AsyncValue<Map<String, dynamic>>>(
   (ref) => SkinProductDataState(ref, ref.read(skinProductRepositoryProvider),
       ref.read(skincareCategoryProvider)),
 );

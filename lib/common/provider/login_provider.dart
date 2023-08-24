@@ -19,7 +19,7 @@ final userNotifierProvider = StateNotifierProvider<UserNotifier, UserModel>(
     (ref) => UserNotifier(ref.read(userRepositoryProvider)));
 
 final loginNotifierProvider =
-    ChangeNotifierProvider<LoginState>((ref) => LoginState());
+    AutoDisposeChangeNotifierProvider<LoginState>((ref) => LoginState());
 
 // 토큰 저장
 class TokenStateNotifier extends StateNotifier<String> {

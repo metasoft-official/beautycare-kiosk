@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/provider/home/home_state_provider.dart';
@@ -36,7 +37,7 @@ class CosmeticProductAll extends ConsumerWidget {
                 carouselController: productState.carouselController,
                 options: CarouselOptions(
                   onPageChanged: (index, reason) {
-                    productState.changePage(index);
+                    productState.curIndex = index;
                   },
                   autoPlay: true,
                   height: 240,
@@ -66,26 +67,30 @@ class CosmeticProductAll extends ConsumerWidget {
               Positioned(
                 bottom: 12,
                 right: 20,
-                child: Container(
-                    padding: const EdgeInsets.fromLTRB(12, 5, 6, 5),
-                    decoration: BoxDecoration(
-                      color: AppColor.black.withOpacity(0.6),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(5),
+                child: GestureDetector(
+                  onTap: () => context.pushNamed('promotion'),
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(12, 5, 6, 5),
+                      decoration: BoxDecoration(
+                        color: AppColor.black.withOpacity(0.6),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('프로모션 전체보기',
-                            style: AppTextTheme.white12b.copyWith(height: 1.2)),
-                        const Icon(
-                          Icons.navigate_next,
-                          size: 16,
-                          color: Colors.white,
-                        )
-                      ],
-                    )),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('프로모션 전체보기',
+                              style:
+                                  AppTextTheme.white12b.copyWith(height: 1.2)),
+                          const Icon(
+                            Icons.navigate_next,
+                            size: 16,
+                            color: Colors.white,
+                          )
+                        ],
+                      )),
+                ),
               )
             ],
           ),

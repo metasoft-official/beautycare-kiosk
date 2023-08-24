@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -61,7 +62,7 @@ class MypageState extends ConsumerState<MypagePage> {
                           child: const CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: AssetImage(
-                                "assets/images/emoji_sample_profile.png"),
+                                "assets/images/character_coiz_3.png"),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -153,9 +154,10 @@ class MypageState extends ConsumerState<MypagePage> {
               ? ButtonBottomNavigationBarWidget(
                   buttonColor: AppColor.lightGrey,
                   textStyle: AppTextTheme.blue14b,
-                  label: '로그아웃',
+                  label: ' 로그아웃',
                   onPressed: () {
-                    // todo 로그아웃
+                    ref.watch(authStateProvider.notifier).logOut();
+                    context.goNamed('home');
                   },
                   icon: const Icon(
                     Icons.exit_to_app,

@@ -73,12 +73,12 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
                 HistoryWidget(
                   itemCount: disease.length,
                   histories: disease,
-                  nullType: 'history',
+                  nullType: 'disease',
                 ),
                 HistoryWidget(
                   itemCount: mbti.length,
                   histories: mbti,
-                  nullType: 'history',
+                  nullType: 'mbti',
                 ),
               ],
             ));

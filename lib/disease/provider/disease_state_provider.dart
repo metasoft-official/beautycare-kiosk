@@ -17,8 +17,8 @@ final diseaseRepositoryProvider = Provider<DiseaseRepository>((ref) {
   return DiseaseRepository(surveyApi);
 });
 
-final diseaseStateProvider = StateNotifierProvider.family<DiseaseDataState,
-        AsyncValue<Map<String, dynamic>>, int>(
+final diseaseStateProvider = AutoDisposeStateNotifierProvider.family<
+        DiseaseDataState, AsyncValue<Map<String, dynamic>>, int>(
     (ref, id) =>
         DiseaseDataState(ref, ref.read(diseaseRepositoryProvider), id));
 
@@ -27,6 +27,7 @@ final userDiseaseStateProvider = StateNotifierProvider.family<
     (ref, id) =>
         UserDiseaseDataState(ref, ref.read(userDiseaseRepositoryProvider), id));
 
-final diseaseChangeProvider = ChangeNotifierProvider<DiseaseChangeState>((ref) {
+final diseaseChangeProvider =
+    AutoDisposeChangeNotifierProvider<DiseaseChangeState>((ref) {
   return DiseaseChangeState();
 });

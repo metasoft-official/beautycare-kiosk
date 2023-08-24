@@ -109,31 +109,44 @@ class HistoryWidget extends StatelessWidget {
                           children: [
                             // 이미지
                             // if (imgUrl != null && imgUrl!.length >= itemCount) ...[
-                            Container(
-                              decoration: AppBoxTheme.greyBoxTheme,
-                              width: 56,
-                              height: 56,
-                              // todo : network
-                              child: imageId != null
-                                  ? Image.network(
-                                      '${Strings.imageUrl}$imageId',
-                                      fit: BoxFit.cover,
-                                      // 네트워크 Empty 예외처리
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return Image.asset(
-                                          'assets/images/character_coiz_3.png',
-                                          fit: BoxFit.cover,
-                                        );
-                                      },
-                                    )
-                                  // 이미지 아이디 Null 예외처리
-                                  : Image.asset(
-                                      'assets/images/character_coiz_3.png',
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
+                            if (type == 'disease') ...[
+                              Container(
+                                decoration: AppBoxTheme.greyBoxTheme,
+                                width: 56,
+                                height: 56,
+                                child: imageId != null
+                                    ? Image.network(
+                                        '${Strings.imageUrl}$imageId',
+                                        fit: BoxFit.cover,
+                                        // 네트워크 Empty 예외처리
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Image.asset(
+                                            'assets/images/sample_images_01.png',
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )
+                                    // 이미지 아이디 Null 예외처리
+                                    : Image.asset(
+                                        'assets/images/sample_images_01.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ],
+                            if (type == 'mbti') ...[
+                              Container(
+                                decoration: AppBoxTheme.greyBoxTheme,
+                                width: 56,
+                                height: 56,
+                                // todo : network
+                                child: Image.asset(
+                                  'assets/images/mbti_banni_${mbti.skinMbtiName}.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            ],
                             const SizedBox(width: 12),
 
                             // 텍스트 내용 (null값 추후 수정)

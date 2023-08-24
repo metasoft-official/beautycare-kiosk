@@ -219,7 +219,7 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                           constraints:
                               const BoxConstraints(minWidth: 1, minHeight: 1),
                           child: Image.asset(
-                              "assets/images/mbti/mbti_banni_${typeInfo.skinMbtiName}.png"),
+                              "assets/images/mbti_banni_${typeInfo.skinMbtiName}.png"),
                         ),
                       ),
                     ),
