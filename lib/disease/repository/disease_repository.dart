@@ -34,4 +34,15 @@ class DiseaseRepository {
     }
     return null;
   }
+
+  // by path
+  Future<DiseaseModel?> getDiseaseById(int id) async {
+    try {
+      final response = await diseaseApi.getDiseaseById(id);
+      return response;
+    } catch (e, s) {
+      logger.e("", e, s);
+    }
+    return null;
+  }
 }

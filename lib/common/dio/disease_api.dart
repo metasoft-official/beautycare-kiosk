@@ -17,4 +17,7 @@ abstract class DiseaseApi {
   @GET('/common/diseases')
   Future<PageResponse<DiseaseModel>> getDiseaseByQuery(
       @Queries() Map<String, dynamic> query);
+
+  @GET('/common/diseases/{id}')
+  Future<DiseaseModel> getDiseaseById(@Path("id") int id);
 }

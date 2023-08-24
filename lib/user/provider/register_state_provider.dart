@@ -9,9 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 데이터 state
-final registerDataStateProvider =
-    StateNotifierProvider<RegisterDataState, AsyncValue<Map<String, dynamic>>>(
-        (ref) => RegisterDataState(ref, ref.read(userRepositoryProvider)));
+final registerDataStateProvider = AutoDisposeStateNotifierProvider<
+        RegisterDataState, AsyncValue<Map<String, dynamic>>>(
+    (ref) => RegisterDataState(ref, ref.read(userRepositoryProvider)));
 
 // 약관 동의
 final termsChangeStateProvider =
