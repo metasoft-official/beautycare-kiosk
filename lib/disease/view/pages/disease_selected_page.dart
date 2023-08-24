@@ -46,6 +46,7 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
         final regions = clinicState.data['regions'];
 
         DiseaseModel diseaseModel = data['diseaseInfo'];
+        logger.d(diseaseModel);
 
         return Scaffold(
           backgroundColor: AppColor.lightGrey,

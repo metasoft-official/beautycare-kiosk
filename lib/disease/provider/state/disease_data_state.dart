@@ -28,10 +28,9 @@ class DiseaseDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   }
 
   Future<void> getDiseaseById(int? id) async {
-    DiseaseModel diseaseModel = DiseaseModel(id: id);
-    final response = await repository.getDiseaseByQuery(diseaseModel);
-    if (response != null && response.items != null) {
-      data['diseaseInfo'] = response.items!.first;
+    final response = await repository.getDiseaseById(id ?? -1);
+    if (response != null) {
+      data['diseaseInfo'] = response;
     } else {
       data['diseaseInfo'] = [];
     }
