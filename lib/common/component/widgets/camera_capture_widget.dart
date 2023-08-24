@@ -327,7 +327,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                     child: FutureBuilder<void>(
                       future: _initializeCamera(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.connectionState == ConnectionState.done && _cameraController != null && _cameraController!.value.isInitialized) {
                           return SizedBox(
                               width: size.width,
                               height: size.width,

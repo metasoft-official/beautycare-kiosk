@@ -230,6 +230,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   response.items![0];
                               logger.d(response.items![0]);
                               login(context, ref);
+                              ref.read(socialLoginTypeProvider.notifier).update('NAVER');
                             } else {
                               context.pushNamed('register');
                             }
@@ -295,6 +296,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ref.read(userNotifierProvider.notifier).state =
                                     response.items![0];
                                 login(context, ref);
+                                ref.read(socialLoginTypeProvider.notifier).update('KAKAO');
                               }
 
                               // 존재하지 않는 회원일 경우 회원가입 페이지로 이동

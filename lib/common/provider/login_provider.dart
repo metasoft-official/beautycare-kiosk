@@ -11,6 +11,7 @@ import 'package:beauty_care/common/repository/user_repository.dart';
 
 final loginApiProvider = Provider<LoginApi>((ref) => LoginApi(Dio()));
 
+
 // 로그인 된 유저 상태 저장
 final userRepositoryProvider = Provider<UserRepository>((ref) =>
     UserRepository(ref.read(userApiProvider), ref.read(loginApiProvider)));
@@ -41,6 +42,18 @@ final tokenStateNotifierProvider =
 final emailControllerProvider = Provider((_) => TextEditingController());
 final passwordControllerProvider = Provider((_) => TextEditingController());
 
+final socialLoginTypeProvider =  StateNotifierProvider<SocialLoginTypeStateNotifier, String>(
+        (ref) => SocialLoginTypeStateNotifier());
+
+
+    class SocialLoginTypeStateNotifier extends StateNotifier<String> {
+  SocialLoginTypeStateNotifier() : super('');
+  void update(String newValue) {
+    state = newValue;
+  }
+}
+
+
 final storage = FlutterSecureStorage(); // FlutterSecureStorage를 storage로 저장
 dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
 
@@ -56,6 +69,7 @@ class UserNotifier extends StateNotifier<UserModel> {
 
   Future<String> login(String username, String password) async {
     try {
+
       final uuid = await _userRepository.login(username, password);
 
       String token = await _userRepository.getUserInfoTokenList(uuid);
