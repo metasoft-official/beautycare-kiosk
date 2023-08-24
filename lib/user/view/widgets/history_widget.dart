@@ -157,7 +157,7 @@ class HistoryWidget extends StatelessWidget {
                                   const SizedBox(height: 2),
                                   Text(
                                     type?.contains('disease') == true
-                                        ? disease.topk1Disease!.name!
+                                        ? disease.topk1Disease?.name ?? ''
                                         : type?.contains('mbti') == true
                                             ? mbti.skinMbtiName!
                                             : '-',
@@ -167,7 +167,7 @@ class HistoryWidget extends StatelessWidget {
                                   ),
                                   Text(
                                     type?.contains('disease') == true
-                                        ? disease.topk1Disease!.nameEng!
+                                        ? disease.topk1Disease?.nameEng ?? ''
                                         : type?.contains('mbti') == true
                                             ? mbti.descriptionEng!
                                             : '-',
