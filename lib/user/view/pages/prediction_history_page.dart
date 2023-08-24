@@ -65,21 +65,27 @@ class PredictionHistoryState extends ConsumerState<PredictionHistoryPage>
               tabController: tabController,
               widgets: [
                 // todo : mbti, 피부질환 이력 데이터에 맞게 전달
-                HistoryWidget(
-                  itemCount: allResult.length,
-                  histories: allResult,
-                  nullType: 'history',
-                ),
-                HistoryWidget(
-                  itemCount: disease.length,
-                  histories: disease,
-                  nullType: 'disease',
-                ),
-                HistoryWidget(
-                  itemCount: mbti.length,
-                  histories: mbti,
-                  nullType: 'mbti',
-                ),
+                if (allResult.isNotEmpty) ...[
+                  HistoryWidget(
+                    itemCount: allResult.length,
+                    histories: allResult,
+                    nullType: 'history',
+                  )
+                ],
+                if (disease.isNotEmpty) ...[
+                  HistoryWidget(
+                    itemCount: disease.length,
+                    histories: disease,
+                    nullType: 'disease',
+                  )
+                ],
+                if (mbti.isNotEmpty) ...[
+                  HistoryWidget(
+                    itemCount: mbti.length,
+                    histories: mbti,
+                    nullType: 'mbti',
+                  )
+                ],
               ],
             ));
       },

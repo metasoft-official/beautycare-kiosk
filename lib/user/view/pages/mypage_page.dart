@@ -129,25 +129,27 @@ class MypageState extends ConsumerState<MypagePage> {
                 btnText: '전체보기',
               ),
               // 목록
-              Expanded(
-                child: HistoryWidget(
-                  // onLongPress: (index) => {
-                  //   mypageState.longClickState == -1
-                  //       ? {
-                  //           mypageState.isLongClicked[index] = true,
-                  //           mypageState.longClickState = index
-                  //         }
-                  //       : mypageState.longClickState = -1,
-                  //   mypageState.resetState()
-                  // },
-                  // longPressedDecoration: mypageState.longClickState > -1
-                  //     ? AppBoxTheme.outlineRoundedLongPressedBoxTheme
-                  //     : null,
-                  itemCount: allResult.length,
-                  histories: allResult,
-                  nullType: 'history',
-                ),
-              )
+              if (allResult.isNotEmpty) ...[
+                Expanded(
+                  child: HistoryWidget(
+                    // onLongPress: (index) => {
+                    //   mypageState.longClickState == -1
+                    //       ? {
+                    //           mypageState.isLongClicked[index] = true,
+                    //           mypageState.longClickState = index
+                    //         }
+                    //       : mypageState.longClickState = -1,
+                    //   mypageState.resetState()
+                    // },
+                    // longPressedDecoration: mypageState.longClickState > -1
+                    //     ? AppBoxTheme.outlineRoundedLongPressedBoxTheme
+                    //     : null,
+                    itemCount: allResult.length,
+                    histories: allResult,
+                    nullType: 'history',
+                  ),
+                )
+              ]
             ],
           ),
           bottomNavigationBar: mypageState.longClickState == -1
