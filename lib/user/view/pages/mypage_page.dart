@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,105 +32,105 @@ class MypagePage extends ConsumerStatefulWidget {
 class MypageState extends ConsumerState<MypagePage> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userNotifierProvider.notifier).user;
-    final mypageState = ref.watch(mypageStateChangeProvider);
+    UserModel user = ref.read(userNotifierProvider);
+    // final mypageState = ref.watch(mypageStateChangeProvider);
     final asyncValue = ref.watch(myPageStateProvider);
+    logger.d(asyncValue);
 
     return asyncValue.when(
       data: (data) {
         final allResult = List.from(data['allResult']);
         return Scaffold(
-          appBar: AppBar(title: const Text('마이페이지')),
-          backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 프로필 ========================================================
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25.0),
-                              border: Border.all(
-                                  color: AppColor.lightGrey, width: 2)),
-                          width: 50,
-                          height: 50,
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.white,
-                            backgroundImage: AssetImage(
-                                "assets/images/character_coiz_3.png"),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: AppTextTheme.black16m,
-                                children: markTextsMixin(
-                                    '${user.name} 님, 환영합니다!',
-                                    '${user.name}',
-                                    AppTextTheme.blue16b),
-                              ),
+            appBar: AppBar(title: const Text('마이페이지')),
+            backgroundColor: Colors.white,
+            body: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 프로필 ========================================================
+                      Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25.0),
+                                border: Border.all(
+                                    color: AppColor.lightGrey, width: 2)),
+                            width: 50,
+                            height: 50,
+                            child: const CircleAvatar(
+                              backgroundColor: Colors.white,
+                              backgroundImage: AssetImage(
+                                  "assets/images/character_coiz_3.png"),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              '${user.email}',
-                              style: AppTextTheme.grey12m,
-                            )
-                          ],
-                        ),
-                        const Spacer(),
-                        TextButton(
-                          onPressed: () {
-                            context.pushNamed('profileEdit');
-                          },
-                          style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(0)),
-                          child: Text(
-                            '편집',
-                            style: AppTextTheme.blue12b
-                                .copyWith(decoration: TextDecoration.underline),
                           ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                          const SizedBox(width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: AppTextTheme.black16m,
+                                  children: markTextsMixin(
+                                      '${user.name} 님, 환영합니다!',
+                                      '${user.name}',
+                                      AppTextTheme.blue16b),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${user.email}',
+                                style: AppTextTheme.grey12m,
+                              )
+                            ],
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              context.pushNamed('profileEdit');
+                            },
+                            style: TextButton.styleFrom(
+                                padding: const EdgeInsets.all(0)),
+                            child: Text(
+                              '편집',
+                              style: AppTextTheme.blue12b.copyWith(
+                                  decoration: TextDecoration.underline),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
 
-                    // 바로가기 버튼 ==================================================
-                    // 위시리스트
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          style: AppButtonTheme.outlinedBasicButtonTheme,
-                          onPressed: () => context.pushNamed('wishlist'),
-                          child: const Text('위시리스트')),
-                    ),
-                  ],
+                      // 바로가기 버튼 ==================================================
+                      // 위시리스트
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            style: AppButtonTheme.outlinedBasicButtonTheme,
+                            onPressed: () => context.pushNamed('wishlist'),
+                            child: const Text('위시리스트')),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
 
-              const Divider(
-                thickness: 15,
-              ),
+                const Divider(
+                  thickness: 15,
+                ),
 
-              // 예측 이력 ===========================================================
-              // 제목
-              ListTitleWidget(
-                text: '예측이력',
-                onTap: () => context.pushNamed('history'),
-                btnText: '전체보기',
-              ),
-              // 목록
-              if (allResult.isNotEmpty) ...[
+                // 예측 이력 ===========================================================
+                // 제목
+                ListTitleWidget(
+                  text: '예측이력',
+                  onTap: () => context.pushNamed('history'),
+                  btnText: '전체보기',
+                ),
+                // 목록
                 Expanded(
                   child: HistoryWidget(
                     // onLongPress: (index) => {
@@ -149,62 +150,77 @@ class MypageState extends ConsumerState<MypagePage> {
                     nullType: 'history',
                   ),
                 )
-              ]
-            ],
-          ),
-          bottomNavigationBar: mypageState.longClickState == -1
-              ? ButtonBottomNavigationBarWidget(
-                  buttonColor: AppColor.lightGrey,
-                  textStyle: AppTextTheme.blue14b,
-                  label: ' 로그아웃',
-                  onPressed: () {
-                    ref.watch(authStateProvider.notifier).logOut();
-                    context.goNamed('home');
-                  },
-                  icon: const Icon(
-                    Icons.exit_to_app,
-                    color: AppColor.appColor,
-                    size: 20,
-                  ),
-                )
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: AppButtonTheme.outlinedBasicButtonTheme,
-                            onPressed: () => {
-                              mypageState.longClickState = -1,
-                              mypageState.resetState()
-                            },
-                            child:
-                                const Text('취소', style: AppTextTheme.blue16b),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Flexible(
-                          flex: 1,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text(
-                                '결과 공유하기',
-                                style: AppTextTheme.white16b,
-                              ),
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-        );
+              ],
+            ),
+            bottomNavigationBar: ButtonBottomNavigationBarWidget(
+              buttonColor: AppColor.lightGrey,
+              textStyle: AppTextTheme.blue14b,
+              label: ' 로그아웃',
+              onPressed: () {
+                ref.watch(userNotifierProvider.notifier).update(UserModel());
+                logger.d(ref.read(userNotifierProvider));
+                ref.read(authStateProvider.notifier).logOut();
+                context.goNamed('home');
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: AppColor.appColor,
+                size: 20,
+              ),
+            )
+            //   bottomNavigationBar: mypageState.longClickState == -1
+            //       ? ButtonBottomNavigationBarWidget(
+            //           buttonColor: AppColor.lightGrey,
+            //           textStyle: AppTextTheme.blue14b,
+            //           label: ' 로그아웃',
+            //           onPressed: () {
+            //             ref.watch(authStateProvider.notifier).logOut();
+            //             context.goNamed('home');
+            //           },
+            //           icon: const Icon(
+            //             Icons.exit_to_app,
+            //             color: AppColor.appColor,
+            //             size: 20,
+            //           ),
+            //         )
+            //       : Padding(
+            //           padding:
+            //               const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               Flexible(
+            //                 flex: 1,
+            //                 child: SizedBox(
+            //                   width: double.infinity,
+            //                   child: ElevatedButton(
+            //                     style: AppButtonTheme.outlinedBasicButtonTheme,
+            //                     onPressed: () => {
+            //                       mypageState.longClickState = -1,
+            //                       mypageState.resetState()
+            //                     },
+            //                     child:
+            //                         const Text('취소', style: AppTextTheme.blue16b),
+            //                   ),
+            //                 ),
+            //               ),
+            //               const SizedBox(width: 12),
+            //               Flexible(
+            //                   flex: 1,
+            //                   child: SizedBox(
+            //                     width: double.infinity,
+            //                     child: ElevatedButton(
+            //                       onPressed: () {},
+            //                       child: const Text(
+            //                         '결과 공유하기',
+            //                         style: AppTextTheme.white16b,
+            //                       ),
+            //                     ),
+            //                   ))
+            //             ],
+            //           ),
+            //         ),
+            );
       },
       loading: () => const LoadingCircleAnimationWidget(),
       error: (e, s) => Scaffold(

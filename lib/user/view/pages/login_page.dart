@@ -33,7 +33,6 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final userState = ref.watch(userNotifierProvider);
     final loginState = ref.watch(loginNotifierProvider);
 
     return Scaffold(
@@ -166,9 +165,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               // 로그인 페이지를 pop
                               // context.pop();
                               String routeName = widget.onLoginSuccess();
+                              if (!mounted) return;
                               context.pushNamed(routeName);
                             } else {
                               // 로그인 실패 처리
+                              if (!mounted) return;
                               _showDialog(context, "로그인 실패", '확인');
                               return;
                             }
@@ -230,7 +231,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   response.items![0];
                               logger.d(response.items![0]);
                               login(context, ref);
-                              ref.read(socialLoginTypeProvider.notifier).update('NAVER');
+                              ref
+                                  .read(socialLoginTypeProvider.notifier)
+                                  .update('NAVER');
                             } else {
                               context.pushNamed('register');
                             }
@@ -296,7 +299,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ref.read(userNotifierProvider.notifier).state =
                                     response.items![0];
                                 login(context, ref);
-                                ref.read(socialLoginTypeProvider.notifier).update('KAKAO');
+                                ref
+                                    .read(socialLoginTypeProvider.notifier)
+                                    .update('KAKAO');
                               }
 
                               // 존재하지 않는 회원일 경우 회원가입 페이지로 이동

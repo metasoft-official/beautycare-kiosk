@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/provider/code/code_provider.dart';
@@ -39,7 +40,7 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   // 질문 목록 카테고리 별로 가져오기
   Future<void> getSurveyQuestionList(int startCode) async {
-    final user = ref.read(userNotifierProvider.notifier).user;
+    UserModel user = ref.read(userNotifierProvider);
     for (int i = startCode; i < startCode + 4; i++) {
       SurveyQuestionModel surveyQuestionModel =
           SurveyQuestionModel(categoryCode: i, visibilityStatus: 'A');

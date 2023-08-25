@@ -60,6 +60,10 @@ class HistoryWidget extends StatelessWidget {
                       const Text('알림이 없습니다.', style: AppTextTheme.black18b),
                     ] else if (nullType == 'history') ...[
                       const Text('예측이력이 없습니다.', style: AppTextTheme.black18b),
+                    ] else if (nullType == 'disease') ...[
+                      const Text('예측이력이 없습니다.', style: AppTextTheme.black18b),
+                    ] else if (nullType == 'mbti') ...[
+                      const Text('예측이력이 없습니다.', style: AppTextTheme.black18b),
                     ]
                   ],
                 ),

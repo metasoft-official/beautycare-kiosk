@@ -44,7 +44,7 @@ class MbtiResultDataState
     final userSkinMbtiRepository = ref.read(userSkinMbtiRepositoryProvider);
     UserSkinMbtiModel userSkinMbtiModel = UserSkinMbtiModel(surveyId: id);
     final userResponse =
-        await userSkinMbtiRepository.getUserSkinMbtiByQuery(userSkinMbtiModel);
+        await userSkinMbtiRepository.getUserSkinMbtiByQuery(surveyId: id);
     if (userResponse != null && userResponse.items != null) {
       userData = userResponse.items!.first;
       data['result'] = userData;

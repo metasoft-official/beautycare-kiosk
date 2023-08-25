@@ -21,8 +21,8 @@ class UserDiseaseRepository {
 
   // by query
   Future<PageResponse<UserDiseaseModel>?> getUserDiseaseByQuery(
-      UserDiseaseModel userDiseaseModel) async {
-    final Map<String, dynamic> query = {...userDiseaseModel.toJson()};
+      int userId) async {
+    final Map<String, dynamic> query = {'userId': userId};
     try {
       final response = await userDiseaseApi.getUserDiseaseByQuery(query);
       return response;

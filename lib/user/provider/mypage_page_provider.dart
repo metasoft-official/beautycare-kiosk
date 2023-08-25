@@ -5,7 +5,8 @@ import 'package:beauty_care/user/provider/user_disease_provider.dart';
 import 'package:beauty_care/user/provider/user_skin_mbti_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final mypageStateChangeProvider = ChangeNotifierProvider<MypageState>((ref) {
+final mypageStateChangeProvider =
+    AutoDisposeChangeNotifierProvider<MypageState>((ref) {
   return MypageState();
 });
 

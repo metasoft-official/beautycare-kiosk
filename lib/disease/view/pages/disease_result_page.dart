@@ -2,6 +2,7 @@ import 'package:beauty_care/common/component/widgets/gradient_bar_chart_widget.d
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/provider/disease_state_provider.dart';
@@ -35,7 +36,7 @@ class DiseaseResultState extends ConsumerState<DiseaseResultPage> {
   Widget build(BuildContext context) {
     final id = int.tryParse(widget.diseaseId ?? '') ?? -1;
     final asyncValue = ref.watch(userDiseaseStateProvider(id));
-    final user = ref.read(userNotifierProvider.notifier).user;
+    UserModel user = ref.read(userNotifierProvider);
 
     return asyncValue.when(
       data: (data) {

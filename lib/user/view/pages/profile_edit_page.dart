@@ -2,6 +2,7 @@ import 'package:beauty_care/common/component/dialog/failed_dialog.dart';
 import 'package:beauty_care/common/component/widgets/button_bottom_navigation_bar.dart';
 import 'package:beauty_care/common/component/widgets/custom_dropdown_button_2.dart';
 import 'package:beauty_care/common/layout/app_button_theme.dart';
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/main.dart';
 import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:beauty_care/user/provider/register_state_provider.dart';
@@ -29,7 +30,7 @@ class ProfileEditPage extends ConsumerStatefulWidget {
 class ProfileEditState extends ConsumerState<ProfileEditPage> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userNotifierProvider.notifier).user;
+    UserModel user = ref.read(userNotifierProvider);
     final editState = ref.watch(editStateProvider);
     final dropdownState = ref.watch(dropdownChangeStateProvider);
     final formState = ref.watch(formStateProvider);

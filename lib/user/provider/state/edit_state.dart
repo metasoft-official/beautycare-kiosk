@@ -19,7 +19,7 @@ class EditState extends ChangeNotifier {
 
   // 수정
   Future<String?> modifyUser() async {
-    final user = ref.read(userNotifierProvider.notifier).user;
+    UserModel user = ref.read(userNotifierProvider);
     final formState = ref.read(formStateProvider);
     final addressState = ref.read(addressChangeStateProvider);
     final dropdownState = ref.read(dropdownChangeStateProvider);

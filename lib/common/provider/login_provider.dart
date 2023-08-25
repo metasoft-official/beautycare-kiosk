@@ -9,8 +9,9 @@ import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/dio/login_api.dart';
 import 'package:beauty_care/common/repository/user_repository.dart';
 
-final loginApiProvider = Provider<LoginApi>((ref) => LoginApi(Dio()));
+import '../../main.dart';
 
+final loginApiProvider = Provider<LoginApi>((ref) => LoginApi(Dio()));
 
 // 로그인 된 유저 상태 저장
 final userRepositoryProvider = Provider<UserRepository>((ref) =>
@@ -42,24 +43,22 @@ final tokenStateNotifierProvider =
 final emailControllerProvider = Provider((_) => TextEditingController());
 final passwordControllerProvider = Provider((_) => TextEditingController());
 
-final socialLoginTypeProvider =  StateNotifierProvider<SocialLoginTypeStateNotifier, String>(
+final socialLoginTypeProvider =
+    StateNotifierProvider<SocialLoginTypeStateNotifier, String>(
         (ref) => SocialLoginTypeStateNotifier());
 
-
-    class SocialLoginTypeStateNotifier extends StateNotifier<String> {
+class SocialLoginTypeStateNotifier extends StateNotifier<String> {
   SocialLoginTypeStateNotifier() : super('');
   void update(String newValue) {
     state = newValue;
   }
 }
 
-
 final storage = FlutterSecureStorage(); // FlutterSecureStorage를 storage로 저장
 dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
 
 class UserNotifier extends StateNotifier<UserModel> {
   final UserRepository _userRepository;
-  UserModel user = UserModel();
 
   UserNotifier(this._userRepository) : super(UserModel());
 
@@ -69,30 +68,17 @@ class UserNotifier extends StateNotifier<UserModel> {
 
   Future<String> login(String username, String password) async {
     try {
-
       final uuid = await _userRepository.login(username, password);
 
       String token = await _userRepository.getUserInfoTokenList(uuid);
 
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
-      final response = await _userRepository
-          .getUserByUsername(decodedToken['user']['username']);
-      if (response != null && response.items != null) {
-        user = response.items!.first;
-      }
-
-      state = state.copyWith(
-        id: decodedToken['user']['id'],
-        name: decodedToken['user']['name'],
-        email: decodedToken['user']['email'],
-        username: decodedToken['user']['username'],
-      );
+      state = UserModel.fromJson(decodedToken['user']);
 
       return token;
     } catch (e) {
-      print('login failed');
-      print(e);
+      logger.e('', e);
       state = UserModel();
     }
     return 'error';
@@ -102,6 +88,8 @@ class UserNotifier extends StateNotifier<UserModel> {
 class LoginState extends ChangeNotifier {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  LoginState([int initialCount = 0]) {}
 
   bool isCheckedSavedId = false; // 아이디 저장
   bool isCheckedAutoLogin = false; // 자동 로그인

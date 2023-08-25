@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/user/model/user_disease_model.dart';
 import 'package:beauty_care/user/repository/user_disease_repository.dart';
@@ -23,7 +24,7 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> loadData() async {
     try {
-      final user = ref.watch(userNotifierProvider.notifier).user;
+      UserModel user = ref.watch(userNotifierProvider);
       await Future.wait([
         getMbtiResult(user.id),
         getDiseaseResult(user.id),
@@ -36,10 +37,8 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   }
 
   Future<void> getMbtiResult(int? userId) async {
-    UserSkinMbtiModel userSkinMbtiModel =
-        UserSkinMbtiModel(userId: userId ?? -1);
     final userResponse =
-        await userSkinMbtiRepository.getUserSkinMbtiByQuery(userSkinMbtiModel);
+        await userSkinMbtiRepository.getUserSkinMbtiByQuery(userId: userId);
     if (userResponse != null && userResponse.items != null) {
       data['mbti'] = List.from(userResponse.items!);
     } else {
@@ -50,9 +49,9 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   Future<void> getDiseaseResult(int? userId) async {
     UserDiseaseModel userDiseaseModel = UserDiseaseModel(userId: userId ?? -1);
     final userResponse =
-        await userDiseaseRepository.getUserDiseaseByQuery(userDiseaseModel);
-    // await userDiseaseRepository.getUserDiseaseAll();
+        await userDiseaseRepository.getUserDiseaseByQuery(userId ?? -1);
     if (userResponse != null && userResponse.items != null) {
+      logger.d(userResponse.items);
       data['disease'] = List.from(userResponse.items!);
     } else {
       data['disease'] = [];

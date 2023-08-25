@@ -21,8 +21,8 @@ class UserSkinMbtiRepository {
 
   // by query
   Future<PageResponse<UserSkinMbtiModel>?> getUserSkinMbtiByQuery(
-      UserSkinMbtiModel userSkinMbtiModel) async {
-    final Map<String, dynamic> query = {...userSkinMbtiModel.toJson()};
+      {int? userId, int? surveyId}) async {
+    final Map<String, dynamic> query = {'userId': userId, 'surveyId': surveyId};
     try {
       final response = await userSkinMbtiApi.getUserSkinMbtiByQuery(query);
       return response;
