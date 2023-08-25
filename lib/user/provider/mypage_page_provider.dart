@@ -11,8 +11,8 @@ final mypageStateChangeProvider =
 });
 
 // SurveyState
-final myPageStateProvider =
-    StateNotifierProvider<MyPageDataState, AsyncValue<Map<String, dynamic>>>(
+final myPageStateProvider = AutoDisposeStateNotifierProvider<MyPageDataState,
+    AsyncValue<Map<String, dynamic>>>(
   (ref) => MyPageDataState(
     ref,
     ref.read(userSkinMbtiRepositoryProvider),
