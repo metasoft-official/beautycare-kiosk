@@ -1,11 +1,9 @@
-import 'package:beauty_care/common/component/dialog/toast_message.dart';
-import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
-import 'package:beauty_care/common/component/mixins/string_util.dart';
-import 'package:beauty_care/common/provider/auth_provider.dart';
-import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
-import 'package:beauty_care/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:beauty_care/common/component/dialog/toast_message.dart';
+import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/user/provider/user_provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -13,14 +11,13 @@ import 'firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
 import 'package:beauty_care/common/const/router.dart';
 import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
+import 'package:beauty_care/common/utils/string_util.dart';
 
 var logger = Logger();
 var stringUtil = StringUtil();

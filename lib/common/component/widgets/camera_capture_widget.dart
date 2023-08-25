@@ -48,7 +48,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
 
   File? captureImage;
 
-  var userImage;
+  File? userImage;
 
   @override
   void initState() {
@@ -104,7 +104,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                         child: AspectRatio(
                           aspectRatio: 1 / _cameraController!.value.aspectRatio,
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(16, 20, 16, 16),
+                            padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
                             child: Image(
                               image:
                                   MemoryImage(captureImage!.readAsBytesSync()),
@@ -115,12 +115,12 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                     ),
                   ),
                   Container(
-                    color: Color(0xff222222),
-                    padding: EdgeInsets.fromLTRB(18, 30, 18, 40),
+                    color: const Color(0xff222222),
+                    padding: const EdgeInsets.fromLTRB(18, 30, 18, 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        SizedBox(
                           width: (size.width - 16 * 3) / 2,
                           child: ElevatedButton(
                             style: AppButtonTheme.outlinedBasicButtonTheme,
@@ -138,10 +138,10 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                 );
                               });
                             },
-                            child: Text('재촬영'),
+                            child: const Text('재촬영'),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: (size.width - 16 * 3) / 2,
                           child: ElevatedButton(
                             style: AppButtonTheme.basicElevatedButtonTheme,
@@ -150,7 +150,8 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                                   false;
 
                               if (isDisease == true) {
-                                print("질환");
+                                logger.d("질환");
+                                logger.d(captureImage);
 
                                 final imageBytes =
                                     captureImage!.readAsBytesSync();
@@ -327,7 +328,9 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                     child: FutureBuilder<void>(
                       future: _initializeCamera(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done && _cameraController != null && _cameraController!.value.isInitialized) {
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            _cameraController != null &&
+                            _cameraController!.value.isInitialized) {
                           return SizedBox(
                               width: size.width,
                               height: size.width,
@@ -440,40 +443,45 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 48.0),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     // alignment: Alignment.center,
                     children: [
                       // 휴대폰 저장된 이미지 불러올 부분 *** 추가 예정
-                      Container(
-                        child: SizedBox(
-                            height: 48,
-                            width: 48,
-                            child: IconButton(
-                                onPressed: () async {
-                                  var picker = ImagePicker();
-                                  var image = await picker.pickImage(
-                                      source: ImageSource.gallery);
+                      SizedBox(
+                        height: 48,
+                        width: 48,
+                        child: GestureDetector(
+                            onTap: () async {
+                              var picker = ImagePicker();
+                              var image = await picker.pickImage(
+                                  source: ImageSource.gallery);
 
-                                  if (image != null) {
-                                    setState(() {
-                                      userImage = File(image.path);
-                                      print('image 선택됨 ${image.path}');
-                                    });
-                                  }
-                                },
-                                icon: userImage != null
-                                    ?
-                                    // ? Image(image: FileImage(File(image.path)))
-                                    Opacity(
-                                        opacity: 0.0, // 0.0은 완전 투명, 1.0은 완전 불투명
-                                        child: Image.file(
-                                          File(userImage.path),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    : const Opacity(
-                                        opacity: 0.0,
-                                        child: Icon(Icons.add_box_outlined)))),
+                              if (image != null) {
+                                if (image.path.toLowerCase().endsWith('.jpg')) {
+                                  setState(() {
+                                    userImage = File(image.path);
+                                    isCapture = true;
+                                    captureImage = userImage;
+                                    logger.d('image 선택됨 ${image.path}');
+                                  });
+                                } else {
+                                  toastMessage
+                                      .topRedBoxWhiteText('jpg만 선택할 수 있습니다.');
+                                }
+                              }
+                            },
+                            // ? Image(image: FileImage(File(image.path)))
+                            child: userImage != null
+                                ? Image.file(
+                                    File(userImage?.path ?? '-'),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Icon(
+                                    Icons.photo,
+                                    size: 45,
+                                    color: Colors.white.withOpacity(0.5),
+                                  )),
                       ),
 
                       GestureDetector(
@@ -548,35 +556,29 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                           ),
                         ),
                       ),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Stack(children: [
-                            Container(
-                              height: 48,
-                              width: 48,
-                              decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(100)
-                                  //more than 50% of width makes circle
-                                  ),
-                            ),
-                            SizedBox(
-                              height: 48,
-                              width: 48,
-                              child: IconButton(
-                                onPressed: () async {
-                                  /// 후면 카메라 <-> 전면 카메라 변경
-                                  cameraIndex = cameraIndex == 0 ? 1 : 0;
-                                  await _initCamera();
-                                },
-                                icon: const Icon(
-                                  Icons.flip_camera_android,
-                                  color: Colors.white,
-                                  size: 34.0,
-                                ),
+                      Container(
+                          height: 43,
+                          width: 43,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(100)
+                              //more than 50% of width makes circle
                               ),
-                            )
-                          ])),
+                          child: Align(
+                            child: IconButton(
+                              padding: const EdgeInsets.all(0),
+                              onPressed: () async {
+                                /// 후면 카메라 <-> 전면 카메라 변경
+                                cameraIndex = cameraIndex == 0 ? 1 : 0;
+                                await _initCamera();
+                              },
+                              icon: Icon(
+                                Icons.flip_camera_android,
+                                color: Colors.white.withOpacity(0.8),
+                                size: 30.0,
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 ),

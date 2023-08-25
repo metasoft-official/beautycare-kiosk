@@ -100,7 +100,7 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
                   boxShadow: [
                     // box shadow
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.7),
+                      color: Colors.grey.withOpacity(0.4),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: const Offset(0, 2),
@@ -111,7 +111,7 @@ class MBTIPreStartCheckPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(
                       10.0), // Adjust the radius as needed
                   child: const Image(
-                    image: AssetImage('assets/images/pre_check_face_image.png'),
+                    image: AssetImage('assets/images/pre_check_face.png'),
                   ),
                 ),
               ),

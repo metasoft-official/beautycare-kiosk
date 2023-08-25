@@ -21,8 +21,8 @@ final surveyRepositoryProvider = Provider<SurveyRepository>((ref) {
 });
 
 // SurveyState
-final surveyStateProvider =
-    StateNotifierProvider<SurveyDataState, AsyncValue<Map<String, dynamic>>>(
+final surveyStateProvider = AutoDisposeStateNotifierProvider<SurveyDataState,
+    AsyncValue<Map<String, dynamic>>>(
   (ref) => SurveyDataState(ref, ref.read(surveyRepositoryProvider)),
 );
 

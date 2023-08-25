@@ -152,6 +152,7 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                 ),
               ),
 
+              // 설명
               const SizedBox(height: 24),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -179,7 +180,9 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      diseaseModel.symptoms ?? '-',
+                      stringUtil
+                          .removeTrailingNewlines(diseaseModel.symptoms ?? '-'),
+                      textAlign: TextAlign.start,
                       style: AppTextTheme.middleGrey12,
                     ),
                   ],

@@ -133,7 +133,7 @@ class MbtiMainState extends ConsumerState<MbtiMainPage> {
                   final response = await surveyData.postSurveyResult();
                   if (response != null) {
                     if (!mounted) return;
-                    context.push('/mbti-result?surveyId=$response');
+                    context.go('/mbti-result?surveyId=$response');
                   }
                 }
                 // 모두 답변되지 않았을 때 경고

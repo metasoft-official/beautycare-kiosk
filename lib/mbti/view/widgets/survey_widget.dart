@@ -43,7 +43,10 @@ class SurveyWidget extends ConsumerWidget {
                   children: [
                     // 질문 번호
                     Opacity(
-                      opacity: progressData.isClicked[index] == 0 ? 1 : 0.35,
+                      opacity:
+                          progressData.isClicked['$questionCode'][index] == 0
+                              ? 1
+                              : 0.35,
                       child: Container(
                         width: 28,
                         height: 28,
@@ -78,7 +81,9 @@ class SurveyWidget extends ConsumerWidget {
                               Expanded(
                                   child: Text(
                                 questions[index].question ?? '-',
-                                style: progressData.isClicked[index] == 0
+                                style: progressData.isClicked['$questionCode']
+                                            [index] ==
+                                        0
                                     ? AppTextTheme.black14b
                                     : AppTextTheme.middleGrey14m,
                               )),

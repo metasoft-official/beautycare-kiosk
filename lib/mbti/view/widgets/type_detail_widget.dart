@@ -12,12 +12,14 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/mark_texts_widget.dart';
 
 class TypeDetailWidget extends ConsumerWidget {
-  const TypeDetailWidget({Key? key, this.id, this.result, this.info})
+  const TypeDetailWidget(
+      {Key? key, this.id, this.result, this.info, this.exceptSubtitle})
       : super(key: key);
 
   final int? id;
   final UserSkinMbtiModel? result;
   final SkinMbtiModel? info;
+  final String? exceptSubtitle;
 
   // 관리법
   @override
@@ -110,9 +112,9 @@ class TypeDetailWidget extends ConsumerWidget {
                   const SizedBox(height: 36),
                   // 관리법 =====================================================
                   // 제목
-                  const MarkTextsWidget(
-                    text: "민감하고, 색소침착이 잘 되는 DSPT형",
-                    markText: 'DSPT형',
+                  MarkTextsWidget(
+                    text: "$exceptSubtitle${info?.skinMbtiName}형",
+                    markText: '${info?.skinMbtiName}형',
                     defaultTextStyle: AppTextTheme.black16b,
                     markTextStyle: AppTextTheme.blue16b,
                   ),

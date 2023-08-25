@@ -7,6 +7,7 @@ import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/provider/disease_state_provider.dart';
 import 'package:beauty_care/disease/view/widgets/disease_detail_widget.dart';
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/user/model/user_disease_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -178,7 +179,11 @@ Widget? diseaseButton(
   }
 
   return GestureDetector(
-    onTap: () => context.pushNamed('disease', extra: extra),
+    onTap: () => {
+      extra != null
+          ? context.pushNamed('disease', extra: extra)
+          : toastMessage.topRedBoxWhiteText('저장된 질환 정보가 없어 이동이 불가합니다.')
+    },
     child: Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),

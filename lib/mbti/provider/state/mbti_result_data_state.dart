@@ -43,10 +43,9 @@ class MbtiResultDataState
   Future<void> getMbtiResult() async {
     final userSkinMbtiRepository = ref.read(userSkinMbtiRepositoryProvider);
     UserSkinMbtiModel userSkinMbtiModel = UserSkinMbtiModel(surveyId: id);
-    final userResponse =
-        await userSkinMbtiRepository.getUserSkinMbtiByQuery(surveyId: id);
-    if (userResponse != null && userResponse.items != null) {
-      userData = userResponse.items!.first;
+    final userResponse = await userSkinMbtiRepository.getUserSkinMbtiById(id);
+    if (userResponse != null) {
+      userData = userResponse;
       data['result'] = userData;
     } else {
       data['result'] = UserSkinMbtiModel();

@@ -208,7 +208,6 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                       ],
                     ),
 
-                    //todo mbti image asset 추가
                     // mtbi별 이미지
                     Container(
                       margin: const EdgeInsets.only(top: 12),
@@ -227,7 +226,11 @@ class MbtiResultState extends ConsumerState<MbtiResultPage> {
                 ),
 
                 // 자세히 보기 ====================================================
-                TypeDetailWidget(id: id, result: result, info: typeInfo),
+                TypeDetailWidget(
+                    id: id,
+                    result: result,
+                    info: typeInfo,
+                    exceptSubtitle: data['subtitle']?['exceptText'] ?? '-'),
 
                 // 제품 추천받기 ======================================히=============
                 Container(

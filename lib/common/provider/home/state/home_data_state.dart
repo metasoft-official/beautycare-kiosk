@@ -107,41 +107,6 @@ class HomeDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
     'assets/images/포스트케어.jpg',
   ];
 
-  List<Map<String, dynamic>> typeProducts = [
-    {
-      'image': 'assets/images/sample_c_02.png',
-      'category': '건성피부/수분',
-      'name': '모이스춰 아쿠아세럼 50ml',
-      'price': '75,000',
-    },
-    {
-      'image': 'assets/images/sample_c_03.png',
-      'category': '건성피부/수분',
-      'name': '하이드레이팅 크림 50ml',
-      'price': '88,000',
-    }
-  ];
-  List<Map<String, dynamic>> lineProducts = [
-    {
-      'image': 'assets/images/sample_c_01.png',
-      'category': '건성피부/수분',
-      'name': '에이셀300 플루이드 50ml',
-      'price': '95,000',
-    },
-    {
-      'image': 'assets/images/sample_c_02.png',
-      'category': '건성피부/수분',
-      'name': '모이스춰 아쿠아세럼 50ml',
-      'price': '75,000',
-    },
-    {
-      'image': 'assets/images/sample_c_03.png',
-      'category': '건성피부/수분',
-      'name': '하이드레이팅 크림 50ml',
-      'price': '88,000',
-    }
-  ];
-
   // 피부 고민 키워드
   List<String> keywords = [
     '건조',
