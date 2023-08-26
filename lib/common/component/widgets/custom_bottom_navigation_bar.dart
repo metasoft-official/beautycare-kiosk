@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/provider/bottom_navigatoin_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,8 @@ import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
+import '../../../main.dart';
+
 class CustomBottomNavigationBar extends ConsumerWidget {
   final Widget child;
 
@@ -18,6 +21,7 @@ class CustomBottomNavigationBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider.notifier);
+    final menuState = ref.watch(bottomStateProvider.notifier);
 
     return CustomSpinCircleBottomBarHolder(
       bottomNavigationBar: CustomSCBottomBarDetails(
@@ -40,7 +44,8 @@ class CustomBottomNavigationBar extends ConsumerWidget {
               activeIcon: Icons.abc,
               assetPath: 'assets/icons/ic_home.svg',
               title: '홈',
-              onPressed: () => context.goNamed('home'),
+              onPressed: () =>
+                  {menuState.clickMenu(0), context.goNamed('home')},
             ),
             CustomSCBottomBarItem(
               icon: Icons.abc,
@@ -48,8 +53,10 @@ class CustomBottomNavigationBar extends ConsumerWidget {
               assetPath: 'assets/icons/ic_skincare.svg',
               title: '스킨케어',
               // onPressed: () => context.pushNamed('cosmeticProduct')
-              onPressed: () =>
-                  authState.navigateToPage(context, ref, 'cosmeticProduct'),
+              onPressed: () => {
+                menuState.clickMenu(4),
+                authState.navigateToPage(context, ref, 'cosmeticProduct')
+              },
             ),
           ],
           circleItems: [
@@ -60,13 +67,18 @@ class CustomBottomNavigationBar extends ConsumerWidget {
             // ),
             SCItem(
                 icon: const Icon(Icons.medical_information_outlined),
-                onPressed: () => context.pushNamed('surgeryProduct')),
+                onPressed: () => {
+                      menuState.clickMenu(1),
+                      context.pushNamed('surgeryProduct')
+                    }),
             SCItem(
                 icon: const Icon(Icons.medical_services_outlined),
-                onPressed: () => context.pushNamed('oxyFacial')),
+                onPressed: () =>
+                    {menuState.clickMenu(2), context.pushNamed('oxyFacial')}),
             SCItem(
                 icon: Icon(MdiIcons.giftOutline),
-                onPressed: () => context.pushNamed('promotion')),
+                onPressed: () =>
+                    {menuState.clickMenu(3), context.pushNamed('promotion')}),
           ],
           bnbHeight: 80 // Suggested Height 80
           ),
@@ -133,11 +145,6 @@ class _CustomSpinCircleBottomBarState extends State<CustomSpinCircleBottomBar> {
     final width = MediaQuery.of(context).size.width;
 
     final double bottomBarHeight = expandableBottomBarDetails.bnbHeight ?? 80;
-    final IconThemeData iconTheme = expandableBottomBarDetails.iconTheme ??
-        const IconThemeData(color: Colors.black45);
-    final IconThemeData activeIconTheme =
-        expandableBottomBarDetails.activeIconTheme ??
-            const IconThemeData(color: Colors.black);
     final TextStyle textStyle = expandableBottomBarDetails.titleStyle ??
         const TextStyle(
             color: Colors.black45, fontWeight: FontWeight.normal, fontSize: 12);
