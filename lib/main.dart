@@ -1,3 +1,9 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/model/page_response_model.dart';
+import 'package:beauty_care/common/model/splash_mobile_model.dart';
+import 'package:beauty_care/common/provider/splash_mobile_provider.dart';
+import 'package:beauty_care/common/view/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -55,24 +61,27 @@ void main() async {
 
   print("firebase_token : ${firebase_token ?? 'token NULL!'}");
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userApi = ref.read(userApiProvider);
     final authStateNotifier = ref.watch(authStateProvider.notifier);
 
     // 앱 시작 시 자동 로그인 시도
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       authStateNotifier.tryAutoLogin();
     });
 
-    return MaterialApp.router(
+    return MaterialApp(
+      title: 'BeautyCare',
       theme: appTheme,
       debugShowCheckedModeBanner: false,
-      routerConfig: router,
+      home: const SplashScreen(),
     );
   }
 }

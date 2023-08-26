@@ -319,3 +319,4 @@ fabric.properties
 #/android/app/debug
 #/android/app/profile
 #/android/app/release
+/.idea/git_toolbox_prj.xml
