@@ -17,7 +17,7 @@ _$_AccountDtoModel _$$_AccountDtoModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AccountDtoModelToJson(_$_AccountDtoModel instance) =>
     <String, dynamic>{
-      'roleId': instance.roleId,
-      'userId': instance.userId,
+      'roleId': intToString(instance.roleId),
+      'userId': intToString(instance.userId),
       'userDto': instance.userDto,
     };

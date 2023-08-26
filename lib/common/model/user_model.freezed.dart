@@ -20,6 +20,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
+  @JsonKey(toJson: intToString)
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
@@ -30,8 +31,10 @@ mixin _$UserModel {
   String? get address2 => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   DateTime? get joinDate => throw _privateConstructorUsedError;
+  @JsonKey(toJson: intToString)
   int? get age => throw _privateConstructorUsedError;
-  DateTime? get birthDate => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
+  dynamic get birthDate => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   DateTime? get lastAccessDate => throw _privateConstructorUsedError;
   String? get mobileNumber => throw _privateConstructorUsedError;
@@ -54,7 +57,7 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {int? id,
+      {@JsonKey(toJson: intToString) int? id,
       String? name,
       String? username,
       String? password,
@@ -64,8 +67,8 @@ abstract class $UserModelCopyWith<$Res> {
       String? address2,
       String? phoneNumber,
       DateTime? joinDate,
-      int? age,
-      DateTime? birthDate,
+      @JsonKey(toJson: intToString) int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime) dynamic birthDate,
       String? gender,
       DateTime? lastAccessDate,
       String? mobileNumber,
@@ -160,7 +163,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       birthDate: freezed == birthDate
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as dynamic,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -209,7 +212,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {@JsonKey(toJson: intToString) int? id,
       String? name,
       String? username,
       String? password,
@@ -219,8 +222,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? address2,
       String? phoneNumber,
       DateTime? joinDate,
-      int? age,
-      DateTime? birthDate,
+      @JsonKey(toJson: intToString) int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime) dynamic birthDate,
       String? gender,
       DateTime? lastAccessDate,
       String? mobileNumber,
@@ -310,10 +313,7 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as int?,
-      birthDate: freezed == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      birthDate: freezed == birthDate ? _value.birthDate! : birthDate,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -358,7 +358,7 @@ class __$$_UserModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserModel implements _UserModel {
   _$_UserModel(
-      {this.id,
+      {@JsonKey(toJson: intToString) this.id,
       this.name,
       this.username,
       this.password,
@@ -368,8 +368,8 @@ class _$_UserModel implements _UserModel {
       this.address2,
       this.phoneNumber,
       this.joinDate,
-      this.age,
-      this.birthDate,
+      @JsonKey(toJson: intToString) this.age,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.birthDate,
       this.gender,
       this.lastAccessDate,
       this.mobileNumber,
@@ -384,6 +384,7 @@ class _$_UserModel implements _UserModel {
       _$$_UserModelFromJson(json);
 
   @override
+  @JsonKey(toJson: intToString)
   final int? id;
   @override
   final String? name;
@@ -404,9 +405,11 @@ class _$_UserModel implements _UserModel {
   @override
   final DateTime? joinDate;
   @override
+  @JsonKey(toJson: intToString)
   final int? age;
   @override
-  final DateTime? birthDate;
+  @JsonKey(toJson: datetimeToLocalDateTime)
+  final dynamic birthDate;
   @override
   final String? gender;
   @override
@@ -453,8 +456,7 @@ class _$_UserModel implements _UserModel {
             (identical(other.joinDate, joinDate) ||
                 other.joinDate == joinDate) &&
             (identical(other.age, age) || other.age == age) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate) &&
+            const DeepCollectionEquality().equals(other.birthDate, birthDate) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.lastAccessDate, lastAccessDate) ||
                 other.lastAccessDate == lastAccessDate) &&
@@ -489,7 +491,7 @@ class _$_UserModel implements _UserModel {
         phoneNumber,
         joinDate,
         age,
-        birthDate,
+        const DeepCollectionEquality().hash(birthDate),
         gender,
         lastAccessDate,
         mobileNumber,
@@ -517,7 +519,7 @@ class _$_UserModel implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   factory _UserModel(
-      {final int? id,
+      {@JsonKey(toJson: intToString) final int? id,
       final String? name,
       final String? username,
       final String? password,
@@ -527,8 +529,8 @@ abstract class _UserModel implements UserModel {
       final String? address2,
       final String? phoneNumber,
       final DateTime? joinDate,
-      final int? age,
-      final DateTime? birthDate,
+      @JsonKey(toJson: intToString) final int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime) final dynamic birthDate,
       final String? gender,
       final DateTime? lastAccessDate,
       final String? mobileNumber,
@@ -543,6 +545,7 @@ abstract class _UserModel implements UserModel {
       _$_UserModel.fromJson;
 
   @override
+  @JsonKey(toJson: intToString)
   int? get id;
   @override
   String? get name;
@@ -563,9 +566,11 @@ abstract class _UserModel implements UserModel {
   @override
   DateTime? get joinDate;
   @override
+  @JsonKey(toJson: intToString)
   int? get age;
   @override
-  DateTime? get birthDate;
+  @JsonKey(toJson: datetimeToLocalDateTime)
+  dynamic get birthDate;
   @override
   String? get gender;
   @override

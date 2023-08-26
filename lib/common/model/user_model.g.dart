@@ -20,9 +20,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
           ? null
           : DateTime.parse(json['joinDate'] as String),
       age: json['age'] as int?,
-      birthDate: json['birthDate'] == null
-          ? null
-          : DateTime.parse(json['birthDate'] as String),
+      birthDate: json['birthDate'],
       gender: json['gender'] as String?,
       lastAccessDate: json['lastAccessDate'] == null
           ? null
@@ -44,7 +42,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': intToString(instance.id),
       'name': instance.name,
       'username': instance.username,
       'password': instance.password,
@@ -54,8 +52,8 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'address2': instance.address2,
       'phoneNumber': instance.phoneNumber,
       'joinDate': instance.joinDate?.toIso8601String(),
-      'age': instance.age,
-      'birthDate': instance.birthDate?.toIso8601String(),
+      'age': intToString(instance.age),
+      'birthDate': datetimeToLocalDateTime(instance.birthDate),
       'gender': instance.gender,
       'lastAccessDate': instance.lastAccessDate?.toIso8601String(),
       'mobileNumber': instance.mobileNumber,

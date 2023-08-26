@@ -20,7 +20,9 @@ AccountDtoModel _$AccountDtoModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AccountDtoModel {
+  @JsonKey(toJson: intToString)
   int? get roleId => throw _privateConstructorUsedError;
+  @JsonKey(toJson: intToString)
   int? get userId => throw _privateConstructorUsedError;
   UserModel? get userDto => throw _privateConstructorUsedError;
 
@@ -36,7 +38,10 @@ abstract class $AccountDtoModelCopyWith<$Res> {
           AccountDtoModel value, $Res Function(AccountDtoModel) then) =
       _$AccountDtoModelCopyWithImpl<$Res, AccountDtoModel>;
   @useResult
-  $Res call({int? roleId, int? userId, UserModel? userDto});
+  $Res call(
+      {@JsonKey(toJson: intToString) int? roleId,
+      @JsonKey(toJson: intToString) int? userId,
+      UserModel? userDto});
 
   $UserModelCopyWith<$Res>? get userDto;
 }
@@ -95,7 +100,10 @@ abstract class _$$_AccountDtoModelCopyWith<$Res>
       __$$_AccountDtoModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? roleId, int? userId, UserModel? userDto});
+  $Res call(
+      {@JsonKey(toJson: intToString) int? roleId,
+      @JsonKey(toJson: intToString) int? userId,
+      UserModel? userDto});
 
   @override
   $UserModelCopyWith<$Res>? get userDto;
@@ -136,14 +144,19 @@ class __$$_AccountDtoModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AccountDtoModel implements _AccountDtoModel {
-  _$_AccountDtoModel({this.roleId, this.userId, this.userDto});
+  _$_AccountDtoModel(
+      {@JsonKey(toJson: intToString) this.roleId,
+      @JsonKey(toJson: intToString) this.userId,
+      this.userDto});
 
   factory _$_AccountDtoModel.fromJson(Map<String, dynamic> json) =>
       _$$_AccountDtoModelFromJson(json);
 
   @override
+  @JsonKey(toJson: intToString)
   final int? roleId;
   @override
+  @JsonKey(toJson: intToString)
   final int? userId;
   @override
   final UserModel? userDto;
@@ -183,16 +196,18 @@ class _$_AccountDtoModel implements _AccountDtoModel {
 
 abstract class _AccountDtoModel implements AccountDtoModel {
   factory _AccountDtoModel(
-      {final int? roleId,
-      final int? userId,
+      {@JsonKey(toJson: intToString) final int? roleId,
+      @JsonKey(toJson: intToString) final int? userId,
       final UserModel? userDto}) = _$_AccountDtoModel;
 
   factory _AccountDtoModel.fromJson(Map<String, dynamic> json) =
       _$_AccountDtoModel.fromJson;
 
   @override
+  @JsonKey(toJson: intToString)
   int? get roleId;
   @override
+  @JsonKey(toJson: intToString)
   int? get userId;
   @override
   UserModel? get userDto;

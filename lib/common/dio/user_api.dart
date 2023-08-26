@@ -1,6 +1,7 @@
 import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/role_user_model.dart';
 import 'package:beauty_care/common/model/user_model.dart';
+import 'package:beauty_care/user/model/account_dto_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:beauty_care/common/const/values.dart';

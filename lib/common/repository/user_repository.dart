@@ -51,11 +51,12 @@ class UserRepository {
   }
 
   Future<String?> postUser(UserModel userModel) async {
-    AccountDtoModel accountDtoModel =
-        AccountDtoModel(userDto: userModel, roleId: 2);
     final Map<String, dynamic> query = {
-      ...accountDtoModel.toJson(),
+      'userId': null,
+      'roleId': "2",
+      'userDto': {...userModel.toJson()}
     };
+    logger.d(query['age'] is String);
     try {
       final response = await _userApi.postUser(query);
       logger.d(response);

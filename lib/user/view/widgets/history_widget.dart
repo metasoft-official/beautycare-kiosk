@@ -88,8 +88,7 @@ class HistoryWidget extends StatelessWidget {
                   } else if (histories?[index] is UserSkinMbtiModel) {
                     type = 'mbti';
                     mbti = histories?[index];
-                    // imageId = todo Mbti assets 정리
-                    url = '/mbti-result?surveyId=${mbti.surveyId}';
+                    url = '/mbti-result?surveyId=${mbti.id}';
                   }
 
                   return Padding(
