@@ -62,4 +62,19 @@ class StringUtil {
       return DateFormat("yyyy-MM-dd HH:mm").format(value);
     }
   }
+
+  String? dayFromNow(DateTime? value) {
+    String? dDay;
+    if (value != null) {
+      int? result = value.difference(DateTime.now()).inDays + 1;
+      if (result > 0) {
+        dDay = result.toString();
+      } else {
+        dDay = 'Day';
+      }
+      return dDay;
+    } else {
+      return null;
+    }
+  }
 }

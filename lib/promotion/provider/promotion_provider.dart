@@ -17,8 +17,7 @@ final promotionRepositoryProvider = Provider<PromotionRepository>((ref) {
   return PromotionRepository(PromotionApi);
 });
 
-final promotionStateProvider =
-    StateNotifierProvider<PromotionDataState, AsyncValue<Map<String, dynamic>>>(
-        (ref) {
+final promotionStateProvider = AutoDisposeStateNotifierProvider<
+    PromotionDataState, AsyncValue<Map<String, dynamic>>>((ref) {
   return PromotionDataState(ref, ref.read(promotionRepositoryProvider));
 });
