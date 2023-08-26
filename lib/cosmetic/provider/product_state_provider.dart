@@ -1,10 +1,16 @@
-import 'package:carousel_slider/carousel_controller.dart';
+import 'package:beauty_care/cosmetic/provider/state/promotion_change_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final productStateProvider = ChangeNotifierProvider<ProductState>((ref) {
+final sliderChangeProvider =
+    AutoDisposeChangeNotifierProvider<PromotionChangeState>((ref) {
+  return PromotionChangeState();
+});
+
+final productStateProvider =
+    AutoDisposeChangeNotifierProvider<ProductState>((ref) {
   return ProductState();
 });
 
@@ -17,7 +23,6 @@ class ProductState extends ChangeNotifier {
     'assets/images/promotion_banner_01.png',
     'assets/images/promotion_banner_02.png'
   ];
-  int curIndex = 0;
 
   List<String> troubleCategories = [
     '민감',
@@ -42,11 +47,6 @@ class ProductState extends ChangeNotifier {
       }
       notifyListeners();
     }
-  }
-
-  changePage(int index) {
-    curIndex = index;
-    resetState();
   }
 
   Future<void> openWeb(String productUrl) async {

@@ -36,8 +36,6 @@ class SkinProductDataState
     'assets/images/promotion_banner_01.png',
     'assets/images/promotion_banner_02.png'
   ];
-  int curIndex = 0;
-  CarouselController carouselController = CarouselController();
 
   Future<void> loadData() async {
     try {
@@ -148,14 +146,5 @@ class SkinProductDataState
 
   void reload() {
     state = AsyncValue.data(data);
-  }
-
-  // all page ======
-
-  String troubleSelectedValue = '민감';
-  String periodSelectedValue = '오늘';
-  String orderSelectedValue = '인기순';
-  changePage(int index) {
-    curIndex = index;
   }
 }

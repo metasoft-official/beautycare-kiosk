@@ -1,3 +1,7 @@
+import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
+import 'package:beauty_care/promotion/model/promotion_model.dart';
+import 'package:beauty_care/promotion/provider/promotion_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart';
@@ -25,19 +29,23 @@ class CosmeticProductAll extends ConsumerWidget {
     final productState = ref.watch(skinProductStateProvider.notifier);
     final user = ref.watch(userNotifierProvider);
     final homeState = ref.watch(homeDataStateProvider.notifier);
+    final promotion = ref.watch(promotionStateProvider);
+    final promotionState = ref.watch(promotionStateProvider.notifier);
+    final sliderState = ref.watch(sliderChangeProvider);
+    List<PromotionModel> promotions = promotionState.data['promotions'] ?? [];
 
     return Column(
       children: [
-        if (productState.promotionList.isNotEmpty) ...[
+        if (promotionState.data['promotions'] != null) ...[
           // 프로모션 슬라이더
           Stack(
             children: [
               CarouselSlider.builder(
-                itemCount: productState.promotionList.length,
-                carouselController: productState.carouselController,
+                itemCount: promotions.length,
+                carouselController: sliderState.carouselController,
                 options: CarouselOptions(
                   onPageChanged: (index, reason) {
-                    productState.curIndex = index;
+                    sliderState.changePage(index);
                   },
                   autoPlay: true,
                   height: 240,
@@ -51,11 +59,28 @@ class CosmeticProductAll extends ConsumerWidget {
                     width: double.infinity,
                     child: Column(
                       children: [
-                        Image.asset(
-                          productState.promotionList[itemIndex],
+                        SizedBox(
                           height: 240,
                           width: double.infinity,
-                          fit: BoxFit.cover,
+                          child: promotions[itemIndex].promotionImageId != null
+                              ? Image.network(
+                                  '${Strings.imageUrl}${promotions[itemIndex].promotionImageId}',
+                                  fit: BoxFit.cover,
+                                  // 네트워크 Empty 예외처리
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      'assets/images/sample_images_01.png',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                )
+                              // 이미지 아이디 Null 예외처리
+                              : Image.asset(
+                                  'assets/images/sample_images_01.png',
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ],
                     ),
@@ -102,9 +127,8 @@ class CosmeticProductAll extends ConsumerWidget {
                 height: 4,
                 decoration: const BoxDecoration(color: AppColor.lowGrey)),
             Container(
-              width: ((MediaQuery.of(context).size.width) /
-                      productState.promotionList.length) *
-                  (productState.curIndex + 1),
+              width: ((MediaQuery.of(context).size.width) / promotions.length) *
+                  (sliderState.curIndex + 1),
               height: 4,
               decoration: const BoxDecoration(color: AppColor.appColor),
             ),
@@ -255,7 +279,7 @@ class CosmeticProductAll extends ConsumerWidget {
                   child: Row(
                     children: [
                       Text(
-                        productState.periodSelectedValue,
+                        '이번 주',
                         style: AppTextTheme.blue20b.copyWith(height: 1.2),
                       ),
                       const Icon(
