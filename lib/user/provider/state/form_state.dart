@@ -1,8 +1,5 @@
-import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/user/model/form_state_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../../main.dart';
 
 class FormNotifier extends StateNotifier<FormStateModel> {
   FormNotifier(this.ref)
@@ -26,6 +23,10 @@ class FormNotifier extends StateNotifier<FormStateModel> {
             'email': false,
           },
         ));
+
+  init() {
+    FormNotifier(ref);
+  }
 
   Ref ref;
 

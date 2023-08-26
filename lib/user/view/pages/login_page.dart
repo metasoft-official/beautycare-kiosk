@@ -184,7 +184,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: () => context.pushNamed('findId'),
+                          onPressed: () => context.pushNamed('findIdPw'),
                           child:
                               const Text("아이디 찾기", style: AppTextTheme.black12),
                         ),

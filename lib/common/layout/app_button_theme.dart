@@ -11,6 +11,13 @@ class AppButtonTheme {
       textStyle: AppTextTheme.elevatedButton,
       padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
+  static final basicElevatedNoRoundedButtonTheme = ElevatedButton.styleFrom(
+      elevation: 0.0,
+      backgroundColor: AppColor.appColor,
+      foregroundColor: Colors.white,
+      textStyle: AppTextTheme.white12b.copyWith(height: 1.2),
+      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero));
   static final greyElevatedButtonTheme = ElevatedButton.styleFrom(
       elevation: 0.0,
       backgroundColor: AppColor.lowGrey,
@@ -76,6 +83,22 @@ class AppButtonTheme {
       side: const BorderSide(color: AppColor.darkButtonColor),
     ),
   );
+  static final outlinedGreyTextButtonTheme = OutlinedButton.styleFrom(
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      foregroundColor: AppColor.middleGrey,
+      side: const BorderSide(color: AppColor.semiGrey),
+      textStyle: AppTextTheme.middleGrey12m,
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
+
+  static final basicBlueTextButtonTheme = ElevatedButton.styleFrom(
+      elevation: 0.0,
+      backgroundColor: AppColor.appColor,
+      foregroundColor: Colors.white,
+      textStyle: AppTextTheme.blue12b,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)));
   static final basicTextButtonTheme = TextButton.styleFrom(
     elevation: 0.0,
     foregroundColor: AppColor.textButtonColor,

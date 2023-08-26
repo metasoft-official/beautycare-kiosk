@@ -14,7 +14,7 @@ import 'package:beauty_care/common/view/pages/predict_skin_mbti_page.dart';
 
 import 'package:beauty_care/user/view/pages/login_page.dart';
 import 'package:beauty_care/user/view/pages/register_page.dart';
-import 'package:beauty_care/user/view/pages/find_id_page.dart';
+import 'package:beauty_care/user/view/pages/find_id_pw_page.dart';
 import 'package:beauty_care/user/view/pages/mypage_page.dart';
 import 'package:beauty_care/user/view/pages/profile_edit_page.dart';
 import 'package:beauty_care/user/view/pages/prediction_history_page.dart';
@@ -88,9 +88,9 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/find-id',
-      name: FindIdPage.routeName,
-      builder: (context, state) => const FindIdPage(),
+      path: '/find-id-pw',
+      name: FindIdPwPage.routeName,
+      builder: (context, state) => const FindIdPwPage(),
     ),
     // GoRoute(
     //   path: '/find-password',
