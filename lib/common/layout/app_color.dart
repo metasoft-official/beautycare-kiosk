@@ -47,6 +47,7 @@ class AppColor {
 
   // Common Color
   static const Color primary = Color(0xFF23D9D1);
+  static const Color rowPrimary = Color(0xFF25d9d0);
   static const Color deepPrimary = Color(0xFF3FB8AE);
   static const Color semiPrimary = Color(0xFFE0F5F3);
   static const Color lightPrimary = Color(0xFFF1FBFA);

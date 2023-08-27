@@ -1,5 +1,9 @@
+import 'package:beauty_care/common/view/pages/select_device_page.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/view/pages/disease_selected_page.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_disease_result_page.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_shooting_page.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_pre_check_page.dart';
 import 'package:beauty_care/promotion/view/pages/promotion_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,8 +32,10 @@ import 'package:beauty_care/noti/view/pages/noti_main_page.dart';
 import 'package:beauty_care/mbti/view/pages/mbti_shooting_page.dart';
 
 import 'package:beauty_care/oxyfacial/view/pages/oxy_facial_main_page.dart';
-
 import 'package:beauty_care/disease/view/pages/disease_result_page.dart';
+
+import 'package:beauty_care/kiosk/view/pages/kiosk_home_page.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_main_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -40,8 +46,9 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      name: SelectDevicePage.routeName,
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: HomePage(),
+        child: SelectDevicePage(),
       ),
     ),
     // ShellRoute(
@@ -60,6 +67,40 @@ final GoRouter router = GoRouter(
       name: HomePage.routeName,
       pageBuilder: (context, state) => const NoTransitionPage(
         child: HomePage(),
+      ),
+    ),
+    GoRoute(
+      path: '/kiosk-main',
+      name: KioskMainPage.routeName,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: KioskMainPage(),
+      ),
+    ),
+    GoRoute(
+      path: '/kiosk-home',
+      name: KioskHomePage.routeName,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: KioskHomePage(),
+      ),
+    ),
+    GoRoute(
+      path: '/kiosk-pre-check',
+      name: KioskPreCheckPage.routeName,
+      pageBuilder: (context, state) => MaterialPage(
+        // You might need to use a suitable subclass of Page here
+        child: KioskPreCheckPage(
+          type: state.queryParameters['type'],
+        ),
+      ),
+    ),
+    GoRoute(
+      path: '/kiosk-shooting',
+      name: KioskShootingPage.routeName,
+      pageBuilder: (context, state) => MaterialPage(
+        // You might need to use a suitable subclass of Page here
+        child: KioskShootingPage(
+          type: state.queryParameters['type'],
+        ),
       ),
     ),
     //   ],
@@ -176,6 +217,13 @@ final GoRouter router = GoRouter(
       path: '/skin-result',
       name: DiseaseResultPage.routeName,
       builder: (context, state) => DiseaseResultPage(
+        diseaseId: state.queryParameters['diseaseId'],
+      ),
+    ),
+    GoRoute(
+      path: '/kiosk-disease-result',
+      name: KioskDiseaseResultPage.routeName,
+      builder: (context, state) => KioskDiseaseResultPage(
         diseaseId: state.queryParameters['diseaseId'],
       ),
     ),

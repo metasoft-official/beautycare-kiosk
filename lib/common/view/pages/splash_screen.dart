@@ -39,7 +39,7 @@ class _SplashScreenState extends ConsumerState {
     Future<PageResponse<SplashMobileModel>?> response =
         ref.watch(splashMobileRepositoryProvider).getSplashMobileByQuery();
     response.then(
-        (value) => splashImgUrl = value!.items!.first.imageId.toString() ?? '');
+        (value) => splashImgUrl = value?.items!.first.imageId.toString() ?? '');
 
     return Scaffold(
       backgroundColor: Colors.white,

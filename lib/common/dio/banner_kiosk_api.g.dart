@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'oxy_facial_api.dart';
+part of 'banner_kiosk_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'oxy_facial_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _OxyFacialApi implements OxyFacialApi {
-  _OxyFacialApi(
+class _BannerKioskApi implements BannerKioskApi {
+  _BannerKioskApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,54 +21,54 @@ class _OxyFacialApi implements OxyFacialApi {
   String? baseUrl;
 
   @override
-  Future<PageResponse<OxyFacialModel>> getOxyFacialAll() async {
+  Future<PageResponse<BannerKioskModel>> getBannerKioskAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<OxyFacialModel>>(Options(
+        _setStreamType<PageResponse<BannerKioskModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/common/oxy-facials',
+              '/common/banner-kiosks',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<OxyFacialModel>.fromJson(
+    final value = PageResponse<BannerKioskModel>.fromJson(
       _result.data!,
-      (json) => OxyFacialModel.fromJson(json as Map<String, dynamic>),
+      (json) => BannerKioskModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<PageResponse<OxyFacialModel>> getOxyFacialListByQuery(query) async {
+  Future<PageResponse<BannerKioskModel>> getBannerKioskByQuery(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<OxyFacialModel>>(Options(
+        _setStreamType<PageResponse<BannerKioskModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/common/oxy-facials',
+              '/common/banner-kiosks',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<OxyFacialModel>.fromJson(
+    final value = PageResponse<BannerKioskModel>.fromJson(
       _result.data!,
-      (json) => OxyFacialModel.fromJson(json as Map<String, dynamic>),
+      (json) => BannerKioskModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
