@@ -973,7 +973,7 @@ class AppTextTheme {
   static const blue36b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
-      fontWeight: FontWeight.w900,
+      fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blueBlack12l = TextStyle(
       fontFamily: 'noto_sans_kr',

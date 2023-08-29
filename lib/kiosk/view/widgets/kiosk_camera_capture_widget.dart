@@ -136,7 +136,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                           },
                           child: const Text(
                             '재촬영',
-                            style: KioskTextTheme.blue48b,
+                            style: KioskTextTheme.blue36b,
                           ),
                         ),
                       ),
@@ -239,7 +239,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                               context.pushNamed('KioskSurvey');
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             '확인',
                             style: KioskTextTheme.white48b,
                           ),

@@ -1,10 +1,12 @@
-import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:beauty_care/common/layout/app_color.dart';
 
 class KioskAppBar extends ConsumerStatefulWidget {
-  const KioskAppBar({Key? key}) : super(key: key);
+  const KioskAppBar({Key? key, this.color}) : super(key: key);
+
+  final Color? color;
 
   @override
   KioskAppBarState createState() => KioskAppBarState();
@@ -14,9 +16,9 @@ class KioskAppBarState extends ConsumerState<KioskAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.fromLTRB(73, 70, 73, 50),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      color: widget.color ?? Colors.white,
+      padding: const EdgeInsets.fromLTRB(65, 70, 65, 30),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Image(
           width: 400,
           image: AssetImage(
@@ -27,7 +29,7 @@ class KioskAppBarState extends ConsumerState<KioskAppBar> {
         GestureDetector(
           onTap: () => context.goNamed('kioskHome'),
           child:
-              const Icon(Icons.home_filled, color: AppColor.appColor, size: 80),
+              const Icon(Icons.home_filled, color: AppColor.appColor, size: 75),
         ),
       ]),
     );

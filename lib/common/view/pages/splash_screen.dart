@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../main.dart';
+
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -18,7 +20,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class SplashScreenState extends ConsumerState {
   bool isKioskMode = false;
-  String splashImgUrl = '';
+  String splashImgId = '';
 
   @override
   void initState() {
@@ -32,17 +34,16 @@ class SplashScreenState extends ConsumerState {
   void navigateToApp() {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (BuildContext context) =>
-            AppWrapper(isKioskMode: isKioskMode, splashImgUrl: splashImgUrl),
+        builder: (BuildContext context) => AppWrapper(isKioskMode: isKioskMode),
       ),
     );
   }
 
   void checkKioskPermission() {
     Size screenSize = MediaQuery.of(context).size;
-
-    double iPadProScreenWidthThreshold = 1024.0;
-    double iPadProScreenHeightThreshold = 1366.0;
+    logger.d(screenSize);
+    double iPadProScreenWidthThreshold = 744.0;
+    double iPadProScreenHeightThreshold = 1133.0;
 
     if (screenSize.width >= iPadProScreenWidthThreshold &&
         screenSize.height >= iPadProScreenHeightThreshold) {
@@ -62,7 +63,7 @@ class SplashScreenState extends ConsumerState {
   void loadSplashImage() async {
     final response =
         await ref.read(splashMobileRepositoryProvider).getSplashMobileByQuery();
-    splashImgUrl = response?.items?.first.imageId.toString() ?? '';
+    splashImgId = response?.items?.first.imageId.toString() ?? '';
     setState(
         () {}); // Update the state to trigger a rebuild with the loaded image URL
   }
@@ -75,7 +76,7 @@ class SplashScreenState extends ConsumerState {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Image.network(
-          '${Strings.imageUrl}$splashImgUrl',
+          '${Strings.imageUrl}$splashImgId',
           fit: BoxFit.cover,
           // 네트워크 Empty 예외처리
           errorBuilder:
@@ -93,20 +94,17 @@ class SplashScreenState extends ConsumerState {
 
 class AppWrapper extends StatelessWidget {
   final bool isKioskMode;
-  final String splashImgUrl;
-
-  const AppWrapper(
-      {super.key, required this.isKioskMode, required this.splashImgUrl});
+  const AppWrapper({super.key, required this.isKioskMode});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: isKioskMode ? const Size(1366, 1024) : const Size(800, 600),
+      designSize: isKioskMode ? const Size(1920, 1080) : const Size(800, 600),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           theme: appTheme,
           debugShowCheckedModeBanner: false,
-          routerConfig: router,
+          routerConfig: AppRouter.getRouter(isKioskMode),
           color: AppColor.lightGrey,
         );
       },

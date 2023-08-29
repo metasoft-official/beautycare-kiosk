@@ -9,8 +9,8 @@ class KioskButtonTheme {
       elevation: 0.0,
       backgroundColor: AppColor.appColor,
       foregroundColor: Colors.white,
-      textStyle: KioskTextTheme.white56m,
-      padding: const EdgeInsets.symmetric(vertical: 33, horizontal: 10),
+      textStyle: KioskTextTheme.white48m,
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)));
   static final basicElevatedNoRoundedButtonTheme = ElevatedButton.styleFrom(
       elevation: 0.0,
@@ -37,9 +37,9 @@ class KioskButtonTheme {
       elevation: 0.0,
       backgroundColor: Colors.white,
       foregroundColor: AppColor.appColor,
-      side: const BorderSide(color: AppColor.appColor),
-      textStyle: KioskTextTheme.blue48m,
-      padding: const EdgeInsets.symmetric(vertical: 33, horizontal: 10),
+      side: const BorderSide(color: AppColor.appColor, width: 2),
+      textStyle: KioskTextTheme.blue36m,
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)));
   static final outlinedRoundedButtonTheme = OutlinedButton.styleFrom(
     elevation: 0.0,

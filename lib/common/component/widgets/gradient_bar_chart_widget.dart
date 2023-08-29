@@ -10,8 +10,9 @@ class GradientBarChartWidget extends StatelessWidget {
   final double? percent;
   final Color? backgourndColor;
   final double? width;
+  final double? height;
   const GradientBarChartWidget(
-      {super.key, this.percent, this.backgourndColor, this.width});
+      {super.key, this.percent, this.backgourndColor, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class GradientBarChartWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           height: width,
-          width: 16,
+          width: height ?? 16,
           child: BarChart(
             BarChartData(
               gridData: FlGridData(
@@ -45,7 +46,7 @@ class GradientBarChartWidget extends StatelessWidget {
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        width: 16,
+                        width: height ?? 16,
                         toY: percent!),
                   ],
                 ),

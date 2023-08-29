@@ -1,8 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:beauty_care/common/const/values.dart';
-import 'package:beauty_care/common/model/page_response_model.dart';
-import 'package:beauty_care/common/model/splash_mobile_model.dart';
-import 'package:beauty_care/common/provider/splash_mobile_provider.dart';
 import 'package:beauty_care/common/view/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,7 +15,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
-import 'package:beauty_care/common/const/router.dart';
 import 'package:beauty_care/common/const/globals.dart';
 import 'package:beauty_care/common/layout/app_theme.dart';
 import 'package:beauty_care/common/utils/string_util.dart';
@@ -58,9 +52,7 @@ void main() async {
   );
 
   String? firebase_token = await FirebaseMessaging.instance.getToken();
-
   print("firebase_token : ${firebase_token ?? 'token NULL!'}");
-
   runApp(const ProviderScope(child: MyApp()));
 }
 
