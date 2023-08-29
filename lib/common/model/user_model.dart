@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:beauty_care/common/model/integrated_attach_file_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -25,7 +26,8 @@ String? intToString(int? value) {
 @freezed
 class UserModel with _$UserModel {
   factory UserModel(
-      {@JsonKey(toJson: intToString) int? id,
+      {@JsonKey(toJson: intToString)
+          int? id,
       String? name,
       String? username,
       String? password,
@@ -34,18 +36,28 @@ class UserModel with _$UserModel {
       String? address1,
       String? address2,
       String? phoneNumber,
-      DateTime? joinDate,
-      @JsonKey(toJson: intToString) int? age,
-      @JsonKey(toJson: datetimeToLocalDateTime) birthDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? joinDate,
+      @JsonKey(toJson: intToString)
+          int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          birthDate,
       String? gender,
-      DateTime? lastAccessDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastAccessDate,
       String? mobileNumber,
-      DateTime? lastModifiedPasswordDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedPasswordDate,
       String? status,
-      DateTime? createdDate,
-      DateTime? lastModifiedDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? createdDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedDate,
       String? socialLoginId,
-      String? socialLoginType}) = _UserModel;
+      String? socialLoginType,
+      @JsonKey(toJson: intToString)
+          int? profileImageId,
+      IntegratedAttachFileModel? profileImage}) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

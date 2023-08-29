@@ -181,12 +181,13 @@ class HomePageState extends ConsumerState<HomePage> {
 
                       // 피부 타입 별 랭킹 ==================================================
                       ListTitleWidget(
-                          text: '피부 타입 별 랭킹',
-                          markText: '피부 타입 별',
-                          onTap: () => {
-                                authStateNotifier.navigateToPage(
-                                    context, ref, 'cosmeticProduct'),
-                              }),
+                        text: '피부 타입 별 랭킹',
+                        markText: '피부 타입 별',
+                        onTap: () => {
+                          authStateNotifier.navigateToPage(
+                              context, ref, 'cosmeticProduct'),
+                        },
+                      ),
                       // 피부 타입 별 카테고리
                       HorizontalCategoryWidget(
                         // onPressed: homeState.setBannerIndex,

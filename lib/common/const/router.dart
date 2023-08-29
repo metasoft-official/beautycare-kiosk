@@ -40,6 +40,8 @@ import 'package:beauty_care/kiosk/view/pages/kiosk_main_page.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
+// if()
+
 final GoRouter router = GoRouter(
   initialLocation: '/',
   navigatorKey: _rootNavigatorKey,

@@ -13,6 +13,7 @@ class FormStateModel with _$FormStateModel {
     String? phSecond,
     String? phThird,
     String? email,
+    int? profileImageId,
     bool? isUsernameValid,
     bool? isPasswordValid,
     bool? isRePasswordValid,

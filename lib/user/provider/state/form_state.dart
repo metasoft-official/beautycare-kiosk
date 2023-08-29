@@ -12,6 +12,7 @@ class FormNotifier extends StateNotifier<FormStateModel> {
           phSecond: '',
           phThird: '',
           email: '',
+          profileImageId: null,
           inputStartedFlags: {
             'username': false,
             'password': false,
@@ -84,6 +85,10 @@ class FormNotifier extends StateNotifier<FormStateModel> {
           break;
       }
     }
+  }
+
+  updateProfileImage(int id) {
+    state = state.copyWith(profileImageId: id);
   }
 
   bool _validateUsername(String username) {

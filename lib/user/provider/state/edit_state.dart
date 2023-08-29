@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/user/model/account_dto_model.dart';
@@ -15,11 +17,47 @@ class EditState extends ChangeNotifier {
   List<String> gender = ['F', 'M'];
   String selectedGender = 'F';
 
-  void initState() {}
+  UserModel editUser = UserModel();
+
+  bool isPicked = false;
+  File? updatedImage;
+
+  void updateProfileImage(File image) {
+    updatedImage = image;
+    notifyListeners();
+  }
+
+  void initState() {
+    UserModel user = ref.read(userNotifierProvider);
+    final dropdownState = ref.read(dropdownChangeStateProvider);
+    final validState = ref.watch(formStateProvider.notifier);
+    final addressState = ref.watch(addressChangeStateProvider);
+    final formState = ref.read(formStateProvider);
+
+    Future(() {
+      addressState.postcordTextController.text = user.zipCode ?? '';
+      addressState.addressTextController.text = user.address1 ?? '';
+      addressState.detailAddressTextController.text = user.address2 ?? '';
+      selectedGender = user.gender ?? 'F';
+      dropdownState.yearSelectedValue =
+          DateTime.parse(user.birthDate).year.toString();
+      dropdownState.monthSelectedValue =
+          DateTime.parse(user.birthDate).month.toString();
+      dropdownState.daySelectedValue =
+          DateTime.parse(user.birthDate).day.toString();
+      dropdownState.domainSelectedValue = validState.splitEmail(user.email!)[1];
+      validState.updateInputState(user.name ?? '', 'name');
+      validState.updateInputState(
+          validState.splitEmail(user.email ?? '')[0] ?? '', 'email');
+    });
+
+    editUser = user.copyWith();
+  }
 
   // 수정
   Future<String?> modifyUser() async {
     UserModel user = ref.read(userNotifierProvider);
+    final userState = ref.watch(userNotifierProvider.notifier);
     final formState = ref.read(formStateProvider);
     final addressState = ref.read(addressChangeStateProvider);
     final dropdownState = ref.read(dropdownChangeStateProvider);
@@ -46,8 +84,16 @@ class EditState extends ChangeNotifier {
         .getUserRoleByUserId(user.id ?? -1)
         .then((value) => roleId = value!.roleId);
     AccountDtoModel accountDtoModel =
-        AccountDtoModel(userDto: modifyUser, roleId: roleId, userId: user.id);
-    return await userRepository.putUser(accountDtoModel);
+        AccountDtoModel(roleId: roleId, userId: user.id);
+
+    final userResponse =
+        await userRepository.putUser(accountDtoModel, modifyUser);
+    if (userResponse != null) {
+      userState.update(modifyUser);
+      return userResponse;
+    }
+
+    return null;
   }
 
   int calculateAge(DateTime birthDate) {

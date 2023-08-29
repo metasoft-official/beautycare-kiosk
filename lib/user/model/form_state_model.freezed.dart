@@ -24,6 +24,7 @@ mixin _$FormStateModel {
   String? get phSecond => throw _privateConstructorUsedError;
   String? get phThird => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  int? get profileImageId => throw _privateConstructorUsedError;
   bool? get isUsernameValid => throw _privateConstructorUsedError;
   bool? get isPasswordValid => throw _privateConstructorUsedError;
   bool? get isRePasswordValid => throw _privateConstructorUsedError;
@@ -55,6 +56,7 @@ abstract class $FormStateModelCopyWith<$Res> {
       String? phSecond,
       String? phThird,
       String? email,
+      int? profileImageId,
       bool? isUsernameValid,
       bool? isPasswordValid,
       bool? isRePasswordValid,
@@ -87,6 +89,7 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
     Object? phSecond = freezed,
     Object? phThird = freezed,
     Object? email = freezed,
+    Object? profileImageId = freezed,
     Object? isUsernameValid = freezed,
     Object? isPasswordValid = freezed,
     Object? isRePasswordValid = freezed,
@@ -130,6 +133,10 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageId: freezed == profileImageId
+          ? _value.profileImageId
+          : profileImageId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUsernameValid: freezed == isUsernameValid
           ? _value.isUsernameValid
           : isUsernameValid // ignore: cast_nullable_to_non_nullable
@@ -187,6 +194,7 @@ abstract class _$$_FormStateModelCopyWith<$Res>
       String? phSecond,
       String? phThird,
       String? email,
+      int? profileImageId,
       bool? isUsernameValid,
       bool? isPasswordValid,
       bool? isRePasswordValid,
@@ -217,6 +225,7 @@ class __$$_FormStateModelCopyWithImpl<$Res>
     Object? phSecond = freezed,
     Object? phThird = freezed,
     Object? email = freezed,
+    Object? profileImageId = freezed,
     Object? isUsernameValid = freezed,
     Object? isPasswordValid = freezed,
     Object? isRePasswordValid = freezed,
@@ -260,6 +269,10 @@ class __$$_FormStateModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageId: freezed == profileImageId
+          ? _value.profileImageId
+          : profileImageId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUsernameValid: freezed == isUsernameValid
           ? _value.isUsernameValid
           : isUsernameValid // ignore: cast_nullable_to_non_nullable
@@ -312,6 +325,7 @@ class _$_FormStateModel implements _FormStateModel {
       this.phSecond,
       this.phThird,
       this.email,
+      this.profileImageId,
       this.isUsernameValid,
       this.isPasswordValid,
       this.isRePasswordValid,
@@ -339,6 +353,8 @@ class _$_FormStateModel implements _FormStateModel {
   final String? phThird;
   @override
   final String? email;
+  @override
+  final int? profileImageId;
   @override
   final bool? isUsernameValid;
   @override
@@ -368,7 +384,7 @@ class _$_FormStateModel implements _FormStateModel {
 
   @override
   String toString() {
-    return 'FormStateModel(username: $username, password: $password, rePassword: $rePassword, name: $name, phFirst: $phFirst, phSecond: $phSecond, phThird: $phThird, email: $email, isUsernameValid: $isUsernameValid, isPasswordValid: $isPasswordValid, isRePasswordValid: $isRePasswordValid, isNameValid: $isNameValid, isPhFirstValid: $isPhFirstValid, isPhSecondValid: $isPhSecondValid, isPhThirdValid: $isPhThirdValid, isEmailVallid: $isEmailVallid, inputStartedFlags: $inputStartedFlags)';
+    return 'FormStateModel(username: $username, password: $password, rePassword: $rePassword, name: $name, phFirst: $phFirst, phSecond: $phSecond, phThird: $phThird, email: $email, profileImageId: $profileImageId, isUsernameValid: $isUsernameValid, isPasswordValid: $isPasswordValid, isRePasswordValid: $isRePasswordValid, isNameValid: $isNameValid, isPhFirstValid: $isPhFirstValid, isPhSecondValid: $isPhSecondValid, isPhThirdValid: $isPhThirdValid, isEmailVallid: $isEmailVallid, inputStartedFlags: $inputStartedFlags)';
   }
 
   @override
@@ -388,6 +404,8 @@ class _$_FormStateModel implements _FormStateModel {
                 other.phSecond == phSecond) &&
             (identical(other.phThird, phThird) || other.phThird == phThird) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.profileImageId, profileImageId) ||
+                other.profileImageId == profileImageId) &&
             (identical(other.isUsernameValid, isUsernameValid) ||
                 other.isUsernameValid == isUsernameValid) &&
             (identical(other.isPasswordValid, isPasswordValid) ||
@@ -419,6 +437,7 @@ class _$_FormStateModel implements _FormStateModel {
       phSecond,
       phThird,
       email,
+      profileImageId,
       isUsernameValid,
       isPasswordValid,
       isRePasswordValid,
@@ -446,6 +465,7 @@ abstract class _FormStateModel implements FormStateModel {
       final String? phSecond,
       final String? phThird,
       final String? email,
+      final int? profileImageId,
       final bool? isUsernameValid,
       final bool? isPasswordValid,
       final bool? isRePasswordValid,
@@ -472,6 +492,8 @@ abstract class _FormStateModel implements FormStateModel {
   String? get phThird;
   @override
   String? get email;
+  @override
+  int? get profileImageId;
   @override
   bool? get isUsernameValid;
   @override

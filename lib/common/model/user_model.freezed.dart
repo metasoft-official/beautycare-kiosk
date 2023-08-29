@@ -30,20 +30,29 @@ mixin _$UserModel {
   String? get address1 => throw _privateConstructorUsedError;
   String? get address2 => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get joinDate => throw _privateConstructorUsedError;
   @JsonKey(toJson: intToString)
   int? get age => throw _privateConstructorUsedError;
   @JsonKey(toJson: datetimeToLocalDateTime)
   dynamic get birthDate => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastAccessDate => throw _privateConstructorUsedError;
   String? get mobileNumber => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastModifiedPasswordDate => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get createdDate => throw _privateConstructorUsedError;
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
   String? get socialLoginId => throw _privateConstructorUsedError;
   String? get socialLoginType => throw _privateConstructorUsedError;
+  @JsonKey(toJson: intToString)
+  int? get profileImageId => throw _privateConstructorUsedError;
+  IntegratedAttachFileModel? get profileImage =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +66,8 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {@JsonKey(toJson: intToString) int? id,
+      {@JsonKey(toJson: intToString)
+          int? id,
       String? name,
       String? username,
       String? password,
@@ -66,18 +76,30 @@ abstract class $UserModelCopyWith<$Res> {
       String? address1,
       String? address2,
       String? phoneNumber,
-      DateTime? joinDate,
-      @JsonKey(toJson: intToString) int? age,
-      @JsonKey(toJson: datetimeToLocalDateTime) dynamic birthDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? joinDate,
+      @JsonKey(toJson: intToString)
+          int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          dynamic birthDate,
       String? gender,
-      DateTime? lastAccessDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastAccessDate,
       String? mobileNumber,
-      DateTime? lastModifiedPasswordDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedPasswordDate,
       String? status,
-      DateTime? createdDate,
-      DateTime? lastModifiedDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? createdDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedDate,
       String? socialLoginId,
-      String? socialLoginType});
+      String? socialLoginType,
+      @JsonKey(toJson: intToString)
+          int? profileImageId,
+      IntegratedAttachFileModel? profileImage});
+
+  $IntegratedAttachFileModelCopyWith<$Res>? get profileImage;
 }
 
 /// @nodoc
@@ -114,6 +136,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? lastModifiedDate = freezed,
     Object? socialLoginId = freezed,
     Object? socialLoginType = freezed,
+    Object? profileImageId = freezed,
+    Object? profileImage = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -200,7 +224,28 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.socialLoginType
           : socialLoginType // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageId: freezed == profileImageId
+          ? _value.profileImageId
+          : profileImageId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as IntegratedAttachFileModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $IntegratedAttachFileModelCopyWith<$Res>? get profileImage {
+    if (_value.profileImage == null) {
+      return null;
+    }
+
+    return $IntegratedAttachFileModelCopyWith<$Res>(_value.profileImage!,
+        (value) {
+      return _then(_value.copyWith(profileImage: value) as $Val);
+    });
   }
 }
 
@@ -212,7 +257,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(toJson: intToString) int? id,
+      {@JsonKey(toJson: intToString)
+          int? id,
       String? name,
       String? username,
       String? password,
@@ -221,18 +267,31 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? address1,
       String? address2,
       String? phoneNumber,
-      DateTime? joinDate,
-      @JsonKey(toJson: intToString) int? age,
-      @JsonKey(toJson: datetimeToLocalDateTime) dynamic birthDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? joinDate,
+      @JsonKey(toJson: intToString)
+          int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          dynamic birthDate,
       String? gender,
-      DateTime? lastAccessDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastAccessDate,
       String? mobileNumber,
-      DateTime? lastModifiedPasswordDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedPasswordDate,
       String? status,
-      DateTime? createdDate,
-      DateTime? lastModifiedDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? createdDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          DateTime? lastModifiedDate,
       String? socialLoginId,
-      String? socialLoginType});
+      String? socialLoginType,
+      @JsonKey(toJson: intToString)
+          int? profileImageId,
+      IntegratedAttachFileModel? profileImage});
+
+  @override
+  $IntegratedAttachFileModelCopyWith<$Res>? get profileImage;
 }
 
 /// @nodoc
@@ -267,6 +326,8 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? lastModifiedDate = freezed,
     Object? socialLoginId = freezed,
     Object? socialLoginType = freezed,
+    Object? profileImageId = freezed,
+    Object? profileImage = freezed,
   }) {
     return _then(_$_UserModel(
       id: freezed == id
@@ -350,6 +411,14 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.socialLoginType
           : socialLoginType // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageId: freezed == profileImageId
+          ? _value.profileImageId
+          : profileImageId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as IntegratedAttachFileModel?,
     ));
   }
 }
@@ -367,18 +436,20 @@ class _$_UserModel implements _UserModel {
       this.address1,
       this.address2,
       this.phoneNumber,
-      this.joinDate,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.joinDate,
       @JsonKey(toJson: intToString) this.age,
       @JsonKey(toJson: datetimeToLocalDateTime) this.birthDate,
       this.gender,
-      this.lastAccessDate,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.lastAccessDate,
       this.mobileNumber,
-      this.lastModifiedPasswordDate,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.lastModifiedPasswordDate,
       this.status,
-      this.createdDate,
-      this.lastModifiedDate,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.createdDate,
+      @JsonKey(toJson: datetimeToLocalDateTime) this.lastModifiedDate,
       this.socialLoginId,
-      this.socialLoginType});
+      this.socialLoginType,
+      @JsonKey(toJson: intToString) this.profileImageId,
+      this.profileImage});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -403,6 +474,7 @@ class _$_UserModel implements _UserModel {
   @override
   final String? phoneNumber;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   final DateTime? joinDate;
   @override
   @JsonKey(toJson: intToString)
@@ -413,25 +485,34 @@ class _$_UserModel implements _UserModel {
   @override
   final String? gender;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   final DateTime? lastAccessDate;
   @override
   final String? mobileNumber;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   final DateTime? lastModifiedPasswordDate;
   @override
   final String? status;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   final DateTime? createdDate;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   final DateTime? lastModifiedDate;
   @override
   final String? socialLoginId;
   @override
   final String? socialLoginType;
+  @override
+  @JsonKey(toJson: intToString)
+  final int? profileImageId;
+  @override
+  final IntegratedAttachFileModel? profileImage;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, username: $username, password: $password, email: $email, zipCode: $zipCode, address1: $address1, address2: $address2, phoneNumber: $phoneNumber, joinDate: $joinDate, age: $age, birthDate: $birthDate, gender: $gender, lastAccessDate: $lastAccessDate, mobileNumber: $mobileNumber, lastModifiedPasswordDate: $lastModifiedPasswordDate, status: $status, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, socialLoginId: $socialLoginId, socialLoginType: $socialLoginType)';
+    return 'UserModel(id: $id, name: $name, username: $username, password: $password, email: $email, zipCode: $zipCode, address1: $address1, address2: $address2, phoneNumber: $phoneNumber, joinDate: $joinDate, age: $age, birthDate: $birthDate, gender: $gender, lastAccessDate: $lastAccessDate, mobileNumber: $mobileNumber, lastModifiedPasswordDate: $lastModifiedPasswordDate, status: $status, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, socialLoginId: $socialLoginId, socialLoginType: $socialLoginType, profileImageId: $profileImageId, profileImage: $profileImage)';
   }
 
   @override
@@ -473,7 +554,11 @@ class _$_UserModel implements _UserModel {
             (identical(other.socialLoginId, socialLoginId) ||
                 other.socialLoginId == socialLoginId) &&
             (identical(other.socialLoginType, socialLoginType) ||
-                other.socialLoginType == socialLoginType));
+                other.socialLoginType == socialLoginType) &&
+            (identical(other.profileImageId, profileImageId) ||
+                other.profileImageId == profileImageId) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage));
   }
 
   @JsonKey(ignore: true)
@@ -500,7 +585,9 @@ class _$_UserModel implements _UserModel {
         createdDate,
         lastModifiedDate,
         socialLoginId,
-        socialLoginType
+        socialLoginType,
+        profileImageId,
+        profileImage
       ]);
 
   @JsonKey(ignore: true)
@@ -519,7 +606,8 @@ class _$_UserModel implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   factory _UserModel(
-      {@JsonKey(toJson: intToString) final int? id,
+      {@JsonKey(toJson: intToString)
+          final int? id,
       final String? name,
       final String? username,
       final String? password,
@@ -528,18 +616,28 @@ abstract class _UserModel implements UserModel {
       final String? address1,
       final String? address2,
       final String? phoneNumber,
-      final DateTime? joinDate,
-      @JsonKey(toJson: intToString) final int? age,
-      @JsonKey(toJson: datetimeToLocalDateTime) final dynamic birthDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final DateTime? joinDate,
+      @JsonKey(toJson: intToString)
+          final int? age,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final dynamic birthDate,
       final String? gender,
-      final DateTime? lastAccessDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final DateTime? lastAccessDate,
       final String? mobileNumber,
-      final DateTime? lastModifiedPasswordDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final DateTime? lastModifiedPasswordDate,
       final String? status,
-      final DateTime? createdDate,
-      final DateTime? lastModifiedDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final DateTime? createdDate,
+      @JsonKey(toJson: datetimeToLocalDateTime)
+          final DateTime? lastModifiedDate,
       final String? socialLoginId,
-      final String? socialLoginType}) = _$_UserModel;
+      final String? socialLoginType,
+      @JsonKey(toJson: intToString)
+          final int? profileImageId,
+      final IntegratedAttachFileModel? profileImage}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -564,6 +662,7 @@ abstract class _UserModel implements UserModel {
   @override
   String? get phoneNumber;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get joinDate;
   @override
   @JsonKey(toJson: intToString)
@@ -574,21 +673,30 @@ abstract class _UserModel implements UserModel {
   @override
   String? get gender;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastAccessDate;
   @override
   String? get mobileNumber;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastModifiedPasswordDate;
   @override
   String? get status;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get createdDate;
   @override
+  @JsonKey(toJson: datetimeToLocalDateTime)
   DateTime? get lastModifiedDate;
   @override
   String? get socialLoginId;
   @override
   String? get socialLoginType;
+  @override
+  @JsonKey(toJson: intToString)
+  int? get profileImageId;
+  @override
+  IntegratedAttachFileModel? get profileImage;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>

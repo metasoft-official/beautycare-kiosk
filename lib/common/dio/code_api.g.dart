@@ -13,7 +13,7 @@ class _CodeApi implements CodeApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.35.113:9000/api';
+    baseUrl ??= 'http://meta-soft.iptime.org:9000/api';
   }
 
   final Dio _dio;

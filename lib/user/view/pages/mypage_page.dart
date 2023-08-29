@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
+import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
@@ -55,18 +56,33 @@ class MypageState extends ConsumerState<MypagePage> {
                       Row(
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                border: Border.all(
-                                    color: AppColor.lightGrey, width: 2)),
-                            width: 50,
-                            height: 50,
-                            child: const CircleAvatar(
-                              backgroundColor: Colors.white,
-                              backgroundImage: AssetImage(
-                                  "assets/images/character_coiz_3.png"),
-                            ),
-                          ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  border: Border.all(
+                                      color: AppColor.lightGrey, width: 2)),
+                              width: 50,
+                              height: 50,
+                              child: ClipOval(
+                                child: user.profileImageId != null
+                                    ? Image.network(
+                                        '${Strings.imageUrl}${user.profileImageId}',
+                                        fit: BoxFit.cover,
+                                        // 네트워크 Empty 예외처리
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Image.asset(
+                                            "assets/images/character_coiz_3.png",
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )
+                                    // 이미지 아이디 Null 예외처리
+                                    : Image.asset(
+                                        "assets/images/character_coiz_3.png",
+                                        fit: BoxFit.cover,
+                                      ),
+                              )),
                           const SizedBox(width: 16),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

@@ -68,11 +68,13 @@ class UserRepository {
   }
 
   Future<String?> putUser(
-    AccountDtoModel accountDtoModel,
-  ) async {
+      AccountDtoModel accountDtoModel, UserModel userModel) async {
     final Map<String, dynamic> query = {
-      ...accountDtoModel.toJson(),
+      'userId': '${accountDtoModel.userId}',
+      'roleId': "${accountDtoModel.roleId}",
+      'userDto': {...userModel.toJson()}
     };
+    logger.d(query);
     try {
       final response = await _userApi.putUser(query);
       logger.d(response);

@@ -38,6 +38,11 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
           : DateTime.parse(json['lastModifiedDate'] as String),
       socialLoginId: json['socialLoginId'] as String?,
       socialLoginType: json['socialLoginType'] as String?,
+      profileImageId: json['profileImageId'] as int?,
+      profileImage: json['profileImage'] == null
+          ? null
+          : IntegratedAttachFileModel.fromJson(
+              json['profileImage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
@@ -51,17 +56,19 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'address1': instance.address1,
       'address2': instance.address2,
       'phoneNumber': instance.phoneNumber,
-      'joinDate': instance.joinDate?.toIso8601String(),
+      'joinDate': datetimeToLocalDateTime(instance.joinDate),
       'age': intToString(instance.age),
       'birthDate': datetimeToLocalDateTime(instance.birthDate),
       'gender': instance.gender,
-      'lastAccessDate': instance.lastAccessDate?.toIso8601String(),
+      'lastAccessDate': datetimeToLocalDateTime(instance.lastAccessDate),
       'mobileNumber': instance.mobileNumber,
       'lastModifiedPasswordDate':
-          instance.lastModifiedPasswordDate?.toIso8601String(),
+          datetimeToLocalDateTime(instance.lastModifiedPasswordDate),
       'status': instance.status,
-      'createdDate': instance.createdDate?.toIso8601String(),
-      'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
+      'createdDate': datetimeToLocalDateTime(instance.createdDate),
+      'lastModifiedDate': datetimeToLocalDateTime(instance.lastModifiedDate),
       'socialLoginId': instance.socialLoginId,
       'socialLoginType': instance.socialLoginType,
+      'profileImageId': intToString(instance.profileImageId),
+      'profileImage': instance.profileImage,
     };

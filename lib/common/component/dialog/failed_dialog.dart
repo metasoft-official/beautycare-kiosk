@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,7 +32,7 @@ class FailedDialog extends StatelessWidget {
               child: Text(btnMessage ?? '확인',
                   style: AppTextTheme.white14b.copyWith(height: 1.0)),
               onPressed: () {
-                context.pop();
+                Navigator.of(context).pop();
               },
             ),
           ),
