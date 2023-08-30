@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/layout/kiosk_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
@@ -10,7 +11,8 @@ class IconStepperWidget extends StatelessWidget {
       required Color color,
       required int curStep,
       required int length,
-      List<String>? titles})
+      List<String>? titles,
+      this.isKiosk})
       : _width = width,
         _activeColor = color,
         _titles = titles,
@@ -19,6 +21,7 @@ class IconStepperWidget extends StatelessWidget {
         assert(width > 0),
         super(key: key);
 
+  final bool? isKiosk;
   final double _width;
   final List<String>? _titles;
   final int _curStep;
@@ -32,7 +35,9 @@ class IconStepperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.fromLTRB(24, 40, 24, 36),
+        margin: isKiosk == true
+            ? const EdgeInsets.fromLTRB(0, 10, 0, 0)
+            : const EdgeInsets.fromLTRB(24, 40, 24, 36),
         width: _width,
         child: Column(
           children: <Widget>[
@@ -57,13 +62,14 @@ class IconStepperWidget extends StatelessWidget {
       var circleColor =
           (i == 0 || _curStep >= i) ? _activeColor : _inactiveCircleColor;
 
-      var lineColor = _curStep >= i ? _activeColor : _inactiveLineColor;
+      var lineColor = _curStep >= i
+          ? _activeColor
+          : (isKiosk == true ? Colors.white : _inactiveLineColor);
 
       list.add(
         Container(
-          width: 54,
-          height: 54,
-          padding: const EdgeInsets.all(0),
+          width: isKiosk == true ? 120 : 54,
+          height: isKiosk == true ? 120 : 54,
           decoration: _curStep == i
               ? BoxDecoration(
                   color: circleColor,
@@ -96,14 +102,22 @@ class IconStepperWidget extends StatelessWidget {
                 Text(
                   'STEP',
                   style: (i == 0 || _curStep >= i)
-                      ? AppTextTheme.white10
-                      : AppTextTheme.grey10,
+                      ? (isKiosk == true
+                          ? KioskTextTheme.white18
+                          : AppTextTheme.white10)
+                      : (isKiosk == true
+                          ? KioskTextTheme.middleGrey16
+                          : AppTextTheme.grey10),
                 ),
                 Text(
                   '${i + 1}',
                   style: (i == 0 || _curStep >= i)
-                      ? AppTextTheme.white20b
-                      : AppTextTheme.grey20b,
+                      ? (isKiosk == true
+                          ? KioskTextTheme.white28b
+                          : AppTextTheme.white20b)
+                      : (isKiosk == true
+                          ? KioskTextTheme.middleGrey24b
+                          : AppTextTheme.grey20b),
                 )
               ],
             ),
@@ -115,7 +129,7 @@ class IconStepperWidget extends StatelessWidget {
       if (i != _length - 1) {
         list.add(Expanded(
             child: Container(
-          height: lineWidth,
+          height: isKiosk == true ? 6 : lineWidth,
           color: lineColor,
         )));
       }

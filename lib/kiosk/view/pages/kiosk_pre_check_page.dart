@@ -176,10 +176,10 @@ class KioskPreCheckPage extends ConsumerWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: KioskButtonTheme.basicElevatedButtonTheme,
-                    // onPressed: () => context.go('/kiosk-shooting?type=$type'),
-                    onPressed: () => type == '질환'
-                        ? context.go('/kiosk-disease-result?diseaseId=20')
-                        : context.pushNamed('kioskSurvey'),
+                    onPressed: () => context.go('/kiosk-shooting?type=$type'),
+                    // onPressed: () => type == '질환'
+                    //     ? context.go('/kiosk-disease-result?diseaseId=20')
+                    //     : context.pushNamed('kioskSurvey'),
                     child: const Text('할래요', style: KioskTextTheme.white36b),
                   ),
                 )

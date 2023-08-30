@@ -137,8 +137,8 @@ class SurveyDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
     }
 
     // 전달 모델
-    SurveyParamModel surveyParamModel =
-        SurveyParamModel(userId: userInfo.id, responses: surveyResponseModels);
+    SurveyParamModel surveyParamModel = SurveyParamModel(
+        userId: userInfo.id ?? 34, responses: surveyResponseModels);
 
     final response = await repository.postMbtiResult(surveyParamModel);
     if (response != null) {

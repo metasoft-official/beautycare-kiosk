@@ -31,7 +31,7 @@ class KioskButtonTheme {
       backgroundColor: AppColor.appColor,
       foregroundColor: Colors.white,
       textStyle: AppTextTheme.elevatedButton,
-      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)));
   static final outlinedBasicButtonTheme = OutlinedButton.styleFrom(
       elevation: 0.0,
@@ -97,23 +97,24 @@ class KioskButtonTheme {
   );
 
   static final shootingIndicationButtonInactiveTheme = TextButton.styleFrom(
-    minimumSize: const Size(150, 32),
+    minimumSize: const Size(400, 50),
     elevation: 0.0,
     backgroundColor: Colors.white.withOpacity(0.2),
     foregroundColor: AppColor.appColor.withOpacity(0.2),
     side: BorderSide(color: AppColor.appColor.withOpacity(0.2)),
-    textStyle: AppTextTheme.app13b,
+    textStyle: KioskTextTheme.blue28b
+        .copyWith(color: AppColor.appColor.withOpacity(0.5)),
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
   );
 
   static final shootingIndicationButtonActiveTheme = TextButton.styleFrom(
-    minimumSize: const Size(150, 32),
+    minimumSize: const Size(400, 50),
     elevation: 0.0,
     backgroundColor: Colors.white.withOpacity(0.5),
     foregroundColor: AppColor.appColor,
     side: const BorderSide(color: AppColor.appColor),
-    textStyle: AppTextTheme.app13b,
+    textStyle: KioskTextTheme.blue28b,
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
   );

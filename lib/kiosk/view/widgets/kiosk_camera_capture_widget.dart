@@ -71,7 +71,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
 
   @override
   void dispose() {
-    _cameraController!.dispose();
+    _cameraController?.dispose();
     super.dispose();
   }
 
@@ -251,63 +251,6 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
               ]),
             )
           : Stack(children: [
-              // 하단 영역
-              if (isDisease == false) ...[
-                // 카메라 앱 작동시 이미지 품질 검증에 필요한 사항, 얼굴 외곽선 등을 표시하는 부분
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('정면을 주시하세요'),
-                        style:
-                            ref.read(imageQualityProvider.notifier).frontal ==
-                                    true
-                                ? AppButtonTheme
-                                    .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
-                                    .shootingIndicationButtonActiveTheme,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('얼굴 조명을 균일하게'),
-                        style:
-                            ref.read(imageQualityProvider.notifier).exposure ==
-                                    true
-                                ? AppButtonTheme
-                                    .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
-                                    .shootingIndicationButtonActiveTheme,
-                      ),
-                    ]),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('눈을 뜨세요'),
-                        style:
-                            ref.read(imageQualityProvider.notifier).eyesOpen ==
-                                    true
-                                ? AppButtonTheme
-                                    .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
-                                    .shootingIndicationButtonActiveTheme,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('입을 벌리지 마세요'),
-                        style: ref
-                                    .read(imageQualityProvider.notifier)
-                                    .mouseNotOpen ==
-                                true
-                            ? AppButtonTheme
-                                .shootingIndicationButtonInactiveTheme
-                            : AppButtonTheme
-                                .shootingIndicationButtonActiveTheme,
-                      ),
-                    ]),
-              ],
               Column(
                 children: [
                   // 촬영 영역
@@ -345,6 +288,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
               Column(
                 children: [
                   if (isDisease == false) ...[
+                    const SizedBox(height: 50),
                     // 카메라 앱 작동시 이미지 품질 검증에 필요한 사항, 얼굴 외곽선 등을 표시하는 부분
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -356,9 +300,9 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                         .read(imageQualityProvider.notifier)
                                         .frontal ==
                                     true
-                                ? AppButtonTheme
+                                ? KioskButtonTheme
                                     .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
+                                : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
                           ),
                           ElevatedButton(
@@ -368,12 +312,13 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                         .read(imageQualityProvider.notifier)
                                         .exposure ==
                                     true
-                                ? AppButtonTheme
+                                ? KioskButtonTheme
                                     .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
+                                : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
                           ),
                         ]),
+                    const SizedBox(height: 20),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -384,9 +329,9 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                         .read(imageQualityProvider.notifier)
                                         .eyesOpen ==
                                     true
-                                ? AppButtonTheme
+                                ? KioskButtonTheme
                                     .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
+                                : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
                           ),
                           ElevatedButton(
@@ -396,13 +341,13 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                         .read(imageQualityProvider.notifier)
                                         .mouseNotOpen ==
                                     true
-                                ? AppButtonTheme
+                                ? KioskButtonTheme
                                     .shootingIndicationButtonInactiveTheme
-                                : AppButtonTheme
+                                : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
                           ),
                         ]),
-
+                    const SizedBox(height: 50),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

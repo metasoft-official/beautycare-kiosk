@@ -2,6 +2,7 @@ import 'package:beauty_care/common/view/pages/select_device_page.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/view/pages/disease_selected_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_disease_result_page.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_mbti_result_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_mbti_survey_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_select_disease_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_shooting_page.dart';
@@ -115,13 +116,13 @@ class AppRouter {
           name: KioskMbtiSurveyPage.routeName,
           builder: (context, state) => const KioskMbtiSurveyPage(),
         ),
-        // GoRoute(
-        //   path: '/mbti-result',
-        //   name: MbtiResultPage.routeName,
-        //   builder: (context, state) => MbtiResultPage(
-        //     surveyId: state.queryParameters['surveyId'],
-        //   ),
-        // ),
+        GoRoute(
+          path: '/kiosk-mbti-result',
+          name: KioskMbtiResultPage.routeName,
+          builder: (context, state) => KioskMbtiResultPage(
+            surveyId: state.queryParameters['surveyId'],
+          ),
+        ),
 
         //로그인
         GoRoute(

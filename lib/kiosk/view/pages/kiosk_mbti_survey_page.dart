@@ -1,17 +1,15 @@
-import 'package:beauty_care/common/layout/kiosk_text.dart';
-import 'package:beauty_care/kiosk/view/widgets/kiosk_app_bar.dart';
-import 'package:beauty_care/kiosk/view/widgets/kiosk_bottom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/mbti/provider/survey_state_provider.dart';
 
-import 'package:beauty_care/common/component/widgets/icon_stepper_widget.dart';
+import 'package:beauty_care/common/layout/kiosk_text.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
-import 'package:beauty_care/common/layout/app_text.dart';
+import 'package:beauty_care/kiosk/view/widgets/kiosk_app_bar.dart';
+import 'package:beauty_care/kiosk/view/widgets/kiosk_bottom_button_widget.dart';
+import 'package:beauty_care/common/component/widgets/icon_stepper_widget.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
-import 'package:beauty_care/mbti/view/widgets/survey_widget.dart';
 
 import '../../../main.dart';
 
@@ -27,6 +25,8 @@ class KioskMbtiSurveyPage extends ConsumerStatefulWidget {
 class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
   @override
   Widget build(BuildContext context) {
+    final rootContext = context;
+    logger.d(context.hashCode);
     final asyncValue = ref.watch(surveyStateProvider);
     final surveyData = ref.watch(surveyStateProvider.notifier);
 
@@ -53,6 +53,7 @@ class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
                 child: SizedBox(
                   height: 150,
                   child: IconStepperWidget(
+                    isKiosk: true,
                     length: 4,
                     width: MediaQuery.of(context).size.width,
                     color: AppColor.appColor,
@@ -69,7 +70,7 @@ class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
                     width: double.infinity,
                     child: Text(
                       '${surveyProgressData.curQuestion + 1}.',
-                      style: AppTextTheme.blue36b,
+                      style: KioskTextTheme.blue36b,
                     ),
                   ),
                 ),
@@ -112,6 +113,7 @@ class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
                       margin: const EdgeInsets.fromLTRB(72, 20, 72, 0),
                       child: ElevatedButton(
                         onPressed: () {
+                          // 답변 클릭
                           surveyState.selectAnswer(
                               questionCode,
                               index,
@@ -120,6 +122,21 @@ class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
                                       answerIndex + 1
                                   ? answerIndex
                                   : -1);
+
+                          // 다음 질문으로 바로 이동
+                          if (index < questions['$questionCode'].length - 1) {
+                            surveyState.increaseQuestion();
+                          }
+                          // 스텝의 마지막 질문인 경우
+                          else {
+                            // 데이터 업데이트
+                            data['isClicked']['$questionCode'] =
+                                surveyProgressData.isClicked['$questionCode'];
+                            // 다음 스텝
+                            if (surveyProgressData.curStep < 3) {
+                              surveyState.increaseStep();
+                            }
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: surveyProgressData
@@ -173,7 +190,13 @@ class KioskMbtiSurveyState extends ConsumerState<KioskMbtiSurveyPage> {
               ),
               KioskBottomButtonWidget(
                   firstText: '이전',
-                  secondText: '다음',
+                  secondText: surveyProgressData.curStep == 3 &&
+                          surveyProgressData.curQuestion ==
+                              (surveyProgressData
+                                      .isClicked['$questionCode'].length -
+                                  1)
+                      ? '결과보기'
+                      : '다음',
                   firstOnPressed: !(surveyProgressData.curStep == 0 &&
                           surveyProgressData.curQuestion == 0)
                       ? () {

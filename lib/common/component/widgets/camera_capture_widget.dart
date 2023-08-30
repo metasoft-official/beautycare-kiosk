@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
+import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/user/model/user_disease_model.dart';
+import 'package:crop/crop.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,9 +12,7 @@ import 'package:beauty_care/common/layout/app_button_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/main.dart';
-import 'package:beauty_care/disease/model/disease_result_model.dart';
 import 'package:beauty_care/mbti/provider/caemra_provider.dart';
-import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/mbti/provider/user_disease_provider.dart';
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
@@ -30,12 +32,14 @@ class CameraWidget extends ConsumerStatefulWidget {
   static String get routeName => 'camera';
 
   final bool isDisease;
-
   @override
   CameraWidgetState createState() => CameraWidgetState();
 }
 
 class CameraWidgetState extends ConsumerState<CameraWidget> {
+  late CropController _cropController;
+  late Crop crop;
+
   var loggerNoStack = Logger(
     printer: PrettyPrinter(methodCount: 0),
   );
@@ -53,6 +57,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
   @override
   void initState() {
     super.initState();
+    _cropController = CropController();
     _initCamera();
   }
 
@@ -61,6 +66,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
     _cameraController =
         CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
     _initCameraControllerFuture = _cameraController!.initialize().then((value) {
+      _cameraController?.setFlashMode(FlashMode.off);
       setState(() {});
       // widget.onInitialized();
     });
@@ -75,6 +81,12 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
   Future<void> _initializeCamera() async {
     await _initCameraControllerFuture;
     ref.read(cameraStateProvider.notifier).state = true;
+  }
+
+  Future<Uint8List> convertImageToByteData(ui.Image image) async {
+    final ByteData? byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    return byteData!.buffer.asUint8List();
   }
 
   @override
@@ -105,10 +117,17 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                           aspectRatio: 1 / _cameraController!.value.aspectRatio,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-                            child: Image(
-                              image:
-                                  MemoryImage(captureImage!.readAsBytesSync()),
-                            ),
+                            child: isDisease == true
+                                ? Crop(
+                                    controller: _cropController,
+                                    child: Image(
+                                      image: MemoryImage(
+                                          captureImage!.readAsBytesSync()),
+                                    ))
+                                : Image(
+                                    image: MemoryImage(
+                                        captureImage!.readAsBytesSync()),
+                                  ),
                           ),
                         ),
                       ),
@@ -116,132 +135,178 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                   ),
                   Container(
                     color: const Color(0xff222222),
-                    padding: const EdgeInsets.fromLTRB(18, 30, 18, 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    padding: const EdgeInsets.fromLTRB(18, 18, 18, 40),
+                    child: Column(
                       children: [
-                        SizedBox(
-                          width: (size.width - 16 * 3) / 2,
-                          child: ElevatedButton(
-                            style: AppButtonTheme.outlinedBasicButtonTheme,
-                            onPressed: () {
-                              ref.read(cameraStateProvider.notifier).state =
-                                  false;
-
-                              setState(() {
-                                isCapture = false;
-                                imageQualityNotifier.updateData(
-                                  exposure: true,
-                                  eyesOpen: true,
-                                  frontal: true,
-                                  mouseNotOpen: true,
-                                );
-                              });
-                            },
-                            child: const Text('재촬영'),
-                          ),
+                        const Text(
+                          '두 손가락으로 이미지를 조절할 수 있어요',
+                          style: AppTextTheme.white14m,
                         ),
-                        SizedBox(
-                          width: (size.width - 16 * 3) / 2,
-                          child: ElevatedButton(
-                            style: AppButtonTheme.basicElevatedButtonTheme,
-                            onPressed: () async {
-                              ref.read(cameraStateProvider.notifier).state =
-                                  false;
-
-                              if (isDisease == true) {
-                                logger.d("질환");
-                                logger.d(captureImage);
-
-                                final imageBytes =
-                                    captureImage!.readAsBytesSync();
-                                final multipartFile = MultipartFile.fromBytes(
-                                    imageBytes,
-                                    filename: "my_image.jpg",
-                                    contentType: MediaType("image", "jpeg"));
-
-                                final _data = FormData();
-                                _data.files.add(MapEntry(
-                                    'file', // 서버에서 기대하는 키 이름
-                                    multipartFile));
-
-                                final dio = ref.read(dioProvider);
-                                final formData = FormData.fromMap({
-                                  'file': multipartFile,
-                                });
-
-                                // 피부 질환 예측 API 연동
-                                try {
-                                  final response = await dio.post(
-                                    'http://220.76.251.246:18812',
-                                    data: formData,
-                                    options: Options(
-                                      headers: {
-                                        'content-type': 'multipart/form-data',
-                                      },
-                                    ),
-                                  );
-
-                                  logger.d(response);
-
-                                  Map<String, dynamic> jsonData =
-                                      json.decode(response.data);
-
-                                  UserDiseaseModel userDiseaseModel =
-                                      UserDiseaseModel(
-                                    userId: userState.id,
-                                    topk1Label: jsonData['topk_label'][0],
-                                    topk1Value: jsonData['topk_values'][0],
-                                    topk2Label: jsonData['topk_label'][1],
-                                    topk2Value: jsonData['topk_values'][1],
-                                    topk3Label: jsonData['topk_label'][2],
-                                    topk3Value: jsonData['topk_values'][2],
-                                  );
-
-                                  logger.d(userDiseaseModel);
-
-                                  final userDiseaseId = await ref
-                                      .watch(userDiseaseApiProvider)
-                                      .createUserDisease(userDiseaseModel);
-                                  logger.d(userDiseaseId);
-
-                                  // 이미지 저장
-                                  final multipartFileForUpload =
-                                      MultipartFile.fromBytes(imageBytes,
-                                          filename: "my_image.jpg",
-                                          contentType:
-                                              MediaType("image", "jpeg"));
-
-                                  final updateForfmData = FormData.fromMap({
-                                    'image': multipartFileForUpload,
-                                    'id': userDiseaseId
+                        const SizedBox(
+                          height: 18,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: (size.width - 16 * 3) / 2,
+                              child: ElevatedButton(
+                                style: AppButtonTheme.outlinedBasicButtonTheme,
+                                onPressed: () {
+                                  ref.read(cameraStateProvider.notifier).state =
+                                      false;
+                                  _initializeCamera();
+                                  setState(() {
+                                    isCapture = false;
+                                    imageQualityNotifier.updateData(
+                                      exposure: true,
+                                      eyesOpen: true,
+                                      frontal: true,
+                                      mouseNotOpen: true,
+                                    );
                                   });
+                                },
+                                child: const Text('재촬영'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: (size.width - 16 * 3) / 2,
+                              child: ElevatedButton(
+                                style: AppButtonTheme.basicElevatedButtonTheme,
+                                onPressed: () async {
+                                  ref.read(cameraStateProvider.notifier).state =
+                                      false;
 
-                                  final updateResponse = await dio.put(
-                                    '$BASE_URL/common/user-diseases/attach-file/$userDiseaseId',
-                                    data: updateForfmData,
-                                  );
+                                  if (isDisease == true) {
+                                    final croppedImage =
+                                        await _cropController.crop();
+                                    // 원본 파일 경로를 그대로 사용
+                                    final Uint8List byteData =
+                                        await convertImageToByteData(
+                                            croppedImage);
+                                    await captureImage?.writeAsBytes(byteData);
 
-                                  logger.d(updateResponse);
+                                    final imageBytes =
+                                        captureImage!.readAsBytesSync();
+                                    final multipartFile =
+                                        MultipartFile.fromBytes(imageBytes,
+                                            filename: "my_image.jpg",
+                                            contentType:
+                                                MediaType("image", "jpeg"));
 
-                                  if (!mounted) return;
-                                  context.push(
-                                      '/skin-result?diseaseId=$userDiseaseId');
+                                    final _data = FormData();
+                                    _data.files.add(MapEntry(
+                                        'file', // 서버에서 기대하는 키 이름
+                                        multipartFile));
 
-                                  // Success handling
-                                } catch (e) {
-                                  // Error handling
-                                  print(e);
-                                }
-                              }
-                              // 피부 MBTI
-                              else {
-                                print("MBTI");
-                                context.pushNamed('survey');
-                              }
-                            },
-                            child: Text('확인'),
-                          ),
+                                    final dio = ref.read(dioProvider);
+                                    final formData = FormData.fromMap({
+                                      'file': multipartFile,
+                                    });
+
+                                    // 피부 질환 예측 API 연동
+                                    try {
+                                      final response = await dio.post(
+                                        'http://220.76.251.246:18812',
+                                        data: formData,
+                                        options: Options(
+                                          headers: {
+                                            'content-type':
+                                                'multipart/form-data',
+                                          },
+                                        ),
+                                      );
+
+                                      logger.d(response);
+
+                                      Map<String, dynamic> jsonData =
+                                          json.decode(response.data);
+
+                                      UserDiseaseModel userDiseaseModel =
+                                          UserDiseaseModel(
+                                        userId: userState.id ?? 34,
+                                        topk1Label: jsonData['topk_label'][0],
+                                        topk1Value: jsonData['topk_values'][0],
+                                        topk2Label: jsonData['topk_label'][1],
+                                        topk2Value: jsonData['topk_values'][1],
+                                        topk3Label: jsonData['topk_label'][2],
+                                        topk3Value: jsonData['topk_values'][2],
+                                      );
+
+                                      logger.d(userDiseaseModel);
+
+                                      final userDiseaseId = await ref
+                                          .watch(userDiseaseApiProvider)
+                                          .createUserDisease(userDiseaseModel);
+                                      logger.d(userDiseaseId);
+
+                                      // 이미지 저장
+                                      final multipartFileForUpload =
+                                          MultipartFile.fromBytes(imageBytes,
+                                              filename: "my_image.jpg",
+                                              contentType:
+                                                  MediaType("image", "jpeg"));
+
+                                      final updateForfmData = FormData.fromMap({
+                                        'image': multipartFileForUpload,
+                                        'id': userDiseaseId
+                                      });
+
+                                      final updateResponse = await dio.put(
+                                        '$BASE_URL/common/user-diseases/attach-file/$userDiseaseId',
+                                        data: updateForfmData,
+                                      );
+
+                                      logger.d(updateResponse);
+
+                                      if (!mounted) return;
+                                      context.push(
+                                          '/skin-result?diseaseId=$userDiseaseId');
+                                      // Success handling
+                                    } catch (e) {
+                                      // Error handling
+                                      print(e);
+                                    }
+                                  }
+                                  // 피부 MBTI
+                                  else {
+                                    final imageBytes =
+                                        captureImage!.readAsBytesSync();
+                                    final multipartFile =
+                                        MultipartFile.fromBytes(imageBytes,
+                                            filename: "my_image.jpg",
+                                            contentType:
+                                                MediaType("image", "jpeg"));
+
+                                    final dio = ref.read(dioProvider);
+                                    final formData = FormData.fromMap({
+                                      'file': multipartFile,
+                                    });
+
+                                    // // 이미지 저장
+                                    // final multipartFileForUpload =
+                                    //     MultipartFile.fromBytes(imageBytes,
+                                    //         filename: "my_image.jpg",
+                                    //         contentType:
+                                    //             MediaType("image", "jpeg"));
+                                    //
+                                    // final updateForfmData = FormData.fromMap({
+                                    //   'image': multipartFileForUpload,
+                                    //   'id': userSkinMbtiId
+                                    // });
+                                    //
+                                    // final updateResponse = await dio.put(
+                                    //   '$BASE_URL/common/user-diseases/attach-file/$userDiseaseId',
+                                    //   data: updateForfmData,
+                                    // );
+
+                                    context.pushNamed('survey');
+                                  }
+                                },
+                                child: Text('확인'),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -487,6 +552,8 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                       GestureDetector(
                         onTap: () async {
                           try {
+                            _cropController.scale = 1.0;
+                            _cropController.rotation = 0;
                             await _cameraController!
                                 .takePicture()
                                 .then((value) {

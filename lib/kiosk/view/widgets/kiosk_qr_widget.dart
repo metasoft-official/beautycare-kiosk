@@ -13,21 +13,24 @@ class KioskQrWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                Text(
-                  '내 피부 관리법에 대해 살펴보고,\n시술과 화장품을 추천받고 싶다면?',
-                  style: KioskTextTheme.black28m,
-                ),
-                Spacer(),
-                Text(
-                  'QR코드를 촬영해 App 다운로드하기',
-                  style: KioskTextTheme.blue36b,
-                ),
-                SizedBox(height: 20)
-              ],
+            const SizedBox(
+              height: 200,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    '내 피부 관리법에 대해 살펴보고,\n시술과 화장품을 추천받고 싶다면?',
+                    style: KioskTextTheme.black28m,
+                  ),
+                  Spacer(),
+                  Text(
+                    'QR코드를 촬영해 App 다운로드하기',
+                    style: KioskTextTheme.blue36b,
+                  ),
+                  SizedBox(height: 20)
+                ],
+              ),
             ),
             Container(
               decoration: BoxDecoration(

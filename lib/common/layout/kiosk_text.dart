@@ -4,6 +4,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_color.dart';
 
 class KioskTextTheme {
+  static const middleGrey16 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: AppColor.middleGrey);
+  static const middleGrey16m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: AppColor.middleGrey);
+  static const middleGrey16b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: AppColor.middleGrey);
   static const middleGrey24 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
@@ -58,26 +73,36 @@ class KioskTextTheme {
   static const blue36m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.appColor);
   static const blue36b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blue42 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 42,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.appColor);
   static const blue42m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 42,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.appColor);
   static const blue42b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 42,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blue24 = TextStyle(
@@ -98,36 +123,57 @@ class KioskTextTheme {
   static const blue28 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.appColor);
   static const blue28m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.appColor);
   static const blue28b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.appColor);
   static const blue54 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.appColor);
   static const blue54m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.appColor);
   static const blue54b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
+  static const blue54e = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w900,
       color: AppColor.appColor);
   static const blue60 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 60,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.appColor);
   static const blue60m = TextStyle(
@@ -139,6 +185,16 @@ class KioskTextTheme {
       fontFamily: 'noto_sans_kr',
       fontSize: 60,
       fontWeight: FontWeight.w700,
+      color: AppColor.appColor);
+  static const blue60e = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 60,
+      fontWeight: FontWeight.w900,
+      color: AppColor.appColor);
+  static const blue64e = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 64,
+      fontWeight: FontWeight.w900,
       color: AppColor.appColor);
 // black
   static const black12 = TextStyle(
@@ -159,27 +215,38 @@ class KioskTextTheme {
   static const black36 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black36m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black36b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      height: 1.0,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
 
   static const black42 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 42,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black42m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 42,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black42b = TextStyle(
@@ -190,61 +257,85 @@ class KioskTextTheme {
   static const black24 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black24m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black24b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
   static const black28 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black28m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black28b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
   static const black54 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black54m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black54b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 54,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
   static const black60 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 60,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: AppColor.black);
   static const black60m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 60,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: AppColor.black);
   static const black60b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 60,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: AppColor.black);
 // black
@@ -265,39 +356,95 @@ class KioskTextTheme {
       color: AppColor.black);
 
   /// white
+  static const white18 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white18m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white18b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 18,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
   static const white24 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: Colors.white);
   static const white24m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: Colors.white);
   static const white24b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 24,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w700,
+      color: Colors.white);
+  static const white28 = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w400,
+      color: Colors.white);
+  static const white28m = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static const white28b = TextStyle(
+      fontFamily: 'noto_sans_kr',
+      fontSize: 28,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: Colors.white);
   static const white36 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: Colors.white);
   static const white36m = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: Colors.white);
   static const white36b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 36,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: Colors.white);
   static const white48 = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 48,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w400,
       color: Colors.white);
   static const white48m = TextStyle(
@@ -308,6 +455,8 @@ class KioskTextTheme {
   static const white48b = TextStyle(
       fontFamily: 'noto_sans_kr',
       fontSize: 48,
+      letterSpacing: 0.5,
+      wordSpacing: 0.5,
       fontWeight: FontWeight.w700,
       color: Colors.white);
   static const white60 = TextStyle(

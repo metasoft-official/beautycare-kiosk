@@ -22,10 +22,6 @@ import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
 import 'package:beauty_care/mbti/view/widgets/type_detail_widget.dart';
 
-import '../../../main.dart';
-
-final sizeProvider = StateProvider<Size>((ref) => Size.zero);
-
 class MbtiResultPage extends ConsumerStatefulWidget {
   final String? surveyId;
 
