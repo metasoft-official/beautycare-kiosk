@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
@@ -20,6 +19,7 @@ import 'package:beauty_care/common/component/widgets/custom_carousel_slider.dart
 import 'package:beauty_care/common/component/widgets/list_title_widget.dart';
 import 'package:beauty_care/common/component/widgets/product_list_widget.dart';
 import 'package:beauty_care/common/component/mixins/hide_navigation_bar_mixin.dart';
+import 'package:kakao_flutter_sdk_talk/kakao_flutter_sdk_talk.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -287,9 +287,17 @@ class HomePageState extends ConsumerState<HomePage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30)),
                       child: GestureDetector(
-                        onTap: () {
-                          // 카카오톡 채팅창을 열어줍니다.
-                          // KakaoSDK.openChat(channelId);
+                        onTap: () async {
+                          // 카카오톡 채널 채팅 URL
+                          Uri url =
+                              await TalkApi.instance.channelChatUrl('_LxnHBxl');
+
+                          // 디바이스 브라우저 열기
+                          try {
+                            await launchBrowserTab(url);
+                          } catch (error) {
+                            print('카카오톡 채널 채팅 실패 $error');
+                          }
                         },
                         child: Image.asset(
                           'assets/images/oxygen_floating_button.png',
