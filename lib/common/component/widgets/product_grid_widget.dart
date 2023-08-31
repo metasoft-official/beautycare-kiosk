@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/model/skincare_category_model.dart';
 import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
@@ -25,10 +26,12 @@ class ProductGridWidget extends ConsumerWidget {
       this.crossAxisSpacing = 16.0,
       this.addWishlist,
       this.filterCategory,
-      this.itemCount})
+      this.itemCount,
+      required this.categories})
       : super(key: key);
 
-  final List<SkinProductModel> products; // 상품 리스트
+  final List<SkinProductModel> products;
+  final List<dynamic> categories; // 상품 리스트
   final int columnSizes;
 
   // 그 외 커스텀 가능한 설정값
@@ -134,18 +137,14 @@ class ProductGridWidget extends ConsumerWidget {
                                     children: [
                                       Text(
                                         filterCategory ??
-                                            products[index]
-                                                .skintypeCategoryId
-                                                .toString() ??
+                                            categories[index] ??
                                             '-',
                                         style: AppTextTheme.grey12
                                             .copyWith(height: 1.2),
                                       ),
                                       Text(
-                                        products[index]
-                                                .name!
-                                                .replaceAll('', '\u{200B}') ??
-                                            '-', //말줄임 적//말줄임 적용
+                                        products[index].name!.replaceAll(
+                                            '', '\u{200B}'), //말줄임 적//말줄임 적용
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: AppTextTheme.black14m

@@ -179,6 +179,7 @@ class CosmeticProductAll extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: ProductGridWidget(
             products: data['shopMain'],
+            categories: data['shopMainCategory'],
           ),
         ),
         const SizedBox(height: 20),
@@ -261,7 +262,10 @@ class CosmeticProductAll extends ConsumerWidget {
         if (data['shopTrouble'] != null && data['shopTrouble'].length != 0) ...[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            child: ProductGridWidget(products: data['shopTrouble']),
+            child: ProductGridWidget(
+              products: data['shopTrouble'],
+              categories: data['shopTroubleCategory'],
+            ),
           )
         ],
         const SizedBox(height: 20),
@@ -286,11 +290,11 @@ class CosmeticProductAll extends ConsumerWidget {
                         '이번 주',
                         style: AppTextTheme.blue20b.copyWith(height: 1.2),
                       ),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 20,
-                        color: AppColor.appColor,
-                      ),
+                      // const Icon(
+                      //   Icons.keyboard_arrow_down,
+                      //   size: 20,
+                      //   color: AppColor.appColor,
+                      // ),
                     ],
                   ),
                 ),
@@ -324,6 +328,7 @@ class CosmeticProductAll extends ConsumerWidget {
         if (data['shopPopularity'] != null &&
             data['shopPopularity'].length != 0) ...[
           ProductListWidget(
+            categories: data['shopPopularityCategory'],
             products: data['shopPopularity'],
             lankVisible: true,
             btnVisible: true,

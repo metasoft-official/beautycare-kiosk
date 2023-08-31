@@ -59,12 +59,14 @@ class SkinProductDataState
     }
   }
 
+  List<SkincareCategoryModel> mergedCategories = [];
   Future<void> getProductListByKey(
       {required String productKey,
       int? selectedData,
       int? rowSize,
       String? sortBy}) async {
     final index = selectedData ?? 0;
+
     switch (productKey) {
       case 'shopType':
         await getProductList(
@@ -77,6 +79,8 @@ class SkinProductDataState
             productLineCategoryId: data['lineCategory'][index].id);
         break;
       case 'shopMain':
+        mergedCategories = List.from(data['typeCategory'])
+          ..addAll(List.from(data['lineCategory']));
         await getProductList(productKey: 'shopMain', rowSize: 4);
         break;
       case 'shopTrouble':
@@ -86,9 +90,13 @@ class SkinProductDataState
             skintypeCategoryId: data['typeCategory'][index].id);
         break;
       case 'shopPopularity':
+        mergedCategories = List.from(data['typeCategory'])
+          ..addAll(List.from(data['lineCategory']));
         await getProductList(productKey: 'shopPopularity', rowSize: 3);
         break;
       default:
+        mergedCategories = List.from(data['typeCategory'])
+          ..addAll(List.from(data['lineCategory']));
         await getProductList(productKey: 'products');
         break;
     }
@@ -99,15 +107,34 @@ class SkinProductDataState
       int? skintypeCategoryId,
       int? productLineCategoryId,
       int? rowSize}) async {
+    // 비교할 카테고리 리스트
+    List<SkincareCategoryModel> categories = skintypeCategoryId != null
+        ? data['typeCategory']
+        : productLineCategoryId != null
+            ? data['lineCategory']
+            : mergedCategories;
+    // 제품 조건
     SkinProductModel skinProductModel = SkinProductModel(
         skintypeCategoryId: skintypeCategoryId,
         productLineCategoryId: productLineCategoryId);
+
+    // 제품 가져오기
     final response = await skinProductRepository.getSkinProductByQuery(
         skinProductModel, PageResponse(rowSize: rowSize));
     if (response != null && response.items != null) {
       data[productKey] = response.items;
+      // 카테고리 이름 매칭
+      List<dynamic> productCategoryNames = data[productKey]
+          .map((product) => categories
+              .firstWhere((category) =>
+                  category.id == product.skintypeCategoryId ||
+                  category.id == product.productLineCategoryId)
+              .name)
+          .toList();
+      data['${productKey}Category'] = List.from(productCategoryNames);
     } else {
       data[productKey] = [];
+      data['${productKey}Category'] = [];
     }
   }
 

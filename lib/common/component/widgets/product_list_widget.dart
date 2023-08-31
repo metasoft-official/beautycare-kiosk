@@ -15,21 +15,23 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../main.dart';
 
 class ProductListWidget extends ConsumerWidget {
-  const ProductListWidget({
-    Key? key,
-    required this.products,
-    required this.lankVisible,
-    required this.btnVisible,
-    this.btnText,
-    this.markText,
-    this.btnUrlName,
-    required this.imgVisible,
-    this.imgUrl,
-    this.categoryName,
-    this.itemCount,
-  }) : super(key: key);
+  const ProductListWidget(
+      {Key? key,
+      required this.products,
+      required this.lankVisible,
+      required this.btnVisible,
+      this.btnText,
+      this.markText,
+      this.btnUrlName,
+      required this.imgVisible,
+      this.imgUrl,
+      this.categoryName,
+      this.itemCount,
+      this.categories})
+      : super(key: key);
 
   final List<SkinProductModel> products; // 상품 리스트
+  final List<dynamic>? categories;
 
   final String? categoryName;
   final int? itemCount;
@@ -146,9 +148,7 @@ class ProductListWidget extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                categoryName ??
-                                    products[0].skintypeCategoryId.toString() ??
-                                    '-',
+                                categoryName ?? categories?[0] ?? '-',
                                 style: AppTextTheme.middleGrey8,
                               ),
                               Text(
@@ -318,9 +318,7 @@ class ProductListWidget extends ConsumerWidget {
                                               children: [
                                                 Text(
                                                   categoryName ??
-                                                      products[index]
-                                                          .skintypeCategoryId
-                                                          .toString() ??
+                                                      categories?[index] ??
                                                       '-',
                                                   style:
                                                       AppTextTheme.middleGrey8,
