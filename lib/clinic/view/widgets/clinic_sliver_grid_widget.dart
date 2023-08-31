@@ -1,7 +1,9 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
+import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/provider/click_count_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kakao_flutter_sdk_talk/kakao_flutter_sdk_talk.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'package:beauty_care/cosmetic/provider/product_state_provider.dart';
@@ -58,8 +60,24 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                       child: Container(
                         constraints:
                             const BoxConstraints(minWidth: 1, minHeight: 1),
-                        child:
-                            Image.asset('assets/images/sample_images_01.png'),
+                        child: clinics[index].logoImageId != null
+                            ? Image.network(
+                                '${Strings.imageUrl}${clinics[index].logoImageId}',
+                                fit: BoxFit.cover,
+                                // 네트워크 Empty 예외처리
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/sample_images_01.png',
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                            // 이미지 아이디 Null 예외처리
+                            : Image.asset(
+                                'assets/images/sample_images_01.png',
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),
@@ -126,7 +144,22 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                           await ref
                               .read(clickCountRepositoryProvider)
                               .updateClickCount(clinics[index].id ?? -1, 'C');
-                          //todo 카톡 연결
+
+                          final kakao =
+                              clinics[index].kakaotalkChannelLink?.split('/');
+                          if (kakao != null) {
+                            // 카카오톡 채널 채팅 URL
+                            Uri url = Uri.parse(
+                                "https://pf.kakao.com/${kakao.last}/chat");
+                            // await TalkApi.instance.channelChatUrl('_LxnHBxl');
+
+                            // 디바이스 브라우저 열기
+                            try {
+                              await launchBrowserTab(url);
+                            } catch (error) {
+                              print('카카오톡 채널 채팅 실패 $error');
+                            }
+                          }
                         },
                         child: Image.asset('assets/icons/ic_kakao_channel.png',
                             width: 25),

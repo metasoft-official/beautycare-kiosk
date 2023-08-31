@@ -196,9 +196,13 @@ class CosmeticProductAll extends ConsumerWidget {
           ),
         ),
         // 공병템 =============================================================
-        ListTitleWidget(
-          text: '${user.name}님의 공병템이 될 상품',
-          markText: user.name,
+        Wrap(
+          children: [
+            ListTitleWidget(
+              text: '${user.name}님의 공병템이 될 상품',
+              markText: user.name,
+            ),
+          ],
         ),
         // 고민 필터
         Padding(

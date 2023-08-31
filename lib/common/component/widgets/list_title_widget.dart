@@ -16,39 +16,50 @@ class ListTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-      child: Row(
-        children: [
-          // 제목
-          markText != null
-              ? RichText(
-                  text: TextSpan(
-                      style: AppTextTheme.black20m,
-                      children: markTextsMixin(
-                          text, markText!, AppTextTheme.blue20b)),
-                )
-              : Text(
-                  text,
-                  style: AppTextTheme.black20b,
-                ),
-          const Spacer(),
-          // 더보기
-          InkWell(
-            onTap: onTap,
-            child: Row(
-              children: [
-                Text(btnText ?? '더보기', style: AppTextTheme.blue12b),
-                // 화살표
-                const Icon(
-                  Icons.navigate_next,
-                  size: 16,
-                  color: AppColor.appColor,
-                )
-              ],
-            ),
-          )
-        ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // 제목
+            markText != null
+                ? Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                          style: AppTextTheme.black20m,
+                          children: markTextsMixin(
+                              text, markText!, AppTextTheme.blue20b)),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  )
+                : Expanded(
+                    child: Text(
+                      text,
+                      style: AppTextTheme.black20b,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+            // 더보기
+            InkWell(
+              onTap: onTap,
+              child: Row(
+                children: [
+                  Text(btnText ?? '더보기', style: AppTextTheme.blue12b),
+                  // 화살표
+                  const Icon(
+                    Icons.navigate_next,
+                    size: 16,
+                    color: AppColor.appColor,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

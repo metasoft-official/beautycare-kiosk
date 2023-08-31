@@ -53,70 +53,75 @@ class MypageState extends ConsumerState<MypagePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 프로필 ========================================================
-                      Row(
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  border: Border.all(
-                                      color: AppColor.lightGrey, width: 2)),
-                              width: 50,
-                              height: 50,
-                              child: ClipOval(
-                                child: user.profileImageId != null
-                                    ? Image.network(
-                                        '${Strings.imageUrl}${user.profileImageId}',
-                                        fit: BoxFit.cover,
-                                        // 네트워크 Empty 예외처리
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return Image.asset(
-                                            "assets/images/character_coiz_3.png",
-                                            fit: BoxFit.cover,
-                                          );
-                                        },
-                                      )
-                                    // 이미지 아이디 Null 예외처리
-                                    : Image.asset(
-                                        "assets/images/character_coiz_3.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                              )),
-                          const SizedBox(width: 16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  style: AppTextTheme.black16m,
-                                  children: markTextsMixin(
-                                      '${user.name} 님, 환영합니다!',
-                                      '${user.name}',
-                                      AppTextTheme.blue16b),
-                                ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    border: Border.all(
+                                        color: AppColor.lightGrey, width: 2)),
+                                width: 50,
+                                height: 50,
+                                child: ClipOval(
+                                  child: user.profileImageId != null
+                                      ? Image.network(
+                                          '${Strings.imageUrl}${user.profileImageId}',
+                                          fit: BoxFit.cover,
+                                          // 네트워크 Empty 예외처리
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Image.asset(
+                                              "assets/images/character_coiz_3.png",
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        )
+                                      // 이미지 아이디 Null 예외처리
+                                      : Image.asset(
+                                          "assets/images/character_coiz_3.png",
+                                          fit: BoxFit.cover,
+                                        ),
+                                )),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: AppTextTheme.black16m,
+                                      children: markTextsMixin(
+                                          '${user.name} 님, 환영합니다!',
+                                          '${user.name}',
+                                          AppTextTheme.blue16b),
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '${user.email}',
+                                    style: AppTextTheme.grey12m,
+                                  )
+                                ],
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                '${user.email}',
-                                style: AppTextTheme.grey12m,
-                              )
-                            ],
-                          ),
-                          const Spacer(),
-                          TextButton(
-                            onPressed: () {
-                              context.pushNamed('profileEdit');
-                            },
-                            style: TextButton.styleFrom(
-                                padding: const EdgeInsets.all(0)),
-                            child: Text(
-                              '편집',
-                              style: AppTextTheme.blue12b.copyWith(
-                                  decoration: TextDecoration.underline),
                             ),
-                          )
-                        ],
+                            TextButton(
+                              onPressed: () {
+                                context.pushNamed('profileEdit');
+                              },
+                              style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.all(0)),
+                              child: Text(
+                                '편집',
+                                style: AppTextTheme.blue12b.copyWith(
+                                    decoration: TextDecoration.underline),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 16,

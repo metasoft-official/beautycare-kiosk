@@ -290,7 +290,8 @@ class HomePageState extends ConsumerState<HomePage> {
                         onTap: () async {
                           // 카카오톡 채널 채팅 URL
                           Uri url =
-                              await TalkApi.instance.channelChatUrl('_LxnHBxl');
+                              Uri.parse("https://pf.kakao.com/_LxnHBxl/chat");
+                          // await TalkApi.instance.channelChatUrl('_LxnHBxl');
 
                           // 디바이스 브라우저 열기
                           try {

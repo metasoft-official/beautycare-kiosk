@@ -40,12 +40,14 @@ class CustomTextFormField extends StatelessWidget {
           const SizedBox(height: 8)
         ],
         TextFormField(
+            focusNode: null,
+            autofocus: false,
             readOnly: readOnly ?? false,
             autocorrect: false,
             controller: controller,
             initialValue: initialValue,
             keyboardType: textInputType ?? TextInputType.text,
-            textInputAction: textInputAction ?? TextInputAction.next,
+            textInputAction: textInputAction,
             onChanged: onChanged,
             decoration: InputDecoration(
               hintText: hintText,
