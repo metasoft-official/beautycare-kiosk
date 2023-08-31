@@ -1,4 +1,8 @@
+import 'package:beauty_care/common/provider/home/home_state_provider.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/provider/result_data_provider.dart';
 import 'package:beauty_care/common/provider/secure_storage_provider.dart';
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,19 +13,20 @@ import 'package:beauty_care/user/view/pages/login_page.dart';
 final authStateProvider = StateNotifierProvider<AuthStateNotifier, bool>((ref) {
   final storage = ref.watch(secureStorageProvider);
   return AuthStateNotifier(
+    ref,
     storage,
   );
 });
 
 // 로그인 상태 관리
 class AuthStateNotifier extends StateNotifier<bool> {
-  AuthStateNotifier(this.storage) : super(false);
+  AuthStateNotifier(this.ref, this.storage) : super(false);
+  Ref ref;
 
   final FlutterSecureStorage storage;
 
   void logIn() async {
     state = true;
-
     // Secure Storage에 토큰 저장
     // await storage.write(key: 'auth_token', value: token);
   }

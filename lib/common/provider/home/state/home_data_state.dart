@@ -1,8 +1,13 @@
 import 'package:beauty_care/common/model/page_response_model.dart';
+import 'package:beauty_care/common/provider/result_data_provider.dart';
 import 'package:beauty_care/common/provider/skin_category_provider.dart';
 import 'package:beauty_care/common/repository/skin_category_repository.dart';
 import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 import 'package:beauty_care/cosmetic/repository/skin_product_repository.dart';
+import 'package:beauty_care/main.dart';
+import 'package:beauty_care/user/model/user_disease_model.dart';
+import 'package:beauty_care/user/model/user_skin_mbti_model.dart';
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -11,9 +16,10 @@ class HomeDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   final Ref ref;
   final SkinProductRepository skinProductRepository;
   final SkincareCategoryRepository skincareCategoryRepository;
+  final Map<String, dynamic> resultData;
 
-  HomeDataState(
-      this.ref, this.skinProductRepository, this.skincareCategoryRepository)
+  HomeDataState(this.ref, this.skinProductRepository,
+      this.skincareCategoryRepository, this.resultData)
       : super(const AsyncValue.loading()) {
     loadData();
   }

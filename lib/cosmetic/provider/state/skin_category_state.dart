@@ -13,6 +13,14 @@ class SkinCategoryState extends ChangeNotifier {
   int productTypeCurIndex = 0; //cosmetic
   int productLineCurIndex = 0; //cosmetic
 
+  void select(String key, int index) {
+    key == 'shopType'
+        ? productTypeCurIndex = index
+        : key == 'shopLine'
+            ? productLineCurIndex = index
+            : {productTypeCurIndex = 0, productLineCurIndex = 0};
+  }
+
   // order
   int selectedTypeValue = 0;
   int selectedLineValue = 0;

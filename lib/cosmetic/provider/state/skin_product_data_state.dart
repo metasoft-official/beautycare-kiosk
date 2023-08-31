@@ -9,6 +9,8 @@ import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/skincare_category_model.dart';
 import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 
+import '../../../main.dart';
+
 class SkinProductDataState
     extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   final Ref ref;

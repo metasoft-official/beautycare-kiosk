@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/component/dialog/failed_dialog.dart';
+import 'package:beauty_care/user/provider/mypage_page_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -227,9 +228,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             if (response.items != null &&
                                 response.items!.isNotEmpty) {
                               ref.read(authStateProvider.notifier).logIn();
-                              ref.read(userNotifierProvider.notifier).state =
-                                  response.items![0];
-                              logger.d(response.items![0]);
+                              ref
+                                  .read(userNotifierProvider.notifier)
+                                  .update(response.items![0]);
+                              if (!mounted) return;
                               login(context, ref);
                               ref
                                   .read(socialLoginTypeProvider.notifier)
@@ -296,8 +298,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               if (response.items != null &&
                                   response.items!.isNotEmpty) {
                                 ref.read(authStateProvider.notifier).logIn();
-                                ref.read(userNotifierProvider.notifier).state =
-                                    response.items![0];
+                                ref
+                                    .read(userNotifierProvider.notifier)
+                                    .update(response.items![0]);
+                                if (!mounted) return;
                                 login(context, ref);
                                 ref
                                     .read(socialLoginTypeProvider.notifier)

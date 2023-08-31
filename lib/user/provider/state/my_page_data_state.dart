@@ -51,7 +51,6 @@ class MyPageDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
     final userResponse =
         await userDiseaseRepository.getUserDiseaseByQuery(userId ?? -1);
     if (userResponse != null && userResponse.items != null) {
-      logger.d(userResponse.items);
       data['disease'] = List.from(userResponse.items!);
     } else {
       data['disease'] = [];

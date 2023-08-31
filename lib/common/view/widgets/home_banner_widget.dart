@@ -61,35 +61,51 @@ class HomeBannerWidget extends StatelessWidget {
           ],
 
           // 내용
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          Align(
+            alignment: Alignment.centerLeft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 타이틀
-                if (title != null) ...[
-                  markText != null
-                      ? RichText(
-                          text: TextSpan(
-                              children: markTextsMixin(
-                                  title!, markText!, AppTextTheme.yellow24b),
-                              style:
-                                  AppTextTheme.white24b.copyWith(height: 1.4)))
-                      : Text(title!,
-                          style: AppTextTheme.white24b.copyWith(height: 1.4)),
-                  const SizedBox(height: 8)
-                ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 타이틀
+                      if (title != null) ...[
+                        markText != null
+                            ? RichText(
+                                text: TextSpan(
+                                    children: markTextsMixin(title!, markText!,
+                                        AppTextTheme.yellow24b),
+                                    style: AppTextTheme.white24b
+                                        .copyWith(height: 1.4)))
+                            : Text(title!,
+                                style: AppTextTheme.white20b
+                                    .copyWith(height: 1.4)),
+                        const SizedBox(height: 8)
+                      ],
 
-                // 캡션
-                if (caption != null) ...[
-                  Text(
-                    caption!,
-                    style: AppTextTheme.white14m,
-                  )
-                ],
-
-                // 위젯 추가
-                widget ?? const SizedBox(height: 70),
+                      // 캡션
+                      if (caption != null) ...[
+                        Text(
+                          caption!,
+                          style: AppTextTheme.white14m,
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                      if (widget == null) ...[const SizedBox(height: 70)],
+                    ],
+                  ),
+                ),
+                if (widget != null) ...[
+                  // 위젯 추가
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: widget ?? Container(),
+                  ),
+                  const SizedBox(height: 20),
+                ]
               ],
             ),
           ),

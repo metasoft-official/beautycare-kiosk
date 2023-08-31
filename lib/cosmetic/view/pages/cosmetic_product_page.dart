@@ -37,13 +37,21 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       final productState = ref.watch(skinProductStateProvider.notifier);
+      final categoryState = ref.watch(skinCategoryStateProvider);
       productState.tabState = tabController.index;
       final key = tabController.index == 0
           ? 'shopMain'
           : tabController.index == 1
               ? 'shopType'
               : 'shopLine';
-      productState.getProductListByKey(productKey: key);
+      productState.getProductListByKey(
+          productKey: key,
+          selectedData: tabController.index == 1
+              ? categoryState.productTypeCurIndex
+              : tabController.index == 2
+                  ? categoryState.productLineCurIndex
+                  : null);
+
       productState.reload();
     });
   }
@@ -101,7 +109,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                           data['order']['shopTypeOrder'][selectedData].name;
 
                       // 선택에 따른 내용 다시 가져오기
-                      productDataState.getProductListByKey(
+                      await productDataState.getProductListByKey(
                           productKey: 'shopType',
                           selectedData: categoryState.productTypeCurIndex);
 
@@ -110,9 +118,9 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                   ),
                   SliverToBoxAdapter(
                     child: HorizontalCategoryWidget(
-                      onPressed: (index) {
-                        categoryState.productTypeCurIndex = index;
-                        productDataState.getProductListByKey(
+                      onPressed: (index) async {
+                        categoryState.select('shopType', index);
+                        await productDataState.getProductListByKey(
                             productKey: 'shopType', selectedData: index);
                         productDataState.reload();
                       },
@@ -146,7 +154,7 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                       data['selectedOrder']['shopLine'] =
                           data['order']['shopLineOrder'][selectedData].name;
                       // 선택에 따른 내용 다시 가져오기
-                      productDataState.getProductListByKey(
+                      await productDataState.getProductListByKey(
                           productKey: 'shopLine',
                           selectedData: categoryState.productLineCurIndex);
                       productDataState.reload();
@@ -154,9 +162,9 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
                   ),
                   SliverToBoxAdapter(
                     child: HorizontalCategoryWidget(
-                      onPressed: (index) {
-                        categoryState.productLineCurIndex = index;
-                        productDataState.getProductListByKey(
+                      onPressed: (index) async {
+                        categoryState.select('shopLine', index);
+                        await productDataState.getProductListByKey(
                             selectedData: index, productKey: 'shopLine');
                         productDataState.reload();
                       },

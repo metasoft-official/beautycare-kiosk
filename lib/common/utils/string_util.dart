@@ -4,10 +4,9 @@ class StringUtil {
   String? dateTimeToString({DateTime? value, String? pattern}) {
     if (value == null) {
       return null;
-    } else if (pattern != null && pattern.contains('MM.dd')) {
-      return "${value.month.toString().padLeft(2, '0')}.${value.day.toString().padLeft(2, '0')}";
     } else {
-      return "${value.year}.${value.month.toString().padLeft(2, '0')}.${value.day.toString().padLeft(2, '0')}";
+      DateFormat formatter = DateFormat(pattern ?? 'yyyy.MM.dd');
+      return formatter.format(value);
     }
   }
 
@@ -71,6 +70,21 @@ class StringUtil {
         dDay = result.toString();
       } else {
         dDay = 'Day';
+      }
+      return dDay;
+    } else {
+      return null;
+    }
+  }
+
+  String? dayFromNowReverse(DateTime? value) {
+    String? dDay;
+    if (value != null) {
+      int? result = DateTime.now().difference(value).inDays + 1;
+      if (result > 0) {
+        dDay = result.toString();
+      } else {
+        dDay = '0';
       }
       return dDay;
     } else {

@@ -36,7 +36,6 @@ class MypageState extends ConsumerState<MypagePage> {
     UserModel user = ref.read(userNotifierProvider);
     // final mypageState = ref.watch(mypageStateChangeProvider);
     final asyncValue = ref.watch(myPageStateProvider);
-    logger.d(asyncValue);
 
     return asyncValue.when(
       data: (data) {
