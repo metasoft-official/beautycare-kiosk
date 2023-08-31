@@ -11,6 +11,7 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../main.dart';
+import '../../provider/click_count_provider.dart';
 
 // todo 찜 로직 추가
 class ProductGridWidget extends ConsumerWidget {
@@ -117,6 +118,10 @@ class ProductGridWidget extends ConsumerWidget {
                               const SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () async {
+                                  await ref
+                                      .read(clickCountRepositoryProvider)
+                                      .updateClickCount(
+                                          products[index].id ?? -1, 'S');
                                   Uri url = Uri.parse(
                                       products[index].productUrl ?? '-');
                                   if (!await launchUrl(url)) {

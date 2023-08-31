@@ -70,6 +70,7 @@ dependencies:
   flutter_svg:
 
   # kakao
+  kakao_flutter_sdk:
   kakao_flutter_sdk_user:
   kakao_flutter_sdk_talk:
 

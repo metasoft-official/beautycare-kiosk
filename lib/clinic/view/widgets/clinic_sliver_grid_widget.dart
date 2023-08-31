@@ -1,4 +1,5 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
+import 'package:beauty_care/common/provider/click_count_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_shadow/simple_shadow.dart';
@@ -121,6 +122,12 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                     ),
                     Flexible(
                       child: GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(clickCountRepositoryProvider)
+                              .updateClickCount(clinics[index].id ?? -1, 'C');
+                          //todo 카톡 연결
+                        },
                         child: Image.asset('assets/icons/ic_kakao_channel.png',
                             width: 25),
                       ),

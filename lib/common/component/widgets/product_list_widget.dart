@@ -1,8 +1,10 @@
 import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/provider/click_count_provider.dart';
 import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
 import 'package:beauty_care/mbti/model/skin_mbti_skincare_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'package:beauty_care/common/layout/app_text.dart';
@@ -12,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../main.dart';
 
-class ProductListWidget extends StatelessWidget {
+class ProductListWidget extends ConsumerWidget {
   const ProductListWidget({
     Key? key,
     required this.products,
@@ -46,7 +48,7 @@ class ProductListWidget extends StatelessWidget {
   final String? imgUrl;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final count = itemCount ?? products.length;
 
     return count == 1
@@ -95,6 +97,9 @@ class ProductListWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(28, 14, 28, 14),
                   child: InkWell(
                     onTap: () async {
+                      await ref
+                          .read(clickCountRepositoryProvider)
+                          .updateClickCount(products[0].id ?? -1, 'S');
                       Uri url = Uri.parse(products[0].productUrl ?? '-');
                       if (!await launchUrl(url)) {
                         throw Exception('Could not launch $url');
@@ -250,6 +255,10 @@ class ProductListWidget extends StatelessWidget {
                                         const EdgeInsets.fromLTRB(8, 4, 16, 4),
                                     child: InkWell(
                                       onTap: () async {
+                                        await ref
+                                            .read(clickCountRepositoryProvider)
+                                            .updateClickCount(
+                                                products[index].id ?? -1, 'S');
                                         Uri url = Uri.parse(
                                             products[index].productUrl ?? '-');
                                         if (!await launchUrl(url)) {
