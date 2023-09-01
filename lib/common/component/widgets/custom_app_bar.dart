@@ -51,7 +51,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
         const SizedBox(width: 16),
         // noti.length == null?
         InkWell(
-          onTap: () => context.pushNamed('noti'),
+          onTap: () => authStateNotifier.navigateToPage(context, ref, 'noti'),
           child: Image.asset('assets/icons/ic_notice_grey.png', width: 16),
         ),
         //   : InkWell(
