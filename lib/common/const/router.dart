@@ -1,4 +1,5 @@
 import 'package:beauty_care/common/view/pages/select_device_page.dart';
+import 'package:beauty_care/common/view/pages/setting_page.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/view/pages/disease_selected_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_disease_result_page.dart';
@@ -65,6 +66,13 @@ class AppRouter {
           name: HomePage.routeName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: HomePage(),
+          ),
+        ),
+        GoRoute(
+          path: '/setting',
+          name: SettingPage.routeName,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: SettingPage(),
           ),
         ),
         GoRoute(

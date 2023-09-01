@@ -1,6 +1,5 @@
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/const/values.dart';
-import 'package:beauty_care/common/layout/app_box_theme.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,19 @@ class MypageState extends ConsumerState<MypagePage> {
       data: (data) {
         final allResult = List.from(data['allResult']);
         return Scaffold(
-            appBar: AppBar(title: const Text('마이페이지')),
+            appBar: AppBar(
+              title: const Text('마이페이지'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: InkWell(
+                    onTap: () => context.pushNamed('setting'),
+                    child:
+                        Image.asset('assets/icons/ic_setting.png', width: 20),
+                  ),
+                ),
+              ],
+            ),
             backgroundColor: Colors.white,
             body: Column(
               children: [

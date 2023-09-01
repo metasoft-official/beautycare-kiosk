@@ -45,7 +45,6 @@ class ResultDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
         getDiseaseResult(user?.id ?? -1),
       ]);
       await getMbtiTypeInfo(data['mbti']?.skinMbtiId);
-      logger.d('load : ${data['mbtiInfo']}');
     } catch (e, s) {
       state = AsyncValue.error(e, s);
     }
