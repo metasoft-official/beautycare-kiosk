@@ -164,8 +164,8 @@ class DiseaseSelectedState extends ConsumerState<DiseaseSelectedPage> {
                         topRight: Radius.circular(10))),
                 child: Column(
                   children: [
-                    const Row(
-                      children: [
+                    Row(
+                      children: const [
                         Icon(
                           Icons.insert_drive_file_outlined,
                           color: AppColor.appColor,

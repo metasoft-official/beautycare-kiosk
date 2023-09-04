@@ -43,9 +43,9 @@ class NotiMainPageState extends ConsumerState<NotiMainPage> {
                 ? Container(
                     padding: const EdgeInsets.fromLTRB(24, 30, 24, 60),
                     width: double.infinity,
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(
                           Icons.notifications_off_outlined,
                           color: AppColor.appColor,

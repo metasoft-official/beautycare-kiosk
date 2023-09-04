@@ -308,7 +308,7 @@ class CosmeticProductAll extends ConsumerWidget {
               // 더보기
               InkWell(
                 onTap: () {},
-                child: const Row(
+                child: Row(
                   children: [
                     Text('더보기', style: AppTextTheme.blue12b),
                     // 화살표

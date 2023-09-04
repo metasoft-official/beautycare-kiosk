@@ -10,7 +10,6 @@ import 'package:beauty_care/common/layout/app_text.dart';
 import 'package:beauty_care/common/component/widgets/gradient_bar_chart_widget.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 import 'package:beauty_care/common/const/values.dart';
-import 'package:beauty_care/common/layout/kiosk_text.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
 import 'package:beauty_care/disease/provider/disease_state_provider.dart';
 import 'package:beauty_care/kiosk/view/widgets/kiosk_app_bar.dart';
@@ -151,9 +150,9 @@ class KioskSelectDiseaseState extends ConsumerState<KioskSelectDiseasePage> {
                           padding: const EdgeInsets.fromLTRB(20, 26, 20, 0),
                           child: Column(
                             children: [
-                              const Row(
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.insert_drive_file_outlined,
                                     color: AppColor.appColor,
@@ -272,7 +271,7 @@ Widget? diseaseButton(
                         style: AppTextTheme.blue36m,
                       ),
                       TextSpan(
-                          text: ' ${score.toString()}%' ?? '-',
+                          text: ' ${score.toString()}%',
                           style: AppTextTheme.blue36m)
                     ],
                   ),

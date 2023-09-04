@@ -48,9 +48,9 @@ class TypeDetailWidget extends ConsumerWidget {
                       bottomLeft: Radius.circular(30)),
                 ),
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(
                       Icons.expand_more,
                       size: 20,
@@ -98,12 +98,8 @@ class TypeDetailWidget extends ConsumerWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Align(
                             alignment: Alignment.center,
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  scoreWidget(index, result!, context)!
-                                ],
-                              ),
+                            child: Column(
+                              children: [scoreWidget(index, result!, context)!],
                             ),
                           );
                         }),
@@ -209,9 +205,9 @@ class TypeDetailWidget extends ConsumerWidget {
                     child: Container(
                       color: Colors.transparent,
                       width: double.infinity,
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(
                             Icons.expand_less,
                             size: 20,

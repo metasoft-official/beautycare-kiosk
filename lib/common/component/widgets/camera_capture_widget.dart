@@ -74,7 +74,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
 
   @override
   void dispose() {
-    _cameraController!.dispose();
+    _cameraController?.dispose();
     super.dispose();
   }
 

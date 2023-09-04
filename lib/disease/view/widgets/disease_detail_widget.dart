@@ -38,9 +38,9 @@ class DiseaseDetailWidget extends ConsumerWidget {
                       bottomLeft: Radius.circular(10)),
                 ),
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(
                       Icons.expand_more,
                       size: 20,
@@ -73,9 +73,9 @@ class DiseaseDetailWidget extends ConsumerWidget {
                   margin: const EdgeInsets.only(bottom: 20),
                   color: Colors.transparent,
                   width: double.infinity,
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.expand_less,
                         size: 20,

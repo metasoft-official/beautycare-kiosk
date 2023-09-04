@@ -78,9 +78,9 @@ class ClinicPageState extends ConsumerState<ClinicPage> {
                             Image.asset('assets/images/map_image.png',
                                 width: 32),
                             const SizedBox(width: 10),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text('현재 내 지역은 서울특별시입니다.',
                                     style: AppTextTheme.white14b),
                                 Text('다른 지역을 선택하시겠습니까?',

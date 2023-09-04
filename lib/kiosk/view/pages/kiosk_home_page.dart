@@ -16,6 +16,7 @@ class KioskHomePage extends ConsumerWidget {
 
   static String get routeName => 'kioskHome';
 
+  // 질환 mbti 선택 홈 화면
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CarouselController carouselController = CarouselController();

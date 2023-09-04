@@ -13,11 +13,11 @@ class KioskQrWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   SizedBox(height: 20),
                   Text(
                     '내 피부 관리법에 대해 살펴보고,\n시술과 화장품을 추천받고 싶다면?',
