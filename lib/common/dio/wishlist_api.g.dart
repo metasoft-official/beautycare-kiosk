@@ -113,7 +113,35 @@ class _WishlistApi implements WishlistApi {
     )
             .compose(
               _dio.options,
-              '/common/wishlist-clinics/${userId}/${clinicId}',
+              '/common/wishlist-clinics/${userId},${clinicId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PageResponse<WishlistClinicModel>.fromJson(
+      _result.data!,
+      (json) => WishlistClinicModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<PageResponse<WishlistClinicModel>> getWishlistClinicByUserId(
+      query) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(query);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PageResponse<WishlistClinicModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/common/wishlist-clinics',
               queryParameters: queryParameters,
               data: _data,
             )

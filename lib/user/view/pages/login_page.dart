@@ -166,6 +166,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               // 로그인 페이지를 pop
                               // context.pop();
                               String routeName = widget.onLoginSuccess();
+
+                              // 알림 구독
+                              FirebaseMessaging.instance
+                                  .subscribeToTopic("all");
+
                               if (!mounted) return;
                               context.pushNamed(routeName);
                             } else {

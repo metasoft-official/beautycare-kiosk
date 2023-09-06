@@ -10,6 +10,7 @@ import 'package:beauty_care/user/provider/find_id_pw_provider.dart';
 import 'package:beauty_care/user/provider/register_state_provider.dart';
 import 'package:beauty_care/user/view/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../main.dart';
@@ -33,6 +34,9 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
     super.initState();
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
+      ref.watch(dropdownChangeStateProvider.notifier).domainSelectedValue =
+          null;
+      ref.watch(formStateProvider.notifier).init();
       final findState = ref.watch(findChangeProvider);
       findState.resetState();
     });
@@ -49,6 +53,7 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
     final formState = ref.watch(formStateProvider);
     final validState = ref.watch(formStateProvider.notifier);
     final dropdownState = ref.watch(dropdownChangeStateProvider);
+    final sendEmailState = ref.watch(sendEmailProvider.notifier);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -63,7 +68,7 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
         ),
       ),
       body: CustomTabbarViewWidget(tabController: tabController, widgets: [
-        // 아이디 찾기 =======================================================
+        /// 아이디 찾기 =======================================================
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -86,8 +91,8 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                             {validState.updateInputState(value, 'email')},
                         decoration: InputDecoration(
                           hintText: '이메일',
-                          errorText: formState.isEmailVallid == true ||
-                                  formState.isEmailVallid == null
+                          errorText: formState.isEmailValid == true ||
+                                  formState.isEmailValid == null
                               ? null
                               : '이메일을 확인해주세요.',
                         ),
@@ -115,8 +120,16 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                 child: ElevatedButton(
                   style: AppButtonTheme.basicElevatedNoRoundedButtonTheme,
                   onPressed: () {
-                    //todo 이메일 전송 코드
-                    toastMessage.topYellowBoxBlueText('메일로 인증코드가 발송되었습니다.');
+                    if (dropdownState.domainSelectedValue == null) {
+                      toastMessage.topRedBoxWhiteText('이메일 주소를 선택해주세요.');
+                    } else {
+                      sendEmailState
+                          .sendEmail(
+                              email:
+                                  '${formState.email}@${dropdownState.domainSelectedValue}')
+                          .then((value) =>
+                              toastMessage.topYellowBoxBlueText(value));
+                    }
                   },
                   child: const Text('인증코드 전송'),
                 ),
@@ -131,11 +144,32 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                 autocorrect: false,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
+                onChanged: (value) => {validState.updateCode(value)},
                 decoration: InputDecoration(
                   hintText: '인증코드 6자리',
+                  errorText: formState.isCodeValid == true ||
+                          formState.isCodeValid == null
+                      ? null
+                      : '인증코드 여섯자리를 작성해주세요.',
                   suffixIcon: TextButton(
-                    onPressed: () {
-                      // Todo 인증번호 확인 코드
+                    onPressed: () async {
+                      if (formState.isCodeValid == true ||
+                          formState.isCodeValid == null) {
+                        int? response;
+                        await sendEmailState
+                            .matchCode(formState.code ?? '')
+                            .then((value) => response = value);
+                        if (response != null) {
+                          if (response! > 0) {
+                            // 성공
+                            logger.d(sendEmailState.user);
+                            () => context.push(
+                                '/find-id-detail?username=${sendEmailState.user.username}');
+                          } else {
+                            toastMessage.topRedBoxWhiteText('인증번호를 다시 확인해주세요.');
+                          }
+                        }
+                      }
                     },
                     child: const Text(
                       '확인',
@@ -148,7 +182,7 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
           ),
         ),
 
-        // 비밀번호 찾기 =======================================================
+        /// 비밀번호 찾기 =======================================================
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -182,8 +216,8 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                             {validState.updateInputState(value, 'email')},
                         decoration: InputDecoration(
                           hintText: '이메일',
-                          errorText: formState.isEmailVallid == true ||
-                                  formState.isEmailVallid == null
+                          errorText: formState.isEmailValid == true ||
+                                  formState.isEmailValid == null
                               ? null
                               : '이메일을 확인해주세요.',
                         ),
@@ -211,8 +245,16 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                 child: ElevatedButton(
                   style: AppButtonTheme.basicElevatedNoRoundedButtonTheme,
                   onPressed: () {
-                    //todo 이메일 전송 코드
-                    toastMessage.topYellowBoxBlueText('메일로 인증코드가 발송되었습니다.');
+                    if (dropdownState.domainSelectedValue == null) {
+                      toastMessage.topRedBoxWhiteText('이메일 주소를 선택해주세요.');
+                    } else {
+                      sendEmailState
+                          .sendEmail(
+                              email:
+                                  '${formState.email}@${dropdownState.domainSelectedValue}')
+                          .then((value) =>
+                              toastMessage.topYellowBoxBlueText(value));
+                    }
                   },
                   child: const Text('인증코드 전송'),
                 ),
@@ -227,11 +269,27 @@ class _FindIdPwPageState extends ConsumerState<FindIdPwPage>
                 autocorrect: false,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
+                onChanged: (value) => {validState.updateCode(value)},
                 decoration: InputDecoration(
                   hintText: '인증코드 6자리',
                   suffixIcon: TextButton(
-                    onPressed: () {
-                      // Todo 인증번호 확인 코드
+                    onPressed: () async {
+                      if (formState.isCodeValid == true ||
+                          formState.isCodeValid == null) {
+                        int? response;
+                        await sendEmailState
+                            .matchCode(formState.code ?? '')
+                            .then((value) => response = value);
+                        logger.d(response);
+                        if (response != null) {
+                          if (response! > 0) {
+                            // 성공
+                            logger.d('성공');
+                          } else {
+                            toastMessage.topRedBoxWhiteText('인증번호를 다시 확인해주세요.');
+                          }
+                        }
+                      }
                     },
                     child: const Text(
                       '확인',

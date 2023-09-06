@@ -2,6 +2,7 @@ import 'package:beauty_care/common/component/widgets/loading_circle_animation_wi
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/auth_provider.dart';
+import 'package:beauty_care/user/provider/register_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

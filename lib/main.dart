@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:beauty_care/common/view/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,35 +26,38 @@ var stringUtil = StringUtil();
 var toastMessage = ToastMessage();
 
 void main() async {
-  KakaoSdk.init(
-      nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1',
-      javaScriptAppKey: 'ea72724bc4dbaef409ee2d2c9020e6e5');
+  if (!Platform.isWindows) {
+    KakaoSdk.init(
+        nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1',
+        javaScriptAppKey: 'ea72724bc4dbaef409ee2d2c9020e6e5');
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
 
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-  );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-  String? firebase_token = await FirebaseMessaging.instance.getToken();
-  print("firebase_token : ${firebase_token ?? 'token NULL!'}");
+    String? firebase_token = await FirebaseMessaging.instance.getToken();
+    // print("firebase_token : ${firebase_token ?? 'token NULL!'}");
+  }
   runApp(const ProviderScope(child: MyApp()));
 }
 

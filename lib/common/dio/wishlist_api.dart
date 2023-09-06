@@ -23,9 +23,13 @@ abstract class WishlistApi {
   Future<int> removeWishlistSkincareProductByUserId(
       @Body() Map<String, dynamic> query);
 
-  @GET('/common/wishlist-clinics/{userId}/{clinicId}')
+  @GET('/common/wishlist-clinics/{userId},{clinicId}')
   Future<PageResponse<WishlistClinicModel>> getWishlistClinic(
       @Path("userId") String userId, @Path("clinicId") String clinicId);
+
+  @GET('/common/wishlist-clinics')
+  Future<PageResponse<WishlistClinicModel>> getWishlistClinicByUserId(
+      @Body() Map<String, dynamic> query);
 
   @POST('/common/wishlist-clinics')
   Future<int> createWishlistClinic(@Body() Map<String, dynamic> query);

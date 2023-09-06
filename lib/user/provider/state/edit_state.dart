@@ -30,9 +30,8 @@ class EditState extends ChangeNotifier {
   void initState() {
     UserModel user = ref.read(userNotifierProvider);
     final dropdownState = ref.read(dropdownChangeStateProvider);
-    final validState = ref.watch(formStateProvider.notifier);
-    final addressState = ref.watch(addressChangeStateProvider);
-    final formState = ref.read(formStateProvider);
+    final validState = ref.read(formStateProvider.notifier);
+    final addressState = ref.read(addressChangeStateProvider);
 
     Future(() {
       addressState.postcordTextController.text = user.zipCode ?? '';

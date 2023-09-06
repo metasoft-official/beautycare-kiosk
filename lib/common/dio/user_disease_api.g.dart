@@ -101,7 +101,8 @@ class _UserDiseaseApi implements UserDiseaseApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
+    final _data = <String, dynamic>{};
+    _data.addAll(userDiseaseModel.toJson());
     final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'POST',
       headers: _headers,
@@ -126,7 +127,8 @@ class _UserDiseaseApi implements UserDiseaseApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = userDiseaseModel;
+    final _data = <String, dynamic>{};
+    _data.addAll(userDiseaseModel.toJson());
     final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'PUT',
       headers: _headers,

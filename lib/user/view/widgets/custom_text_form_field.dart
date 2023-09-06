@@ -15,7 +15,9 @@ class CustomTextFormField extends StatelessWidget {
       this.textInputAction,
       this.readOnly,
       this.maxLength,
-      this.errorText})
+      this.errorText,
+      this.suffixIcon,
+      this.obscureText})
       : super(key: key);
 
   final String? title;
@@ -29,6 +31,9 @@ class CustomTextFormField extends StatelessWidget {
   final bool? readOnly;
   final int? maxLength;
   final String? errorText;
+
+  final IconButton? suffixIcon;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +55,11 @@ class CustomTextFormField extends StatelessWidget {
             textInputAction: textInputAction,
             onChanged: onChanged,
             decoration: InputDecoration(
-              hintText: hintText,
-              errorText: errorText,
-            ),
-            maxLength: maxLength),
+                hintText: hintText,
+                errorText: errorText,
+                suffixIcon: suffixIcon),
+            maxLength: maxLength,
+            obscureText: obscureText ?? false),
         SizedBox(height: title != null ? 20 : 8),
       ],
     );

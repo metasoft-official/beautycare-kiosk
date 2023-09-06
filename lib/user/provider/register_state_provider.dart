@@ -3,6 +3,7 @@ import 'package:beauty_care/user/model/form_state_model.dart';
 import 'package:beauty_care/user/provider/state/address_change_state.dart';
 import 'package:beauty_care/user/provider/state/dropdown_change_state.dart';
 import 'package:beauty_care/user/provider/state/form_state.dart';
+import 'package:beauty_care/user/provider/state/password_change_state.dart';
 import 'package:beauty_care/user/provider/state/register_data_state.dart';
 import 'package:beauty_care/user/provider/state/terms_change_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,24 +14,31 @@ final registerDataStateProvider = AutoDisposeStateNotifierProvider<
         RegisterDataState, AsyncValue<Map<String, dynamic>>>(
     (ref) => RegisterDataState(ref, ref.read(userRepositoryProvider)));
 
+// change state
+final passwordChangeProvider =
+    AutoDisposeChangeNotifierProvider<PasswordChangeState>((ref) {
+  return PasswordChangeState();
+});
+
 // 약관 동의
 final termsChangeStateProvider =
-    ChangeNotifierProvider<TermsChangeState>((ref) {
+    AutoDisposeChangeNotifierProvider<TermsChangeState>((ref) {
   return TermsChangeState();
 });
 
 // 드롭 다운
 final dropdownChangeStateProvider =
-    ChangeNotifierProvider<DropdownChangeState>((ref) {
+    AutoDisposeChangeNotifierProvider<DropdownChangeState>((ref) {
   return DropdownChangeState();
 });
 
 // 드롭 다운
 final addressChangeStateProvider =
-    ChangeNotifierProvider<AddressChangeState>((ref) {
+    AutoDisposeChangeNotifierProvider<AddressChangeState>((ref) {
   return AddressChangeState();
 });
 
 // 폼 데이터
-final formStateProvider = StateNotifierProvider<FormNotifier, FormStateModel>(
-    (ref) => FormNotifier(ref));
+final formStateProvider =
+    AutoDisposeStateNotifierProvider<FormNotifier, FormStateModel>(
+        (ref) => FormNotifier(ref));

@@ -13,6 +13,7 @@ class FormNotifier extends StateNotifier<FormStateModel> {
           phThird: '',
           email: '',
           profileImageId: null,
+          code: null,
           inputStartedFlags: {
             'username': false,
             'password': false,
@@ -81,7 +82,7 @@ class FormNotifier extends StateNotifier<FormStateModel> {
           break;
         case 'email':
           state = state.copyWith(
-              email: updateValue, isEmailVallid: _validateEmail(updateValue));
+              email: updateValue, isEmailValid: _validateEmail(updateValue));
           break;
       }
     }
@@ -89,6 +90,10 @@ class FormNotifier extends StateNotifier<FormStateModel> {
 
   updateProfileImage(int id) {
     state = state.copyWith(profileImageId: id);
+  }
+
+  updateCode(String value) {
+    state = state.copyWith(code: value, isCodeValid: _validateCode(value));
   }
 
   bool _validateUsername(String username) {
@@ -142,6 +147,13 @@ class FormNotifier extends StateNotifier<FormStateModel> {
     return email.isNotEmpty &&
         !containsWhitespace(email) &&
         containsEnglishAndNumber(email);
+  }
+
+  bool _validateCode(String code) {
+    // 인증코드 : 인증코드가 6자리이고 숫자인지
+    return code.length == 6 &&
+        !containsWhitespace(code) &&
+        containsOnlyNum(code);
   }
 
   bool containsWhitespace(String text) {

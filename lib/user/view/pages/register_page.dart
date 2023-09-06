@@ -27,12 +27,13 @@ class RegisterPage extends ConsumerStatefulWidget {
 class RegisterState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    final asyncValue = ref.watch(registerDataStateProvider);
     final registerState = ref.watch(registerDataStateProvider.notifier);
     final dropdownState = ref.watch(dropdownChangeStateProvider);
     final addressState = ref.watch(addressChangeStateProvider);
     final formState = ref.watch(formStateProvider);
     final validState = ref.watch(formStateProvider.notifier);
+    final visiblePassword = ref.watch(passwordChangeProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -116,6 +117,16 @@ class RegisterState extends ConsumerState<RegisterPage> {
                     validState.updateInputState(
                         formState.rePassword ?? '', 'rePassword')
                   },
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      visiblePassword.isVisiblePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: AppColor.grey,
+                    ),
+                    onPressed: () => visiblePassword.setPasswordVisible(),
+                  ),
+                  obscureText: !visiblePassword.isVisiblePassword,
                 ),
 
                 // 비밀번호 확인
@@ -129,6 +140,16 @@ class RegisterState extends ConsumerState<RegisterPage> {
                   initialValue: formState.rePassword,
                   onChanged: (value) =>
                       {validState.updateInputState(value, 'rePassword')},
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      visiblePassword.isVisibleRePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: AppColor.grey,
+                    ),
+                    onPressed: () => visiblePassword.setRePasswordVisible(),
+                  ),
+                  obscureText: !visiblePassword.isVisibleRePassword,
                 ),
 
                 // 이름
@@ -292,8 +313,8 @@ class RegisterState extends ConsumerState<RegisterPage> {
                           onChanged: (value) =>
                               {validState.updateInputState(value, 'email')},
                           decoration: InputDecoration(
-                            errorText: formState.isEmailVallid == true ||
-                                    formState.isEmailVallid == null
+                            errorText: formState.isEmailValid == true ||
+                                    formState.isEmailValid == null
                                 ? null
                                 : '이메일을 확인해주세요.',
                           ),
@@ -431,7 +452,7 @@ class RegisterState extends ConsumerState<RegisterPage> {
                   formState.isPhFirstValid == true &&
                   formState.isPhSecondValid == true &&
                   formState.isPhThirdValid == true &&
-                  formState.isEmailVallid == true) !=
+                  formState.isEmailValid == true) !=
               true) {
             toastMessage.showError('필수값 입력을 확인해주세요!');
           } else if ((dropdownState.domainSelectedValue != null &&

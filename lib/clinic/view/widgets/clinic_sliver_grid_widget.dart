@@ -1,6 +1,7 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/provider/click_count_provider.dart';
+import 'package:beauty_care/common/provider/wishlist_change_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kakao_flutter_sdk_talk/kakao_flutter_sdk_talk.dart';
@@ -29,8 +30,6 @@ class ClinicSliverGridWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productState = ref.watch(productStateProvider);
-
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -102,14 +101,25 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                       ),
                     ),
                   ],
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: GestureDetector(
-                      onTap: addWishlist,
-                      child: Image.asset('assets/icons/ic_wishlist_grey.png',
-                          width: 16, height: 16),
-                    ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final state = ref.watch(wishlistChangeProvider.notifier);
+                      String color = 'grey';
+                      return Positioned(
+                        top: 10,
+                        right: 10,
+                        child: GestureDetector(
+                          onTap: () async {
+                            color = await state.getClinicWishlist(
+                                clinicId: clinics[index].id);
+                          },
+                          child: Image.asset(
+                              'assets/icons/ic_wishlist_$color.png',
+                              width: 16,
+                              height: 16),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

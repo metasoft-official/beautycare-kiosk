@@ -81,6 +81,16 @@ class UserRepository {
     return null;
   }
 
+  Future<PageResponse<UserModel>?> getUserByEmail(String email) async {
+    try {
+      final response = await _userApi.getUserList({'email': email});
+      return response;
+    } catch (e, s) {
+      logger.e("", e, s);
+    }
+    return null;
+  }
+
   Future<RoleUserModel?> getUserRoleByUserId(int userId) async {
     try {
       final response = await _userApi.getUserRoleByUserId({'userId': userId});
@@ -121,6 +131,17 @@ class UserRepository {
     try {
       final response = await _userApi.putUser(query);
       logger.d(response);
+      return response;
+    } catch (e, s) {
+      logger.e("", e, s);
+    }
+    return null;
+  }
+
+  Future<int?> sendEmail({required String email, required String code}) async {
+    final Map<String, dynamic> query = {'email': email, 'code': code};
+    try {
+      final response = await _userApi.sendEmail(query);
       return response;
     } catch (e, s) {
       logger.e("", e, s);

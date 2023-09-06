@@ -20,6 +20,6 @@ final myPageStateProvider = AutoDisposeStateNotifierProvider<MyPageDataState,
   ),
 );
 
-final editStateProvider = AutoDisposeChangeNotifierProvider<EditState>((ref) {
+final editStateProvider = ChangeNotifierProvider<EditState>((ref) {
   return EditState(ref);
 });

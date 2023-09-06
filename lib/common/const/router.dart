@@ -9,6 +9,7 @@ import 'package:beauty_care/kiosk/view/pages/kiosk_select_disease_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_shooting_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_pre_check_page.dart';
 import 'package:beauty_care/promotion/view/pages/promotion_page.dart';
+import 'package:beauty_care/user/view/pages/find_id_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -149,10 +150,24 @@ class AppRouter {
           name: FindIdPwPage.routeName,
           builder: (context, state) => const FindIdPwPage(),
         ),
+        GoRoute(
+          path: '/find-id-detail',
+          name: FindIdDetailPage.routeName,
+          pageBuilder: (context, state) => MaterialPage(
+            child: FindIdDetailPage(
+              username: state.queryParameters['username'],
+            ),
+          ),
+        ),
         // GoRoute(
-        //   path: '/find-password',
-        //   name: LoginPage.routeName,
-        //   builder: (context, state) => LoginPage(),
+        //   path: '/find-pw-detail',
+        //   name: FindPwDetailPage.routeName,
+        //   builder: (context, state) => const FindPwDetailPage(),
+        // ),
+        // GoRoute(
+        //   path: '/find-pw-result',
+        //   name: FindPwResultPage.routeName,
+        //   builder: (context, state) => const FindPwResultPage(),
         // ),
 
         // 회원가입

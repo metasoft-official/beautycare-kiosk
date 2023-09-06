@@ -24,6 +24,7 @@ mixin _$FormStateModel {
   String? get phSecond => throw _privateConstructorUsedError;
   String? get phThird => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   int? get profileImageId => throw _privateConstructorUsedError;
   bool? get isUsernameValid => throw _privateConstructorUsedError;
   bool? get isPasswordValid => throw _privateConstructorUsedError;
@@ -32,7 +33,8 @@ mixin _$FormStateModel {
   bool? get isPhFirstValid => throw _privateConstructorUsedError;
   bool? get isPhSecondValid => throw _privateConstructorUsedError;
   bool? get isPhThirdValid => throw _privateConstructorUsedError;
-  bool? get isEmailVallid => throw _privateConstructorUsedError;
+  bool? get isEmailValid => throw _privateConstructorUsedError;
+  bool? get isCodeValid => throw _privateConstructorUsedError;
   Map<String, bool>? get inputStartedFlags =>
       throw _privateConstructorUsedError;
 
@@ -56,6 +58,7 @@ abstract class $FormStateModelCopyWith<$Res> {
       String? phSecond,
       String? phThird,
       String? email,
+      String? code,
       int? profileImageId,
       bool? isUsernameValid,
       bool? isPasswordValid,
@@ -64,7 +67,8 @@ abstract class $FormStateModelCopyWith<$Res> {
       bool? isPhFirstValid,
       bool? isPhSecondValid,
       bool? isPhThirdValid,
-      bool? isEmailVallid,
+      bool? isEmailValid,
+      bool? isCodeValid,
       Map<String, bool>? inputStartedFlags});
 }
 
@@ -89,6 +93,7 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
     Object? phSecond = freezed,
     Object? phThird = freezed,
     Object? email = freezed,
+    Object? code = freezed,
     Object? profileImageId = freezed,
     Object? isUsernameValid = freezed,
     Object? isPasswordValid = freezed,
@@ -97,7 +102,8 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
     Object? isPhFirstValid = freezed,
     Object? isPhSecondValid = freezed,
     Object? isPhThirdValid = freezed,
-    Object? isEmailVallid = freezed,
+    Object? isEmailValid = freezed,
+    Object? isCodeValid = freezed,
     Object? inputStartedFlags = freezed,
   }) {
     return _then(_value.copyWith(
@@ -133,6 +139,10 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
       profileImageId: freezed == profileImageId
           ? _value.profileImageId
           : profileImageId // ignore: cast_nullable_to_non_nullable
@@ -165,9 +175,13 @@ class _$FormStateModelCopyWithImpl<$Res, $Val extends FormStateModel>
           ? _value.isPhThirdValid
           : isPhThirdValid // ignore: cast_nullable_to_non_nullable
               as bool?,
-      isEmailVallid: freezed == isEmailVallid
-          ? _value.isEmailVallid
-          : isEmailVallid // ignore: cast_nullable_to_non_nullable
+      isEmailValid: freezed == isEmailValid
+          ? _value.isEmailValid
+          : isEmailValid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isCodeValid: freezed == isCodeValid
+          ? _value.isCodeValid
+          : isCodeValid // ignore: cast_nullable_to_non_nullable
               as bool?,
       inputStartedFlags: freezed == inputStartedFlags
           ? _value.inputStartedFlags
@@ -194,6 +208,7 @@ abstract class _$$_FormStateModelCopyWith<$Res>
       String? phSecond,
       String? phThird,
       String? email,
+      String? code,
       int? profileImageId,
       bool? isUsernameValid,
       bool? isPasswordValid,
@@ -202,7 +217,8 @@ abstract class _$$_FormStateModelCopyWith<$Res>
       bool? isPhFirstValid,
       bool? isPhSecondValid,
       bool? isPhThirdValid,
-      bool? isEmailVallid,
+      bool? isEmailValid,
+      bool? isCodeValid,
       Map<String, bool>? inputStartedFlags});
 }
 
@@ -225,6 +241,7 @@ class __$$_FormStateModelCopyWithImpl<$Res>
     Object? phSecond = freezed,
     Object? phThird = freezed,
     Object? email = freezed,
+    Object? code = freezed,
     Object? profileImageId = freezed,
     Object? isUsernameValid = freezed,
     Object? isPasswordValid = freezed,
@@ -233,7 +250,8 @@ class __$$_FormStateModelCopyWithImpl<$Res>
     Object? isPhFirstValid = freezed,
     Object? isPhSecondValid = freezed,
     Object? isPhThirdValid = freezed,
-    Object? isEmailVallid = freezed,
+    Object? isEmailValid = freezed,
+    Object? isCodeValid = freezed,
     Object? inputStartedFlags = freezed,
   }) {
     return _then(_$_FormStateModel(
@@ -269,6 +287,10 @@ class __$$_FormStateModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
       profileImageId: freezed == profileImageId
           ? _value.profileImageId
           : profileImageId // ignore: cast_nullable_to_non_nullable
@@ -301,9 +323,13 @@ class __$$_FormStateModelCopyWithImpl<$Res>
           ? _value.isPhThirdValid
           : isPhThirdValid // ignore: cast_nullable_to_non_nullable
               as bool?,
-      isEmailVallid: freezed == isEmailVallid
-          ? _value.isEmailVallid
-          : isEmailVallid // ignore: cast_nullable_to_non_nullable
+      isEmailValid: freezed == isEmailValid
+          ? _value.isEmailValid
+          : isEmailValid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isCodeValid: freezed == isCodeValid
+          ? _value.isCodeValid
+          : isCodeValid // ignore: cast_nullable_to_non_nullable
               as bool?,
       inputStartedFlags: freezed == inputStartedFlags
           ? _value._inputStartedFlags
@@ -325,6 +351,7 @@ class _$_FormStateModel implements _FormStateModel {
       this.phSecond,
       this.phThird,
       this.email,
+      this.code,
       this.profileImageId,
       this.isUsernameValid,
       this.isPasswordValid,
@@ -333,7 +360,8 @@ class _$_FormStateModel implements _FormStateModel {
       this.isPhFirstValid,
       this.isPhSecondValid,
       this.isPhThirdValid,
-      this.isEmailVallid,
+      this.isEmailValid,
+      this.isCodeValid,
       final Map<String, bool>? inputStartedFlags})
       : _inputStartedFlags = inputStartedFlags;
 
@@ -354,6 +382,8 @@ class _$_FormStateModel implements _FormStateModel {
   @override
   final String? email;
   @override
+  final String? code;
+  @override
   final int? profileImageId;
   @override
   final bool? isUsernameValid;
@@ -370,7 +400,9 @@ class _$_FormStateModel implements _FormStateModel {
   @override
   final bool? isPhThirdValid;
   @override
-  final bool? isEmailVallid;
+  final bool? isEmailValid;
+  @override
+  final bool? isCodeValid;
   final Map<String, bool>? _inputStartedFlags;
   @override
   Map<String, bool>? get inputStartedFlags {
@@ -384,7 +416,7 @@ class _$_FormStateModel implements _FormStateModel {
 
   @override
   String toString() {
-    return 'FormStateModel(username: $username, password: $password, rePassword: $rePassword, name: $name, phFirst: $phFirst, phSecond: $phSecond, phThird: $phThird, email: $email, profileImageId: $profileImageId, isUsernameValid: $isUsernameValid, isPasswordValid: $isPasswordValid, isRePasswordValid: $isRePasswordValid, isNameValid: $isNameValid, isPhFirstValid: $isPhFirstValid, isPhSecondValid: $isPhSecondValid, isPhThirdValid: $isPhThirdValid, isEmailVallid: $isEmailVallid, inputStartedFlags: $inputStartedFlags)';
+    return 'FormStateModel(username: $username, password: $password, rePassword: $rePassword, name: $name, phFirst: $phFirst, phSecond: $phSecond, phThird: $phThird, email: $email, code: $code, profileImageId: $profileImageId, isUsernameValid: $isUsernameValid, isPasswordValid: $isPasswordValid, isRePasswordValid: $isRePasswordValid, isNameValid: $isNameValid, isPhFirstValid: $isPhFirstValid, isPhSecondValid: $isPhSecondValid, isPhThirdValid: $isPhThirdValid, isEmailValid: $isEmailValid, isCodeValid: $isCodeValid, inputStartedFlags: $inputStartedFlags)';
   }
 
   @override
@@ -404,6 +436,7 @@ class _$_FormStateModel implements _FormStateModel {
                 other.phSecond == phSecond) &&
             (identical(other.phThird, phThird) || other.phThird == phThird) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code) &&
             (identical(other.profileImageId, profileImageId) ||
                 other.profileImageId == profileImageId) &&
             (identical(other.isUsernameValid, isUsernameValid) ||
@@ -420,33 +453,38 @@ class _$_FormStateModel implements _FormStateModel {
                 other.isPhSecondValid == isPhSecondValid) &&
             (identical(other.isPhThirdValid, isPhThirdValid) ||
                 other.isPhThirdValid == isPhThirdValid) &&
-            (identical(other.isEmailVallid, isEmailVallid) ||
-                other.isEmailVallid == isEmailVallid) &&
+            (identical(other.isEmailValid, isEmailValid) ||
+                other.isEmailValid == isEmailValid) &&
+            (identical(other.isCodeValid, isCodeValid) ||
+                other.isCodeValid == isCodeValid) &&
             const DeepCollectionEquality()
                 .equals(other._inputStartedFlags, _inputStartedFlags));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      username,
-      password,
-      rePassword,
-      name,
-      phFirst,
-      phSecond,
-      phThird,
-      email,
-      profileImageId,
-      isUsernameValid,
-      isPasswordValid,
-      isRePasswordValid,
-      isNameValid,
-      isPhFirstValid,
-      isPhSecondValid,
-      isPhThirdValid,
-      isEmailVallid,
-      const DeepCollectionEquality().hash(_inputStartedFlags));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        username,
+        password,
+        rePassword,
+        name,
+        phFirst,
+        phSecond,
+        phThird,
+        email,
+        code,
+        profileImageId,
+        isUsernameValid,
+        isPasswordValid,
+        isRePasswordValid,
+        isNameValid,
+        isPhFirstValid,
+        isPhSecondValid,
+        isPhThirdValid,
+        isEmailValid,
+        isCodeValid,
+        const DeepCollectionEquality().hash(_inputStartedFlags)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -465,6 +503,7 @@ abstract class _FormStateModel implements FormStateModel {
       final String? phSecond,
       final String? phThird,
       final String? email,
+      final String? code,
       final int? profileImageId,
       final bool? isUsernameValid,
       final bool? isPasswordValid,
@@ -473,7 +512,8 @@ abstract class _FormStateModel implements FormStateModel {
       final bool? isPhFirstValid,
       final bool? isPhSecondValid,
       final bool? isPhThirdValid,
-      final bool? isEmailVallid,
+      final bool? isEmailValid,
+      final bool? isCodeValid,
       final Map<String, bool>? inputStartedFlags}) = _$_FormStateModel;
 
   @override
@@ -493,6 +533,8 @@ abstract class _FormStateModel implements FormStateModel {
   @override
   String? get email;
   @override
+  String? get code;
+  @override
   int? get profileImageId;
   @override
   bool? get isUsernameValid;
@@ -509,7 +551,9 @@ abstract class _FormStateModel implements FormStateModel {
   @override
   bool? get isPhThirdValid;
   @override
-  bool? get isEmailVallid;
+  bool? get isEmailValid;
+  @override
+  bool? get isCodeValid;
   @override
   Map<String, bool>? get inputStartedFlags;
   @override

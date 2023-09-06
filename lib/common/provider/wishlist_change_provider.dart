@@ -10,13 +10,26 @@ final wishlistApiProvider = Provider<WishlistApi>((ref) {
 });
 
 final wishlistChangeProvider =
-    ChangeNotifierProvider((ref) => WishlistChangeState());
+    StateNotifierProvider((ref) => WishlistState(ref));
 
-class WishlistChangeState extends ChangeNotifier {
-  late Ref ref;
+class WishlistState extends StateNotifier {
+  Ref ref;
 
-  Future<String> clickWish(
-      {required BuildContext context, int? clinicId, int? productId}) async {
+  WishlistState(this.ref) : super(null);
+
+  // todo 위시리스트 처음 로드
+  Future<void> getAllClinicWishlist() async {
+    // 현재 사용자 ID 가져오기
+    final userId = ref.watch(userNotifierProvider).id;
+    final api = ref.read(wishlistApiProvider);
+
+    final response = await api.getWishlistClinicByUserId({'userId': userId});
+    if (response.items != null) {
+      if (response.items!.isNotEmpty) {}
+    }
+  }
+
+  Future<String> getClinicWishlist({int? clinicId, int? productId}) async {
     // 현재 사용자 ID 가져오기
     final userId = ref.watch(userNotifierProvider).id;
     final api = ref.read(wishlistApiProvider);
@@ -64,9 +77,5 @@ class WishlistChangeState extends ChangeNotifier {
       // 이미지를 빨간색으로 변경합니다.
       return 'red';
     }
-  }
-
-  reload() {
-    notifyListeners();
   }
 }

@@ -29,4 +29,7 @@ abstract class UserApi {
 
   @PUT('/app/accounts')
   Future<String> putUser(@Body() Map<String, dynamic> query);
+
+  @POST('/app/accounts/send-email')
+  Future<int> sendEmail(@Body() Map<String, dynamic> query);
 }

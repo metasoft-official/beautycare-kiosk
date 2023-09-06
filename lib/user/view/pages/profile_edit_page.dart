@@ -290,8 +290,8 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
                         onChanged: (value) =>
                             {validState.updateInputState(value, 'email')},
                         decoration: InputDecoration(
-                          errorText: formState.isEmailVallid == true ||
-                                  formState.isEmailVallid == null
+                          errorText: formState.isEmailValid == true ||
+                                  formState.isEmailValid == null
                               ? null
                               : '이메일을 확인해주세요.',
                         ),
@@ -423,8 +423,8 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
         onPressed: () async {
           if (!((formState.isNameValid == null ||
                   formState.isNameValid == true) &&
-              (formState.isEmailVallid == null ||
-                  formState.isEmailVallid == true))) {
+              (formState.isEmailValid == null ||
+                  formState.isEmailValid == true))) {
             toastMessage.showError('필수값 입력을 확인해주세요!');
           } else if ((dropdownState.domainSelectedValue != null &&
                   dropdownState.yearSelectedValue != null &&

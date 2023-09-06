@@ -13,6 +13,7 @@ class FormStateModel with _$FormStateModel {
     String? phSecond,
     String? phThird,
     String? email,
+    String? code,
     int? profileImageId,
     bool? isUsernameValid,
     bool? isPasswordValid,
@@ -21,7 +22,8 @@ class FormStateModel with _$FormStateModel {
     bool? isPhFirstValid,
     bool? isPhSecondValid,
     bool? isPhThirdValid,
-    bool? isEmailVallid,
+    bool? isEmailValid,
+    bool? isCodeValid,
     Map<String, bool>? inputStartedFlags,
   }) = _FormStateModel;
 }
