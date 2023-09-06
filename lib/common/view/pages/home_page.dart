@@ -77,12 +77,14 @@ class HomePageState extends ConsumerState<HomePage> {
                           ref.watch(resultStateProvider);
                           final resultData =
                               ref.watch(resultStateProvider.notifier);
+                          logger.d(resultData.data);
 
                           return Column(children: [
                             /// 메인 배너 ==================================================
                             /// 피부질환 ==========================================
                             if (authState == false ||
-                                resultData.data['disease'] == null) ...[
+                                resultData.data['disease'] == null ||
+                                resultData.data['disease'].length == 0) ...[
                               // before
                               HomeBannerWidget(
                                 imgUrl: 'assets/images/main_stack_01.png',
@@ -246,7 +248,9 @@ class HomePageState extends ConsumerState<HomePage> {
 
                             /// 피부MBTI 예측하기 ===================================
                             if (authState == false ||
-                                resultData.data['mbtiInfo'] == null) ...[
+                                (resultData.data['mbtiInfo'] == null ||
+                                    resultData.data['mbtiInfo'].length ==
+                                        0)) ...[
                               // before
                               HomeBannerWidget(
                                 bottom: -30,

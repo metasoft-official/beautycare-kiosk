@@ -467,7 +467,7 @@ class RegisterState extends ConsumerState<RegisterPage> {
             final response = await registerState.createUser();
             if (response != null) {
               if (!mounted) return;
-              context.goNamed('login');
+              context.goNamed('home');
             } else {
               if (!mounted) return;
               showDialog(
