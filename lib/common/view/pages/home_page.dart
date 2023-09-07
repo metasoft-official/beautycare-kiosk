@@ -249,8 +249,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             /// 피부MBTI 예측하기 ===================================
                             if (authState == false ||
                                 (resultData.data['mbtiInfo'] == null ||
-                                    resultData.data['mbtiInfo'].length ==
-                                        0)) ...[
+                                    resultData.data['mbtiInfo'] == null)) ...[
                               // before
                               HomeBannerWidget(
                                 bottom: -30,
