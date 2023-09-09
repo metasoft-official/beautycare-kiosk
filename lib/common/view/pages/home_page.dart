@@ -77,7 +77,6 @@ class HomePageState extends ConsumerState<HomePage> {
                           ref.watch(resultStateProvider);
                           final resultData =
                               ref.watch(resultStateProvider.notifier);
-                          logger.d(resultData.data);
 
                           return Column(children: [
                             /// 메인 배너 ==================================================

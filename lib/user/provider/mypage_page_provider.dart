@@ -1,3 +1,4 @@
+import 'package:beauty_care/user/provider/state/edit_profile_state.dart';
 import 'package:beauty_care/user/provider/state/edit_state.dart';
 import 'package:beauty_care/user/provider/state/my_page_change_state.dart';
 import 'package:beauty_care/user/provider/state/my_page_data_state.dart';
@@ -20,6 +21,8 @@ final myPageStateProvider = AutoDisposeStateNotifierProvider<MyPageDataState,
   ),
 );
 
-final editStateProvider = ChangeNotifierProvider<EditState>((ref) {
+final editStateProvider = AutoDisposeChangeNotifierProvider<EditState>((ref) {
   return EditState(ref);
 });
+
+final editProfileProvider = ChangeNotifierProvider((ref) => EditProfileState());

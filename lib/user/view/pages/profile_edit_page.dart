@@ -59,38 +59,41 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
               // 프로필 사진 ========================================================
               Stack(
                 children: [
-                  Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          border:
-                              Border.all(color: AppColor.lightGrey, width: 1)),
-                      width: 100,
-                      height: 100,
-                      child: ClipOval(
-                        child: editState.updatedImage != null
-                            ? Image.memory(
-                                editState.updatedImage!.readAsBytesSync(),
-                                fit: BoxFit.cover)
-                            : user.profileImageId != null
-                                ? Image.network(
-                                    '${Strings.imageUrl}${user.profileImageId}',
-                                    fit: BoxFit.cover,
-                                    // 네트워크 Empty 예외처리
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace? stackTrace) {
-                                      return Image.asset(
-                                        "assets/images/character_coiz_3.png",
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  )
-                                // 이미지 아이디 Null 예외처리
-                                : Image.asset(
-                                    "assets/images/character_coiz_3.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                      )),
+                  Consumer(builder: (context, ref, child) {
+                    ref.watch(editProfileProvider);
+                    return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0),
+                            border: Border.all(
+                                color: AppColor.lightGrey, width: 1)),
+                        width: 100,
+                        height: 100,
+                        child: ClipOval(
+                          child: editState.updatedImage != null
+                              ? Image.memory(
+                                  editState.updatedImage!.readAsBytesSync(),
+                                  fit: BoxFit.cover)
+                              : user.profileImageId != null
+                                  ? Image.network(
+                                      '${Strings.imageUrl}${user.profileImageId}',
+                                      fit: BoxFit.cover,
+                                      // 네트워크 Empty 예외처리
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return Image.asset(
+                                          "assets/images/character_coiz_3.png",
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    )
+                                  // 이미지 아이디 Null 예외처리
+                                  : Image.asset(
+                                      "assets/images/character_coiz_3.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                        ));
+                  }),
                   Positioned(
                     right: 0,
                     bottom: 0,
@@ -124,6 +127,10 @@ class ProfileEditState extends ConsumerState<ProfileEditPage> {
                                               File(pickedImage.path);
                                           editState
                                               .updateProfileImage(userImage);
+                                          ref
+                                              .watch(
+                                                  editProfileProvider.notifier)
+                                              .reload();
                                           //확장자
                                           final path =
                                               userImage.path.split('.');

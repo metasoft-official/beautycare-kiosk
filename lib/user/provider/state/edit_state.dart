@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:beauty_care/common/model/user_model.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/main.dart';
 import 'package:beauty_care/user/model/account_dto_model.dart';
 import 'package:beauty_care/user/provider/register_state_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,11 +25,11 @@ class EditState extends ChangeNotifier {
 
   void updateProfileImage(File image) {
     updatedImage = image;
-    notifyListeners();
   }
 
   void initState() {
-    UserModel user = ref.read(userNotifierProvider);
+    UserModel user = ref.watch(userNotifierProvider);
+    logger.d(user);
     final dropdownState = ref.read(dropdownChangeStateProvider);
     final validState = ref.read(formStateProvider.notifier);
     final addressState = ref.read(addressChangeStateProvider);
@@ -88,7 +89,9 @@ class EditState extends ChangeNotifier {
     final userResponse =
         await userRepository.putUser(accountDtoModel, modifyUser);
     if (userResponse != null) {
-      userState.update(modifyUser);
+      await userRepository.getUserByUsername(modifyUser.username ?? '').then(
+          (value) => userState.update(value?.items?.first ?? UserModel()));
+      logger.d(userNotifierProvider);
       return userResponse;
     }
 

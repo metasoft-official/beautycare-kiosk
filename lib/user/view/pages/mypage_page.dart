@@ -33,7 +33,7 @@ class MypagePage extends ConsumerStatefulWidget {
 class MypageState extends ConsumerState<MypagePage> {
   @override
   Widget build(BuildContext context) {
-    UserModel user = ref.read(userNotifierProvider);
+    UserModel user = ref.watch(userNotifierProvider);
     // final mypageState = ref.watch(mypageStateChangeProvider);
     final asyncValue = ref.watch(myPageStateProvider);
 

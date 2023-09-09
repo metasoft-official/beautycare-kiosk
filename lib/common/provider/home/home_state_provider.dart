@@ -12,6 +12,7 @@ final homeDataStateProvider = AutoDisposeStateNotifierProvider<HomeDataState,
     AsyncValue<Map<String, dynamic>>>((ref) {
   final Map<String, dynamic> resultData =
       ref.watch(resultStateProvider.notifier).data;
+
   return HomeDataState(ref, ref.read(skinProductRepositoryProvider),
       ref.read(skincareCategoryProvider), resultData);
 });
