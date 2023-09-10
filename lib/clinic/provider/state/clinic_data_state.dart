@@ -1,7 +1,9 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:beauty_care/clinic/repository/clinic_repository.dart';
 import 'package:beauty_care/common/model/region_model.dart';
+import 'package:beauty_care/common/provider/login_provider.dart';
 import 'package:beauty_care/common/provider/region_provider.dart';
+import 'package:beauty_care/common/provider/wishlist_change_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ClinicDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
@@ -17,7 +19,7 @@ class ClinicDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> loadData() async {
     try {
-      await Future.wait([getClinicList(), getRegionList()]);
+      await Future.wait([getClinicList(), getRegionList(), getWishList()]);
       state = AsyncValue.data(data);
     } catch (e, s) {
       state = AsyncValue.error(e, s);
@@ -33,6 +35,18 @@ class ClinicDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
       data['clinics'] = [];
     }
     state = AsyncValue.data(data);
+  }
+
+  Future<void> getWishList() async {
+    final userId = ref.read(userNotifierProvider).id;
+    final response = await ref
+        .read(wishlistApiProvider)
+        .getWishlistClinicByUserId({'userId': userId});
+    if (response != null && response.items != null) {
+      data['wishlist'] = response.items!;
+    } else {
+      data['wishlist'] = [];
+    }
   }
 
   // todo 클리닉 전문점만

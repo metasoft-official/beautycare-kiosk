@@ -21,7 +21,7 @@ WishlistClinicModel _$WishlistClinicModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$WishlistClinicModel {
   int? get userId => throw _privateConstructorUsedError;
-  int? get parentId => throw _privateConstructorUsedError;
+  int? get clinicId => throw _privateConstructorUsedError;
   ClinicModel? get clinic => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $WishlistClinicModelCopyWith<$Res> {
           WishlistClinicModel value, $Res Function(WishlistClinicModel) then) =
       _$WishlistClinicModelCopyWithImpl<$Res, WishlistClinicModel>;
   @useResult
-  $Res call({int? userId, int? parentId, ClinicModel? clinic});
+  $Res call({int? userId, int? clinicId, ClinicModel? clinic});
 
   $ClinicModelCopyWith<$Res>? get clinic;
 }
@@ -55,7 +55,7 @@ class _$WishlistClinicModelCopyWithImpl<$Res, $Val extends WishlistClinicModel>
   @override
   $Res call({
     Object? userId = freezed,
-    Object? parentId = freezed,
+    Object? clinicId = freezed,
     Object? clinic = freezed,
   }) {
     return _then(_value.copyWith(
@@ -63,9 +63,9 @@ class _$WishlistClinicModelCopyWithImpl<$Res, $Val extends WishlistClinicModel>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
+      clinicId: freezed == clinicId
+          ? _value.clinicId
+          : clinicId // ignore: cast_nullable_to_non_nullable
               as int?,
       clinic: freezed == clinic
           ? _value.clinic
@@ -95,7 +95,7 @@ abstract class _$$_WishlistClinicModelCopyWith<$Res>
       __$$_WishlistClinicModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? userId, int? parentId, ClinicModel? clinic});
+  $Res call({int? userId, int? clinicId, ClinicModel? clinic});
 
   @override
   $ClinicModelCopyWith<$Res>? get clinic;
@@ -113,7 +113,7 @@ class __$$_WishlistClinicModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userId = freezed,
-    Object? parentId = freezed,
+    Object? clinicId = freezed,
     Object? clinic = freezed,
   }) {
     return _then(_$_WishlistClinicModel(
@@ -121,9 +121,9 @@ class __$$_WishlistClinicModelCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
+      clinicId: freezed == clinicId
+          ? _value.clinicId
+          : clinicId // ignore: cast_nullable_to_non_nullable
               as int?,
       clinic: freezed == clinic
           ? _value.clinic
@@ -136,7 +136,7 @@ class __$$_WishlistClinicModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_WishlistClinicModel implements _WishlistClinicModel {
-  _$_WishlistClinicModel({this.userId, this.parentId, this.clinic});
+  _$_WishlistClinicModel({this.userId, this.clinicId, this.clinic});
 
   factory _$_WishlistClinicModel.fromJson(Map<String, dynamic> json) =>
       _$$_WishlistClinicModelFromJson(json);
@@ -144,13 +144,13 @@ class _$_WishlistClinicModel implements _WishlistClinicModel {
   @override
   final int? userId;
   @override
-  final int? parentId;
+  final int? clinicId;
   @override
   final ClinicModel? clinic;
 
   @override
   String toString() {
-    return 'WishlistClinicModel(userId: $userId, parentId: $parentId, clinic: $clinic)';
+    return 'WishlistClinicModel(userId: $userId, clinicId: $clinicId, clinic: $clinic)';
   }
 
   @override
@@ -159,14 +159,14 @@ class _$_WishlistClinicModel implements _WishlistClinicModel {
         (other.runtimeType == runtimeType &&
             other is _$_WishlistClinicModel &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.parentId, parentId) ||
-                other.parentId == parentId) &&
+            (identical(other.clinicId, clinicId) ||
+                other.clinicId == clinicId) &&
             (identical(other.clinic, clinic) || other.clinic == clinic));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, parentId, clinic);
+  int get hashCode => Object.hash(runtimeType, userId, clinicId, clinic);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +186,7 @@ class _$_WishlistClinicModel implements _WishlistClinicModel {
 abstract class _WishlistClinicModel implements WishlistClinicModel {
   factory _WishlistClinicModel(
       {final int? userId,
-      final int? parentId,
+      final int? clinicId,
       final ClinicModel? clinic}) = _$_WishlistClinicModel;
 
   factory _WishlistClinicModel.fromJson(Map<String, dynamic> json) =
@@ -195,7 +195,7 @@ abstract class _WishlistClinicModel implements WishlistClinicModel {
   @override
   int? get userId;
   @override
-  int? get parentId;
+  int? get clinicId;
   @override
   ClinicModel? get clinic;
   @override

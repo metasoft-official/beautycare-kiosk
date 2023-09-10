@@ -1,81 +1,24 @@
+import 'package:beauty_care/clinic/model/clinic_model.dart';
+import 'package:beauty_care/clinic/provider/state/clinic_wishlist_state.dart';
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/dio/wishlist_api.dart';
+import 'package:beauty_care/common/model/wishlist_clinic_model.dart';
 import 'package:beauty_care/common/provider/login_provider.dart';
+import 'package:beauty_care/common/repository/wishlist_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../main.dart';
 
 final wishlistApiProvider = Provider<WishlistApi>((ref) {
   final dio = ref.read(dioProvider);
   return WishlistApi(dio);
 });
 
-final wishlistChangeProvider =
-    StateNotifierProvider((ref) => WishlistState(ref));
+final wishlistRepositoryProvider = Provider<WishlistRepository>((ref) {
+  final wishlistApi = ref.read(wishlistApiProvider);
+  return WishlistRepository(wishlistApi);
+});
 
-class WishlistState extends StateNotifier {
-  Ref ref;
-
-  WishlistState(this.ref) : super(null);
-
-  // todo 위시리스트 처음 로드
-  Future<void> getAllClinicWishlist() async {
-    // 현재 사용자 ID 가져오기
-    final userId = ref.watch(userNotifierProvider).id;
-    final api = ref.read(wishlistApiProvider);
-
-    final response = await api.getWishlistClinicByUserId({'userId': userId});
-    if (response.items != null) {
-      if (response.items!.isNotEmpty) {}
-    }
-  }
-
-  Future<String> getClinicWishlist({int? clinicId, int? productId}) async {
-    // 현재 사용자 ID 가져오기
-    final userId = ref.watch(userNotifierProvider).id;
-    final api = ref.read(wishlistApiProvider);
-
-    // 위시리스트 API 호출
-    final response = clinicId != null
-        ? await api.getWishlistClinic(
-            userId.toString(),
-            clinicId.toString(),
-          )
-        : await api.getWishlistSkincareProduct(
-            userId.toString(), productId.toString());
-
-    // 위시리스트에 클리닉이 있는 경우
-    if (response.items != null && response.items!.isNotEmpty) {
-      // 위시리스트에 클리닉을 삭제합니다.
-      clinicId != null
-          ? await api.removeWishlistClinicByUserId({
-              'userId': userId.toString(),
-              'clinicId': clinicId.toString(),
-            })
-          : await api.removeWishlistSkincareProductByUserId({
-              'userId': userId.toString(),
-              'skincareProductId': productId.toString(),
-            });
-
-      // 이미지를 회색으로 변경합니다.
-      return 'grey';
-    } else {
-      // 위시리스트에 클리닉을 추가합니다.
-      clinicId != null
-          ? await api.createWishlistClinic(
-              {
-                'userId': userId,
-                'clinicId': clinicId,
-              },
-            )
-          : await api.createWishlistSkincareProduct(
-              {
-                'userId': userId,
-                'skincareProductId': productId,
-              },
-            );
-
-      // 이미지를 빨간색으로 변경합니다.
-      return 'red';
-    }
-  }
-}
+final clinicWishlistChangeProvider =
+    ChangeNotifierProvider((ref) => ClinicWishlistState(ref));

@@ -21,7 +21,7 @@ class _WishlistApi implements WishlistApi {
   String? baseUrl;
 
   @override
-  Future<PageResponse<WishlistSkincareProductModel>> getWishlistSkincareProduct(
+  Future<WishlistSkincareProductModel?> getWishlistSkincareProduct(
     userId,
     clinicId,
   ) async {
@@ -29,8 +29,8 @@ class _WishlistApi implements WishlistApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<WishlistSkincareProductModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
+        _setStreamType<WishlistSkincareProductModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -42,16 +42,14 @@ class _WishlistApi implements WishlistApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<WishlistSkincareProductModel>.fromJson(
-      _result.data!,
-      (json) =>
-          WishlistSkincareProductModel.fromJson(json as Map<String, dynamic>),
-    );
+    final value = _result.data == null
+        ? null
+        : WishlistSkincareProductModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<int> createWishlistSkincareProduct(query) async {
+  Future<int?> createWishlistSkincareProduct(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -69,12 +67,12 @@ class _WishlistApi implements WishlistApi {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 
   @override
-  Future<int> removeWishlistSkincareProductByUserId(query) async {
+  Future<int?> removeWishlistSkincareProductByUserId(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -92,12 +90,12 @@ class _WishlistApi implements WishlistApi {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 
   @override
-  Future<PageResponse<WishlistClinicModel>> getWishlistClinic(
+  Future<WishlistClinicModel?> getWishlistClinic(
     userId,
     clinicId,
   ) async {
@@ -105,8 +103,8 @@ class _WishlistApi implements WishlistApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PageResponse<WishlistClinicModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
+        _setStreamType<WishlistClinicModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -118,22 +116,21 @@ class _WishlistApi implements WishlistApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<WishlistClinicModel>.fromJson(
-      _result.data!,
-      (json) => WishlistClinicModel.fromJson(json as Map<String, dynamic>),
-    );
+    final value = _result.data == null
+        ? null
+        : WishlistClinicModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<PageResponse<WishlistClinicModel>> getWishlistClinicByUserId(
+  Future<PageResponse<WishlistClinicModel>?> getWishlistClinicByUserId(
       query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(query);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<PageResponse<WishlistClinicModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -146,15 +143,18 @@ class _WishlistApi implements WishlistApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PageResponse<WishlistClinicModel>.fromJson(
-      _result.data!,
-      (json) => WishlistClinicModel.fromJson(json as Map<String, dynamic>),
-    );
+    final value = _result.data == null
+        ? null
+        : PageResponse<WishlistClinicModel>.fromJson(
+            _result.data!,
+            (json) =>
+                WishlistClinicModel.fromJson(json as Map<String, dynamic>),
+          );
     return value;
   }
 
   @override
-  Future<int> createWishlistClinic(query) async {
+  Future<int?> createWishlistClinic(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -172,12 +172,12 @@ class _WishlistApi implements WishlistApi {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 
   @override
-  Future<int> removeWishlistClinicByUserId(query) async {
+  Future<int?> removeWishlistClinicByUserId(query) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -195,7 +195,7 @@ class _WishlistApi implements WishlistApi {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = _result.data;
     return value;
   }
 

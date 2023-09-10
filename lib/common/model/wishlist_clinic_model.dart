@@ -8,7 +8,7 @@ part 'wishlist_clinic_model.g.dart';
 class WishlistClinicModel with _$WishlistClinicModel {
   factory WishlistClinicModel({
     int? userId,
-    int? parentId,
+    int? clinicId,
     ClinicModel? clinic,
   }) = _WishlistClinicModel;
 

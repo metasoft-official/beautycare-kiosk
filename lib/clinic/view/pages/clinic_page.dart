@@ -33,7 +33,6 @@ class ClinicPageState extends ConsumerState<ClinicPage> {
     return asyncValue.when(
       data: (data) {
         final List<ClinicModel> clinics = data['clinics'];
-        logger.d(clinics);
         return Scaffold(
             backgroundColor: Colors.white,
             body: CustomBottomNavigationBar(

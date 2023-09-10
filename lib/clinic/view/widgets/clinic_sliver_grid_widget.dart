@@ -1,7 +1,9 @@
 import 'package:beauty_care/clinic/model/clinic_model.dart';
 import 'package:beauty_care/common/const/values.dart';
+import 'package:beauty_care/common/model/wishlist_clinic_model.dart';
 import 'package:beauty_care/common/provider/click_count_provider.dart';
 import 'package:beauty_care/common/provider/wishlist_change_provider.dart';
+import 'package:beauty_care/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kakao_flutter_sdk_talk/kakao_flutter_sdk_talk.dart';
@@ -18,7 +20,7 @@ class ClinicSliverGridWidget extends ConsumerWidget {
       required this.clinics,
       this.mainAxisSpacing = 16.0,
       this.crossAxisSpacing = 20.0,
-      this.addWishlist})
+      this.wishlist})
       : super(key: key);
 
   final List<ClinicModel> clinics; // 상품 리스트
@@ -26,7 +28,7 @@ class ClinicSliverGridWidget extends ConsumerWidget {
   // 그 외 커스텀 가능한 설정값
   final double mainAxisSpacing; //행 간 거리
   final double crossAxisSpacing; //열 간 거리
-  final dynamic addWishlist;
+  final List<WishlistClinicModel>? wishlist;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -103,18 +105,24 @@ class ClinicSliverGridWidget extends ConsumerWidget {
                   ],
                   Consumer(
                     builder: (context, ref, child) {
-                      final state = ref.watch(wishlistChangeProvider.notifier);
-                      String color = 'grey';
+                      ref.watch(clinicWishlistChangeProvider);
+                      final state =
+                          ref.watch(clinicWishlistChangeProvider.notifier);
+                      state.getInitClinicWishlist(
+                          clinics, clinics[index].id ?? -1);
                       return Positioned(
                         top: 10,
                         right: 10,
                         child: GestureDetector(
                           onTap: () async {
-                            color = await state.getClinicWishlist(
-                                clinicId: clinics[index].id);
+                            state.clinicColors[clinics[index].id] == 'grey'
+                                ? await state.createClinicWishlist(
+                                    clinics[index].id ?? -1)
+                                : await state.removeClinicWishlist(
+                                    clinics[index].id ?? -1);
                           },
                           child: Image.asset(
-                              'assets/icons/ic_wishlist_$color.png',
+                              'assets/icons/ic_wishlist_${state.clinicColors[clinics[index].id]}.png',
                               width: 16,
                               height: 16),
                         ),
