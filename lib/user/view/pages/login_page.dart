@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kakao_flutter_sdk_talk/kakao_flutter_sdk_talk.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart'
     as KakaoUser;
 
@@ -210,40 +211,48 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // 네이버 로그인
+                        // 네이버 버로그인
                         IconButton(
                           onPressed: () async {
                             // fcm topic 구독
                             FirebaseMessaging.instance.subscribeToTopic("all");
 
-                            NaverLoginResult res =
+                            NaverLoginResult naverUser =
                                 await FlutterNaverLogin.logIn();
 
-                            logger.d(res);
+                            // 네이버 로그인 토큰
+                            NaverAccessToken token =
+                                await FlutterNaverLogin.currentAccessToken;
 
-                            final account = res.account;
+                            final account = naverUser.account;
 
+                            // final response = await ref
+                            //     .watch(userApiProvider)
+                            //     .getUserList({
+                            //   'socialLoginType': 'NAVER',
+                            //   'username': account.id
+                            // });
+
+                            // ----------- 로그인 로직 수정 필요 ! -----------
                             final response = await ref
                                 .watch(userApiProvider)
-                                .getUserList({
-                              'socialLoginType': 'NAVER',
-                              'username': account.id
-                            });
+                                .getNaverUserInfoWithToken(token!.accessToken);
+                            logger.d(response);
 
-                            if (response.items != null &&
-                                response.items!.isNotEmpty) {
-                              ref.read(authStateProvider.notifier).logIn();
-                              ref
-                                  .read(userNotifierProvider.notifier)
-                                  .update(response.items![0]);
-                              if (!mounted) return;
-                              login(context, ref);
-                              ref
-                                  .read(socialLoginTypeProvider.notifier)
-                                  .update('NAVER');
-                            } else {
-                              context.pushNamed('register');
-                            }
+                            // if (response.items != null &&
+                            //     response.items!.isNotEmpty) {
+                            //   ref.read(authStateProvider.notifier).logIn();
+                            //   ref
+                            //       .read(userNotifierProvider.notifier)
+                            //       .update(response.items![0]);
+                            //   if (!mounted) return;
+                            //   login(context, ref);
+                            //   ref
+                            //       .read(socialLoginTypeProvider.notifier)
+                            //       .update('NAVER');
+                            // } else {
+                            //   context.pushNamed('register');
+                            // }
                           },
                           icon: Image.asset(
                             'assets/icons/naver.png',
@@ -255,11 +264,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         // 카카오 로그인
                         IconButton(
                           onPressed: () async {
+                            OAuthToken? token;
+
                             if (await KakaoUser.isKakaoTalkInstalled()) {
                               try {
-                                await KakaoUser.UserApi.instance
+                                token = await KakaoUser.UserApi.instance
                                     .loginWithKakaoTalk();
-                                print('카카오톡으로 로그인 성공');
+                                print('카카오톡으로 로그인 성공, token : $token');
                               } catch (error) {
                                 print('카카오톡으로 로그인 실패 $error');
 
@@ -271,18 +282,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 }
                                 // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
                                 try {
-                                  await KakaoUser.UserApi.instance
+                                  token = await KakaoUser.UserApi.instance
                                       .loginWithKakaoAccount();
-                                  print('카카오계정으로 로그인 성공');
                                 } catch (error) {
                                   print('카카오계정으로 로그인 실패 $error');
                                 }
                               }
                             } else {
                               try {
-                                await KakaoUser.UserApi.instance
+                                token = await KakaoUser.UserApi.instance
                                     .loginWithKakaoAccount();
-                                print('카카오계정으로 로그인 성공');
+                                print('카카오계정으로 로그인 성공, $token');
                               } catch (error) {
                                 print('카카오계정으로 로그인 실패 $error');
                               }
@@ -292,31 +302,36 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   await KakaoUser.UserApi.instance.me();
                               logger.d(user);
 
+                              // final response = await ref
+                              //     .watch(userApiProvider)
+                              //     .getUserList({
+                              //   'socialLoginType': 'KAKAO',
+                              //   'username': user.id.toString()
+                              // });
+
                               final response = await ref
                                   .watch(userApiProvider)
-                                  .getUserList({
-                                'socialLoginType': 'KAKAO',
-                                'username': user.id.toString()
-                              });
+                                  .getKakaoUserInfoWithToken(
+                                      token!.accessToken);
                               logger.d(response);
 
-                              if (response.items != null &&
-                                  response.items!.isNotEmpty) {
-                                ref.read(authStateProvider.notifier).logIn();
-                                ref
-                                    .read(userNotifierProvider.notifier)
-                                    .update(response.items![0]);
-                                if (!mounted) return;
-                                login(context, ref);
-                                ref
-                                    .read(socialLoginTypeProvider.notifier)
-                                    .update('KAKAO');
-                              }
-
-                              // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
-                              else {
-                                context.pushNamed('register');
-                              }
+                              // if (response.items != null &&
+                              //     response.items!.isNotEmpty) {
+                              //   ref.read(authStateProvider.notifier).logIn();
+                              //   ref
+                              //       .read(userNotifierProvider.notifier)
+                              //       .update(response.items![0]);
+                              //   if (!mounted) return;
+                              //   login(context, ref);
+                              //   ref
+                              //       .read(socialLoginTypeProvider.notifier)
+                              //       .update('KAKAO');
+                              // }
+                              //
+                              // // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
+                              // else {
+                              //   context.pushNamed('register');
+                              // }
                             } catch (error) {
                               logger.d(error);
                             }

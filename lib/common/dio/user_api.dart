@@ -32,4 +32,10 @@ abstract class UserApi {
 
   @POST('/app/accounts/send-email')
   Future<int> sendEmail(@Body() Map<String, dynamic> query);
+
+  @GET('/app/accounts/kakao-login')
+  Future<UserModel> getKakaoUserInfoWithToken(String accessToken);
+
+  @GET('/app/accounts/naver-login')
+  Future<UserModel> getNaverUserInfoWithToken(String accessToken);
 }
