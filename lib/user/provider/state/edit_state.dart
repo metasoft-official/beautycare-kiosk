@@ -91,7 +91,6 @@ class EditState extends ChangeNotifier {
     if (userResponse != null) {
       await userRepository.getUserByUsername(modifyUser.username ?? '').then(
           (value) => userState.update(value?.items?.first ?? UserModel()));
-      logger.d(userNotifierProvider);
       return userResponse;
     }
 

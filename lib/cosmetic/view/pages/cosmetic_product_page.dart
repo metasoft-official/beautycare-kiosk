@@ -71,7 +71,6 @@ class CosmeticProductPageState extends ConsumerState<CosmeticProductPage>
 
     return asyncValue.when(
       data: (data) {
-        logger.d(data);
         return Scaffold(
           backgroundColor: Colors.white,
           body: CustomBottomNavigationBar(
