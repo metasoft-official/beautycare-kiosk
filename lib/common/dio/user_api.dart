@@ -1,7 +1,6 @@
 import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/role_user_model.dart';
 import 'package:beauty_care/common/model/user_model.dart';
-import 'package:beauty_care/user/model/account_dto_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:beauty_care/common/const/values.dart';
@@ -38,4 +37,13 @@ abstract class UserApi {
 
   @GET('/app/accounts/naver-login')
   Future<UserModel> getNaverUserInfoWithToken(String accessToken);
+
+  @GET('/app/accounts/access-validate')
+  Future<bool> isValidateAccessToken(
+      @Header('Authorization') String authorizationHeader);
+
+  @GET('/app/accounts/refresh-validate')
+  Future<UserModel> isValidateRefreshToken(
+      @Header("Authorization") String authorizationHeader,
+      @Body() String username);
 }

@@ -48,6 +48,6 @@ class AppBoxTheme {
 
   // border
   static const outlinedBlueinputBorderTheme = OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.appColor, width: 1),
+      borderSide: BorderSide(color: AppColor.lightBlue, width: 1),
       borderRadius: BorderRadius.all(Radius.circular(30)));
 }

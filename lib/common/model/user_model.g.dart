@@ -43,6 +43,8 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
           ? null
           : IntegratedAttachFileModel.fromJson(
               json['profileImage'] as Map<String, dynamic>),
+      accessToken: json['accessToken'] as String?,
+      refreshToken: json['refreshToken'] as String?,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
@@ -71,4 +73,6 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'socialLoginType': instance.socialLoginType,
       'profileImageId': intToString(instance.profileImageId),
       'profileImage': instance.profileImage,
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
     };

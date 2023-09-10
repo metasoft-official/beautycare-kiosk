@@ -57,7 +57,9 @@ class UserModel with _$UserModel {
       String? socialLoginType,
       @JsonKey(toJson: intToString)
           int? profileImageId,
-      IntegratedAttachFileModel? profileImage}) = _UserModel;
+      IntegratedAttachFileModel? profileImage,
+      String? accessToken,
+      String? refreshToken}) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

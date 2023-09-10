@@ -40,7 +40,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
         ),
         const Spacer(),
         InkWell(
-          onTap: () => context.pushNamed('login'),
+          onTap: () => authStateNotifier.navigateToPage(context, ref, 'search'),
           child: Image.asset('assets/icons/ic_search_grey.png', width: 16),
         ),
         const SizedBox(width: 16),

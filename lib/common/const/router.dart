@@ -1,3 +1,4 @@
+import 'package:beauty_care/common/view/pages/search_page.dart';
 import 'package:beauty_care/common/view/pages/select_device_page.dart';
 import 'package:beauty_care/common/view/pages/setting_page.dart';
 import 'package:beauty_care/disease/model/disease_model.dart';
@@ -67,6 +68,13 @@ class AppRouter {
           name: HomePage.routeName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: HomePage(),
+          ),
+        ),
+        GoRoute(
+          path: '/search',
+          name: SearchPage.routeName,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: SearchPage(),
           ),
         ),
         GoRoute(

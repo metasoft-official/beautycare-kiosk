@@ -53,6 +53,8 @@ mixin _$UserModel {
   int? get profileImageId => throw _privateConstructorUsedError;
   IntegratedAttachFileModel? get profileImage =>
       throw _privateConstructorUsedError;
+  String? get accessToken => throw _privateConstructorUsedError;
+  String? get refreshToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -97,7 +99,9 @@ abstract class $UserModelCopyWith<$Res> {
       String? socialLoginType,
       @JsonKey(toJson: intToString)
           int? profileImageId,
-      IntegratedAttachFileModel? profileImage});
+      IntegratedAttachFileModel? profileImage,
+      String? accessToken,
+      String? refreshToken});
 
   $IntegratedAttachFileModelCopyWith<$Res>? get profileImage;
 }
@@ -138,6 +142,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? socialLoginType = freezed,
     Object? profileImageId = freezed,
     Object? profileImage = freezed,
+    Object? accessToken = freezed,
+    Object? refreshToken = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -232,6 +238,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as IntegratedAttachFileModel?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -288,7 +302,9 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? socialLoginType,
       @JsonKey(toJson: intToString)
           int? profileImageId,
-      IntegratedAttachFileModel? profileImage});
+      IntegratedAttachFileModel? profileImage,
+      String? accessToken,
+      String? refreshToken});
 
   @override
   $IntegratedAttachFileModelCopyWith<$Res>? get profileImage;
@@ -328,6 +344,8 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? socialLoginType = freezed,
     Object? profileImageId = freezed,
     Object? profileImage = freezed,
+    Object? accessToken = freezed,
+    Object? refreshToken = freezed,
   }) {
     return _then(_$_UserModel(
       id: freezed == id
@@ -419,6 +437,14 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as IntegratedAttachFileModel?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -449,7 +475,9 @@ class _$_UserModel implements _UserModel {
       this.socialLoginId,
       this.socialLoginType,
       @JsonKey(toJson: intToString) this.profileImageId,
-      this.profileImage});
+      this.profileImage,
+      this.accessToken,
+      this.refreshToken});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -509,10 +537,14 @@ class _$_UserModel implements _UserModel {
   final int? profileImageId;
   @override
   final IntegratedAttachFileModel? profileImage;
+  @override
+  final String? accessToken;
+  @override
+  final String? refreshToken;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, username: $username, password: $password, email: $email, zipCode: $zipCode, address1: $address1, address2: $address2, phoneNumber: $phoneNumber, joinDate: $joinDate, age: $age, birthDate: $birthDate, gender: $gender, lastAccessDate: $lastAccessDate, mobileNumber: $mobileNumber, lastModifiedPasswordDate: $lastModifiedPasswordDate, status: $status, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, socialLoginId: $socialLoginId, socialLoginType: $socialLoginType, profileImageId: $profileImageId, profileImage: $profileImage)';
+    return 'UserModel(id: $id, name: $name, username: $username, password: $password, email: $email, zipCode: $zipCode, address1: $address1, address2: $address2, phoneNumber: $phoneNumber, joinDate: $joinDate, age: $age, birthDate: $birthDate, gender: $gender, lastAccessDate: $lastAccessDate, mobileNumber: $mobileNumber, lastModifiedPasswordDate: $lastModifiedPasswordDate, status: $status, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, socialLoginId: $socialLoginId, socialLoginType: $socialLoginType, profileImageId: $profileImageId, profileImage: $profileImage, accessToken: $accessToken, refreshToken: $refreshToken)';
   }
 
   @override
@@ -558,7 +590,11 @@ class _$_UserModel implements _UserModel {
             (identical(other.profileImageId, profileImageId) ||
                 other.profileImageId == profileImageId) &&
             (identical(other.profileImage, profileImage) ||
-                other.profileImage == profileImage));
+                other.profileImage == profileImage) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken));
   }
 
   @JsonKey(ignore: true)
@@ -587,7 +623,9 @@ class _$_UserModel implements _UserModel {
         socialLoginId,
         socialLoginType,
         profileImageId,
-        profileImage
+        profileImage,
+        accessToken,
+        refreshToken
       ]);
 
   @JsonKey(ignore: true)
@@ -637,7 +675,9 @@ abstract class _UserModel implements UserModel {
       final String? socialLoginType,
       @JsonKey(toJson: intToString)
           final int? profileImageId,
-      final IntegratedAttachFileModel? profileImage}) = _$_UserModel;
+      final IntegratedAttachFileModel? profileImage,
+      final String? accessToken,
+      final String? refreshToken}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -697,6 +737,10 @@ abstract class _UserModel implements UserModel {
   int? get profileImageId;
   @override
   IntegratedAttachFileModel? get profileImage;
+  @override
+  String? get accessToken;
+  @override
+  String? get refreshToken;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
