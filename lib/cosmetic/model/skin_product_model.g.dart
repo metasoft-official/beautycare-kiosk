@@ -27,6 +27,7 @@ _$_SkinProductModel _$$_SkinProductModelFromJson(Map<String, dynamic> json) =>
           ? null
           : IntegratedAttachFileModel.fromJson(
               json['image'] as Map<String, dynamic>),
+      nameLike: json['nameLike'] as String?,
     );
 
 Map<String, dynamic> _$$_SkinProductModelToJson(_$_SkinProductModel instance) =>
@@ -43,4 +44,5 @@ Map<String, dynamic> _$$_SkinProductModelToJson(_$_SkinProductModel instance) =>
       'createdDate': instance.createdDate?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
       'image': instance.image,
+      'nameLike': instance.nameLike,
     };

@@ -19,6 +19,7 @@ class SkinProductModel with _$SkinProductModel {
     DateTime? createdDate,
     DateTime? lastModifiedDate,
     IntegratedAttachFileModel? image,
+    String? nameLike,
   }) = _SkinProductModel;
 
   factory SkinProductModel.fromJson(Map<String, dynamic> json) =>

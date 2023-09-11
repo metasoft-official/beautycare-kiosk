@@ -1,6 +1,7 @@
 import 'package:beauty_care/common/component/widgets/custom_tabbar_view_widget.dart';
 import 'package:beauty_care/common/component/widgets/custom_tabbar_widget.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
+import 'package:beauty_care/common/component/widgets/product_sliver_grid_widget.dart';
 import 'package:beauty_care/common/layout/app_box_theme.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
@@ -9,6 +10,8 @@ import 'package:beauty_care/common/provider/search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../main.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -26,8 +29,11 @@ class SearchState extends ConsumerState<SearchPage>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
-    tabController.addListener(() {});
+    tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() {
+      final searchState = ref.watch(searchDataProvider.notifier);
+      searchState.reload();
+    });
   }
 
   @override
@@ -44,6 +50,7 @@ class SearchState extends ConsumerState<SearchPage>
     return asyncValue.when(
       data: (data) {
         List<SearchTrendModel> trend = data['trend'];
+        logger.d(data['product']);
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -67,7 +74,11 @@ class SearchState extends ConsumerState<SearchPage>
                           autocorrect: false,
                           enableSuggestions: true,
                           keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.search,
+                          textInputAction: TextInputAction.go,
+                          controller: searchState.content,
+                          onSubmitted: (value) {
+                            searchState.submitContent(value);
+                          },
                           decoration: InputDecoration(
                               prefixIcon: GestureDetector(
                                 child: const Icon(
@@ -133,10 +144,116 @@ class SearchState extends ConsumerState<SearchPage>
                           tabController: tabController,
                         ),
                       ),
-                      SliverToBoxAdapter(
-                        child: CustomTabbarViewWidget(
-                            tabController: tabController, widgets: []),
-                      )
+                      if (tabController.index == 0) ...[
+                        const SliverToBoxAdapter(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 20),
+                          child: Text('클리닉', style: AppTextTheme.black20b),
+                        )),
+                        if (data['clinic'] != null &&
+                            data['clinic'] != [] &&
+                            data['clinic']?.isNotEmpty) ...[
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 20),
+                            sliver: ProductSliverGridWidget(
+                              products: data['clinic'] ?? [],
+                            ),
+                          )
+                        ] else ...[
+                          const SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 0),
+                              child: Text('검색 결과가 없습니다.',
+                                  style: AppTextTheme.grey14m),
+                            ),
+                          )
+                        ],
+                        const SliverToBoxAdapter(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 20),
+                          child: Text('스킨케어', style: AppTextTheme.black20b),
+                        )),
+                        if (data['product'] != null &&
+                            data['product'] != [] &&
+                            data['product']?.isNotEmpty) ...[
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 0),
+                            sliver: ProductSliverGridWidget(
+                              products: data['product'] ?? [],
+                            ),
+                          )
+                        ] else ...[
+                          const SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 0),
+                              child: Text('검색 결과가 없습니다.',
+                                  style: AppTextTheme.grey14m),
+                            ),
+                          )
+                        ],
+                      ],
+                      if (tabController.index == 1) ...[
+                        const SliverToBoxAdapter(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 20),
+                          child: Text('클리닉', style: AppTextTheme.black20b),
+                        )),
+                        if (data['clinic'] != null &&
+                            data['clinic'] != [] &&
+                            data['clinic']?.isNotEmpty) ...[
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 20),
+                            sliver: ProductSliverGridWidget(
+                              products: data['clinic'] ?? [],
+                            ),
+                          )
+                        ] else ...[
+                          const SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 0),
+                              child: Text('검색 결과가 없습니다.',
+                                  style: AppTextTheme.grey14m),
+                            ),
+                          )
+                        ],
+                      ],
+                      if (tabController.index == 2) ...[
+                        const SliverToBoxAdapter(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 20),
+                          child: Text('스킨케어', style: AppTextTheme.black20b),
+                        )),
+                        if (data['product'] != null &&
+                            data['product'] != [] &&
+                            data['product']?.isNotEmpty) ...[
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 0),
+                            sliver: ProductSliverGridWidget(
+                              products: data['product'] ?? [],
+                            ),
+                          )
+                        ] else ...[
+                          const SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 0),
+                              child: Text('검색 결과가 없습니다.',
+                                  style: AppTextTheme.grey14m),
+                            ),
+                          )
+                        ],
+                      ],
                     ]
                   ]),
                 )

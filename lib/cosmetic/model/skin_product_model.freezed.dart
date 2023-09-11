@@ -32,6 +32,7 @@ mixin _$SkinProductModel {
   DateTime? get createdDate => throw _privateConstructorUsedError;
   DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
   IntegratedAttachFileModel? get image => throw _privateConstructorUsedError;
+  String? get nameLike => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +58,8 @@ abstract class $SkinProductModelCopyWith<$Res> {
       int? imageId,
       DateTime? createdDate,
       DateTime? lastModifiedDate,
-      IntegratedAttachFileModel? image});
+      IntegratedAttachFileModel? image,
+      String? nameLike});
 
   $IntegratedAttachFileModelCopyWith<$Res>? get image;
 }
@@ -87,6 +89,7 @@ class _$SkinProductModelCopyWithImpl<$Res, $Val extends SkinProductModel>
     Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
     Object? image = freezed,
+    Object? nameLike = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -137,6 +140,10 @@ class _$SkinProductModelCopyWithImpl<$Res, $Val extends SkinProductModel>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as IntegratedAttachFileModel?,
+      nameLike: freezed == nameLike
+          ? _value.nameLike
+          : nameLike // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -173,7 +180,8 @@ abstract class _$$_SkinProductModelCopyWith<$Res>
       int? imageId,
       DateTime? createdDate,
       DateTime? lastModifiedDate,
-      IntegratedAttachFileModel? image});
+      IntegratedAttachFileModel? image,
+      String? nameLike});
 
   @override
   $IntegratedAttachFileModelCopyWith<$Res>? get image;
@@ -202,6 +210,7 @@ class __$$_SkinProductModelCopyWithImpl<$Res>
     Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
     Object? image = freezed,
+    Object? nameLike = freezed,
   }) {
     return _then(_$_SkinProductModel(
       id: freezed == id
@@ -252,6 +261,10 @@ class __$$_SkinProductModelCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as IntegratedAttachFileModel?,
+      nameLike: freezed == nameLike
+          ? _value.nameLike
+          : nameLike // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -271,7 +284,8 @@ class _$_SkinProductModel implements _SkinProductModel {
       this.imageId,
       this.createdDate,
       this.lastModifiedDate,
-      this.image});
+      this.image,
+      this.nameLike});
 
   factory _$_SkinProductModel.fromJson(Map<String, dynamic> json) =>
       _$$_SkinProductModelFromJson(json);
@@ -300,10 +314,12 @@ class _$_SkinProductModel implements _SkinProductModel {
   final DateTime? lastModifiedDate;
   @override
   final IntegratedAttachFileModel? image;
+  @override
+  final String? nameLike;
 
   @override
   String toString() {
-    return 'SkinProductModel(id: $id, name: $name, price: $price, popularityCategoryId: $popularityCategoryId, description: $description, skintypeCategoryId: $skintypeCategoryId, productLineCategoryId: $productLineCategoryId, productUrl: $productUrl, imageId: $imageId, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, image: $image)';
+    return 'SkinProductModel(id: $id, name: $name, price: $price, popularityCategoryId: $popularityCategoryId, description: $description, skintypeCategoryId: $skintypeCategoryId, productLineCategoryId: $productLineCategoryId, productUrl: $productUrl, imageId: $imageId, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, image: $image, nameLike: $nameLike)';
   }
 
   @override
@@ -329,7 +345,9 @@ class _$_SkinProductModel implements _SkinProductModel {
                 other.createdDate == createdDate) &&
             (identical(other.lastModifiedDate, lastModifiedDate) ||
                 other.lastModifiedDate == lastModifiedDate) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.nameLike, nameLike) ||
+                other.nameLike == nameLike));
   }
 
   @JsonKey(ignore: true)
@@ -347,7 +365,8 @@ class _$_SkinProductModel implements _SkinProductModel {
       imageId,
       createdDate,
       lastModifiedDate,
-      image);
+      image,
+      nameLike);
 
   @JsonKey(ignore: true)
   @override
@@ -376,7 +395,8 @@ abstract class _SkinProductModel implements SkinProductModel {
       final int? imageId,
       final DateTime? createdDate,
       final DateTime? lastModifiedDate,
-      final IntegratedAttachFileModel? image}) = _$_SkinProductModel;
+      final IntegratedAttachFileModel? image,
+      final String? nameLike}) = _$_SkinProductModel;
 
   factory _SkinProductModel.fromJson(Map<String, dynamic> json) =
       _$_SkinProductModel.fromJson;
@@ -405,6 +425,8 @@ abstract class _SkinProductModel implements SkinProductModel {
   DateTime? get lastModifiedDate;
   @override
   IntegratedAttachFileModel? get image;
+  @override
+  String? get nameLike;
   @override
   @JsonKey(ignore: true)
   _$$_SkinProductModelCopyWith<_$_SkinProductModel> get copyWith =>

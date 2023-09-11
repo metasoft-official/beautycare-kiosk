@@ -1,7 +1,12 @@
+import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/common/const/values.dart';
 import 'package:beauty_care/common/dio/search_api.dart';
+import 'package:beauty_care/common/model/page_response_model.dart';
 import 'package:beauty_care/common/model/search_trend_model.dart';
 import 'package:beauty_care/common/model/user_model.dart';
+import 'package:beauty_care/cosmetic/model/skin_product_model.dart';
+import 'package:beauty_care/cosmetic/provider/skin_product_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'login_provider.dart';
@@ -26,11 +31,11 @@ class SearchDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   }
 
   bool isSubmitted = false;
+  TextEditingController content = TextEditingController();
   Map<String, dynamic> data = {};
 
   Future<void> loadData() async {
     try {
-      UserModel user = ref.watch(userNotifierProvider);
       await Future.wait([getTrendList()]);
       state = AsyncValue.data(data);
     } catch (e, s) {
@@ -55,6 +60,15 @@ class SearchDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> submitContent(String content) async {
     isSubmitted = true;
+    // await ref.read(clinicRepositoryProvider).getClinicByQuery(clinicModel);
+    final productResponse = await ref
+        .read(skinProductRepositoryProvider)
+        .getSkinProductByQuery(
+            SkinProductModel(nameLike: content), PageResponse(rowSize: 100));
+    if (productResponse != null && productResponse.items != null) {
+      data['product'] = productResponse.items!;
+    }
+
     reload();
   }
 
