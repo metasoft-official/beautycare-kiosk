@@ -35,6 +35,10 @@ class RegisterDataState
   }
 
   // 회원가입
+  Future<String?> createNaverUser(user) async {
+    return await userRepository.postUser(user);
+  }
+
   Future<String?> createUser() async {
     final formState = ref.read(formStateProvider);
     final addressState = ref.read(addressChangeStateProvider);

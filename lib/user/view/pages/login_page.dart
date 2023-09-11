@@ -1,5 +1,6 @@
 import 'package:beauty_care/common/component/dialog/failed_dialog.dart';
 import 'package:beauty_care/user/provider/mypage_page_provider.dart';
+import 'package:beauty_care/user/provider/register_state_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -211,7 +212,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // 네이버 버로그인
+                        // 네이버 로그인
                         IconButton(
                           onPressed: () async {
                             // fcm topic 구독
@@ -220,39 +221,44 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             NaverLoginResult naverUser =
                                 await FlutterNaverLogin.logIn();
 
-                            // 네이버 로그인 토큰
-                            NaverAccessToken token =
-                                await FlutterNaverLogin.currentAccessToken;
-
                             final account = naverUser.account;
 
-                            // final response = await ref
-                            //     .watch(userApiProvider)
-                            //     .getUserList({
-                            //   'socialLoginType': 'NAVER',
-                            //   'username': account.id
-                            // });
+                            if (naverUser.accessToken.accessToken == '' &&
+                                naverUser.accessToken.refreshToken == '') {
+                              // 회원 정보
+                              UserModel user = UserModel(
+                                  username: account.id,
+                                  password: '',
+                                  name: account.name,
+                                  email: account.email,
+                                  age: calculateAge(DateTime.parse(
+                                      '${account.birthyear}-01-26')), //account.birthday
+                                  birthDate: DateTime.parse(
+                                      '${account.birthyear}-01-26'),
+                                  gender: account.gender,
+                                  mobileNumber: account.mobile,
+                                  socialLoginId: account.id,
+                                  socialLoginType: 'NAVER');
+                              // 회원 추가
+                              await ref
+                                  .watch(registerDataStateProvider.notifier)
+                                  .createNaverUser(user);
+                              await FlutterNaverLogin.logIn();
+                              NaverAccessToken token =
+                                  await FlutterNaverLogin.currentAccessToken;
+                              // 로그인 확인
+                              await ref
+                                  .watch(userApiProvider)
+                                  .getNaverUserInfoWithToken(token.accessToken);
+                            } else {
+                              // 네이버 로그인 토큰
+                              NaverAccessToken token =
+                                  await FlutterNaverLogin.currentAccessToken;
 
-                            // ----------- 로그인 로직 수정 필요 ! -----------
-                            final response = await ref
-                                .watch(userApiProvider)
-                                .getNaverUserInfoWithToken(token!.accessToken);
-                            logger.d(response);
-
-                            // if (response.items != null &&
-                            //     response.items!.isNotEmpty) {
-                            //   ref.read(authStateProvider.notifier).logIn();
-                            //   ref
-                            //       .read(userNotifierProvider.notifier)
-                            //       .update(response.items![0]);
-                            //   if (!mounted) return;
-                            //   login(context, ref);
-                            //   ref
-                            //       .read(socialLoginTypeProvider.notifier)
-                            //       .update('NAVER');
-                            // } else {
-                            //   context.pushNamed('register');
-                            // }
+                              await ref
+                                  .watch(userApiProvider)
+                                  .getNaverUserInfoWithToken(token.accessToken);
+                            }
                           },
                           icon: Image.asset(
                             'assets/icons/naver.png',
@@ -302,36 +308,41 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   await KakaoUser.UserApi.instance.me();
                               logger.d(user);
 
-                              // final response = await ref
-                              //     .watch(userApiProvider)
-                              //     .getUserList({
-                              //   'socialLoginType': 'KAKAO',
-                              //   'username': user.id.toString()
-                              // });
-
-                              final response = await ref
-                                  .watch(userApiProvider)
-                                  .getKakaoUserInfoWithToken(
-                                      token!.accessToken);
-                              logger.d(response);
-
-                              // if (response.items != null &&
-                              //     response.items!.isNotEmpty) {
-                              //   ref.read(authStateProvider.notifier).logIn();
-                              //   ref
-                              //       .read(userNotifierProvider.notifier)
-                              //       .update(response.items![0]);
-                              //   if (!mounted) return;
-                              //   login(context, ref);
-                              //   ref
-                              //       .read(socialLoginTypeProvider.notifier)
-                              //       .update('KAKAO');
-                              // }
-                              //
-                              // // 존재하지 않는 회원일 경우 회원가입 페이지로 이동
-                              // else {
-                              //   context.pushNamed('register');
-                              // }
+                              // 기존 회원 검증
+                              final userValid = await ref
+                                  .read(userRepositoryProvider)
+                                  .getUserByUsername(user.id.toString());
+                              // 회원이 있는 경우
+                              if (userValid != null &&
+                                  userValid.items != null &&
+                                  userValid.items!.isNotEmpty) {
+                                final response = await ref
+                                    .watch(userApiProvider)
+                                    .getKakaoUserInfoWithToken(
+                                        token!.accessToken);
+                                logger.d(response);
+                              }
+                              // 회원이 없는 경우
+                              else {
+                                /// 회원 정보 추가
+                                // UserModel newUser = UserModel(
+                                //     username: user.id.toString(),
+                                //     password: '',
+                                //     name: user.name,
+                                //     email: user.email,
+                                //     age: calculateAge(DateTime.parse(
+                                //         '${user.birthyear}-01-26')), //account.birthday
+                                //     birthDate: DateTime.parse(
+                                //         '${user.birthyear}-01-26'),
+                                //     gender: user.gender,
+                                //     mobileNumber: user.phoneNumber,
+                                //     socialLoginId: user.id,
+                                //     socialLoginType: 'KAKAO');
+                                // 회원 추가
+                                await ref
+                                    .watch(registerDataStateProvider.notifier)
+                                    .createNaverUser(user);
+                              }
                             } catch (error) {
                               logger.d(error);
                             }
@@ -387,4 +398,17 @@ void _showDialog(BuildContext context, String message, String okButtonMessage) {
       return FailedDialog(content: message);
     },
   );
+}
+
+int calculateAge(DateTime birthDate) {
+  DateTime currentDate = DateTime.now();
+
+  int age = currentDate.year - birthDate.year;
+  if (currentDate.month < birthDate.month ||
+      (currentDate.month == birthDate.month &&
+          currentDate.day < birthDate.day)) {
+    age--;
+  }
+
+  return age;
 }

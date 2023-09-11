@@ -109,7 +109,6 @@ class UserRepository {
       'roleId': "2",
       'userDto': {...userModel.toJson()}
     };
-    logger.d(query['age'] is String);
     try {
       final response = await _userApi.postUser(query);
       logger.d(response);
