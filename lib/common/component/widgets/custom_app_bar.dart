@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:beauty_care/common/provider/auth_provider.dart';
-
 // 로고가 왼쪽에 배치된 커스텀 앱바
 class CustomAppBar extends ConsumerStatefulWidget {
   const CustomAppBar({Key? key, this.bottom, this.bottomSize})
@@ -19,8 +17,6 @@ class CustomAppBar extends ConsumerStatefulWidget {
 class CustomAppBarState extends ConsumerState<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    final authStateNotifier = ref.watch(authStateProvider.notifier);
-
     return SliverAppBar(
       toolbarHeight: 60,
       pinned: true,
@@ -39,25 +35,6 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
           ),
         ),
         const Spacer(),
-        InkWell(
-          onTap: () => authStateNotifier.navigateToPage(context, ref, 'search'),
-          child: Image.asset('assets/icons/ic_search_grey.png', width: 16),
-        ),
-        const SizedBox(width: 16),
-        InkWell(
-          onTap: () => authStateNotifier.navigateToPage(context, ref, 'mypage'),
-          child: Image.asset('assets/icons/ic_person_grey.png', width: 16),
-        ),
-        const SizedBox(width: 16),
-        // noti.length == null?
-        InkWell(
-          onTap: () => authStateNotifier.navigateToPage(context, ref, 'noti'),
-          child: Image.asset('assets/icons/ic_notice_grey.png', width: 16),
-        ),
-        //   : InkWell(
-        //   onTap: () => context.pushNamed('noti'),
-        //   child: Image.asset('assets/icons/ic_notice.png', width: 16),
-        // ),
         const SizedBox(width: 10),
       ]),
       bottom: widget.bottom,

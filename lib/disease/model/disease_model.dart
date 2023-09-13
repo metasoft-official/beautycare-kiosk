@@ -25,6 +25,7 @@ class DiseaseModel with _$DiseaseModel {
     String? visibilityStatus,
     DateTime? createdDate,
     DateTime? lastModifiedDate,
+    String? nameLike,
   }) = _DiseaseModel;
 
   factory DiseaseModel.fromJson(Map<String, dynamic> json) =>

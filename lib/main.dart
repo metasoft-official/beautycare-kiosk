@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:beauty_care/common/view/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:beauty_care/common/component/dialog/toast_message.dart';
-import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/user/provider/user_provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -26,38 +27,6 @@ var stringUtil = StringUtil();
 var toastMessage = ToastMessage();
 
 void main() async {
-  if (!Platform.isWindows) {
-    KakaoSdk.init(
-        nativeAppKey: '0411529dd3d4b984f8f6e1753471f0a1',
-        javaScriptAppKey: 'ea72724bc4dbaef409ee2d2c9020e6e5');
-
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
-
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    String? firebase_token = await FirebaseMessaging.instance.getToken();
-    // print("firebase_token : ${firebase_token ?? 'token NULL!'}");
-  }
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -66,13 +35,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userApi = ref.read(userApiProvider);
-    final authStateNotifier = ref.watch(authStateProvider.notifier);
-
-    // 앱 시작 시 자동 로그인 시도
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      authStateNotifier.tryAutoLogin();
-    });
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
 
     return MaterialApp(
       title: 'BeautyCare',

@@ -12,9 +12,7 @@ import 'package:beauty_care/mbti/provider/mbti_result_state_provider.dart';
 
 import 'package:beauty_care/common/layout/app_color.dart';
 
-import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/mbti/model/skin_mbti_model.dart';
-import 'package:beauty_care/user/model/user_skin_mbti_model.dart';
 import 'package:beauty_care/common/component/widgets/loading_circle_animation_widget.dart';
 
 class KioskMbtiResultPage extends ConsumerStatefulWidget {
@@ -33,8 +31,6 @@ class KioskMbtiResultState extends ConsumerState<KioskMbtiResultPage> {
   Widget build(BuildContext context) {
     final int id = int.tryParse(widget.surveyId ?? '') ?? -1;
     final asyncValue = ref.watch(mbtiResultStateProvider(id));
-    final clinicState = ref.read(clinicStateProvider.notifier);
-    final changeState = ref.watch(mbtiResultChangeProvider);
 
     return asyncValue.when(
       data: (data) {

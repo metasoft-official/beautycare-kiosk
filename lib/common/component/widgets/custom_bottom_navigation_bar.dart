@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:spincircle_bottom_bar/modals.dart';
 
-import 'package:beauty_care/common/provider/auth_provider.dart';
 import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
@@ -20,7 +19,6 @@ class CustomBottomNavigationBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider.notifier);
     final menuState = ref.watch(bottomStateProvider.notifier);
 
     return CustomSpinCircleBottomBarHolder(
@@ -55,7 +53,6 @@ class CustomBottomNavigationBar extends ConsumerWidget {
               // onPressed: () => context.pushNamed('cosmeticProduct')
               onPressed: () => {
                 menuState.clickMenu(4),
-                authState.navigateToPage(context, ref, 'cosmeticProduct')
               },
             ),
           ],

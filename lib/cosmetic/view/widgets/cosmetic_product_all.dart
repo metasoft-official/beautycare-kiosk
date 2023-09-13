@@ -140,6 +140,8 @@ class CosmeticProductAll extends ConsumerWidget {
         ListTitleWidget(
           text: '${user.name}님 취향저격 화장품',
           markText: user.name,
+          btnText: '',
+          btnVisible: false,
         ),
         // 카테고리
         SizedBox(
@@ -202,6 +204,7 @@ class CosmeticProductAll extends ConsumerWidget {
             ListTitleWidget(
               text: '${user.name}님의 공병템이 될 상품',
               markText: user.name,
+              onTap: () {},
             ),
           ],
         ),

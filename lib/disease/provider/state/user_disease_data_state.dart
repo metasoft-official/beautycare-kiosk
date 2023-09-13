@@ -1,5 +1,3 @@
-import 'package:beauty_care/clinic/model/clinic_model.dart';
-import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/common/provider/modal/modal_grid_state_provider.dart';
 import 'package:beauty_care/user/repository/user_disease_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,6 +34,17 @@ class UserDiseaseDataState
     } else {
       data['result'] = [];
     }
+  }
+
+  Future<int?> getUserDiseaseByQuery({int? userId, int? diseaseId}) async {
+    final response =
+        await repository.getUserDiseaseByQuery(userId ?? -1, diseaseId);
+    if (response != null && response.items != null) {
+      if (response.items!.isNotEmpty) {
+        return response.items!.last.imageId;
+      }
+    }
+    return null;
   }
 
   void reload() {

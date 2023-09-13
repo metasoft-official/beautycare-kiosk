@@ -4,6 +4,7 @@ import 'package:beauty_care/common/layout/kiosk_button_theme.dart';
 import 'package:beauty_care/common/layout/kiosk_text.dart';
 import 'package:beauty_care/kiosk/view/widgets/kiosk_app_bar.dart';
 import 'package:beauty_care/user/model/user_disease_model.dart';
+import 'package:camera/camera.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,7 @@ import 'package:beauty_care/disease/model/disease_result_model.dart';
 import 'package:beauty_care/mbti/provider/caemra_provider.dart';
 import 'package:beauty_care/mbti/provider/diagnosis_provider.dart';
 import 'package:beauty_care/mbti/provider/user_disease_provider.dart';
-import 'package:camera/camera.dart';
+// import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

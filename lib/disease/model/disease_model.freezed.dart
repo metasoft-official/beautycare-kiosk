@@ -37,6 +37,7 @@ mixin _$DiseaseModel {
   String? get visibilityStatus => throw _privateConstructorUsedError;
   DateTime? get createdDate => throw _privateConstructorUsedError;
   DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
+  String? get nameLike => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,7 +66,8 @@ abstract class $DiseaseModelCopyWith<$Res> {
       IntegratedAttachFileModel? clinicImage,
       String? visibilityStatus,
       DateTime? createdDate,
-      DateTime? lastModifiedDate});
+      DateTime? lastModifiedDate,
+      String? nameLike});
 
   $IntegratedAttachFileModelCopyWith<$Res>? get diseaseImage;
   $IntegratedAttachFileModelCopyWith<$Res>? get clinicImage;
@@ -99,6 +101,7 @@ class _$DiseaseModelCopyWithImpl<$Res, $Val extends DiseaseModel>
     Object? visibilityStatus = freezed,
     Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
+    Object? nameLike = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -161,6 +164,10 @@ class _$DiseaseModelCopyWithImpl<$Res, $Val extends DiseaseModel>
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      nameLike: freezed == nameLike
+          ? _value.nameLike
+          : nameLike // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -214,7 +221,8 @@ abstract class _$$_DiseaseModelCopyWith<$Res>
       IntegratedAttachFileModel? clinicImage,
       String? visibilityStatus,
       DateTime? createdDate,
-      DateTime? lastModifiedDate});
+      DateTime? lastModifiedDate,
+      String? nameLike});
 
   @override
   $IntegratedAttachFileModelCopyWith<$Res>? get diseaseImage;
@@ -248,6 +256,7 @@ class __$$_DiseaseModelCopyWithImpl<$Res>
     Object? visibilityStatus = freezed,
     Object? createdDate = freezed,
     Object? lastModifiedDate = freezed,
+    Object? nameLike = freezed,
   }) {
     return _then(_$_DiseaseModel(
       id: freezed == id
@@ -310,6 +319,10 @@ class __$$_DiseaseModelCopyWithImpl<$Res>
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      nameLike: freezed == nameLike
+          ? _value.nameLike
+          : nameLike // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -332,7 +345,8 @@ class _$_DiseaseModel implements _DiseaseModel {
       this.clinicImage,
       this.visibilityStatus,
       this.createdDate,
-      this.lastModifiedDate});
+      this.lastModifiedDate,
+      this.nameLike});
 
   factory _$_DiseaseModel.fromJson(Map<String, dynamic> json) =>
       _$$_DiseaseModelFromJson(json);
@@ -367,10 +381,12 @@ class _$_DiseaseModel implements _DiseaseModel {
   final DateTime? createdDate;
   @override
   final DateTime? lastModifiedDate;
+  @override
+  final String? nameLike;
 
   @override
   String toString() {
-    return 'DiseaseModel(id: $id, name: $name, nameEng: $nameEng, diseaseImageId: $diseaseImageId, diseaseImage: $diseaseImage, symptoms: $symptoms, cause: $cause, test: $test, treatment: $treatment, prevention: $prevention, clinicImageId: $clinicImageId, clinicImage: $clinicImage, visibilityStatus: $visibilityStatus, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate)';
+    return 'DiseaseModel(id: $id, name: $name, nameEng: $nameEng, diseaseImageId: $diseaseImageId, diseaseImage: $diseaseImage, symptoms: $symptoms, cause: $cause, test: $test, treatment: $treatment, prevention: $prevention, clinicImageId: $clinicImageId, clinicImage: $clinicImage, visibilityStatus: $visibilityStatus, createdDate: $createdDate, lastModifiedDate: $lastModifiedDate, nameLike: $nameLike)';
   }
 
   @override
@@ -402,7 +418,9 @@ class _$_DiseaseModel implements _DiseaseModel {
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
             (identical(other.lastModifiedDate, lastModifiedDate) ||
-                other.lastModifiedDate == lastModifiedDate));
+                other.lastModifiedDate == lastModifiedDate) &&
+            (identical(other.nameLike, nameLike) ||
+                other.nameLike == nameLike));
   }
 
   @JsonKey(ignore: true)
@@ -423,7 +441,8 @@ class _$_DiseaseModel implements _DiseaseModel {
       clinicImage,
       visibilityStatus,
       createdDate,
-      lastModifiedDate);
+      lastModifiedDate,
+      nameLike);
 
   @JsonKey(ignore: true)
   @override
@@ -455,7 +474,8 @@ abstract class _DiseaseModel implements DiseaseModel {
       final IntegratedAttachFileModel? clinicImage,
       final String? visibilityStatus,
       final DateTime? createdDate,
-      final DateTime? lastModifiedDate}) = _$_DiseaseModel;
+      final DateTime? lastModifiedDate,
+      final String? nameLike}) = _$_DiseaseModel;
 
   factory _DiseaseModel.fromJson(Map<String, dynamic> json) =
       _$_DiseaseModel.fromJson;
@@ -490,6 +510,8 @@ abstract class _DiseaseModel implements DiseaseModel {
   DateTime? get createdDate;
   @override
   DateTime? get lastModifiedDate;
+  @override
+  String? get nameLike;
   @override
   @JsonKey(ignore: true)
   _$$_DiseaseModelCopyWith<_$_DiseaseModel> get copyWith =>

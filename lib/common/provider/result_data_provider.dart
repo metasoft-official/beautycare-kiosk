@@ -73,7 +73,7 @@ class ResultDataState extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
 
   Future<void> getDiseaseResult(int? userId) async {
     final userResponse =
-        await userDiseaseRepository.getUserDiseaseByQuery(userId ?? -1);
+        await userDiseaseRepository.getUserDiseaseByQuery(userId ?? -1, null);
     if (userResponse != null && userResponse.items != null) {
       List<UserDiseaseModel> disease = List.from(userResponse.items!);
       data['disease'] = disease;

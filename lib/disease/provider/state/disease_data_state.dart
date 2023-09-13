@@ -1,5 +1,3 @@
-import 'package:beauty_care/clinic/model/clinic_model.dart';
-import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/common/provider/modal/modal_grid_state_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

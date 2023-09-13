@@ -33,6 +33,7 @@ _$_DiseaseModel _$$_DiseaseModelFromJson(Map<String, dynamic> json) =>
       lastModifiedDate: json['lastModifiedDate'] == null
           ? null
           : DateTime.parse(json['lastModifiedDate'] as String),
+      nameLike: json['nameLike'] as String?,
     );
 
 Map<String, dynamic> _$$_DiseaseModelToJson(_$_DiseaseModel instance) =>
@@ -52,4 +53,5 @@ Map<String, dynamic> _$$_DiseaseModelToJson(_$_DiseaseModel instance) =>
       'visibilityStatus': instance.visibilityStatus,
       'createdDate': instance.createdDate?.toIso8601String(),
       'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
+      'nameLike': instance.nameLike,
     };

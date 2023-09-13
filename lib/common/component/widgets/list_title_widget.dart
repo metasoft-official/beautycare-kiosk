@@ -5,14 +5,20 @@ import 'package:beauty_care/common/layout/app_color.dart';
 import 'package:beauty_care/common/layout/app_text.dart';
 
 class ListTitleWidget extends StatelessWidget {
-  const ListTitleWidget(
-      {Key? key, this.markText, required this.text, this.onTap, this.btnText})
+  ListTitleWidget(
+      {Key? key,
+      this.markText,
+      required this.text,
+      this.onTap,
+      this.btnText,
+      this.btnVisible})
       : super(key: key);
 
   final String? markText;
   final String text;
   final dynamic onTap;
   final String? btnText;
+  bool? btnVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +50,22 @@ class ListTitleWidget extends StatelessWidget {
                     ),
                   ),
             // 더보기
-            InkWell(
-              onTap: onTap,
-              child: Row(
-                children: [
-                  Text(btnText ?? '더보기', style: AppTextTheme.blue12b),
-                  // 화살표
-                  const Icon(
-                    Icons.navigate_next,
-                    size: 16,
-                    color: AppColor.appColor,
-                  )
-                ],
-              ),
-            )
+            if (btnVisible == null || btnVisible == true) ...[
+              InkWell(
+                onTap: onTap,
+                child: Row(
+                  children: [
+                    Text(btnText ?? '더보기', style: AppTextTheme.blue12b),
+                    // 화살표
+                    const Icon(
+                      Icons.navigate_next,
+                      size: 16,
+                      color: AppColor.appColor,
+                    )
+                  ],
+                ),
+              )
+            ]
           ],
         ),
       ),

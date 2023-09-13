@@ -17,11 +17,13 @@ class ModalMixin extends ChangeNotifier {
       String? title,
       required List<Object> list,
       required int selectedValue,
-      required String modalKey}) async {
+      required String modalKey,
+      dynamic onFieldSubmitted}) async {
     String? type;
     String? name;
     List<CodeModel>? code;
     List<DiseaseModel>? disease;
+    dynamic onFieldSubmitted;
     if (list is List<CodeModel>) {
       type = 'code';
       code = List.from(list);
@@ -115,6 +117,8 @@ class ModalMixin extends ChangeNotifier {
                                 child: Padding(
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: TextFormField(
+                                      textInputAction: TextInputAction.go,
+                                      onFieldSubmitted: onFieldSubmitted,
                                       decoration: const InputDecoration(
                                           border: AppBoxTheme
                                               .outlinedBlueinputBorderTheme),

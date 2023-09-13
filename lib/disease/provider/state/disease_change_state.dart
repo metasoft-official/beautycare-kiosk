@@ -11,6 +11,12 @@ class DiseaseChangeState extends ChangeNotifier {
     resetState();
   }
 
+  String? imageId;
+  setImageId(String? newId) {
+    imageId = newId;
+    notifyListeners();
+  }
+
   //자세히 보기
   bool isDetailClicked = false;
 

@@ -19,7 +19,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class SplashScreenState extends ConsumerState {
-  bool isKioskMode = false;
+  bool isKioskMode = true;
   String splashImgId = '';
 
   @override
@@ -39,25 +39,25 @@ class SplashScreenState extends ConsumerState {
     );
   }
 
-  void checkKioskPermission() {
-    Size screenSize = MediaQuery.of(context).size;
-    logger.d(screenSize);
-    double iPadProScreenWidthThreshold = 744.0;
-    double iPadProScreenHeightThreshold = 1133.0;
-
-    if (screenSize.width >= iPadProScreenWidthThreshold &&
-        screenSize.height >= iPadProScreenHeightThreshold) {
-      isKioskMode = true;
-    } else {
-      isKioskMode = false;
-    }
-  }
+  // void checkKioskPermission() {
+  //   Size screenSize = MediaQuery.of(context).size;
+  //   logger.d(screenSize);
+  //   double iPadProScreenWidthThreshold = 744.0;
+  //   double iPadProScreenHeightThreshold = 1133.0;
+  //
+  //   if (screenSize.width >= iPadProScreenWidthThreshold &&
+  //       screenSize.height >= iPadProScreenHeightThreshold) {
+  //     isKioskMode = true;
+  //   } else {
+  //     isKioskMode = false;
+  //   }
+  // }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     loadSplashImage();
-    checkKioskPermission();
+    // checkKioskPermission();
   }
 
   void loadSplashImage() async {

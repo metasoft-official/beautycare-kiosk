@@ -386,9 +386,7 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
           : Stack(children: [
               Column(
                 children: [
-                  // 촬영 영역
                   Flexible(
-                    flex: 5,
                     fit: FlexFit.tight,
                     child: FutureBuilder<void>(
                       future: _initializeCamera(),
@@ -396,18 +394,14 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                         if (snapshot.connectionState == ConnectionState.done &&
                             _cameraController != null &&
                             _cameraController!.value.isInitialized) {
-                          return SizedBox(
-                              width: size.width,
-                              height: size.width,
-                              child: AspectRatio(
-                                aspectRatio: (_cameraController
-                                                ?.value.aspectRatio ??
-                                            0) <
-                                        0.001
-                                    ? 1.0
-                                    : 1 / _cameraController!.value.aspectRatio,
-                                child: CameraPreview(_cameraController!),
-                              ));
+                          double targetAspectRatio = 16 / 9;
+
+                          logger.d(size.height, size.width);
+                          logger.d(targetAspectRatio);
+
+                          return AspectRatio(
+                              aspectRatio: targetAspectRatio,
+                              child: CameraPreview(_cameraController!));
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());
@@ -415,7 +409,6 @@ class CameraWidgetState extends ConsumerState<CameraWidget> {
                       },
                     ),
                   ),
-                  // 하단 영역
                 ],
               ),
               Column(

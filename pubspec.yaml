@@ -90,6 +90,7 @@ dependencies:
 
   # 윈도우
   fluent_ui: ^4.4.0
+  camera_windows: ^0.2.1+8
 
 
 dev_dependencies:

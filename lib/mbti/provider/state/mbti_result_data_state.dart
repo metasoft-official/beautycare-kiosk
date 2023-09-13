@@ -1,6 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:beauty_care/clinic/model/clinic_model.dart';
-import 'package:beauty_care/clinic/provider/clinic_state_provider.dart';
 import 'package:beauty_care/mbti/model/skin_mbti_model.dart';
 import 'package:beauty_care/mbti/repository/skin_mbti_repository.dart';
 import 'package:beauty_care/user/model/user_skin_mbti_model.dart';
