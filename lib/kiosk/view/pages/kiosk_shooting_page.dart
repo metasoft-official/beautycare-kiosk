@@ -323,18 +323,63 @@ class KioskShootingState extends ConsumerState<KioskShootingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<DropdownMenuItem<ResolutionPreset>> resolutionItems =
+        ResolutionPreset.values
+            .map<DropdownMenuItem<ResolutionPreset>>((ResolutionPreset value) {
+      return DropdownMenuItem<ResolutionPreset>(
+        value: value,
+        child: Text(value.toString()),
+      );
+    }).toList();
+
     return Scaffold(
       body: Stack(
         children: [
           if (_cameras.isEmpty)
             ...[]
           else ...[
-            KioskCameraCaptureWidget(
-              isDisease: widget.type == '질환' ? true : false,
-              onInitialized: () {
-                ref.read(cameraStateProvider.notifier).state = true;
-              },
-            ),
+            if (_initialized) ...[
+              if (_initialized && _cameraId > 0 && _previewSize != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: Align(
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: _previewSize!.width / _previewSize!.height,
+                        child: _buildPreview(),
+                      ),
+                    ),
+                  ),
+                ),
+              if (_previewSize != null)
+                Center(
+                  child: Text(
+                    'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
+                  ),
+                ),
+              // KioskCameraCaptureWidget(
+              //   isDisease: widget.type == '질환' ? true : false,
+              //   onInitialized: () {
+              //     ref.read(cameraStateProvider.notifier).state = true;
+              //   },
+              // )
+            ] else ...[
+              DropdownButton<ResolutionPreset>(
+                value: _resolutionPreset,
+                onChanged: (ResolutionPreset? value) {
+                  if (value != null) {
+                    _onResolutionChange(value);
+                  }
+                },
+                items: resolutionItems,
+              ),
+              const SizedBox(width: 20),
+            ]
           ]
         ],
       ),
