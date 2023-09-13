@@ -8,12 +8,14 @@ import 'dart:async';
 
 import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/services.dart';
+import '../../../main.dart';
 
 class KioskShootingPage extends ConsumerStatefulWidget {
-  const KioskShootingPage({super.key, required this.type});
+  const KioskShootingPage({super.key, this.type});
 
-  final String type;
+  final String? type;
   static String get routeName => 'kioskShooting';
+
 
   @override
   KioskShootingState createState() => KioskShootingState();
@@ -68,6 +70,7 @@ class KioskShootingState extends ConsumerState<KioskShootingPage> {
     } on PlatformException catch (e) {
       cameraInfo = 'Failed to get cameras: ${e.code}: ${e.message}';
     }
+    logger.d(cameras);
 
     if (mounted) {
       setState(() {
@@ -335,10 +338,88 @@ class KioskShootingState extends ConsumerState<KioskShootingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          if (_cameras.isEmpty)
-            ...[]
-          else ...[
-            if (_initialized) ...[
+          ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
+                ),
+                child: Text(_cameraInfo),
+              ),
+              if (_cameras.isEmpty)
+                ElevatedButton(
+                  onPressed: _fetchCameras,
+                  child: const Text('Re-check available cameras'),
+                ),
+              if (_cameras.isNotEmpty)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    DropdownButton<ResolutionPreset>(
+                      value: _resolutionPreset,
+                      onChanged: (ResolutionPreset? value) {
+                        if (value != null) {
+                          _onResolutionChange(value);
+                        }
+                      },
+                      items: resolutionItems,
+                    ),
+                    const SizedBox(width: 20),
+                    const Text('Audio:'),
+                    Switch(
+                        value: _recordAudio,
+                        onChanged: (bool state) => _onAudioChange(state)),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: _initialized
+                          ? _disposeCurrentCamera
+                          : _initializeCamera,
+                      child:
+                      Text(_initialized ? 'Dispose camera' : 'Create camera'),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: _initialized ? _takePicture : null,
+                      child: const Text('Take picture'),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: _initialized ? _togglePreview : null,
+                      child: Text(
+                        _previewPaused ? 'Resume preview' : 'Pause preview',
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: _initialized ? _toggleRecord : null,
+                      child: Text(
+                        (_recording || _recordingTimed)
+                            ? 'Stop recording'
+                            : 'Record Video',
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: (_initialized && !_recording && !_recordingTimed)
+                          ? () => _recordTimed(5)
+                          : null,
+                      child: const Text(
+                        'Record 5 seconds',
+                      ),
+                    ),
+                    if (_cameras.length > 1) ...<Widget>[
+                      const SizedBox(width: 5),
+                      ElevatedButton(
+                        onPressed: _switchCamera,
+                        child: const Text(
+                          'Switch camera',
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              const SizedBox(height: 5),
               if (_initialized && _cameraId > 0 && _previewSize != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -362,25 +443,8 @@ class KioskShootingState extends ConsumerState<KioskShootingPage> {
                     'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
                   ),
                 ),
-              // KioskCameraCaptureWidget(
-              //   isDisease: widget.type == '질환' ? true : false,
-              //   onInitialized: () {
-              //     ref.read(cameraStateProvider.notifier).state = true;
-              //   },
-              // )
-            ] else ...[
-              DropdownButton<ResolutionPreset>(
-                value: _resolutionPreset,
-                onChanged: (ResolutionPreset? value) {
-                  if (value != null) {
-                    _onResolutionChange(value);
-                  }
-                },
-                items: resolutionItems,
-              ),
-              const SizedBox(width: 20),
-            ]
-          ]
+            ],
+          ),
         ],
       ),
     );

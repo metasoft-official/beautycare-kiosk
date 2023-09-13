@@ -89,7 +89,6 @@ dependencies:
   fluttertoast:
 
   # 윈도우
-  fluent_ui: ^4.4.0
   camera_windows: ^0.2.1+8
 
 
@@ -111,7 +110,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/videos/
   fonts:
     - family: kufam
       fonts:
