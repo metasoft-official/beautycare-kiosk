@@ -1,4 +1,5 @@
 import 'package:beauty_care/disease/model/disease_model.dart';
+import 'package:beauty_care/kiosk/view/pages/kiosk_camera_test_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_disease_result_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_mbti_result_page.dart';
 import 'package:beauty_care/kiosk/view/pages/kiosk_mbti_survey_page.dart';
@@ -34,6 +35,13 @@ class AppRouter {
           name: KioskMainPage.routeName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: KioskMainPage(),
+          ),
+        ),
+        GoRoute(
+          path: '/kiosk-camera-test',
+          name: KioskCameraTestPage.routeName,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: KioskCameraTestPage(),
           ),
         ),
         GoRoute(

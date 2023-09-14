@@ -34,58 +34,58 @@ class KioskPreCheckPage extends ConsumerWidget {
                     bottomRight: Radius.circular(90))),
             child: Column(children: [
               const KioskAppBar(),
-          //     const SizedBox(height: 20),
-          //     Text(
-          //       '피부$type 진단을 위한 촬영이 있습니다.',
-          //       style: KioskTextTheme.black36b,
-          //     ),
-          //     const Text('촬영 한 번으로 피부 질환을 예측해드릴게요!',
-          //         style: KioskTextTheme.middleGrey24m),
-          //
-          //     const SizedBox(height: 10),
-          //     //이미지
-          //     SizedBox(
-          //       width: MediaQuery.of(context).size.width,
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           Padding(
-          //             padding: const EdgeInsets.symmetric(
-          //                 horizontal: 20, vertical: 10),
-          //             child: SimpleShadow(
-          //               offset: const Offset(0, 0),
-          //               sigma: 0.1,
-          //               child: Image.asset('assets/images/kiosk_pre_check.png',
-          //                   width: 270),
-          //             ),
-          //           ),
-          //           Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               const Text(
-          //                 '촬영화면이 나오면,',
-          //                 style: KioskTextTheme.black36,
-          //               ),
-          //               RichText(
-          //                   text: const TextSpan(children: [
-          //                 TextSpan(
-          //                     text: '하단의 버튼을 터치',
-          //                     style: KioskTextTheme.blue36b),
-          //                 TextSpan(text: '해', style: KioskTextTheme.black36),
-          //               ])),
-          //               const Text(
-          //                 '촬영을 진행할 수 있어요.',
-          //                 style: KioskTextTheme.black36,
-          //               ),
-          //             ],
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //     const SizedBox(height: 30),
-          //   ]),
-          // ),
+              const SizedBox(height: 20),
+              Text(
+                '피부$type 진단을 위한 촬영이 있습니다.',
+                style: KioskTextTheme.black36b,
+              ),
+              const Text('촬영 한 번으로 피부 질환을 예측해드릴게요!',
+                  style: KioskTextTheme.middleGrey24m),
+
+              const SizedBox(height: 10),
+              //이미지
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: SimpleShadow(
+                        offset: const Offset(0, 0),
+                        sigma: 0.1,
+                        child: Image.asset('assets/images/kiosk_pre_check.png',
+                            width: 270),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '촬영화면이 나오면,',
+                          style: KioskTextTheme.black36,
+                        ),
+                        RichText(
+                            text: const TextSpan(children: [
+                          TextSpan(
+                              text: '하단의 버튼을 터치',
+                              style: KioskTextTheme.blue36b),
+                          TextSpan(text: '해', style: KioskTextTheme.black36),
+                        ])),
+                        const Text(
+                          '촬영을 진행할 수 있어요.',
+                          style: KioskTextTheme.black36,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+            ]),
+          ),
           // const SizedBox(height: 20),
           // Container(
           //   padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
@@ -174,19 +174,20 @@ class KioskPreCheckPage extends ConsumerWidget {
           //       ),
           //       const SizedBox(width: 36),
           //       Expanded(
-          //         child:
-                  ElevatedButton(
-                    style: KioskButtonTheme.basicElevatedButtonTheme,
-                    onPressed: () => context.go('/kiosk-shooting?type=$type'),
-                    // onPressed: () => type == '질환'
-                    //     ? context.go('/kiosk-disease-result?diseaseId=20')
-                    //     : context.pushNamed('kioskSurvey'),
-                    child: const Text('할래요', style: KioskTextTheme.white36b),
-                  ),
-                // )
-              ],
-            ),
-          )
+          //         child: ElevatedButton(
+          //           style: KioskButtonTheme.basicElevatedButtonTheme,
+          //           onPressed: () => context.go('/kiosk-shooting?type=$type'),
+          //           child: const Text('할래요', style: KioskTextTheme.white36b),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
+          ElevatedButton(
+            style: KioskButtonTheme.basicElevatedButtonTheme,
+            onPressed: () => context.push('/kiosk-shooting?type=$type'),
+            child: const Text('할래요', style: KioskTextTheme.white36b),
+          ),
         ],
       ),
     );

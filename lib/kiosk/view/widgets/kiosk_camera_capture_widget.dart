@@ -27,13 +27,17 @@ import 'package:beauty_care/common/const/values.dart';
 
 class KioskCameraCaptureWidget extends ConsumerStatefulWidget {
   const KioskCameraCaptureWidget(
-      {super.key, required this.isDisease, required this.onInitialized});
+      {super.key,
+      required this.isDisease,
+      required this.onInitialized,
+      required this.camera});
 
   final VoidCallback onInitialized;
 
   static String get routeName => 'camera';
 
   final bool isDisease;
+  final CameraDescription camera;
 
   @override
   KioskCameraWidgetState createState() => KioskCameraWidgetState();
@@ -61,9 +65,8 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
   }
 
   Future<void> _initCamera() async {
-    final cameras = await availableCameras();
     _cameraController =
-        CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
+        CameraController(widget.camera, ResolutionPreset.veryHigh);
     _initCameraControllerFuture = _cameraController!.initialize().then((value) {
       setState(() {});
       // widget.onInitialized();
@@ -296,7 +299,6 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                         children: [
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text('정면을 주시하세요'),
                             style: ref
                                         .read(imageQualityProvider.notifier)
                                         .frontal ==
@@ -305,10 +307,10 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                     .shootingIndicationButtonInactiveTheme
                                 : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
+                            child: const Text('정면을 주시하세요'),
                           ),
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text('얼굴 조명을 균일하게'),
                             style: ref
                                         .read(imageQualityProvider.notifier)
                                         .exposure ==
@@ -317,6 +319,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                     .shootingIndicationButtonInactiveTheme
                                 : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
+                            child: const Text('얼굴 조명을 균일하게'),
                           ),
                         ]),
                     const SizedBox(height: 20),
@@ -325,7 +328,6 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                         children: [
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text('눈을 뜨세요'),
                             style: ref
                                         .read(imageQualityProvider.notifier)
                                         .eyesOpen ==
@@ -334,10 +336,10 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                     .shootingIndicationButtonInactiveTheme
                                 : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
+                            child: const Text('눈을 뜨세요'),
                           ),
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text('입을 벌리지 마세요'),
                             style: ref
                                         .read(imageQualityProvider.notifier)
                                         .mouseNotOpen ==
@@ -346,6 +348,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                                     .shootingIndicationButtonInactiveTheme
                                 : KioskButtonTheme
                                     .shootingIndicationButtonActiveTheme,
+                            child: const Text('입을 벌리지 마세요'),
                           ),
                         ]),
                     const SizedBox(height: 50),
@@ -390,8 +393,8 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                               filename: "my_image.jpg",
                               contentType: MediaType("image", "jpeg"));
 
-                          final _data = FormData();
-                          _data.files.add(MapEntry(
+                          final data = FormData();
+                          data.files.add(MapEntry(
                               'file', // 서버에서 기대하는 키 이름
                               multipartFile));
 
@@ -412,7 +415,7 @@ class KioskCameraWidgetState extends ConsumerState<KioskCameraCaptureWidget> {
                             );
 
                             // Success handling
-                            print(response.data);
+                            logger.d(response.data);
 
                             if (response.data['result_code'] == "S") {
                               imageQualityNotifier.updateData(

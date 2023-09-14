@@ -137,30 +137,22 @@ Widget? diseaseButton(
   String? name = "";
   double? score = 0;
   DiseaseModel? extra = DiseaseModel();
+  int c = result.topk1Value != null && result.topk1Value! > 0.3 ? 100 : 200;
 
   switch (index) {
     case 0:
       name = result.topk1Disease?.name ?? '-';
-      score = (result.topk1Value! * 500).ceilToDouble();
-      if (score >= 100) {
-        score = (result.topk1Value! * 300).ceilToDouble();
-      }
+      score = (result.topk1Value! * c).ceilToDouble();
       extra = result.topk1Disease;
       break;
     case 1:
       name = result.topk2Disease?.name ?? '-';
-      score = (result.topk2Value! * 500).ceilToDouble();
-      if (score >= 100) {
-        score = (result.topk2Value! * 300).ceilToDouble();
-      }
+      score = (result.topk2Value! * c).ceilToDouble();
       extra = result.topk2Disease;
       break;
     case 2:
       name = result.topk3Disease?.name ?? '-';
-      score = (result.topk3Value! * 500).ceilToDouble();
-      if (score >= 100) {
-        score = (result.topk3Value! * 300).ceilToDouble();
-      }
+      score = (result.topk3Value! * c).ceilToDouble();
       extra = result.topk3Disease;
       break;
   }

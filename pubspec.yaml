@@ -89,7 +89,7 @@ dependencies:
   fluttertoast:
 
   # 윈도우
-  camera_windows: ^0.2.1+8
+  camera_windows: ^0.2.1
 
 
 dev_dependencies:
