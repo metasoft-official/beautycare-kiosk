@@ -146,6 +146,8 @@ import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/stores/store';
+import { RSA_X931_PADDING } from 'constants';
+import meta from '@/api/meta';
 
 const appStore = useAppStore();
 const { captureBlob } = storeToRefs(appStore);
@@ -185,8 +187,13 @@ $q.loading.show({
 onMounted(() => {
     setTimeout(() => {
         if (!cam.value.deviceId) {
-            cam.value.deviceId = cam.value.cameras[1].deviceId;
-            cam.value.setCamera();
+            if (cam.value.cameras.length !== 0) {
+                cam.value.deviceId = cam.value.cameras[0].deviceId;
+                cam.value.setCamera();
+            } else {
+                meta.alert('카메라가 존재하지 않아 처음으로 돌아갑니다.');
+                $router.push('/');
+            }
         }
         $q.loading.hide();
     }, 3000);
