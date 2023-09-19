@@ -1,0 +1,211 @@
+<template>
+    <q-page class="bg-grey-2 flex justify-between">
+        <c-row
+            class="bg-white pt-10 pb-20"
+            style="
+                border-bottom-right-radius: 90px;
+                border-bottom-left-radius: 90px;
+                box-shadow: 0px 0px 60px 0px #0000001a;
+            "
+        >
+            <c-col cols="12" class="flex justify-between items-center">
+                <div class="text-header text-blue-4">
+                    {{ disease.name }}
+                    <span class="text-subtitle2 text-grey-1">
+                        {{ disease.nameEng }}
+                    </span>
+                </div>
+                <q-img
+                    :src="parkReturnIcon"
+                    alt="뒤로가기"
+                    style="max-width: 58px; max-height: 58px"
+                    @click="moveBack"
+                ></q-img>
+            </c-col>
+            <c-col :cols="diseaseImage ? 6 : 12" class="text-center">
+                <q-img
+                    :src="myImage"
+                    alt="나"
+                    style="max-width: 540px"
+                    ratio="1"
+                ></q-img>
+            </c-col>
+            <template v-if="diseaseImage">
+                <c-col cols="6" class="text-center">
+                    <q-img
+                        :src="diseaseImage"
+                        alt="질병"
+                        style="max-width: 540px"
+                    ></q-img>
+                </c-col>
+            </template>
+            <c-col cols="12" class="">
+                <div
+                    class="text-content text-blue-4 text-weight-bold flex items-center"
+                >
+                    <q-img
+                        :src="infoIcon"
+                        alt="요약 정보 아이콘"
+                        class="mr-3"
+                        style="max-width: 30px"
+                    ></q-img>
+                    요약 정보
+                </div>
+                <div class="text-content text-grey-5 py-5">
+                    {{ disease.symptoms }}
+                </div>
+            </c-col>
+        </c-row>
+
+        <c-row class="pt-10">
+            <c-col class="flex">
+                <div class="text-content">
+                    내 피부 관리법에 대해 살펴보고,<br />
+                    시술과 화장품을 추천받고 싶다면?
+                </div>
+                <div
+                    class="text-subtitle3 text-blue-4 text-weight-bold flex items-end pb-10"
+                >
+                    QR코드를 촬영해 App 다운로드하기
+                </div>
+            </c-col>
+            <c-col cols="auto">
+                <q-card style="aspect-ratio: 1; width: 282px">
+                    <q-card-section>
+                        <q-img
+                            :src="qrcodeImg"
+                            alt="QR코드"
+                            style="max-width: 250px"
+                        ></q-img>
+                    </q-card-section>
+                </q-card>
+            </c-col>
+        </c-row>
+        <c-row>
+            <c-col cols="6" class="flex items-end">
+                <q-btn
+                    class="full-width py-10"
+                    style="
+                        background-color: white;
+                        border: 3px solid var(--c-blue-4);
+                        border-radius: 15px;
+                    "
+                    @click="moveCamera"
+                >
+                    <div class="text-subtitle1 text-weight-bold text-blue-4">
+                        다시 측정하기
+                    </div>
+                </q-btn>
+            </c-col>
+            <c-col cols="6" class="flex items-end">
+                <q-btn
+                    class="full-width py-10"
+                    color="blue-4"
+                    style="border-radius: 15px"
+                    @click="moveHome"
+                >
+                    <q-icon left size="3em" color="white" name="mdi-home" />
+                    <div
+                        class="text-subtitle1 text-weight-bold text-white"
+                        style="padding: 3px"
+                    >
+                        홈으로
+                    </div>
+                </q-btn>
+            </c-col>
+        </c-row>
+    </q-page>
+</template>
+
+<script setup lang="ts">
+import meta from '@/api/meta';
+import infoIcon from '@/assets/images/result/icon_info.png';
+import parkReturnIcon from '@/assets/images/result/icon_park_return.png';
+import qrcodeImg from '@/assets/images/diagnosis/qrcode.png';
+import { DiseaseEntity } from '@/types/global';
+import { useQuasar } from 'quasar';
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const $q = useQuasar();
+const $router = useRouter();
+const $route = useRoute();
+
+const { imageId, topkId } = $route.query;
+
+const myImage = ref('');
+const diseaseImage = ref('');
+const disease = ref<DiseaseEntity>({});
+
+function moveHome() {
+    $router.push('/intro');
+}
+
+function moveCamera() {
+    $router.push({
+        path: '/camera',
+        query: {
+            from: 'disease',
+        },
+    });
+}
+
+function moveBack() {
+    $router.go(-1);
+}
+
+async function load() {
+    if (
+        !imageId ||
+        !topkId ||
+        isNaN(Number(imageId)) ||
+        isNaN(Number(topkId))
+    ) {
+        $q.dialog({
+            title: '확인',
+            message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+            cancel: true,
+            persistent: true,
+        })
+            .onOk(() => {
+                moveCamera();
+            })
+            .onCancel(() => {
+                $router.push('/intro');
+            });
+        return;
+    }
+    loadDisease();
+    loadImage();
+}
+
+async function loadDisease() {
+    const { data } = await meta.api.common.diseases.get(Number(topkId));
+    disease.value = data;
+    if (data.diseaseImageId) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const base64data = reader.result as string;
+            diseaseImage.value = base64data;
+        };
+        const { data: blob } = await meta.api.attachFile.getImage(
+            data.diseaseImageId
+        );
+        reader.readAsDataURL(blob);
+    }
+}
+
+async function loadImage() {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+        const base64data = reader.result as string;
+        myImage.value = base64data;
+    };
+    const { data: blob } = await meta.api.attachFile.getImage(Number(imageId));
+    reader.readAsDataURL(blob);
+}
+
+load();
+</script>
+
+<style></style>

@@ -1,0 +1,45 @@
+$colors: (
+    'blue': (
+        '1': '#c9ddf6',
+        '2': '#cde1f9',
+        '3': '#ecf8ff',
+        '4': '#0851BD',
+    ),
+    'grey': (
+        '1': '#888888',
+        '2': '#f2f2f2',
+        '3': '#bbbbbb',
+        '4': '#dddddd',
+        '5': '#777777',
+        '6': '#222222',
+        '7': '#EEEEEE',
+    ),
+) !default;
+
+// --c-(색 또는 쓰이는곳)-(숫자 또는 역할)
+:root {
+    @each $name, $kinds in $colors {
+        @each $kind, $color in $kinds {
+            --c-#{$name}-#{$kind}: #{$color};
+        }
+    }
+}
+
+@each $name, $kinds in $colors {
+    @each $kind, $color in $kinds {
+        .bg-#{$name}-#{$kind} {
+            background-color: #{$color} !important;
+        }
+        .text-#{$name}-#{$kind} {
+            color: #{$color} !important;
+        }
+    }
+}
+
+.black--text {
+    color: #000 !important;
+}
+
+.white--text {
+    color: #fff !important;
+}

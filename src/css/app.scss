@@ -1,0 +1,83 @@
+// app global css in SCSS form
+
+// app global css in SCSS form
+$sizes: (
+    'xs': 0,
+    'sm': (
+        $breakpoint-xs + 1,
+    ),
+    'md': (
+        $breakpoint-sm + 1,
+    ),
+    'lg': (
+        $breakpoint-md + 1,
+    ),
+    'xl': (
+        $breakpoint-lg + 1,
+    ),
+) !default;
+
+@import './../assets/fonts/NotoSansKR/css/NotoSansKR.css';
+
+@import 'color.scss';
+@import 'grid.scss';
+@import 'space.scss';
+@import 'font.scss';
+
+.background1 {
+    background: radial-gradient(
+            70.99% 72.29% at 72.76% 45.63%,
+            var(--c-blue-2) 0%,
+            var(--c-blue-3) 58.85%,
+            var(--c-blue-1) 100%
+        )
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+}
+
+.background2 {
+    background: radial-gradient(
+        70.99% 72.29% at 72.76% 45.63%,
+        var(--c-blue-2) 0%,
+        var(--c-blue-3) 58.85%,
+        var(--c-blue-1) 100%
+    );
+    height: 50%; /* div의 높이를 50%로 설정하여 위쪽에 배경색이 표시되도록 합니다. */
+}
+
+.c-row {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.background2 * {
+    z-index: 1;
+}
+
+/* 아래쪽 회색 배경색 */
+.background2::after {
+    content: '';
+    display: block;
+    height: 50%; /* div의 높이의 절반을 차지하도록 설정하여 아래쪽에 회색이 표시되도록 합니다. */
+    background-color: #f2f2f2; /* 아래쪽 배경색을 회색으로 설정합니다. */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#webcam-ui {
+    background-color: #000;
+    position: relative;
+}
+
+#webcam-ui video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#webcam-ui > div {
+    display: none;
+}
