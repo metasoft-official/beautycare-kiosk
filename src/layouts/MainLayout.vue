@@ -1,6 +1,14 @@
 <template>
     <q-layout view="lHh Lpr lFf">
-        <q-header class="transparent">
+        <q-header
+            :class="{
+                'bg-white':
+                    $router.currentRoute.value.path !== '/mbti/survey' &&
+                    $router.currentRoute.value.path !== '/mbti/result',
+                'bg-grey-2': $router.currentRoute.value.path === '/mbti/survey',
+                transparent: $router.currentRoute.value.path === '/mbti/result',
+            }"
+        >
             <q-toolbar class="py-10">
                 <q-img
                     :src="logoImg"
@@ -19,10 +27,6 @@
 
         <q-page-container
             :class="{
-                'bg-white':
-                    $router.currentRoute.value.path !== '/mbti/survey' &&
-                    $router.currentRoute.value.path !== '/mbti/result',
-                'bg-grey-2': $router.currentRoute.value.path === '/mbti/survey',
                 background2: $router.currentRoute.value.path === '/mbti/result',
             }"
         >

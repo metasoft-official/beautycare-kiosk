@@ -158,6 +158,9 @@ const cam = ref();
 async function photoTaken(data: { blob: Blob; image_data_url: string }) {
     captureBlob.value = data.blob;
     $q.loading.hide();
+    $q.loading.show({
+        message: '페이지 이동 중...',
+    });
     $router.push({
         path: '/again',
         query: {

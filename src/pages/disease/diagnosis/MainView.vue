@@ -44,7 +44,7 @@
             </c-col>
         </c-row>
 
-        <c-row>
+        <c-row class="mt-20">
             <c-col cols="12">
                 <q-card flat class="bg-white" style="border-radius: 30px">
                     <q-card-section>

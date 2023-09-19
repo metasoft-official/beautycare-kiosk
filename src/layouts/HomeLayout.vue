@@ -26,9 +26,6 @@
                     :name="index + 1"
                     :img-src="bannerImage"
                 ></q-carousel-slide>
-                <!-- <q-carousel-slide :name="1" :img-src="banner1Img" />
-                <q-carousel-slide :name="2" :img-src="banner2Img" />
-                <q-carousel-slide :name="3" :img-src="banner3Img" /> -->
             </q-carousel>
         </q-footer>
     </q-layout>
@@ -37,9 +34,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import logoImg from '@/assets/logo.png';
-// import banner1Img from '@/assets/images/home/banner1.png';
-// import banner2Img from '@/assets/images/home/banner2.png';
-// import banner3Img from '@/assets/images/home/banner3.png';
 import meta from '@/api/meta';
 
 const slide = ref(1);
