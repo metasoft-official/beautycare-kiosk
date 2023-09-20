@@ -1,8 +1,25 @@
 <template>
     <q-page class="bg-grey-6 flex justify-between">
         <c-row>
-            <c-col cols="12" class="flex justify-center items-center my-auto">
-                <q-img :src="myImage" style="max-width: 100%"></q-img>
+            <c-col
+                cols="12"
+                class="flex justify-center items-center mt-auto mb-0"
+            >
+                <template v-if="$route.query.from === 'mbti'">
+                    <q-img :src="myImage" style="max-width: 100%"></q-img>
+                </template>
+                <template v-else>
+                    <div class="cropper-container">
+                        <VueAdvancedCropper
+                            ref="myCropper"
+                            :src="myImage"
+                            style="width: 100%; height: 100%"
+                            :stencil-props="{
+                                aspectRatio: 1,
+                            }"
+                        />
+                    </div>
+                </template>
             </c-col>
             <c-col
                 cols="6"
@@ -54,6 +71,11 @@ import axios from 'axios';
 import meta from '@/api/meta';
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/stores/store';
+import { Cropper as VueAdvancedCropper } from 'vue-advanced-cropper';
+import 'vue-advanced-cropper/dist/style.css';
+import 'vue-advanced-cropper/dist/theme.compact.css';
+
+const myCropper = ref<typeof VueAdvancedCropper | null>(null);
 
 const appStore = useAppStore();
 const { captureBlob } = storeToRefs(appStore);
@@ -63,6 +85,7 @@ const myImage = ref('');
 const $q = useQuasar();
 const $router = useRouter();
 const $route = useRoute();
+console.log($route.query.from);
 
 function readBlob() {
     $q.loading.show({
@@ -198,6 +221,10 @@ function base64toFile(base_data: string) {
 }
 
 async function confirm() {
+    if ($route.query.from === 'disease') {
+        const data = (myCropper.value as any).getResult();
+        myImage.value = data.canvas.toDataURL('image/jpeg');
+    }
     if (!captureBlob.value) {
         $q.dialog({
             title: '확인',
@@ -222,6 +249,7 @@ async function confirm() {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         const jsonData = response.data;
+        console.log(jsonData['topk_values']);
         const userDiseaseDto = {
             userId: 34,
             topk1Label: jsonData['topk_label'][0],
@@ -309,6 +337,18 @@ async function confirm() {
         }
     }
 }
+
+function defaultSize({ imageSize, visibleArea }: any) {
+    return {
+        width: 1000,
+        height: 1000,
+    };
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.cropper-container {
+    width: 100%; /* 부모 요소인 c-col의 가로 크기에 맞게 */
+    height: 100%; /* 부모 요소인 c-col의 세로 크기에 맞게 */
+}
+</style>

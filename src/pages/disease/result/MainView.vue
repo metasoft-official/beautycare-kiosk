@@ -1,7 +1,7 @@
 <template>
     <q-page class="bg-grey-2 flex justify-between">
         <c-row
-            class="bg-white pt-10 pb-20"
+            class="bg-white pt-10 pb-0"
             style="
                 border-bottom-right-radius: 90px;
                 border-bottom-left-radius: 90px;
@@ -19,28 +19,33 @@
                     당신의 증상과 가장 비슷한 피부질환
                 </div>
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" style="max-height: 250px; overflow-y: auto">
                 <q-card
                     flat
                     style="
                         border-radius: 30px;
                         border: 3px solid var(--c-blue-4);
                     "
-                    class="bg-blue-3"
-                    @click="moveDetail"
+                    class="bg-blue-3 my-5"
+                    v-for="(item, idx) in disease"
+                    :key="idx"
                 >
-                    <q-card-section>
+                    <q-card-section @click="moveDetail(item.id)">
                         <c-row no-gutters>
                             <c-col>
                                 <div class="text-subtitle2 text-blue-4">
                                     <span class="text-weight-bold">
-                                        {{ disease.name }}
+                                        {{ item.name }}
                                     </span>
-                                    {{ Math.round(disease.value * 100) }}%
+                                    {{
+                                        Math.round(
+                                            item.value ? item.value * 100 : 0
+                                        )
+                                    }}%
                                 </div>
                                 <q-linear-progress
                                     size="48px"
-                                    :value="disease.value"
+                                    :value="item.value"
                                     color="blue-4"
                                     track-color="white"
                                     style="border-radius: 54px"
@@ -137,7 +142,11 @@ const $route = useRoute();
 
 const { userDiseaseId } = $route.query;
 const myImage = ref<{ base64: string; id: number }>({ base64: '', id: 0 });
-const disease = ref({ name: '', value: 0, topkId: 0 });
+const disease = ref([
+    { name: '', value: 0, id: 0 },
+    { name: '', value: 0, id: 0 },
+    { name: '', value: 0, id: 0 },
+]);
 
 function moveHome() {
     $router.push('/intro');
@@ -152,12 +161,13 @@ function moveCamera() {
     });
 }
 
-function moveDetail() {
+function moveDetail(item: number) {
+    console.log(item);
     $router.push({
         path: '/disease/detail',
         query: {
             imageId: myImage.value.id,
-            topkId: disease.value.topkId,
+            topkId: item,
         },
     });
 }
@@ -181,6 +191,8 @@ async function loadUserDisease() {
     const { data } = await meta.api.common.userDiseases.get(
         Number(userDiseaseId)
     );
+    console.log(data);
+    console.log(userDiseaseId);
 
     if (data.imageId) {
         const reader = new FileReader();
@@ -194,24 +206,29 @@ async function loadUserDisease() {
     }
 
     if (data.topk1Id) {
-        disease.value = {
-            topkId: data.topk1Id,
+        disease.value[0] = {
+            id: data.topk1Id,
             name: data.topk1Label as string,
             value: data.topk1Value as number,
         };
-    } else if (data.topk2Id) {
-        disease.value = {
-            topkId: data.topk2Id,
+    }
+    if (data.topk2Id) {
+        disease.value[1] = {
+            id: data.topk2Id,
             name: data.topk2Label as string,
             value: data.topk2Value as number,
         };
-    } else if (data.topk3Id) {
-        disease.value = {
-            topkId: data.topk3Id,
+    }
+    if (data.topk3Id) {
+        disease.value[2] = {
+            id: data.topk3Id,
             name: data.topk3Label as string,
             value: data.topk3Value as number,
         };
-    } else {
+    }
+    console.log(data);
+    console.log(disease.value);
+    if (!data.topk1Id && !data.topk2Id && !data.topk3Id) {
         $q.dialog({
             title: '확인',
             message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
