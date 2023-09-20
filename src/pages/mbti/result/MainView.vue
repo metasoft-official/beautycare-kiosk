@@ -1,12 +1,9 @@
 <template>
     <q-page>
+        <div style="padding-top: 100px"></div>
         <c-row
             class="bg-white pb-30 wide-container"
-            style="
-                border-radius: 90px;
-                box-shadow: 0px 0px 60px 0px #0000001a;
-                margin-top: 200px;
-            "
+            style="border-radius: 90px; box-shadow: 0px 0px 60px 0px #0000001a"
             justify="center"
         >
             <c-col cols="auto" class="flex items-center">

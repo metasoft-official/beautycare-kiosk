@@ -199,18 +199,85 @@ async function loadUserDisease() {
             name: data.topk1Label as string,
             value: data.topk1Value as number,
         };
+        if (disease.value.name.indexOf('탈모') !== -1) {
+            if (data.topk2Id) {
+                disease.value = {
+                    topkId: data.topk2Id,
+                    name: data.topk2Label as string,
+                    value: data.topk2Value as number,
+                };
+            } else if (data.topk3Id) {
+                disease.value = {
+                    topkId: data.topk3Id,
+                    name: data.topk3Label as string,
+                    value: data.topk3Value as number,
+                };
+            } else {
+                $q.dialog({
+                    title: '확인',
+                    message:
+                        '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                    cancel: true,
+                    persistent: true,
+                })
+                    .onOk(() => {
+                        moveCamera();
+                    })
+                    .onCancel(() => {
+                        $router.push('/intro');
+                    });
+            }
+        }
     } else if (data.topk2Id) {
         disease.value = {
             topkId: data.topk2Id,
             name: data.topk2Label as string,
             value: data.topk2Value as number,
         };
+
+        if (disease.value.name.indexOf('탈모') !== -1) {
+            if (data.topk3Id) {
+                disease.value = {
+                    topkId: data.topk3Id,
+                    name: data.topk3Label as string,
+                    value: data.topk3Value as number,
+                };
+            } else {
+                $q.dialog({
+                    title: '확인',
+                    message:
+                        '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                    cancel: true,
+                    persistent: true,
+                })
+                    .onOk(() => {
+                        moveCamera();
+                    })
+                    .onCancel(() => {
+                        $router.push('/intro');
+                    });
+            }
+        }
     } else if (data.topk3Id) {
         disease.value = {
             topkId: data.topk3Id,
             name: data.topk3Label as string,
             value: data.topk3Value as number,
         };
+        if (disease.value.name.indexOf('탈모') !== -1) {
+            $q.dialog({
+                title: '확인',
+                message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                cancel: true,
+                persistent: true,
+            })
+                .onOk(() => {
+                    moveCamera();
+                })
+                .onCancel(() => {
+                    $router.push('/intro');
+                });
+        }
     } else {
         $q.dialog({
             title: '확인',

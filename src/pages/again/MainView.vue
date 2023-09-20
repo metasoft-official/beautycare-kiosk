@@ -99,13 +99,13 @@ function readBlob() {
             // );
 
             // 캔버스 크기를 자를 영역과 같게 설정
-            var cropWidth = img.height * 0.4 * (16 / 9); // 자를 영역의 가로 크기
-            var cropHeight = img.width * 0.3 + 150; // 자를 영역의 세로 크기
+            var cropWidth = img.height * 0.2 * (16 / 9); // 자를 영역의 가로 크기
+            var cropHeight = img.width * 0.2; // 자를 영역의 세로 크기
             canvas.width = cropWidth;
             canvas.height = cropHeight;
 
             // 이미지를 캔버스의 중심에 그리기
-            var sourceX = (img.width - cropWidth) / 2 + 150; // 이미지의 중심부터 시작
+            var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
             var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
             ctx?.drawImage(
                 img,
@@ -165,6 +165,7 @@ function rotate(image: string) {
         ctx?.clearRect(0, 0, canvas.width, canvas.height);
         ctx?.save();
         ctx?.translate(canvas.width / 2, canvas.height / 2); // 회전 중심을 이미지 중심으로 설정
+        ctx?.scale(-1, 1); // x 축을 뒤집어 좌우 반전
         ctx?.rotate(Math.PI / -2); // -90도 회전
         ctx?.drawImage(
             img,
