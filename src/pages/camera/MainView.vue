@@ -31,7 +31,7 @@
                     </div> -->
                 <template v-if="$route.query.from === 'mbti'">
                     <div
-                        :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; top: 0px; background-color: #00000000`"
+                        :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; bottom: 0px; background-color: #00000000`"
                     >
                         <c-row noGutters>
                             <c-col cols="6" class="px-7 py-3">
@@ -107,7 +107,7 @@
                 </template>
                 <div
                     class="flex items-center justify-center"
-                    :style="`width: ${$q.screen.width}px; height: 300px; position: absolute; bottom: 0; background-color: #00000080`"
+                    :style="`width: ${$q.screen.width}px; height: 300px; position: absolute; top: 0; background-color: #00000080`"
                 >
                     <div
                         style="
@@ -146,7 +146,6 @@ import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/stores/store';
-import { RSA_X931_PADDING } from 'constants';
 import meta from '@/api/meta';
 
 const appStore = useAppStore();
@@ -214,7 +213,7 @@ onMounted(() => {
     width: 100vh; /* 요소의 너비를 화면 높이에 맞게 설정 (90도 회전으로 인해 너비와 높이가 바뀜) */
     aspect-ratio: 16/9;
     height: 100vw; /* 요소의 높이를 화면 너비에 맞게 설정 (90도 회전으로 인해 너비와 높이가 바뀜) */
-    transform: rotate(-90deg); /* 90도 회전 */
+    transform: scaleX(-1) rotate(-90deg);
     transform-origin: center center; /* 회전 중심을 가운데로 설정 */
     box-sizing: border-box; /* 회전시에도 요소 크기가 화면 크기에 맞게 유지되도록 설정 */
 }
