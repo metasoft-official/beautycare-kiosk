@@ -8,19 +8,28 @@
                 box-shadow: 0px 0px 60px 0px #0000001a;
             "
         >
-            <c-col cols="12" class="flex justify-between items-center">
-                <div class="text-header text-blue-4">
+            <c-col
+                cols="12"
+                class="flex items-center"
+                style="position: relative"
+            >
+                <div class="text-header text-blue-4 mr-5">
                     {{ disease.name }}
-                    <span class="text-subtitle2 text-grey-1">
-                        {{ disease.nameEng }}
-                    </span>
                 </div>
-                <q-img
-                    :src="parkReturnIcon"
-                    alt="뒤로가기"
-                    style="max-width: 58px; max-height: 58px"
-                    @click="moveBack"
-                ></q-img>
+                <div
+                    class="text-subtitle2 text-grey-1"
+                    style="word-break: break-all"
+                >
+                    {{ disease.nameEng }}
+                </div>
+                <div style="position: absolute; right: 0" class="pr-4">
+                    <q-img
+                        :src="parkReturnIcon"
+                        alt="뒤로가기"
+                        style="min-width: 58px; min-height: 58px"
+                        @click="moveBack"
+                    ></q-img>
+                </div>
             </c-col>
             <c-col :cols="diseaseImage ? 6 : 12" class="text-center">
                 <q-img
@@ -51,7 +60,10 @@
                     ></q-img>
                     요약 정보
                 </div>
-                <div class="text-content text-grey-5 py-5">
+                <div
+                    class="text-content text-grey-5 py-5"
+                    style="max-height: 300px; overflow-y: auto"
+                >
                     {{ disease.symptoms }}
                 </div>
             </c-col>

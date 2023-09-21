@@ -123,7 +123,7 @@ export const useAppStore = defineStore('app', {
 export const useTimerStore = defineStore('timer', {
     state: () => ({
         timerId: 0 as unknown,
-        timeout: 5000, // 일정 시간 (60초) 동안 이벤트 없으면 홈으로 돌아감
+        timeout: 60000, // 일정 시간 (60초) 동안 이벤트 없으면 홈으로 돌아감
     }),
     getters: {},
     actions: {
