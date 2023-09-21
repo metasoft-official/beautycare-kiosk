@@ -38,10 +38,6 @@ const routes: RouteRecordRaw[] = [
                 path: 'disease/detail',
                 component: () => import('pages/disease/detail/MainView.vue'),
             },
-            {
-                path: 'again',
-                component: () => import('pages/again/MainView.vue'),
-            },
         ],
     },
     {
@@ -56,6 +52,10 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'camera',
                 component: () => import('pages/camera/MainView.vue'),
+            },
+            {
+                path: 'again',
+                component: () => import('pages/again/MainView.vue'),
             },
         ],
     },

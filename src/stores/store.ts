@@ -45,8 +45,6 @@ export const useAppStore = defineStore('app', {
                 currentTransferStatus: '',
             },
         },
-        routerHistory: [] as unknown[],
-        totalTopicList: [] as unknown[],
     }),
     getters: {
         getLoading: (state) => state.loading,
@@ -54,13 +52,11 @@ export const useAppStore = defineStore('app', {
         getUserAgentSummaryInfo: (state) => state.userAgentSummaryInfo,
         getAlert: (state) => state.alert,
         getConfirm: (state) => state.confirm,
-        getRouterHistory: (state) => state.routerHistory,
         getLoadingDetailNeed: (state) => state.loading.percent.show,
         getLoadingPercentConfig: (state) =>
             state.loading.percent.configJsonData,
         getLoadingPercentPreviouseConfig: (state) =>
             state.loading.percent.previousConfigJsonData,
-        getTotalTopicList: (state) => state.totalTopicList,
     },
     actions: {
         setCaptureBlob(payload: null | Blob) {
@@ -115,17 +111,34 @@ export const useAppStore = defineStore('app', {
                 );
             }
         },
-        setRouterHistory(payload: unknown[]) {
-            this.routerHistory = payload;
-        },
         setLoadingPercentConfigSpeed(payload: string) {
             this.loading.percent.currentTransferSpeed = payload;
         },
         setLoadingPercentConfigStatus(payload: string) {
             this.loading.percent.currentTransferStatus = payload;
         },
-        setTotalTopicList(payload: unknown[]) {
-            this.totalTopicList = payload;
+    },
+});
+
+export const useTimerStore = defineStore('timer', {
+    state: () => ({
+        timerId: 0 as unknown,
+        timeout: 5000, // 일정 시간 (60초) 동안 이벤트 없으면 홈으로 돌아감
+    }),
+    getters: {},
+    actions: {
+        startTimer() {
+            this.timerId = setTimeout(() => {
+                // 타이머 만료 시 홈 페이지로 이동
+                this.router.push({ path: '/intro' });
+            }, this.timeout);
+        },
+        resetTimer() {
+            clearTimeout(this.timerId as number);
+            this.startTimer();
+        },
+        stopTimer() {
+            clearTimeout(this.timerId as number);
         },
     },
 });

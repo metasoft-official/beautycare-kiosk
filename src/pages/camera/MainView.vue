@@ -189,15 +189,15 @@ $q.loading.show({
 
 onMounted(() => {
     setTimeout(() => {
-        // if (!cam.value.deviceId) {
-        //     if (cam.value.cameras.length !== 0) {
-        cam.value.deviceId = cam.value.cameras[0].deviceId;
-        cam.value.setCamera();
-        //     } else {
-        //         meta.alert('카메라가 존재하지 않아 처음으로 돌아갑니다.');
-        //         $router.push('/');
-        //     }
-        // }
+        if (!cam.value.deviceId) {
+            if (cam.value.cameras.length !== 0) {
+                cam.value.deviceId = cam.value.cameras[0].deviceId;
+                cam.value.setCamera();
+            } else {
+                meta.alert('카메라가 존재하지 않아 처음으로 돌아갑니다.');
+                $router.push('/');
+            }
+        }
         $q.loading.hide();
     }, 3000);
 });

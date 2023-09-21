@@ -20,7 +20,7 @@
                     당신의 증상과 가장 비슷한 피부질환
                 </div>
             </c-col>
-            <c-col cols="12" style="max-height: 250px; overflow-y: auto">
+            <c-col cols="12">
                 <q-card
                     flat
                     style="

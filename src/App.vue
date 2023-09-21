@@ -3,13 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useQuasar } from 'quasar';
-import { useAppStore } from './stores/store';
+import { useAppStore, useTimerStore } from './stores/store';
 
 const appStore = useAppStore();
+const timerStore = useTimerStore();
 const { alert, confirm } = storeToRefs(appStore);
+
+timerStore.startTimer();
 
 const $q = useQuasar();
 
@@ -36,5 +39,13 @@ watch([alert, confirm], (newValues) => {
                 newConfirm.callback(false);
             });
     }
+});
+
+onMounted(() => {
+    document.addEventListener('click', function () {
+        console.log('start');
+        timerStore.resetTimer();
+        console.log('stop');
+    });
 });
 </script>

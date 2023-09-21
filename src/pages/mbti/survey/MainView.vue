@@ -73,7 +73,7 @@
                 </q-btn>
             </c-col>
         </c-row>
-        <c-row>
+        <c-row v-if="surveyList[step]">
             <c-col cols="12">
                 <div class="flex justify-between">
                     <div class="text-bigger text-blue-4">

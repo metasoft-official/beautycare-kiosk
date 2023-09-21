@@ -1,23 +1,51 @@
 <template>
-    <q-page class="bg-grey-6 flex justify-between">
-        <c-row>
-            <c-col cols="12" class="flex justify-center items-center mt-5 mb-0">
+    <q-page class="bg-grey-6 flex justify-between" style="position: relative">
+        <q-toolbar
+            class="py-10 bg-white"
+            style="height: fit-content; position: absolute; z-index: 2"
+        >
+            <q-img
+                :src="logoImg"
+                alt="뷰티케어 로고"
+                style="max-width: 400px"
+            />
+            <q-space></q-space>
+            <q-icon
+                size="80px"
+                color="blue-4"
+                name="mdi-home"
+                @click="$router.push('/intro')"
+            ></q-icon>
+        </q-toolbar>
+        <c-row class="pa-0">
+            <c-col
+                cols="12"
+                :class="{
+                    'pa-0': true,
+                    flex: $route.query.from === 'mbti',
+                    'items-center': $route.query.from === 'mbti',
+                    'px-10': $route.query.from === 'mbti',
+                }"
+            >
                 <template v-if="$route.query.from === 'mbti'">
-                    <q-img :src="myImage" style="max-width: 100%"></q-img>
+                    <q-img :src="myImage" style="width: 100%"></q-img>
                 </template>
                 <template v-else>
-                    <div style="width: 80%">
-                        <VueAdvancedCropper
-                            ref="myCropper"
-                            :src="myImage"
-                            style="width: 100%; height: 100%; min-height: 670px"
-                            :stencil-props="{
-                                aspectRatio: 1,
-                            }"
-                        />
-                    </div>
+                    <VueAdvancedCropper
+                        ref="myCropper"
+                        :src="myImage"
+                        style="max-width: 1080px"
+                        :stencil-props="{
+                            aspectRatio: 1,
+                        }"
+                    />
                 </template>
             </c-col>
+        </c-row>
+        <c-row
+            style="position: absolute; z-index: 2; bottom: 0"
+            class="full-width"
+        >
             <c-col
                 cols="6"
                 class="flex items-end mt-auto"
@@ -71,6 +99,7 @@ import { useAppStore } from '@/stores/store';
 import { Cropper as VueAdvancedCropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import 'vue-advanced-cropper/dist/theme.compact.css';
+import logoImg from '@/assets/logo.png';
 
 const myCropper = ref<typeof VueAdvancedCropper | null>(null);
 
@@ -234,14 +263,132 @@ function base64toFile(base_data: string) {
 }
 
 async function confirm() {
-    if ($route.query.from === 'disease') {
-        const data = (myCropper.value as any).getResult();
-        myImage.value = data.canvas.toDataURL('image/jpeg');
-    }
-    if (!captureBlob.value) {
+    try {
+        if (!captureBlob.value) {
+            $q.dialog({
+                title: '확인',
+                message:
+                    '사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?',
+                cancel: true,
+                persistent: true,
+            })
+                .onOk(() => {
+                    moveCamera();
+                })
+                .onCancel(() => {
+                    $router.push('/intro');
+                });
+        } else {
+            $q.loading.show({
+                message: '검사 진행 중...',
+            });
+            switch ($route.query.from) {
+                case 'disease':
+                    const data = (myCropper.value as any).getResult();
+                    let cutImage = data.canvas.toDataURL('image/jpeg');
+                    const file = base64toFile(cutImage);
+                    const form = new FormData();
+                    form.append('file', file);
+                    const response = await axios.post('/other/', form, {
+                        headers: { 'Content-Type': 'multipart/form-data' },
+                    });
+                    const jsonData = response.data;
+                    console.log(jsonData['topk_values']);
+                    const userDiseaseDto = {
+                        userId: 34,
+                        topk1Label: jsonData['topk_label'][0],
+                        topk1Value: jsonData['topk_values'][0],
+                        topk2Label: jsonData['topk_label'][1],
+                        topk2Value: jsonData['topk_values'][1],
+                        topk3Label: jsonData['topk_label'][2],
+                        topk3Value: jsonData['topk_values'][2],
+                    };
+
+                    const { data: id } =
+                        await meta.api.common.userDiseases.create(
+                            userDiseaseDto
+                        );
+                    if (!id) {
+                        $q.loading.hide();
+                        $q.dialog({
+                            title: '확인',
+                            message:
+                                '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                            cancel: true,
+                            persistent: true,
+                        })
+                            .onOk(() => {
+                                moveCamera();
+                            })
+                            .onCancel(() => {
+                                $router.push('/intro');
+                            });
+                    }
+
+                    const { data: userDiseaseEntity } =
+                        await meta.api.common.userDiseases.get(id);
+
+                    if (
+                        !userDiseaseEntity.topk1Id &&
+                        !userDiseaseEntity.topk2Id &&
+                        !userDiseaseEntity.topk3Id
+                    ) {
+                        $q.loading.hide();
+                        $q.dialog({
+                            title: '확인',
+                            message:
+                                '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                            cancel: true,
+                            persistent: true,
+                        })
+                            .onOk(() => {
+                                moveCamera();
+                            })
+                            .onCancel(() => {
+                                $router.push('/intro');
+                            });
+                        return;
+                    }
+
+                    form.append('image', file);
+                    form.append('id', id.toString());
+
+                    await meta.api.common.userDiseases.diagnosisImage(id, form);
+                    $q.loading.hide();
+                    $router.push({
+                        path: `/${$route.query.from}/result`,
+                        query: {
+                            userDiseaseId: id,
+                        },
+                    });
+                    break;
+                case 'mbti':
+                    $q.loading.hide();
+                    $router.push(`/${$route.query.from}/survey`);
+                    break;
+                default:
+                    $q.loading.hide();
+                    $q.dialog({
+                        title: '확인',
+                        message:
+                            '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
+                        cancel: true,
+                        persistent: true,
+                    })
+                        .onOk(() => {
+                            moveCamera();
+                        })
+                        .onCancel(() => {
+                            $router.push('/intro');
+                        });
+                    break;
+            }
+        }
+    } catch (e) {
+        $q.loading.hide();
         $q.dialog({
             title: '확인',
-            message: '사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?',
+            message: '검사 진행 중 실패. 다시 촬영하시겠어요?',
             cancel: true,
             persistent: true,
         })
@@ -251,103 +398,6 @@ async function confirm() {
             .onCancel(() => {
                 $router.push('/intro');
             });
-    } else {
-        $q.loading.show({
-            message: '검사 진행 중...',
-        });
-        const file = base64toFile(myImage.value);
-        const form = new FormData();
-        form.append('file', file);
-        const response = await axios.post('/other/', form, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        const jsonData = response.data;
-        console.log(jsonData['topk_values']);
-        const userDiseaseDto = {
-            userId: 34,
-            topk1Label: jsonData['topk_label'][0],
-            topk1Value: jsonData['topk_values'][0],
-            topk2Label: jsonData['topk_label'][1],
-            topk2Value: jsonData['topk_values'][1],
-            topk3Label: jsonData['topk_label'][2],
-            topk3Value: jsonData['topk_values'][2],
-        };
-
-        const { data: id } = await meta.api.common.userDiseases.create(
-            userDiseaseDto
-        );
-        if (!id) {
-            $q.loading.hide();
-            $q.dialog({
-                title: '확인',
-                message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                cancel: true,
-                persistent: true,
-            })
-                .onOk(() => {
-                    moveCamera();
-                })
-                .onCancel(() => {
-                    $router.push('/intro');
-                });
-        }
-
-        const { data: userDiseaseEntity } =
-            await meta.api.common.userDiseases.get(id);
-
-        if (
-            !userDiseaseEntity.topk1Id &&
-            !userDiseaseEntity.topk2Id &&
-            !userDiseaseEntity.topk3Id
-        ) {
-            $q.loading.hide();
-            $q.dialog({
-                title: '확인',
-                message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                cancel: true,
-                persistent: true,
-            })
-                .onOk(() => {
-                    moveCamera();
-                })
-                .onCancel(() => {
-                    $router.push('/intro');
-                });
-        }
-
-        form.append('image', file);
-        form.append('id', id.toString());
-
-        await meta.api.common.userDiseases.diagnosisImage(id, form);
-        $q.loading.hide();
-        switch ($route.query.from) {
-            case 'disease':
-                $router.push({
-                    path: `/${$route.query.from}/result`,
-                    query: {
-                        userDiseaseId: id,
-                    },
-                });
-                break;
-            case 'mbti':
-                $router.push(`/${$route.query.from}/survey`);
-                break;
-            default:
-                $q.dialog({
-                    title: '확인',
-                    message:
-                        '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                    cancel: true,
-                    persistent: true,
-                })
-                    .onOk(() => {
-                        moveCamera();
-                    })
-                    .onCancel(() => {
-                        $router.push('/intro');
-                    });
-                break;
-        }
     }
 }
 
