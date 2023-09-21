@@ -33,7 +33,10 @@
                     <div
                         :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; bottom: 0px; background-color: #00000000`"
                     >
-                        <c-row noGutters>
+                        <c-row
+                            noGutters
+                            :style="`width: ${$q.screen.width}px; position: absolute; bottom: 0px;`"
+                        >
                             <c-col cols="6" class="px-7 py-3">
                                 <q-card
                                     bordered

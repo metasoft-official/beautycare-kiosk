@@ -1,24 +1,19 @@
 <template>
     <q-page class="bg-grey-6 flex justify-between">
         <c-row>
-            <c-col
-                cols="12"
-                class="flex justify-center items-center mt-auto mb-0"
-            >
+            <c-col cols="12" class="flex justify-center items-center mt-5 mb-0">
                 <template v-if="$route.query.from === 'mbti'">
                     <q-img :src="myImage" style="max-width: 100%"></q-img>
                 </template>
                 <template v-else>
-                    <div class="cropper-container">
-                        <VueAdvancedCropper
-                            ref="myCropper"
-                            :src="myImage"
-                            style="width: 100%; height: 100%"
-                            :stencil-props="{
-                                aspectRatio: 1,
-                            }"
-                        />
-                    </div>
+                    <VueAdvancedCropper
+                        ref="myCropper"
+                        :src="myImage"
+                        style="width: 100%; height: 100%; min-height: 670px"
+                        :stencil-props="{
+                            aspectRatio: 1,
+                        }"
+                    />
                 </template>
             </c-col>
             <c-col
@@ -347,9 +342,4 @@ function defaultSize({ imageSize, visibleArea }: any) {
 }
 </script>
 
-<style scoped>
-.cropper-container {
-    width: 100%; /* 부모 요소인 c-col의 가로 크기에 맞게 */
-    height: 100%; /* 부모 요소인 c-col의 세로 크기에 맞게 */
-}
-</style>
+<style scoped></style>
