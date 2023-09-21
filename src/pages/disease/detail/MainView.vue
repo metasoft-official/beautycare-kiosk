@@ -150,7 +150,7 @@ const diseaseImage = ref('');
 const disease = ref<DiseaseEntity>({});
 
 function moveHome() {
-    $router.push('/intro');
+    $router.push('/home');
 }
 
 function moveCamera() {

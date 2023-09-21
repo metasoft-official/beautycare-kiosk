@@ -14,7 +14,7 @@
                 size="80px"
                 color="blue-4"
                 name="mdi-home"
-                @click="$router.push('/intro')"
+                @click="$router.push('/home')"
             ></q-icon>
         </q-toolbar>
         <c-row class="pa-0">
@@ -35,6 +35,10 @@
                         ref="myCropper"
                         :src="myImage"
                         style="max-width: 1080px"
+                        :defaultSize="{
+                            width: 80,
+                            height: 80,
+                        }"
                         :stencil-props="{
                             aspectRatio: 1,
                         }"

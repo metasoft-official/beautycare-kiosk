@@ -195,7 +195,7 @@ const userMbti = ref<UserSkinMbtiEntity>({});
 const mbti = ref<SkinMbtiEntity>({});
 
 function moveHome() {
-    $router.push('/intro');
+    $router.push('/home');
 }
 
 function moveCamera() {

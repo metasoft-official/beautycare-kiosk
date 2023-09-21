@@ -150,7 +150,7 @@ const disease = ref([
 ]);
 
 function moveHome() {
-    $router.push('/intro');
+    $router.push('/home');
 }
 
 function moveCamera() {

@@ -15,6 +15,12 @@
                 :style="`width: ${$q.screen.width}px; height: ${$q.screen.height}px; position: relative;`"
             >
                 <!-- <template v-if="$route.query.from === 'mbti'"> -->
+                <div
+                    class="flex items-center justify-center"
+                    :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 15%; background-color: #00000000`"
+                >
+                    <q-img :src="facePositionImg" style="width: 50%"> </q-img>
+                </div>
                 <!-- <div
                         class="flex items-center justify-center"
                         :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; top: 0; background-color: #00000080`"
@@ -24,13 +30,6 @@
                         </div>
                     </div> -->
                 <template v-if="$route.query.from === 'mbti'">
-                    <div
-                        class="flex items-center justify-center"
-                        :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 15%; background-color: #00000000`"
-                    >
-                        <q-img :src="facePositionImg" style="width: 50%">
-                        </q-img>
-                    </div>
                     <div
                         :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; bottom: 0px; background-color: #00000000`"
                     >
@@ -113,6 +112,7 @@
                     class="flex items-center justify-center"
                     :style="`width: ${$q.screen.width}px; height: 300px; position: absolute; top: 0; background-color: #00000080`"
                 >
+                    >
                     <div
                         style="
                             height: 80%;

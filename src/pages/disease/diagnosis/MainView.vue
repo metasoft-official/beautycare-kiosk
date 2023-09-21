@@ -149,7 +149,7 @@ import { useRouter } from 'vue-router';
 const $router = useRouter();
 
 function moveHome() {
-    $router.push('/intro');
+    $router.push('/home');
 }
 
 function moveCamera() {
