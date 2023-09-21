@@ -1,8 +1,11 @@
 <template>
     <q-page class="bg-grey-2 flex justify-between">
-        <c-row no-gutters class="py-15">
-            <q-space></q-space>
-            <c-col cols="6" class="flex items-end pr-2">
+        <c-row no-gutters class="py-15" style="height: fit-content">
+            <c-col
+                cols="6"
+                class="flex items-end pr-2"
+                style="height: fit-content"
+            >
                 <q-btn
                     unelevated
                     :disable="step === 0 && asnwerIndex === 0"
@@ -33,7 +36,7 @@
                     </div>
                 </q-btn>
             </c-col>
-            <c-col cols="6" class="flex items-end">
+            <c-col cols="6" class="flex items-end" style="height: fit-content">
                 <q-btn
                     unelevated
                     :disable="
@@ -70,7 +73,7 @@
                 </q-btn>
             </c-col>
         </c-row>
-        <c-row v-if="surveyList[step]">
+        <c-row>
             <c-col cols="12">
                 <div class="flex justify-between">
                     <div class="text-bigger text-blue-4">
@@ -115,6 +118,8 @@
                     </q-card-section>
                 </q-card>
             </c-col>
+        </c-row>
+        <c-row v-if="surveyList[step]" class="">
             <template v-for="(survey, index) in surveyList" :key="index">
                 <c-col
                     cols="auto"
