@@ -6,14 +6,16 @@
                     <q-img :src="myImage" style="max-width: 100%"></q-img>
                 </template>
                 <template v-else>
-                    <VueAdvancedCropper
-                        ref="myCropper"
-                        :src="myImage"
-                        style="width: 100%; height: 100%; min-height: 670px"
-                        :stencil-props="{
-                            aspectRatio: 1,
-                        }"
-                    />
+                    <div style="width: 80%">
+                        <VueAdvancedCropper
+                            ref="myCropper"
+                            :src="myImage"
+                            style="width: 100%; height: 100%; min-height: 670px"
+                            :stencil-props="{
+                                aspectRatio: 1,
+                            }"
+                        />
+                    </div>
                 </template>
             </c-col>
             <c-col
@@ -115,27 +117,37 @@ function readBlob() {
             //     img.width,
             //     img.height
             // );
+            if ($route.query.from === 'mbti') {
+                // 캔버스 크기를 자를 영역과 같게 설정
+                var cropWidth = img.height * 0.2 * (16 / 9); // 자를 영역의 가로 크기
+                var cropHeight = img.width * 0.2; // 자를 영역의 세로 크기
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
 
-            // 캔버스 크기를 자를 영역과 같게 설정
-            var cropWidth = img.height * 0.2 * (16 / 9); // 자를 영역의 가로 크기
-            var cropHeight = img.width * 0.2; // 자를 영역의 세로 크기
-            canvas.width = cropWidth;
-            canvas.height = cropHeight;
+                // 이미지를 캔버스의 중심에 그리기
+                var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
+                var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
+                ctx?.drawImage(
+                    img,
+                    sourceX,
+                    sourceY,
+                    cropWidth,
+                    cropHeight,
+                    0,
+                    0,
+                    cropWidth,
+                    cropHeight
+                );
+            } else {
+                // 캔버스 크기를 이미지와 같게 설정
+                canvas.width = img.width;
+                canvas.height = img.height;
 
-            // 이미지를 캔버스의 중심에 그리기
-            var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
-            var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
-            ctx?.drawImage(
-                img,
-                sourceX,
-                sourceY,
-                cropWidth,
-                cropHeight,
-                0,
-                0,
-                cropWidth,
-                cropHeight
-            );
+                // 이미지를 캔버스에 그리기
+                ctx?.clearRect(0, 0, canvas.width, canvas.height);
+                ctx?.save();
+                ctx?.drawImage(img, 0, 0);
+            }
 
             var imgImage = canvas.toDataURL('image/jpeg');
 
@@ -176,8 +188,13 @@ function rotate(image: string) {
     // 이미지 로딩 후에 작업 수행
     img.onload = function () {
         // 캔버스 크기를 이미지와 같게 설정
-        canvas.height = img.height;
-        canvas.width = img.width;
+        if ($route.query.from === 'mbti') {
+            canvas.height = img.height;
+            canvas.width = img.width;
+        } else {
+            canvas.height = img.width;
+            canvas.width = img.height;
+        }
 
         // 이미지를 캔버스에 그리기
         ctx?.clearRect(0, 0, canvas.width, canvas.height);

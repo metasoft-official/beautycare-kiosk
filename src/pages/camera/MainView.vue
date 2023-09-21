@@ -15,12 +15,6 @@
                 :style="`width: ${$q.screen.width}px; height: ${$q.screen.height}px; position: relative;`"
             >
                 <!-- <template v-if="$route.query.from === 'mbti'"> -->
-                <div
-                    class="flex items-center justify-center"
-                    :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 15%; background-color: #00000000`"
-                >
-                    <q-img :src="facePositionImg" style="width: 50%"> </q-img>
-                </div>
                 <!-- <div
                         class="flex items-center justify-center"
                         :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; top: 0; background-color: #00000080`"
@@ -30,6 +24,13 @@
                         </div>
                     </div> -->
                 <template v-if="$route.query.from === 'mbti'">
+                    <div
+                        class="flex items-center justify-center"
+                        :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 15%; background-color: #00000000`"
+                    >
+                        <q-img :src="facePositionImg" style="width: 50%">
+                        </q-img>
+                    </div>
                     <div
                         :style="`width: ${$q.screen.width}px; height: 200px; position: absolute; bottom: 0px; background-color: #00000000`"
                     >
@@ -188,15 +189,15 @@ $q.loading.show({
 
 onMounted(() => {
     setTimeout(() => {
-        if (!cam.value.deviceId) {
-            if (cam.value.cameras.length !== 0) {
-                cam.value.deviceId = cam.value.cameras[0].deviceId;
-                cam.value.setCamera();
-            } else {
-                meta.alert('카메라가 존재하지 않아 처음으로 돌아갑니다.');
-                $router.push('/');
-            }
-        }
+        // if (!cam.value.deviceId) {
+        //     if (cam.value.cameras.length !== 0) {
+        cam.value.deviceId = cam.value.cameras[0].deviceId;
+        cam.value.setCamera();
+        //     } else {
+        //         meta.alert('카메라가 존재하지 않아 처음으로 돌아갑니다.');
+        //         $router.push('/');
+        //     }
+        // }
         $q.loading.hide();
     }, 3000);
 });
