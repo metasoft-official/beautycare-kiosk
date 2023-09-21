@@ -163,7 +163,6 @@ function moveCamera() {
 }
 
 function moveDetail(item: number) {
-    console.log(item);
     $router.push({
         path: '/disease/detail',
         query: {
@@ -192,8 +191,6 @@ async function loadUserDisease() {
     const { data } = await meta.api.common.userDiseases.get(
         Number(userDiseaseId)
     );
-    console.log(data);
-    console.log(userDiseaseId);
 
     if (data.imageId) {
         const reader = new FileReader();
@@ -206,57 +203,55 @@ async function loadUserDisease() {
         reader.readAsDataURL(blob);
     }
 
-    if (data.topk1Id) {
+    if (data.topk1Label) {
         disease.value[0] = {
-            id: data.topk1Id,
+            id: data.topk1Id as number,
             name: data.topk1Label as string,
             value: data.topk1Value as number,
         };
         if (disease.value[0].name.indexOf('탈모') !== -1) {
-            if (data.topk2Id) {
+            if (data.topk2Label) {
                 disease.value[0] = {
-                    id: data.topk2Id,
+                    id: data.topk2Id as number,
                     name: data.topk2Label as string,
                     value: data.topk2Value as number,
                 };
             }
-            if (data.topk3Id) {
+            if (data.topk3Label) {
                 disease.value[1] = {
-                    id: data.topk3Id,
+                    id: data.topk3Id as number,
                     name: data.topk3Label as string,
                     value: data.topk3Value as number,
                 };
             }
             disease.value.pop();
         } else {
-            console.log('qweqweqwnejkqwne');
-            if (data.topk2Id) {
+            if (data.topk2Label) {
                 disease.value[1] = {
-                    id: data.topk2Id,
+                    id: data.topk2Id as number,
                     name: data.topk2Label as string,
                     value: data.topk2Value as number,
                 };
             }
-            if (data.topk3Id) {
+            if (data.topk3Label) {
                 disease.value[2] = {
-                    id: data.topk3Id,
+                    id: data.topk3Id as number,
                     name: data.topk3Label as string,
                     value: data.topk3Value as number,
                 };
             }
         }
-    } else if (data.topk2Id) {
-        console.log('anfjakscnkjascnjkasckacjkcjkaskaskjcnaskcnasjkcnjas');
+    } else if (data.topk2Label) {
         disease.value[0] = {
-            id: data.topk2Id,
+            id: data.topk2Id as number,
             name: data.topk2Label as string,
             value: data.topk2Value as number,
         };
 
         if (disease.value[0].name.indexOf('탈모') !== -1) {
-            if (data.topk3Id) {
+            if (data.topk3Label) {
                 disease.value[0] = {
-                    id: data.topk3Id,
+                    id: data.topk3Id as number,
                     name: data.topk3Label as string,
                     value: data.topk3Value as number,
                 };
@@ -264,17 +259,17 @@ async function loadUserDisease() {
             disease.value.pop();
             disease.value.pop();
         } else {
-            if (data.topk3Id) {
+            if (data.topk3Label) {
                 disease.value[1] = {
-                    id: data.topk3Id,
+                    id: data.topk3Id as number,
                     name: data.topk3Label as string,
                     value: data.topk3Value as number,
                 };
             }
         }
-    } else if (data.topk3Id) {
+    } else if (data.topk3Label) {
         disease.value[0] = {
-            id: data.topk3Id,
+            id: data.topk3Id as number,
             name: data.topk3Label as string,
             value: data.topk3Value as number,
         };
@@ -284,7 +279,6 @@ async function loadUserDisease() {
             disease.value.pop();
         }
     }
-    console.log(disease.value);
     if (!data.topk1Id && !data.topk2Id && !data.topk3Id) {
         $q.dialog({
             title: '확인',
