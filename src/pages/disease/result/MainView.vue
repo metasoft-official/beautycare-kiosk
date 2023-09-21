@@ -1,11 +1,12 @@
 <template>
     <q-page class="bg-grey-2 flex justify-between">
         <c-row
-            class="bg-white pt-10 pb-0"
+            class="bg-white pb-0"
             style="
                 border-bottom-right-radius: 90px;
                 border-bottom-left-radius: 90px;
                 box-shadow: 0px 0px 60px 0px #0000001a;
+                align-items: end;
             "
         >
             <c-col cols="12" class="text-center">
@@ -15,7 +16,7 @@
                     style="max-width: 540px"
                     ratio="1"
                 ></q-img>
-                <div class="text-header">
+                <div class="text-header pt-3">
                     당신의 증상과 가장 비슷한 피부질환
                 </div>
             </c-col>
