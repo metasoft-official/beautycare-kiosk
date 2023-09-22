@@ -22,8 +22,9 @@
                 cols="12"
                 :class="{
                     'pa-0': true,
-                    flex: $route.query.from === 'mbti',
-                    'items-center': $route.query.from === 'mbti',
+                    flex: true,
+                    'items-center': true,
+                    'justify-center': true,
                     'px-10': $route.query.from === 'mbti',
                 }"
             >
