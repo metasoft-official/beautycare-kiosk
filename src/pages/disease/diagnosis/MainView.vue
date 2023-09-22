@@ -11,7 +11,7 @@
         >
             <c-col cols="12 text-center">
                 <div class="text-title">
-                    피부질환 진단을 위환 촬영이 있습니다.
+                    피부질환 진단을 위한 촬영이 있습니다.
                 </div>
                 <div class="text-subtitle2 text-grey-1">
                     촬영 한번으로 피부 질환을 예측해드릴게요!
