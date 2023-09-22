@@ -1,16 +1,41 @@
-# beauty_care
+# Beauty Care (beautycare)
 
-A new Flutter project.
+뷰티케어 키오스크
 
-## Getting Started
+## Install the dependencies
+```bash
+yarn
+# or
+npm install
+```
 
-This project is a starting point for a Flutter application.
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
+```
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Lint the files
+```bash
+yarn lint
+# or
+npm run lint
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### Format the files
+```bash
+yarn format
+# or
+npm run format
+```
+
+
+
+### Build the app for production
+```bash
+quasar build
+```
+
+### Customize the configuration
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).

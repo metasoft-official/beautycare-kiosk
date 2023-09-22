@@ -1,0 +1,10 @@
+{
+    "extends": "@quasar/app-vite/tsconfig-preset",
+    "compilerOptions": {
+        "types": ["quasar"],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    }
+}

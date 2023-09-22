@@ -1,0 +1,136 @@
+.c-row {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+}
+
+.c-row--dense > .c-col,
+.c-row--dense > [class*='c-col-'] {
+    padding: 4px;
+}
+
+.c-row.no-gutters {
+    margin: 0;
+}
+
+.c-row.no-gutters > .c-col,
+.c-row.no-gutters > [class*='c-col-'] {
+    padding: 0;
+}
+
+.c-col-xl,
+.c-col-xl-auto,
+.c-col-xl-12,
+.c-col-xl-11,
+.c-col-xl-10,
+.c-col-xl-9,
+.c-col-xl-8,
+.c-col-xl-7,
+.c-col-xl-6,
+.c-col-xl-5,
+.c-col-xl-4,
+.c-col-xl-3,
+.c-col-xl-2,
+.c-col-xl-1,
+.c-col-lg,
+.c-col-lg-auto,
+.c-col-lg-12,
+.c-col-lg-11,
+.c-col-lg-10,
+.c-col-lg-9,
+.c-col-lg-8,
+.c-col-lg-7,
+.c-col-lg-6,
+.c-col-lg-5,
+.c-col-lg-4,
+.c-col-lg-3,
+.c-col-lg-2,
+.c-col-lg-1,
+.c-col-md,
+.c-col-md-auto,
+.c-col-md-12,
+.c-col-md-11,
+.c-col-md-10,
+.c-col-md-9,
+.c-col-md-8,
+.c-col-md-7,
+.c-col-md-6,
+.c-col-md-5,
+.c-col-md-4,
+.c-col-md-3,
+.c-col-md-2,
+.c-col-md-1,
+.c-col-sm,
+.c-col-sm-auto,
+.c-col-sm-12,
+.c-col-sm-11,
+.c-col-sm-10,
+.c-col-sm-9,
+.c-col-sm-8,
+.c-col-sm-7,
+.c-col-sm-6,
+.c-col-sm-5,
+.c-col-sm-4,
+.c-col-sm-3,
+.c-col-sm-2,
+.c-col-sm-1,
+.c-col,
+.c-col-auto,
+.c-col-12,
+.c-col-11,
+.c-col-10,
+.c-col-9,
+.c-col-8,
+.c-col-7,
+.c-col-6,
+.c-col-5,
+.c-col-4,
+.c-col-3,
+.c-col-2,
+.c-col-1 {
+    width: 100%;
+    padding: 12px;
+}
+
+.c-col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.c-col-auto {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+}
+
+@for $i from 1 through 12 {
+    .c-col-#{$i} {
+        flex: 0 0 #{$i / 12 * 100 + '%'};
+        max-width: #{$i / 12 * 100 + '%'};
+    }
+}
+
+@each $name, $size in $sizes {
+    $noProcZero: $size == 0;
+    $noProcNotZero: $size > 0;
+    @media (min-width: $size) {
+        .c-col-#{$name} {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+
+        .c-col-#{$name}-auto {
+            flex: 0 0 auto;
+            width: auto;
+            max-width: 100%;
+        }
+        @for $i from 1 through 12 {
+            .c-col-#{$name}-#{$i} {
+                flex: 0 0 #{$i / 12 * 100 + '%'};
+                max-width: #{$i / 12 * 100 + '%'};
+            }
+        }
+    }
+}
