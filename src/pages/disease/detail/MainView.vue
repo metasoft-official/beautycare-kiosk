@@ -183,7 +183,7 @@ async function load() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
         return;
     }

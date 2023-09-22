@@ -204,7 +204,7 @@ function readBlob() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
     }
 }
@@ -282,7 +282,7 @@ async function confirm() {
                     moveCamera();
                 })
                 .onCancel(() => {
-                    $router.push('/intro');
+                    $router.push('/home');
                 });
         } else {
             $q.loading.show({
@@ -327,7 +327,7 @@ async function confirm() {
                                 moveCamera();
                             })
                             .onCancel(() => {
-                                $router.push('/intro');
+                                $router.push('/home');
                             });
                     }
 
@@ -351,7 +351,7 @@ async function confirm() {
                                 moveCamera();
                             })
                             .onCancel(() => {
-                                $router.push('/intro');
+                                $router.push('/home');
                             });
                         return;
                     }
@@ -385,7 +385,7 @@ async function confirm() {
                             moveCamera();
                         })
                         .onCancel(() => {
-                            $router.push('/intro');
+                            $router.push('/home');
                         });
                     break;
             }
@@ -402,7 +402,7 @@ async function confirm() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
     }
 }
