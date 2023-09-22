@@ -34,7 +34,7 @@
                     <VueAdvancedCropper
                         ref="myCropper"
                         :src="myImage"
-                        style="max-width: 1080px"
+                        style="max-width: 1040px"
                         :defaultSize="{
                             width: 80,
                             height: 80,
