@@ -184,7 +184,7 @@ async function loadUserDisease() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
         return;
     }
@@ -290,7 +290,7 @@ async function loadUserDisease() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
     }
 

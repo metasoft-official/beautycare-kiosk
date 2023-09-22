@@ -221,7 +221,7 @@ async function loadMbti() {
                 moveCamera();
             })
             .onCancel(() => {
-                $router.push('/intro');
+                $router.push('/home');
             });
         return;
     }
