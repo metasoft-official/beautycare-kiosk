@@ -42,11 +42,8 @@ watch([alert, confirm], (newValues) => {
 });
 
 onMounted(() => {
-    document.addEventListener('click', function (event) {
-        console.log('start');
+    document.addEventListener('click', function () {
         timerStore.resetTimer();
-        console.log(event);
-        console.log('stop');
     });
 });
 </script>

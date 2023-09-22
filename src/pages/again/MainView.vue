@@ -42,6 +42,7 @@
                         :stencil-props="{
                             aspectRatio: 1,
                         }"
+                        @change="timerStore.resetTimer()"
                     />
                 </template>
             </c-col>
@@ -99,7 +100,7 @@ import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import meta from '@/api/meta';
 import { storeToRefs } from 'pinia';
-import { useAppStore } from '@/stores/store';
+import { useAppStore, useTimerStore } from '@/stores/store';
 import { Cropper as VueAdvancedCropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import 'vue-advanced-cropper/dist/theme.compact.css';
@@ -108,6 +109,7 @@ import logoImg from '@/assets/logo.png';
 const myCropper = ref<typeof VueAdvancedCropper | null>(null);
 
 const appStore = useAppStore();
+const timerStore = useTimerStore();
 const { captureBlob } = storeToRefs(appStore);
 
 const myImage = ref('');
@@ -392,7 +394,7 @@ async function confirm() {
         $q.loading.hide();
         $q.dialog({
             title: '확인',
-            message: '검사 진행 중 실패. 다시 촬영하시겠어요?',
+            message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
             cancel: true,
             persistent: true,
         })
@@ -403,13 +405,6 @@ async function confirm() {
                 $router.push('/intro');
             });
     }
-}
-
-function defaultSize({ imageSize, visibleArea }: any) {
-    return {
-        width: 1000,
-        height: 1000,
-    };
 }
 </script>
 
