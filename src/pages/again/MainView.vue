@@ -226,7 +226,6 @@ async function confirm() {
                         headers: { 'Content-Type': 'multipart/form-data' },
                     });
                     const jsonData = response.data;
-                    console.log(jsonData['topk_values']);
                     const userDiseaseDto = {
                         userId: 34,
                         topk1Label: jsonData['topk_label'][0],
