@@ -2,7 +2,7 @@
     <q-page class="row items-center justify-evenly" @click="$router.push('/home')">
         <div :style="`z-index: 1; width: ${$q.screen.width}px;  height: ${$q.screen.height}px; opacity: 0; position: absolute`"></div>
         <template v-if="video.src">
-            <video-player :src="video" :autoplay="'muted'" :width="$q.screen.width" :height="$q.screen.height" />
+            <video-player :src="video" :autoplay="'muted'" loop :width="$q.screen.width" :height="$q.screen.height" />
         </template>
     </q-page>
 </template>
