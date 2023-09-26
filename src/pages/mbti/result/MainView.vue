@@ -1,77 +1,35 @@
 <template>
     <q-page>
         <div style="padding-top: 100px"></div>
-        <c-row
-            class="bg-white pb-30 wide-container"
-            style="border-radius: 90px; box-shadow: 0px 0px 60px 0px #0000001a"
-            justify="center"
-        >
+        <c-row class="bg-white pb-30 wide-container" style="border-radius: 90px; box-shadow: 0px 0px 60px 0px #0000001a" justify="center">
             <c-col cols="auto" class="flex items-center">
                 <div style="position: relative; height: 200px; width: 352px">
                     <q-img
                         :src="mbtiImgObj[userMbti.skinMbtiName as string]"
                         :alt="(userMbti.skinMbtiName as string)"
-                        style="
-                            max-width: 352px;
-                            position: absolute;
-                            top: -150px;
-                        "
+                        style="max-width: 352px; position: absolute; top: -150px"
                     ></q-img>
                 </div>
             </c-col>
             <c-col cols="12" class="text-center">
                 <div class="text-header">나의 피부 MBTI 결과</div>
-                <div
-                    style="
-                        font-size: 108px;
-                        font-weight: 900;
-                        line-height: 151px;
-                        letter-spacing: -0.04em;
-                    "
-                    class="text-blue-4"
-                >
+                <div style="font-size: 108px; font-weight: 900; line-height: 151px; letter-spacing: -0.04em" class="text-blue-4">
                     {{ userMbti.skinMbtiName }}
                 </div>
                 <div class="text-subtitle1 text-weight-bold">
-                    {{
-                        mbti.subtitle?.substring(
-                            0,
-                            mbti.subtitle?.trim().lastIndexOf(' ')
-                        )
-                    }}
-                    <span class="text-blue-4">{{
-                        mbti.subtitle?.substring(
-                            mbti.subtitle?.trim().lastIndexOf(' ') + 1
-                        )
-                    }}</span>
+                    {{ mbti.subtitle?.substring(0, mbti.subtitle?.trim().lastIndexOf(' ')) }}
+                    <span class="text-blue-4">{{ mbti.subtitle?.substring(mbti.subtitle?.trim().lastIndexOf(' ') + 1) }}</span>
                 </div>
                 <div class="text-content text-grey-1">
                     {{ mbti.description }}
                 </div>
             </c-col>
             <c-col cols="12" class="pt-20">
-                <div class="text-content text-weight-bold">
-                    피부 고민 키워드
-                </div>
+                <div class="text-content text-weight-bold">피부 고민 키워드</div>
             </c-col>
-            <c-col
-                v-for="(keyword, index) in mbti.keywordList"
-                :key="index"
-                cols="4"
-            >
-                <q-card
-                    bordered
-                    flat
-                    style="
-                        border: 1px solid var(--c-blue-4);
-                        border-radius: 50px;
-                    "
-                >
-                    <q-card-section
-                        class="text-content text-weight-bold text-blue-4 text-center"
-                    >
-                        #{{ keyword.keyword }}
-                    </q-card-section>
+            <c-col v-for="(keyword, index) in mbti.keywordList" :key="index" cols="4">
+                <q-card bordered flat style="border: 1px solid var(--c-blue-4); border-radius: 50px">
+                    <q-card-section class="text-content text-weight-bold text-blue-4 text-center"> #{{ keyword.keyword }} </q-card-section>
                 </q-card>
             </c-col>
         </c-row>
@@ -84,24 +42,13 @@
                                 App을 다운로드하여 상세 문진표 작성 및<br />
                                 자세한 결과를 확인하실 수 있습니다!
                             </div>
-                            <div
-                                class="mt-20 text-subtitle3 text-blue-4 text-weight-bold flex items-end"
-                            >
-                                QR코드를 촬영해 App 다운로드하기
-                            </div>
+                            <div class="mt-20 text-subtitle3 text-blue-4 text-weight-bold flex items-end">QR코드를 촬영해 App 다운로드하기</div>
                         </div>
                     </c-col>
                     <c-col cols="auto">
-                        <q-card
-                            class="bg-white"
-                            style="aspect-ratio: 1; width: 282px"
-                        >
+                        <q-card class="bg-white" style="aspect-ratio: 1; width: 282px">
                             <q-card-section>
-                                <q-img
-                                    :src="qrcodeImg"
-                                    alt="QR코드"
-                                    style="max-width: 250px"
-                                ></q-img>
+                                <q-img :src="qrcodeImg" alt="QR코드" style="max-width: 250px"></q-img>
                             </q-card-section>
                         </q-card>
                     </c-col>
@@ -110,34 +57,14 @@
         </c-row>
         <c-row>
             <c-col cols="6" class="flex items-end">
-                <q-btn
-                    class="full-width py-10"
-                    style="
-                        background-color: white;
-                        border: 3px solid var(--c-blue-4);
-                        border-radius: 15px;
-                    "
-                    @click="moveCamera"
-                >
-                    <div class="text-subtitle1 text-weight-bold text-blue-4">
-                        다시 측정하기
-                    </div>
+                <q-btn class="full-width py-10" style="background-color: white; border: 3px solid var(--c-blue-4); border-radius: 15px" @click="moveCamera">
+                    <div class="text-subtitle1 text-weight-bold text-blue-4">다시 측정하기</div>
                 </q-btn>
             </c-col>
             <c-col cols="6" class="flex items-end">
-                <q-btn
-                    class="full-width py-10"
-                    color="blue-4"
-                    style="border-radius: 15px"
-                    @click="moveHome"
-                >
+                <q-btn class="full-width py-10" color="blue-4" style="border-radius: 15px" @click="moveHome">
                     <q-icon left size="3em" color="white" name="mdi-home" />
-                    <div
-                        class="text-subtitle1 text-weight-bold text-white"
-                        style="padding: 3px"
-                    >
-                        홈으로
-                    </div>
+                    <div class="text-subtitle1 text-weight-bold text-white" style="padding: 3px">홈으로</div>
                 </q-btn>
             </c-col>
         </c-row>
@@ -202,7 +129,7 @@ function moveCamera() {
     $router.push({
         path: '/camera',
         query: {
-            from: 'disease',
+            from: 'mbti',
         },
     });
 }
@@ -211,26 +138,17 @@ async function loadMbti() {
     $q.loading.show({ message: 'MBTI 불러오는 중...' });
     const { id } = $route.query;
     if (!id && isNaN(Number(id))) {
-        $q.dialog({
-            title: '확인',
-            message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-            cancel: true,
-            persistent: true,
-        })
-            .onOk(() => {
-                moveCamera();
-            })
-            .onCancel(() => {
-                $router.push('/home');
-            });
+        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+            moveCamera();
+        } else {
+            $router.push('/home');
+        }
         return;
     }
     const { data } = await meta.api.common.userSkinMbti.get(Number(id));
     userMbti.value = data;
     if (data.skinMbtiId) {
-        const { data: mbtiData } = await meta.api.common.skinMbti.get(
-            data.skinMbtiId
-        );
+        const { data: mbtiData } = await meta.api.common.skinMbti.get(data.skinMbtiId);
         mbti.value = mbtiData;
     }
     $q.loading.hide();

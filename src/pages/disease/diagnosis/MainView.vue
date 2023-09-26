@@ -18,26 +18,13 @@
                 </div>
             </c-col>
             <c-col cols="5">
-                <q-img :src="careraExImg" alt="예시" style="position: relative">
-                    <div
-                        style="
-                            position: absolute;
-                            bottom: 6%;
-                            left: 37.5%;
-                            border: 8px dotted #0851bd;
-                            background: #00000000;
-                            border-radius: 100px;
-                            width: 25%;
-                            height: 16.25%;
-                        "
-                    ></div>
-                </q-img>
+                <q-img :src="careraExImg" alt="예시"></q-img>
             </c-col>
             <c-col cols="7" class="flex justify-center items-center">
                 <div>
                     <div class="text-subtitle2">촬영화면이 나오면,</div>
                     <div class="text-subtitle2 text-blue-4 text-weight-bold">
-                        하단의 버튼을 터치해
+                        상단의 버튼을 터치해
                     </div>
                     <div class="text-subtitle2">촬영을 진행할 수 있어요.</div>
                 </div>

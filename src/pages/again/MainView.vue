@@ -1,21 +1,9 @@
 <template>
     <q-page class="bg-grey-6 flex justify-between" style="position: relative">
-        <q-toolbar
-            class="py-10 bg-white"
-            style="height: fit-content; position: absolute; z-index: 2"
-        >
-            <q-img
-                :src="logoImg"
-                alt="뷰티케어 로고"
-                style="max-width: 400px"
-            />
+        <q-toolbar class="py-10 bg-white" style="height: fit-content; position: absolute; z-index: 2">
+            <q-img :src="logoImg" alt="뷰티케어 로고" style="max-width: 400px" />
             <q-space></q-space>
-            <q-icon
-                size="80px"
-                color="blue-4"
-                name="mdi-home"
-                @click="$router.push('/home')"
-            ></q-icon>
+            <q-icon size="80px" color="blue-4" name="mdi-home" @click="$router.push('/home')"></q-icon>
         </q-toolbar>
         <c-row class="pa-0">
             <c-col
@@ -48,46 +36,15 @@
                 </template>
             </c-col>
         </c-row>
-        <c-row
-            style="position: absolute; z-index: 2; bottom: 0"
-            class="full-width"
-        >
-            <c-col
-                cols="6"
-                class="flex items-end mt-auto"
-                style="height: fit-content"
-            >
-                <q-btn
-                    class="full-width py-10"
-                    style="
-                        background-color: white;
-                        border: 3px solid var(--c-blue-4);
-                        border-radius: 15px;
-                    "
-                    @click="moveCamera"
-                >
-                    <div class="text-subtitle1 text-weight-bold text-blue-4">
-                        재촬영
-                    </div>
+        <c-row style="position: absolute; z-index: 2; bottom: 0" class="full-width">
+            <c-col cols="6" class="flex items-end mt-auto" style="height: fit-content">
+                <q-btn class="full-width py-10" style="background-color: white; border: 3px solid var(--c-blue-4); border-radius: 15px" @click="moveCamera">
+                    <div class="text-subtitle1 text-weight-bold text-blue-4">재촬영</div>
                 </q-btn>
             </c-col>
-            <c-col
-                cols="6"
-                class="flex items-end mt-auto"
-                style="height: fit-content"
-            >
-                <q-btn
-                    class="full-width py-10"
-                    color="blue-4"
-                    style="border-radius: 15px"
-                    @click="confirm"
-                >
-                    <div
-                        class="text-subtitle1 text-weight-bold text-white"
-                        style="padding: 3px"
-                    >
-                        확인
-                    </div>
+            <c-col cols="6" class="flex items-end mt-auto" style="height: fit-content">
+                <q-btn class="full-width py-10" color="blue-4" style="border-radius: 15px" @click="confirm">
+                    <div class="text-subtitle1 text-weight-bold text-white" style="padding: 3px">확인</div>
                 </q-btn>
             </c-col>
         </c-row>
@@ -120,7 +77,7 @@ const $router = useRouter();
 const $route = useRoute();
 console.log($route.query.from);
 
-function readBlob() {
+async function readBlob() {
     $q.loading.show({
         message: '사진 불러오는 중...',
     });
@@ -163,17 +120,7 @@ function readBlob() {
                 // 이미지를 캔버스의 중심에 그리기
                 var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
                 var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
-                ctx?.drawImage(
-                    img,
-                    sourceX,
-                    sourceY,
-                    cropWidth,
-                    cropHeight,
-                    0,
-                    0,
-                    cropWidth,
-                    cropHeight
-                );
+                ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
             } else {
                 // 캔버스 크기를 이미지와 같게 설정
                 canvas.width = img.width;
@@ -195,18 +142,11 @@ function readBlob() {
         reader.readAsDataURL(captureBlob.value);
     } else {
         $q.loading.hide();
-        $q.dialog({
-            title: '확인',
-            message: '사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?',
-            cancel: true,
-            persistent: true,
-        })
-            .onOk(() => {
-                moveCamera();
-            })
-            .onCancel(() => {
-                $router.push('/home');
-            });
+        if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+            moveCamera();
+        } else {
+            $router.push('/home');
+        }
     }
 }
 
@@ -238,13 +178,7 @@ function rotate(image: string) {
         ctx?.translate(canvas.width / 2, canvas.height / 2); // 회전 중심을 이미지 중심으로 설정
         ctx?.scale(-1, 1); // x 축을 뒤집어 좌우 반전
         ctx?.rotate(Math.PI / -2); // -90도 회전
-        ctx?.drawImage(
-            img,
-            -img.width / 2,
-            -img.height / 2,
-            img.width,
-            img.height
-        );
+        ctx?.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
 
         // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
         myImage.value = canvas.toDataURL('image/jpeg');
@@ -272,19 +206,11 @@ function base64toFile(base_data: string) {
 async function confirm() {
     try {
         if (!captureBlob.value) {
-            $q.dialog({
-                title: '확인',
-                message:
-                    '사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?',
-                cancel: true,
-                persistent: true,
-            })
-                .onOk(() => {
-                    moveCamera();
-                })
-                .onCancel(() => {
-                    $router.push('/home');
-                });
+            if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+                moveCamera();
+            } else {
+                $router.push('/home');
+            }
         } else {
             $q.loading.show({
                 message: '검사 진행 중...',
@@ -311,49 +237,25 @@ async function confirm() {
                         topk3Value: jsonData['topk_values'][2],
                     };
 
-                    const { data: id } =
-                        await meta.api.common.userDiseases.create(
-                            userDiseaseDto
-                        );
+                    const { data: id } = await meta.api.common.userDiseases.create(userDiseaseDto);
                     if (!id) {
                         $q.loading.hide();
-                        $q.dialog({
-                            title: '확인',
-                            message:
-                                '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                            cancel: true,
-                            persistent: true,
-                        })
-                            .onOk(() => {
-                                moveCamera();
-                            })
-                            .onCancel(() => {
-                                $router.push('/home');
-                            });
+                        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+                            moveCamera();
+                        } else {
+                            $router.push('/home');
+                        }
                     }
 
-                    const { data: userDiseaseEntity } =
-                        await meta.api.common.userDiseases.get(id);
+                    const { data: userDiseaseEntity } = await meta.api.common.userDiseases.get(id);
 
-                    if (
-                        !userDiseaseEntity.topk1Id &&
-                        !userDiseaseEntity.topk2Id &&
-                        !userDiseaseEntity.topk3Id
-                    ) {
+                    if (!userDiseaseEntity.topk1Id && !userDiseaseEntity.topk2Id && !userDiseaseEntity.topk3Id) {
                         $q.loading.hide();
-                        $q.dialog({
-                            title: '확인',
-                            message:
-                                '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                            cancel: true,
-                            persistent: true,
-                        })
-                            .onOk(() => {
-                                moveCamera();
-                            })
-                            .onCancel(() => {
-                                $router.push('/home');
-                            });
+                        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+                            moveCamera();
+                        } else {
+                            $router.push('/home');
+                        }
                         return;
                     }
 
@@ -375,38 +277,31 @@ async function confirm() {
                     break;
                 default:
                     $q.loading.hide();
-                    $q.dialog({
-                        title: '확인',
-                        message:
-                            '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-                        cancel: true,
-                        persistent: true,
-                    })
-                        .onOk(() => {
-                            moveCamera();
-                        })
-                        .onCancel(() => {
-                            $router.push('/home');
-                        });
+                    if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+                        moveCamera();
+                    } else {
+                        $router.push('/home');
+                    }
                     break;
             }
         }
     } catch (e) {
         $q.loading.hide();
-        $q.dialog({
-            title: '확인',
-            message: '매칭된 질환 결과가 없습니다. 다시 촬영하시겠어요?',
-            cancel: true,
-            persistent: true,
-        })
-            .onOk(() => {
-                moveCamera();
-            })
-            .onCancel(() => {
-                $router.push('/home');
-            });
+        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+            moveCamera();
+        } else {
+            $router.push('/home');
+        }
     }
 }
+
+async function test() {
+    if (await meta.confirm('테스트입니다.')) {
+        meta.alert('확인');
+    }
+}
+
+test();
 </script>
 
 <style scoped></style>
