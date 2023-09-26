@@ -1,19 +1,8 @@
 <template>
-    <q-page
-        class="row items-center justify-evenly"
-        @click="$router.push('/home')"
-    >
-        <div
-            :style="`z-index: 1; width: ${$q.screen.width}px;  height: ${$q.screen.height}px; opacity: 0; position: absolute`"
-        ></div>
+    <q-page class="row items-center justify-evenly" @click="$router.push('/home')">
+        <div :style="`z-index: 1; width: ${$q.screen.width}px;  height: ${$q.screen.height}px; opacity: 0; position: absolute`"></div>
         <template v-if="video.src">
-            <video-player
-                :src="video"
-                :autoplay="'muted'"
-                :loop="true"
-                :width="$q.screen.width"
-                :height="$q.screen.height"
-            />
+            <video-player :src="video" :autoplay="'muted'" :width="$q.screen.width" :height="$q.screen.height" />
         </template>
     </q-page>
 </template>
@@ -41,12 +30,7 @@ async function loadVideo() {
     if (data.items.length > 0) {
         const { imageId } = data.items[0];
         if (imageId) {
-            const { data: arrayBuffer } = await meta.api.attachFile.getVideo(
-                imageId
-            );
-            const blob = new Blob([arrayBuffer], { type: 'video/mp4' });
-            const videoUrl = URL.createObjectURL(blob);
-            video.value = { type: 'video/mp4', src: videoUrl };
+            video.value = { type: 'video/mp4', src: `${process.env.APP_URL}api/video/${imageId}` };
         }
     }
 }

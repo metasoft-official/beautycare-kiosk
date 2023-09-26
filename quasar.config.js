@@ -10,7 +10,7 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
-// require('dotenv').config();
+require('dotenv').config();
 
 module.exports = configure(function (/* ctx */) {
     return {
@@ -51,13 +51,7 @@ module.exports = configure(function (/* ctx */) {
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
         build: {
             target: {
-                browser: [
-                    'es2019',
-                    'edge88',
-                    'firefox78',
-                    'chrome87',
-                    'safari13.1',
-                ],
+                browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
                 node: 'node16',
             },
             alias: {
@@ -107,7 +101,7 @@ module.exports = configure(function (/* ctx */) {
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
             host: '0.0.0.0',
-            port: 9000,
+            port: 9001,
             allowedHosts: 'all',
             historyApiFallback: true,
             proxy: {
