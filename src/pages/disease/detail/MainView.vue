@@ -69,7 +69,6 @@ import infoIcon from '@/assets/images/result/icon_info.png';
 import parkReturnIcon from '@/assets/images/result/icon_park_return.png';
 import qrcodeImg from '@/assets/images/diagnosis/qrcode.png';
 import { DiseaseEntity } from '@/types/global';
-import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 

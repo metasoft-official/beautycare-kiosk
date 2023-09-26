@@ -72,11 +72,9 @@
 <script setup lang="ts">
 import meta from '@/api/meta';
 import qrcodeImg from '@/assets/images/diagnosis/qrcode.png';
-import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const $q = useQuasar();
 const $router = useRouter();
 const $route = useRoute();
 
