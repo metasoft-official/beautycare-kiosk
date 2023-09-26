@@ -1,26 +1,14 @@
 <template>
     <q-page class="bg-grey-2 flex justify-between">
         <c-row no-gutters class="py-15" style="height: fit-content">
-            <c-col
-                cols="6"
-                class="flex items-end pr-2"
-                style="height: fit-content"
-            >
+            <c-col cols="6" class="flex items-end pr-2" style="height: fit-content">
                 <q-btn
                     unelevated
                     :disable="step === 0 && asnwerIndex === 0"
                     class="full-width py-10"
                     :style="`
-                        background-color: ${
-                            step === 0 && asnwerIndex === 0
-                                ? 'var(--c-grey-4)'
-                                : 'white'
-                        };
-                        border: 3px solid ${
-                            step === 0 && asnwerIndex === 0
-                                ? 'var(--c-grey-3)'
-                                : 'var(--c-blue-4)'
-                        };
+                        background-color: ${step === 0 && asnwerIndex === 0 ? 'var(--c-grey-4)' : 'white'};
+                        border: 3px solid ${step === 0 && asnwerIndex === 0 ? 'var(--c-grey-3)' : 'var(--c-blue-4)'};
                         border-radius: 15px;`"
                     @click="prev"
                 >
@@ -39,16 +27,12 @@
             <c-col cols="6" class="flex items-end" style="height: fit-content">
                 <q-btn
                     unelevated
-                    :disable="
-                        answers[step] &&
-                        answers[step][asnwerIndex]?.answerId === null
-                    "
+                    :disable="answers[step] && answers[step][asnwerIndex]?.answerId === null"
                     class="full-width py-10"
                     color="blue-4"
                     :style="
                         'border-radius: 15px; ' +
-                        (answers[step] &&
-                        answers[step][asnwerIndex]?.answerId === null
+                        (answers[step] && answers[step][asnwerIndex]?.answerId === null
                             ? 'background-color: var(--c-grey-4) !important; border: 3px solid var(--c-grey-3)'
                             : '')
                     "
@@ -56,19 +40,9 @@
                 >
                     <div
                         class="text-subtitle1 text-weight-bold text-white"
-                        :style="
-                            answers[step] &&
-                            answers[step][asnwerIndex]?.answerId !== null
-                                ? 'padding: 3px'
-                                : ''
-                        "
+                        :style="answers[step] && answers[step][asnwerIndex]?.answerId !== null ? 'padding: 3px' : ''"
                     >
-                        {{
-                            surveyList.length - 1 === step &&
-                            answers[step].length - 1 === asnwerIndex
-                                ? '완료'
-                                : '다음'
-                        }}
+                        {{ surveyList.length - 1 === step && answers[step].length - 1 === asnwerIndex ? '완료' : '다음' }}
                     </div>
                 </q-btn>
             </c-col>
@@ -76,43 +50,27 @@
         <c-row v-if="surveyList[step]">
             <c-col cols="12">
                 <div class="flex justify-between">
-                    <div class="text-bigger text-blue-4">
-                        {{ asnwerIndex + 1 }}.
-                    </div>
-                    <div class="text-subtitle3 text-grey-1">
-                        ({{ asnwerIndex + 1 }}/{{ surveyList[step].length }})
-                    </div>
+                    <div class="text-bigger text-blue-4">{{ asnwerIndex + 1 }}.</div>
+                    <div class="text-subtitle3 text-grey-1">({{ asnwerIndex + 1 }}/{{ surveyList[step].length }})</div>
                 </div>
                 <div class="text-subtitle2 text-weight-bold pt-10">
                     {{ surveyList[step][asnwerIndex].question }}
                 </div>
             </c-col>
-            <c-col
-                v-for="(option, index) in surveyList[step][asnwerIndex]
-                    .surveyAnswerList"
-                :key="index"
-                cols="12"
-            >
+            <c-col v-for="(option, index) in surveyList[step][asnwerIndex].surveyAnswerList" :key="index" cols="12">
                 <q-card
                     flat
                     :class="{
-                        'bg-white':
-                            answers[step][asnwerIndex].answerId === option.id,
-                        'bg-blue-4':
-                            answers[step][asnwerIndex].answerId === option.id,
-                        'text-white':
-                            answers[step][asnwerIndex].answerId === option.id,
+                        'bg-white': answers[step][asnwerIndex].answerId === option.id,
+                        'bg-blue-4': answers[step][asnwerIndex].answerId === option.id,
+                        'text-white': answers[step][asnwerIndex].answerId === option.id,
                     }"
                     style="border-radius: 30px"
                     @click="answerClick(option.id)"
                 >
                     <q-card-section>
                         <div class="text-content">
-                            <q-img
-                                :src="scoreImgList[index]"
-                                :alt="`점수${index + 1}`"
-                                style="max-width: 42px"
-                            ></q-img>
+                            <q-img :src="scoreImgList[index]" :alt="`점수${index + 1}`" style="max-width: 42px"></q-img>
                             {{ option.answer }}
                         </div>
                     </q-card-section>
@@ -121,10 +79,7 @@
         </c-row>
         <c-row v-if="surveyList[step]" class="">
             <template v-for="(survey, index) in surveyList" :key="index">
-                <c-col
-                    cols="auto"
-                    class="flex justify-center items-center px-0 py-5"
-                >
+                <c-col cols="auto" class="flex justify-center items-center px-0 py-5">
                     <q-card
                         class="flex justify-center items-center"
                         flat
@@ -145,40 +100,16 @@
                                     'text-grey-1': step < index,
                                 }"
                             >
-                                <div
-                                    style="
-                                        font-size: 28px;
-                                        font-weight: 400;
-                                        line-height: 51px;
-                                        letter-spacing: 0.1em;
-                                    "
-                                >
-                                    STEP
-                                </div>
-                                <div
-                                    style="
-                                        font-size: 56px;
-                                        font-weight: 700;
-                                        line-height: 51px;
-                                        letter-spacing: -0.04em;
-                                    "
-                                >
+                                <div style="font-size: 28px; font-weight: 400; line-height: 51px; letter-spacing: 0.1em">STEP</div>
+                                <div style="font-size: 56px; font-weight: 700; line-height: 51px; letter-spacing: -0.04em">
                                     {{ index + 1 }}
                                 </div>
                             </div>
                         </q-card-section>
                     </q-card>
                 </c-col>
-                <div
-                    class="flex justify-center items-center"
-                    style="flex-grow: 1 !important"
-                >
-                    <div
-                        v-if="index + 1 !== surveyList.length"
-                        :style="`width: 100%; border: 5px solid ${
-                            step > index ? 'var(--c-blue-4)' : '#fff'
-                        }`"
-                    ></div>
+                <div class="flex justify-center items-center" style="flex-grow: 1 !important">
+                    <div v-if="index + 1 !== surveyList.length" :style="`width: 100%; border: 5px solid ${step > index ? 'var(--c-blue-4)' : '#fff'}`"></div>
                 </div>
             </template>
         </c-row>
@@ -204,20 +135,11 @@ const step = ref(0);
 
 const asnwerIndex = ref(0);
 const answers = ref<{ questionId: number; answerId: null | number }[][]>([]);
-const scoreImgList = ref([
-    score1Img,
-    score2Img,
-    score3Img,
-    score4Img,
-    score5Img,
-]);
+const scoreImgList = ref([score1Img, score2Img, score3Img, score4Img, score5Img]);
 const surveyList = ref<SurveyQuestionEntity[][]>([]);
 
 async function next() {
-    if (
-        surveyList.value.length - 1 === step.value &&
-        answers.value[step.value].length - 1 === asnwerIndex.value
-    ) {
+    if (surveyList.value.length - 1 === step.value && answers.value[step.value].length - 1 === asnwerIndex.value) {
         try {
             if (await meta.confirm('저장하시겠습니까?')) {
                 $q.loading.show({ message: '저장 중...' });

@@ -1,9 +1,7 @@
 <template>
     <q-page class="flex items-center">
         <c-row no-gutters justify="center">
-            <c-col cols="12" class="text-title py-10 text-center">
-                예측할 정보를 선택해 주세요.
-            </c-col>
+            <c-col cols="12" class="text-title pb-10 text-center"> 예측할 정보를 선택해 주세요. </c-col>
             <c-col cols="6" class="text-content text-center">
                 <q-img @click="moveDisease" :src="btnSkinDiseaseImg"></q-img>
                 내 피부 속 숨겨진 문제를<br />찾아드립니다.
