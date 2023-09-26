@@ -12,7 +12,7 @@ const { configure } = require('quasar/wrappers');
 const path = require('path');
 require('dotenv').config();
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
     return {
         eslint: {
             // fix: true,
@@ -67,10 +67,10 @@ module.exports = configure(function (/* ctx */) {
 
             // publicPath: '/',
             // analyze: true,
-            // env: {
-            // You have to manually define all the variables you want to pass in
-            // ...
-            // },
+            env: {
+                // You have to manually define all the variables you want to pass in
+                APP_URL: ctx.dev ? process.env.APP_URL : 'http://localhost/',
+            },
             // rawDefine: {}
             // ignorePublicFolder: true,
             // minify: false,
