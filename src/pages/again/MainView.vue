@@ -293,14 +293,6 @@ async function confirm() {
         }
     }
 }
-
-async function test() {
-    if (await meta.confirm('테스트입니다.')) {
-        meta.alert('확인');
-    }
-}
-
-test();
 </script>
 
 <style scoped></style>
