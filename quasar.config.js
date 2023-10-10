@@ -119,9 +119,8 @@ module.exports = configure(function (ctx) {
                     timeout: 5000,
                 },
                 '/fvsdk': {
-                    target: 'http://3.34.125.7:8080/fvsdk/findface',
+                    target: 'http://3.34.125.7:8080',
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/fvsdk\//, ''),
                     timeout: 5000,
                 },
             },

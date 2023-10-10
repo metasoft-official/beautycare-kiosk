@@ -154,7 +154,7 @@ async function photoTaken(data: { blob: Blob; image_data_url: string }) {
         form.append('image', imgBlob, 'image.jpg');
 
         // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
-        const response = await axios.post('/fvsdk/', form, {
+        const response = await axios.post('/fvsdk/findface', form, {
             headers: { 'Content-Type': 'multipart/form-data' },
             params: params,
         });
