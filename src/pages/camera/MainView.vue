@@ -160,9 +160,19 @@ async function photoTaken(data: { blob: Blob; image_data_url: string }) {
         });
 
         // Base64로 시작하도록 전처리
-        var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
-
-        captureBlob.value = decodeingBlob;
+        console.log(response.data.faces.length);
+        if (response.data.faces.length !== 0) {
+            var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
+            captureBlob.value = decodeingBlob;
+        } else {
+            $q.loading.hide();
+            if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
+                $router.go(0);
+            } else {
+                $router.push('/home');
+            }
+            return;
+        }
     } else {
         captureBlob.value = data.blob;
     }
