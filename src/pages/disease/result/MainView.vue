@@ -39,18 +39,36 @@
 
         <c-row class="pt-10">
             <c-col class="flex">
-                <div class="text-content">
+                <div class="text-subcontent flex items-center">
                     내 피부 관리법에 대해 살펴보고,<br />
                     시술과 화장품을 추천받고 싶다면?
                 </div>
-                <div class="text-subtitle3 text-blue-4 text-weight-bold flex items-end pb-10">QR코드를 촬영해 App 다운로드하기</div>
+                <div class="text-content text-blue-4 text-weight-bold flex pb-10">
+                    QR코드를 촬영해<br />
+                    App 다운로드하기
+                </div>
             </c-col>
-            <c-col cols="auto">
-                <q-card style="aspect-ratio: 1; width: 282px">
-                    <q-card-section>
-                        <q-img :src="qrcodeImg" alt="QR코드" style="max-width: 250px"></q-img>
-                    </q-card-section>
-                </q-card>
+            <c-col cols="auto" style="display: flex">
+                <div class="pr-5">
+                    <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                        <q-card-section>
+                            <q-img src="https://oxyfacial.co.kr/api/image/825" alt="QR코드" style="max-width: 250px"></q-img>
+                        </q-card-section>
+                    </q-card>
+                    <c-col cols="12" class="d-flex align-center justify-center text-subtitle3 text-weight-bold flex items-end pb-10 d-flex align-cente">
+                        <q-img :src="iosImg" alt="QR코드" style="width: 105px; height: 50px"></q-img>
+                    </c-col>
+                </div>
+                <div>
+                    <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                        <q-card-section>
+                            <q-img src="https://oxyfacial.co.kr/api/image/847" alt="QR코드" style="max-width: 250px"></q-img>
+                        </q-card-section>
+                    </q-card>
+                    <c-col cols="12" class="d-flex align-center justify-center text-subtitle3 text-weight-bold flex items-end pb-10 d-flex align-cente">
+                        <q-img :src="aosImg" alt="QR코드" style="width: 175px; height: 50px"></q-img>
+                    </c-col>
+                </div>
             </c-col>
         </c-row>
         <c-row>
@@ -71,7 +89,8 @@
 
 <script setup lang="ts">
 import meta from '@/api/meta';
-import qrcodeImg from '@/assets/images/diagnosis/qrcode.png';
+import iosImg from '@/assets/images/diagnosis/ios.png';
+import aosImg from '@/assets/images/diagnosis/aos.png';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 

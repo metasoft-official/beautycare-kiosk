@@ -75,14 +75,25 @@ const myImage = ref('');
 const $q = useQuasar();
 const $router = useRouter();
 const $route = useRoute();
-console.log($route.query.from);
+
+function dataURLtoBlob(dataURL: any) {
+    var arr = dataURL.split(',');
+    var mime = arr[0].match(/:(.*?);/)[1];
+    var bstr = atob(arr[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
 
 async function readBlob() {
     $q.loading.show({
         message: '사진 불러오는 중...',
     });
     const reader = new FileReader();
-    reader.onloadend = function () {
+    reader.onloadend = async function () {
         const base64data = reader.result as string;
         // 이미지 객체 생성
         var img = new Image();
@@ -94,31 +105,15 @@ async function readBlob() {
 
         // 이미지 로딩 후에 작업 수행
         img.onload = function () {
-            // // 캔버스 크기를 이미지와 같게 설정
-            // canvas.height = img.width;
-            // canvas.width = img.height;
-
-            // // 이미지를 캔버스에 그리기
-            // ctx?.clearRect(0, 0, canvas.width, canvas.height);
-            // ctx?.save();
-            // ctx?.translate(canvas.width / 2, canvas.height / 2); // 회전 중심을 이미지 중심으로 설정
-            // ctx?.rotate(Math.PI / -2); // -90도 회전
-            // ctx?.drawImage(
-            //     img,
-            //     -img.width / 2,
-            //     -img.height / 2,
-            //     img.width,
-            //     img.height
-            // );
             if ($route.query.from === 'mbti') {
                 // 캔버스 크기를 자를 영역과 같게 설정
-                var cropWidth = img.height * 0.2 * (16 / 9); // 자를 영역의 가로 크기
-                var cropHeight = img.width * 0.2; // 자를 영역의 세로 크기
+                var cropWidth = img.height; // 자를 영역의 가로 크기
+                var cropHeight = img.width; // 자를 영역의 세로 크기
                 canvas.width = cropWidth;
                 canvas.height = cropHeight;
 
                 // 이미지를 캔버스의 중심에 그리기
-                var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
+                var sourceX = (img.width - cropWidth) / 2; // 이미지의 중심부터 시작
                 var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
                 ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
             } else {
@@ -203,6 +198,17 @@ function base64toFile(base_data: string) {
     return new File([u8arr], 'my_image.png', { type: 'image/jpeg' });
 }
 
+function base64toBlob(base64String: string, mimeType: string) {
+    mimeType = mimeType || '';
+    var byteCharacters = atob(base64String);
+    var byteNumbers = new Array(byteCharacters.length);
+    for (var i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+}
+
 async function confirm() {
     try {
         if (!captureBlob.value) {
@@ -272,7 +278,20 @@ async function confirm() {
                     break;
                 case 'mbti':
                     $q.loading.hide();
-                    $router.push(`/${$route.query.from}/survey`);
+                    const mbtiImage = new FormData();
+                    var decodeingBlob = base64toFile(myImage.value);
+                    mbtiImage.append('file', decodeingBlob);
+                    const saveFileInfoNum = (await meta.api.common.integratedAttachFiles.create(mbtiImage)).data.integratedAttachFileEntity
+                        .integratedAttachFileNum;
+
+                    $router.push({
+                        path: `/${$route.query.from}/survey`,
+                        query: {
+                            fileId: saveFileInfoNum,
+                        },
+                    });
+
+                    saveFileInfoNum;
                     break;
                 default:
                     $q.loading.hide();

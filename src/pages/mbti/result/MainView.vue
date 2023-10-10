@@ -36,21 +36,37 @@
         <c-row class="pt-10">
             <c-col cols="12">
                 <c-row no-gutters justify="between" class="pa-0">
-                    <c-col cols="auto">
-                        <div>
-                            <div class="text-content">
-                                App을 다운로드하여 상세 문진표 작성 및<br />
-                                자세한 결과를 확인하실 수 있습니다!
-                            </div>
-                            <div class="mt-20 text-subtitle3 text-blue-4 text-weight-bold flex items-end">QR코드를 촬영해 App 다운로드하기</div>
+                    <c-col class="flex">
+                        <div class="text-subcontent flex items-center">
+                            App을 다운로드하여 상세 문진표 작성 및<br />
+                            자세한 결과를 확인하실 수 있습니다!
+                        </div>
+                        <div class="text-content text-blue-4 text-weight-bold flex pb-10">
+                            QR코드를 촬영해<br />
+                            App 다운로드하기
                         </div>
                     </c-col>
-                    <c-col cols="auto">
-                        <q-card class="bg-white" style="aspect-ratio: 1; width: 282px">
-                            <q-card-section>
-                                <q-img :src="qrcodeImg" alt="QR코드" style="max-width: 250px"></q-img>
-                            </q-card-section>
-                        </q-card>
+                    <c-col cols="auto" style="display: flex">
+                        <div class="pr-5">
+                            <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                                <q-card-section>
+                                    <q-img src="https://oxyfacial.co.kr/api/image/825" alt="QR코드" style="max-width: 250px"></q-img>
+                                </q-card-section>
+                            </q-card>
+                            <c-col cols="12" class="d-flex align-center justify-center text-subtitle3 text-weight-bold flex items-end pb-10 d-flex align-cente">
+                                <q-img :src="iosImg" alt="QR코드" style="width: 105px; height: 50px"></q-img>
+                            </c-col>
+                        </div>
+                        <div>
+                            <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                                <q-card-section>
+                                    <q-img src="https://oxyfacial.co.kr/api/image/847" alt="QR코드" style="max-width: 250px"></q-img>
+                                </q-card-section>
+                            </q-card>
+                            <c-col cols="12" class="d-flex align-center justify-center text-subtitle3 text-weight-bold flex items-end pb-10 d-flex align-cente">
+                                <q-img :src="aosImg" alt="QR코드" style="width: 175px; height: 50px"></q-img>
+                            </c-col>
+                        </div>
                     </c-col>
                 </c-row>
             </c-col>
@@ -88,7 +104,8 @@ import osntImg from '@/assets/images/result/mbti_banni_OSNT.png';
 import osnwImg from '@/assets/images/result/mbti_banni_OSNW.png';
 import osptImg from '@/assets/images/result/mbti_banni_OSPT.png';
 import ospwImg from '@/assets/images/result/mbti_banni_OSPW.png';
-import qrcodeImg from '@/assets/images/diagnosis/qrcode.png';
+import iosImg from '@/assets/images/diagnosis/ios.png';
+import aosImg from '@/assets/images/diagnosis/aos.png';
 import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import meta from '@/api/meta';

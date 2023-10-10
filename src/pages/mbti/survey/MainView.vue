@@ -125,11 +125,14 @@ import score4Img from '@/assets/images/survey/score4_icon.png';
 import score5Img from '@/assets/images/survey/score5_icon.png';
 import { SurveyQuestionEntity, SurveyResponsesEntity } from '@/types/global';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
 
 const $router = useRouter();
 const $q = useQuasar();
+
+const $route = useRoute();
+const { fileId } = $route.query;
 
 const step = ref(0);
 
@@ -149,8 +152,10 @@ async function next() {
                 });
                 const { data } = await meta.api.common.survey.create({
                     userId: 34,
+                    imageId: Number(fileId),
                     responses,
                 });
+                fileId;
                 $q.loading.hide();
                 $router.push({
                     path: '/mbti/result',

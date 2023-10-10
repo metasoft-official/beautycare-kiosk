@@ -107,7 +107,7 @@ module.exports = configure(function (ctx) {
             proxy: {
                 // proxy all requests starting with /api to jsonplaceholder
                 '/api': {
-                    target: 'http://meta-soft.iptime.org:9000/api',
+                    target: 'http://localhost:8080/api',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, ''),
                     timeout: 5000,
@@ -116,6 +116,12 @@ module.exports = configure(function (ctx) {
                     target: 'http://220.76.251.246:18812',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/other\//, ''),
+                    timeout: 5000,
+                },
+                '/fvsdk': {
+                    target: 'http://3.34.125.7:8080/fvsdk/findface',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/fvsdk\//, ''),
                     timeout: 5000,
                 },
             },
