@@ -29,8 +29,6 @@ async function loadVideo() {
         visibilityStatus: 'T',
         sort: ['order,desc', 'id,desc'],
     });
-    console.log(data);
-    console.log(process);
     if (data.items.length > 0) {
         const { imageId } = data.items[0];
         if (imageId) {
