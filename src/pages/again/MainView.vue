@@ -105,27 +105,27 @@ async function readBlob() {
 
         // 이미지 로딩 후에 작업 수행
         img.onload = function () {
-            if ($route.query.from === 'mbti') {
-                // 캔버스 크기를 자를 영역과 같게 설정
-                var cropWidth = img.height; // 자를 영역의 가로 크기
-                var cropHeight = img.width; // 자를 영역의 세로 크기
-                canvas.width = cropWidth;
-                canvas.height = cropHeight;
+            // if ($route.query.from === 'mbti') {
+            //     // 캔버스 크기를 자를 영역과 같게 설정
+            //     var cropWidth = img.height; // 자를 영역의 가로 크기
+            //     var cropHeight = img.width; // 자를 영역의 세로 크기
+            //     canvas.width = cropWidth;
+            //     canvas.height = cropHeight;
 
-                // 이미지를 캔버스의 중심에 그리기
-                var sourceX = (img.width - cropWidth) / 2; // 이미지의 중심부터 시작
-                var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
-                ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
-            } else {
-                // 캔버스 크기를 이미지와 같게 설정
-                canvas.width = img.width;
-                canvas.height = img.height;
+            //     // 이미지를 캔버스의 중심에 그리기
+            //     var sourceX = (img.width - cropWidth) / 2; // 이미지의 중심부터 시작
+            //     var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
+            //     ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+            // } else {
+            // 캔버스 크기를 이미지와 같게 설정
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-                // 이미지를 캔버스에 그리기
-                ctx?.clearRect(0, 0, canvas.width, canvas.height);
-                ctx?.save();
-                ctx?.drawImage(img, 0, 0);
-            }
+            // 이미지를 캔버스에 그리기
+            ctx?.clearRect(0, 0, canvas.width, canvas.height);
+            ctx?.save();
+            ctx?.drawImage(img, 0, 0);
+            // }
 
             var imgImage = canvas.toDataURL('image/jpeg');
 
@@ -157,15 +157,10 @@ function rotate(image: string) {
     var ctx = canvas.getContext('2d');
 
     // 이미지 로딩 후에 작업 수행
-    img.onload = function () {
+    img.onload = async function () {
         // 캔버스 크기를 이미지와 같게 설정
-        if ($route.query.from === 'mbti') {
-            canvas.height = img.height;
-            canvas.width = img.width;
-        } else {
-            canvas.height = img.width;
-            canvas.width = img.height;
-        }
+        canvas.height = img.width;
+        canvas.width = img.height;
 
         // 이미지를 캔버스에 그리기
         ctx?.clearRect(0, 0, canvas.width, canvas.height);
@@ -175,8 +170,43 @@ function rotate(image: string) {
         ctx?.rotate(Math.PI / -2); // -90도 회전
         ctx?.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
 
+        const form = new FormData();
+        // form-data에 필드 추가
+        const params = {
+            minEyeRatio: 0.1,
+            maxEyeRatio: 0.6,
+            extractFir: false,
+            analyzeCharacteristics: false,
+            largestOnly: true,
+            createCrop: true,
+        };
+
+        // 이미지 Blob 객체 생성 (이미 가지고 있는 이미지 Blob 데이터를 사용)
+        var imgBlob = dataURLtoBlob(canvas.toDataURL('image/jpeg'));
+        form.append('image', imgBlob, 'image.jpg');
+
+        // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
+        const response = await axios.post('/fvsdk/findface', form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            params: params,
+        });
+
+        if (response.data.faces.length !== 0) {
+            var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
+            captureBlob.value = decodeingBlob;
+        } else {
+            $q.loading.hide();
+            if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
+                $router.go(0);
+            } else {
+                $router.push('/home');
+            }
+            return;
+        }
+
         // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
-        myImage.value = canvas.toDataURL('image/jpeg');
+        myImage.value = 'data:image/jpeg;base64,' + response.data.faces[0].crop;
+
         $q.loading.hide();
     };
 }

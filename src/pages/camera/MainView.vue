@@ -138,45 +138,7 @@ function base64toBlob(base64String: string, mimeType: string) {
 }
 
 async function photoTaken(data: { blob: Blob; image_data_url: string }) {
-    if ($route.query.from === 'mbti') {
-        const form = new FormData();
-        // form-data에 필드 추가
-        const params = {
-            minEyeRatio: 0.1,
-            maxEyeRatio: 0.6,
-            extractFir: false,
-            analyzeCharacteristics: false,
-            largestOnly: true,
-            createCrop: true,
-        };
-        // 이미지 Blob 객체 생성 (이미 가지고 있는 이미지 Blob 데이터를 사용)
-        var imgBlob = dataURLtoBlob(data.image_data_url);
-        form.append('image', imgBlob, 'image.jpg');
-
-        // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
-        const response = await axios.post('/fvsdk/findface', form, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-            params: params,
-        });
-
-        // Base64로 시작하도록 전처리
-        console.log(response.data.faces.length);
-        if (response.data.faces.length !== 0) {
-            var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
-            captureBlob.value = decodeingBlob;
-        } else {
-            $q.loading.hide();
-            if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
-                $router.go(0);
-            } else {
-                $router.push('/home');
-            }
-            return;
-        }
-    } else {
-        captureBlob.value = data.blob;
-    }
-
+    captureBlob.value = data.blob;
     $q.loading.hide();
     $q.loading.show({
         message: '페이지 이동 중...',
