@@ -1,8 +1,4 @@
-import axios, {
-    AxiosHeaderValue,
-    AxiosProgressEvent,
-    AxiosPromise,
-} from 'axios';
+import axios, { AxiosHeaderValue, AxiosProgressEvent, AxiosPromise } from 'axios';
 import { useAppStore } from '@/stores/store';
 import {
     PageResponse,
@@ -70,26 +66,20 @@ const meta = {
 
             useAppStore().setLoadingPercentConfig({ ...myProgressData });
             if (e.total) {
-                useAppStore().setLoadingPercentValue(
-                    (e.loaded / e.total) * 100
-                );
+                useAppStore().setLoadingPercentValue((e.loaded / e.total) * 100);
             }
 
             const configData = useAppStore().getLoadingPercentConfig;
 
-            const previousConfigData =
-                useAppStore().getLoadingPercentPreviouseConfig;
+            const previousConfigData = useAppStore().getLoadingPercentPreviouseConfig;
 
             let totalSumSpeed = 0;
             let totalSpeedValueCount = 0;
 
             for (let i = 1; i < previousConfigData.length; i += 1) {
                 const currentCalSpeed =
-                    (previousConfigData[i].loaded -
-                        previousConfigData[i - 1].loaded) /
-                    (((previousConfigData[i].timeStamp ?? 0) -
-                        (previousConfigData[i - 1].timeStamp ?? 0)) /
-                        1000);
+                    (previousConfigData[i].loaded - previousConfigData[i - 1].loaded) /
+                    (((previousConfigData[i].timeStamp ?? 0) - (previousConfigData[i - 1].timeStamp ?? 0)) / 1000);
                 totalSumSpeed += currentCalSpeed;
                 totalSpeedValueCount += 1;
             }
@@ -100,31 +90,18 @@ const meta = {
                 totalSpeedValueCount !== undefined &&
                 totalSpeedValueCount != null &&
                 totalSpeedValueCount > 0
-                    ? `${calculatyBytesUnitCapacityToBigCapacityUnit(
-                          totalSumSpeed / totalSpeedValueCount
-                      )}/s`
+                    ? `${calculatyBytesUnitCapacityToBigCapacityUnit(totalSumSpeed / totalSpeedValueCount)}/s`
                     : '';
 
             useAppStore().setLoadingPercentConfigSpeed(currentTransferSpeed);
 
             const convertToLoaded =
-                configData.loaded !== undefined && configData.loaded != null
-                    ? calculatyBytesUnitCapacityToBigCapacityUnit(
-                          configData.loaded
-                      )
-                    : '';
+                configData.loaded !== undefined && configData.loaded != null ? calculatyBytesUnitCapacityToBigCapacityUnit(configData.loaded) : '';
 
             const convertToTotal =
-                configData.total !== undefined && configData.total != null
-                    ? calculatyBytesUnitCapacityToBigCapacityUnit(
-                          configData.total
-                      )
-                    : '';
+                configData.total !== undefined && configData.total != null ? calculatyBytesUnitCapacityToBigCapacityUnit(configData.total) : '';
 
-            const currentTransferStatus =
-                convertToLoaded !== '' && convertToTotal !== ''
-                    ? `${convertToLoaded} / ${convertToTotal}`
-                    : '';
+            const currentTransferStatus = convertToLoaded !== '' && convertToTotal !== '' ? `${convertToLoaded} / ${convertToTotal}` : '';
 
             useAppStore().setLoadingPercentConfigStatus(currentTransferStatus);
         }
@@ -244,9 +221,7 @@ const meta = {
         common: {
             userDiseases: {
                 // getUserDisease(params: object): AxiosPromise<PageResponse<entity>>
-                getList(
-                    params: UserDiseaseParamDto
-                ): AxiosPromise<PageResponse<UserDiseaseEntity>> {
+                getList(params: UserDiseaseParamDto): AxiosPromise<PageResponse<UserDiseaseEntity>> {
                     return axios({
                         url: '/api/common/user-diseases',
                         method: 'get',
@@ -267,10 +242,7 @@ const meta = {
                         data,
                     });
                 },
-                diagnosisImage(
-                    id: number,
-                    data: FormData
-                ): AxiosPromise<number> {
+                diagnosisImage(id: number, data: FormData): AxiosPromise<number> {
                     return axios({
                         url: `/api/common/user-diseases/attach-file/${id}`,
                         method: 'put',
@@ -287,9 +259,7 @@ const meta = {
                 },
             },
             survey: {
-                getQuestionList(
-                    params: SurveyQuestionParamDto
-                ): AxiosPromise<PageResponse<SurveyQuestionEntity>> {
+                getQuestionList(params: SurveyQuestionParamDto): AxiosPromise<PageResponse<SurveyQuestionEntity>> {
                     return axios({
                         url: '/api/common/survey-questions',
                         method: 'get',
@@ -302,6 +272,11 @@ const meta = {
                         method: 'post',
                         data,
                     });
+                },
+            },
+            integratedAttachFiles: {
+                create(data: object) {
+                    return axios({ url: '/api/common/integrated-attach-files', method: 'post', data });
                 },
             },
             userSkinMbti: {
@@ -321,9 +296,7 @@ const meta = {
                 },
             },
             banner: {
-                getList(
-                    params: BannerKioskParamDto
-                ): AxiosPromise<PageResponse<BannerKioskEntity>> {
+                getList(params: BannerKioskParamDto): AxiosPromise<PageResponse<BannerKioskEntity>> {
                     return axios({
                         url: '/api/common/banner-kiosks',
                         method: 'get',
@@ -332,9 +305,7 @@ const meta = {
                 },
             },
             video: {
-                getList(
-                    params: AdvertisementKioskParamDto
-                ): AxiosPromise<PageResponse<AdvertisementKioskEntity>> {
+                getList(params: AdvertisementKioskParamDto): AxiosPromise<PageResponse<AdvertisementKioskEntity>> {
                     return axios({
                         url: '/api/common/advertisement-kiosks',
                         method: 'get',
@@ -349,10 +320,7 @@ const meta = {
             const str = [];
             if (sortBy.length > 0 && sortDesc.length > 0) {
                 for (let i = 0; i < sortBy.length; i += 1) {
-                    if (sortBy[i])
-                        str.push(
-                            `${sortBy[i]},${sortDesc[i] ? 'desc' : 'asc'}`
-                        );
+                    if (sortBy[i]) str.push(`${sortBy[i]},${sortDesc[i] ? 'desc' : 'asc'}`);
                 }
             }
             return str;
@@ -360,12 +328,7 @@ const meta = {
     },
     error: {
         isErrorWithMessage(error: unknown): error is ErrorWithMessage {
-            return (
-                typeof error === 'object' &&
-                error !== null &&
-                'message' in error &&
-                typeof (error as Record<string, unknown>).message === 'string'
-            );
+            return typeof error === 'object' && error !== null && 'message' in error && typeof (error as Record<string, unknown>).message === 'string';
         },
         toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
             if (meta.error.isErrorWithMessage(maybeError)) return maybeError;

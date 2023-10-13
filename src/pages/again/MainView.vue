@@ -75,14 +75,25 @@ const myImage = ref('');
 const $q = useQuasar();
 const $router = useRouter();
 const $route = useRoute();
-console.log($route.query.from);
+
+function dataURLtoBlob(dataURL: any) {
+    var arr = dataURL.split(',');
+    var mime = arr[0].match(/:(.*?);/)[1];
+    var bstr = atob(arr[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
 
 async function readBlob() {
     $q.loading.show({
         message: '사진 불러오는 중...',
     });
     const reader = new FileReader();
-    reader.onloadend = function () {
+    reader.onloadend = async function () {
         const base64data = reader.result as string;
         // 이미지 객체 생성
         var img = new Image();
@@ -94,43 +105,27 @@ async function readBlob() {
 
         // 이미지 로딩 후에 작업 수행
         img.onload = function () {
-            // // 캔버스 크기를 이미지와 같게 설정
-            // canvas.height = img.width;
-            // canvas.width = img.height;
+            // if ($route.query.from === 'mbti') {
+            //     // 캔버스 크기를 자를 영역과 같게 설정
+            //     var cropWidth = img.height; // 자를 영역의 가로 크기
+            //     var cropHeight = img.width; // 자를 영역의 세로 크기
+            //     canvas.width = cropWidth;
+            //     canvas.height = cropHeight;
 
-            // // 이미지를 캔버스에 그리기
-            // ctx?.clearRect(0, 0, canvas.width, canvas.height);
-            // ctx?.save();
-            // ctx?.translate(canvas.width / 2, canvas.height / 2); // 회전 중심을 이미지 중심으로 설정
-            // ctx?.rotate(Math.PI / -2); // -90도 회전
-            // ctx?.drawImage(
-            //     img,
-            //     -img.width / 2,
-            //     -img.height / 2,
-            //     img.width,
-            //     img.height
-            // );
-            if ($route.query.from === 'mbti') {
-                // 캔버스 크기를 자를 영역과 같게 설정
-                var cropWidth = img.height * 0.2 * (16 / 9); // 자를 영역의 가로 크기
-                var cropHeight = img.width * 0.2; // 자를 영역의 세로 크기
-                canvas.width = cropWidth;
-                canvas.height = cropHeight;
+            //     // 이미지를 캔버스의 중심에 그리기
+            //     var sourceX = (img.width - cropWidth) / 2; // 이미지의 중심부터 시작
+            //     var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
+            //     ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+            // } else {
+            // 캔버스 크기를 이미지와 같게 설정
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-                // 이미지를 캔버스의 중심에 그리기
-                var sourceX = (img.width - cropWidth) / 2 + 250; // 이미지의 중심부터 시작
-                var sourceY = (img.height - cropHeight) / 2; // 이미지의 중심부터 시작
-                ctx?.drawImage(img, sourceX, sourceY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
-            } else {
-                // 캔버스 크기를 이미지와 같게 설정
-                canvas.width = img.width;
-                canvas.height = img.height;
-
-                // 이미지를 캔버스에 그리기
-                ctx?.clearRect(0, 0, canvas.width, canvas.height);
-                ctx?.save();
-                ctx?.drawImage(img, 0, 0);
-            }
+            // 이미지를 캔버스에 그리기
+            ctx?.clearRect(0, 0, canvas.width, canvas.height);
+            ctx?.save();
+            ctx?.drawImage(img, 0, 0);
+            // }
 
             var imgImage = canvas.toDataURL('image/jpeg');
 
@@ -142,7 +137,7 @@ async function readBlob() {
         reader.readAsDataURL(captureBlob.value);
     } else {
         $q.loading.hide();
-        if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+        if (await meta.confirm('사진을 불러오는데 실패했습니다. 다시 촬영하시겠어요?')) {
             moveCamera();
         } else {
             $router.push('/home');
@@ -162,15 +157,10 @@ function rotate(image: string) {
     var ctx = canvas.getContext('2d');
 
     // 이미지 로딩 후에 작업 수행
-    img.onload = function () {
+    img.onload = async function () {
         // 캔버스 크기를 이미지와 같게 설정
-        if ($route.query.from === 'mbti') {
-            canvas.height = img.height;
-            canvas.width = img.width;
-        } else {
-            canvas.height = img.width;
-            canvas.width = img.height;
-        }
+        canvas.height = img.width;
+        canvas.width = img.height;
 
         // 이미지를 캔버스에 그리기
         ctx?.clearRect(0, 0, canvas.width, canvas.height);
@@ -180,8 +170,47 @@ function rotate(image: string) {
         ctx?.rotate(Math.PI / -2); // -90도 회전
         ctx?.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
 
-        // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
-        myImage.value = canvas.toDataURL('image/jpeg');
+        if ($route.query.from === 'mbti') {
+            const form = new FormData();
+            // form-data에 필드 추가
+            const params = {
+                minEyeRatio: 0.1,
+                maxEyeRatio: 0.6,
+                extractFir: false,
+                analyzeCharacteristics: false,
+                largestOnly: true,
+                createCrop: true,
+            };
+
+            // 이미지 Blob 객체 생성 (이미 가지고 있는 이미지 Blob 데이터를 사용)
+            var imgBlob = dataURLtoBlob(canvas.toDataURL('image/jpeg'));
+            form.append('image', imgBlob, 'image.jpg');
+
+            // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
+            const response = await axios.post('/fvsdk/findface', form, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+                params: params,
+            });
+
+            if (response.data.faces.length !== 0) {
+                var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
+                captureBlob.value = decodeingBlob;
+            } else {
+                $q.loading.hide();
+                if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
+                    $router.push('/camera');
+                } else {
+                    $router.push('/home');
+                }
+                return;
+            }
+
+            // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
+            myImage.value = 'data:image/jpeg;base64,' + response.data.faces[0].crop;
+        } else {
+            myImage.value = canvas.toDataURL('image/jpeg');
+        }
+
         $q.loading.hide();
     };
 }
@@ -203,10 +232,21 @@ function base64toFile(base_data: string) {
     return new File([u8arr], 'my_image.png', { type: 'image/jpeg' });
 }
 
+function base64toBlob(base64String: string, mimeType: string) {
+    mimeType = mimeType || '';
+    var byteCharacters = atob(base64String);
+    var byteNumbers = new Array(byteCharacters.length);
+    for (var i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+}
+
 async function confirm() {
     try {
         if (!captureBlob.value) {
-            if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+            if (await meta.confirm('사진을 불러오는데 실패했습니다. 다시 촬영하시겠어요?')) {
                 moveCamera();
             } else {
                 $router.push('/home');
@@ -272,7 +312,20 @@ async function confirm() {
                     break;
                 case 'mbti':
                     $q.loading.hide();
-                    $router.push(`/${$route.query.from}/survey`);
+                    const mbtiImage = new FormData();
+                    var decodeingBlob = base64toFile(myImage.value);
+                    mbtiImage.append('file', decodeingBlob);
+                    const saveFileInfoNum = (await meta.api.common.integratedAttachFiles.create(mbtiImage)).data.integratedAttachFileEntity
+                        .integratedAttachFileNum;
+
+                    $router.push({
+                        path: `/${$route.query.from}/survey`,
+                        query: {
+                            fileId: saveFileInfoNum,
+                        },
+                    });
+
+                    saveFileInfoNum;
                     break;
                 default:
                     $q.loading.hide();
@@ -286,14 +339,13 @@ async function confirm() {
         }
     } catch (e) {
         $q.loading.hide();
-        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+        if (await meta.confirm('이미지 처리에 실패했습니다.\n다시 촬영하시겠어요?')) {
             moveCamera();
         } else {
             $router.push('/home');
         }
     }
 }
-
 </script>
 
 <style scoped></style>

@@ -13,78 +13,19 @@ export interface CRowProps {
     noGutters?: boolean | undefined;
     align?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
     justify?: 'start' | 'end' | 'center' | 'between' | 'around' | undefined;
-    alignContent?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'stretch'
-        | undefined;
+    alignContent?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'stretch' | undefined;
     alignSm?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    justifySm?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | undefined;
-    alignContentSm?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'stretch'
-        | undefined;
+    justifySm?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | undefined;
+    alignContentSm?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'stretch' | undefined;
     alignMd?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    justifyMd?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | undefined;
-    alignContentMd?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'stretch'
-        | undefined;
+    justifyMd?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | undefined;
+    alignContentMd?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'stretch' | undefined;
     alignLg?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    justifyLg?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | undefined;
-    alignContentLg?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'stretch'
-        | undefined;
+    justifyLg?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | undefined;
+    alignContentLg?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'stretch' | undefined;
     alignXl?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    justifyXl?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | undefined;
-    alignContentXl?:
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'stretch'
-        | undefined;
+    justifyXl?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | undefined;
+    alignContentXl?: 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'stretch' | undefined;
 }
 
 export interface CColProps {
@@ -104,14 +45,7 @@ export interface CColProps {
     colXl?: boolean | string | number | undefined;
     offsetXl?: string | number | undefined;
     orderXl?: string | number | undefined;
-    alignSelf?:
-        | 'auto'
-        | 'start'
-        | 'end'
-        | 'center'
-        | 'baseline'
-        | 'stretch'
-        | undefined;
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
 }
 
 export interface PageRequest {
@@ -289,6 +223,7 @@ export interface SurveyQuestionParamDto extends PageRequest {
 export interface SurveyDto {
     id?: number | null;
     userId?: number | null;
+    imageId?: number | null;
     createdDate?: String | null;
     lastModifiedDate?: String | null;
     responses?: SurveyResponsesEntity[] | null;
@@ -316,6 +251,7 @@ export interface SurveyResponsesDto {
 export interface SurveyResponsesEntity extends SurveyResponsesDto {
     id?: number | null;
     surveyId?: number | null;
+    imageId?: number | null;
     questionId?: number | null;
     answerId?: number | null;
 }
@@ -395,8 +331,7 @@ export interface SkinMbtiSkincareProductDto {
     skincareProductOrder?: number | null;
 }
 
-export interface SkinMbtiSkincareProductEntity
-    extends SkinMbtiSkincareProductDto {
+export interface SkinMbtiSkincareProductEntity extends SkinMbtiSkincareProductDto {
     skincareProduct?: SkincareProductEntity | null;
 }
 

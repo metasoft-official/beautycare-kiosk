@@ -118,6 +118,11 @@ module.exports = configure(function (ctx) {
                     rewrite: (path) => path.replace(/^\/other\//, ''),
                     timeout: 5000,
                 },
+                '/fvsdk': {
+                    target: 'http://3.34.125.7:8080',
+                    changeOrigin: true,
+                    timeout: 5000,
+                },
             },
         },
 
