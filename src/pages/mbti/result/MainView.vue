@@ -16,7 +16,7 @@
                 <div style="font-size: 108px; font-weight: 900; line-height: 151px; letter-spacing: -0.04em" class="text-blue-4">
                     {{ userMbti.skinMbtiName }}
                 </div>
-                <div class="text-subtitle1 text-weight-bold">
+                <div class="text-subtitle1 text-weight-bold" style="word-break: keep-all">
                     {{ mbti.subtitle?.substring(0, mbti.subtitle?.trim().lastIndexOf(' ')) }}
                     <span class="text-blue-4">{{ mbti.subtitle?.substring(mbti.subtitle?.trim().lastIndexOf(' ') + 1) }}</span>
                 </div>
@@ -27,11 +27,13 @@
             <c-col cols="12" class="pt-20">
                 <div class="text-content text-weight-bold">피부 고민 키워드</div>
             </c-col>
-            <c-col v-for="(keyword, index) in mbti.keywordList" :key="index" cols="4">
-                <q-card bordered flat style="border: 1px solid var(--c-blue-4); border-radius: 50px">
-                    <q-card-section class="text-content text-weight-bold text-blue-4 text-center"> #{{ keyword.keyword }} </q-card-section>
-                </q-card>
-            </c-col>
+            <c-row no-gutters class="pa-0">
+                <c-col v-for="(keyword, index) in mbti.keywordList" :key="index" cols="4">
+                    <q-card bordered flat style="border: 1px solid var(--c-blue-4); border-radius: 50px">
+                        <q-card-section class="text-content text-weight-bold text-blue-4 text-center"> #{{ keyword.keyword }} </q-card-section>
+                    </q-card>
+                </c-col>
+            </c-row>
         </c-row>
         <c-row class="pt-10">
             <c-col cols="12">

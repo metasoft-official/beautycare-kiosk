@@ -5,7 +5,7 @@
             style="border-bottom-right-radius: 90px; border-bottom-left-radius: 90px; box-shadow: 0px 0px 60px 0px #0000001a; align-items: end"
         >
             <c-col cols="12" class="text-center">
-                <q-img :src="myImage.base64" alt="예시" style="max-width: 540px" ratio="1"></q-img>
+                <q-img :src="myImage.base64" alt="예시" style="max-width: 460px" ratio="1"></q-img>
                 <div class="text-header pt-3">당신의 증상과 가장 비슷한 피부질환</div>
             </c-col>
             <c-col cols="12">
@@ -36,8 +36,7 @@
                 </q-card>
             </c-col>
         </c-row>
-
-        <c-row class="pt-10">
+        <c-row class="pt-10 mt-auto">
             <c-col class="flex">
                 <div class="text-subcontent flex items-center">
                     내 피부 관리법에 대해 살펴보고,<br />
@@ -50,7 +49,7 @@
             </c-col>
             <c-col cols="auto" style="display: flex">
                 <div class="pr-5">
-                    <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                    <q-card style="aspect-ratio: 1; width: 260px; border-radius: 35px">
                         <q-card-section>
                             <q-img src="https://oxyfacial.co.kr/api/image/825" alt="QR코드" style="max-width: 250px"></q-img>
                         </q-card-section>
@@ -60,7 +59,7 @@
                     </c-col>
                 </div>
                 <div>
-                    <q-card style="aspect-ratio: 1; width: 282px; border-radius: 35px">
+                    <q-card style="aspect-ratio: 1; width: 260px; border-radius: 35px">
                         <q-card-section>
                             <q-img src="https://oxyfacial.co.kr/api/image/847" alt="QR코드" style="max-width: 250px"></q-img>
                         </q-card-section>

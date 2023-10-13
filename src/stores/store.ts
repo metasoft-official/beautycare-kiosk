@@ -1,4 +1,5 @@
 // Utilities
+import meta from '@/api/meta';
 import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore('app', {
@@ -53,10 +54,8 @@ export const useAppStore = defineStore('app', {
         getAlert: (state) => state.alert,
         getConfirm: (state) => state.confirm,
         getLoadingDetailNeed: (state) => state.loading.percent.show,
-        getLoadingPercentConfig: (state) =>
-            state.loading.percent.configJsonData,
-        getLoadingPercentPreviouseConfig: (state) =>
-            state.loading.percent.previousConfigJsonData,
+        getLoadingPercentConfig: (state) => state.loading.percent.configJsonData,
+        getLoadingPercentPreviouseConfig: (state) => state.loading.percent.previousConfigJsonData,
     },
     actions: {
         setCaptureBlob(payload: null | Blob) {
@@ -65,20 +64,10 @@ export const useAppStore = defineStore('app', {
         setUserAgentSummaryInfo(payload: unknown) {
             this.userAgentSummaryInfo = payload;
         },
-        setAlert(payload: {
-            value: boolean;
-            message: string;
-            callback: () => void;
-        }) {
+        setAlert(payload: { value: boolean; message: string; callback: () => void }) {
             this.alert = payload;
         },
-        setConfirm(payload: {
-            value: boolean;
-            message: string;
-            oktext: string;
-            canceltext: string;
-            callback: (result: unknown) => void;
-        }) {
+        setConfirm(payload: { value: boolean; message: string; oktext: string; canceltext: string; callback: (result: unknown) => void }) {
             this.confirm = payload;
         },
         setLoading(payload: boolean) {
@@ -90,25 +79,16 @@ export const useAppStore = defineStore('app', {
         setLoadingPercentValue(payload: number) {
             this.loading.percent.value = payload;
         },
-        setLoadingPercentConfig(payload: {
-            loaded: number;
-            total?: number;
-            timeStamp?: number;
-        }) {
+        setLoadingPercentConfig(payload: { loaded: number; total?: number; timeStamp?: number }) {
             this.loading.percent.configJsonData = payload;
             this.loading.percent.previousConfigJsonData.push({
                 ...payload,
             });
 
-            const previousDataMaxLength =
-                this.loading.percent.previousDataMaxLength;
-            const previousDataLength =
-                this.loading.percent.previousConfigJsonData.length;
+            const previousDataMaxLength = this.loading.percent.previousDataMaxLength;
+            const previousDataLength = this.loading.percent.previousConfigJsonData.length;
             if (previousDataLength > previousDataMaxLength) {
-                this.loading.percent.previousConfigJsonData.splice(
-                    0,
-                    previousDataLength - previousDataMaxLength
-                );
+                this.loading.percent.previousConfigJsonData.splice(0, previousDataLength - previousDataMaxLength);
             }
         },
         setLoadingPercentConfigSpeed(payload: string) {
@@ -129,6 +109,9 @@ export const useTimerStore = defineStore('timer', {
     actions: {
         startTimer() {
             this.timerId = setTimeout(() => {
+                const appStore = useAppStore();
+                appStore.alert.value = false;
+                appStore.confirm.value = false;
                 // 타이머 만료 시 홈 페이지로 이동
                 this.router.push({ path: '/intro' });
             }, this.timeout);
