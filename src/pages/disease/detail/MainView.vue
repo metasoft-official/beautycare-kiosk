@@ -31,7 +31,7 @@
             </c-col>
         </c-row>
 
-        <c-row class="pt-10">
+        <c-row class="pt-10 mt-auto">
             <c-col class="flex">
                 <div class="text-subcontent flex items-center">
                     내 피부 관리법에 대해 살펴보고,<br />

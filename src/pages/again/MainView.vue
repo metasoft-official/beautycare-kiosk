@@ -137,7 +137,7 @@ async function readBlob() {
         reader.readAsDataURL(captureBlob.value);
     } else {
         $q.loading.hide();
-        if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+        if (await meta.confirm('사진을 불러오는데 실패했습니다. 다시 촬영하시겠어요?')) {
             moveCamera();
         } else {
             $router.push('/home');
@@ -170,42 +170,46 @@ function rotate(image: string) {
         ctx?.rotate(Math.PI / -2); // -90도 회전
         ctx?.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
 
-        const form = new FormData();
-        // form-data에 필드 추가
-        const params = {
-            minEyeRatio: 0.1,
-            maxEyeRatio: 0.6,
-            extractFir: false,
-            analyzeCharacteristics: false,
-            largestOnly: true,
-            createCrop: true,
-        };
+        if ($route.query.from === 'mbti') {
+            const form = new FormData();
+            // form-data에 필드 추가
+            const params = {
+                minEyeRatio: 0.1,
+                maxEyeRatio: 0.6,
+                extractFir: false,
+                analyzeCharacteristics: false,
+                largestOnly: true,
+                createCrop: true,
+            };
 
-        // 이미지 Blob 객체 생성 (이미 가지고 있는 이미지 Blob 데이터를 사용)
-        var imgBlob = dataURLtoBlob(canvas.toDataURL('image/jpeg'));
-        form.append('image', imgBlob, 'image.jpg');
+            // 이미지 Blob 객체 생성 (이미 가지고 있는 이미지 Blob 데이터를 사용)
+            var imgBlob = dataURLtoBlob(canvas.toDataURL('image/jpeg'));
+            form.append('image', imgBlob, 'image.jpg');
 
-        // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
-        const response = await axios.post('/fvsdk/findface', form, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-            params: params,
-        });
+            // FormData에 이미지와 다른 필드들을 추가한 후, axios 또는 다른 HTTP 요청 라이브러리를 사용하여 FormData를 서버에 전송
+            const response = await axios.post('/fvsdk/findface', form, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+                params: params,
+            });
 
-        if (response.data.faces.length !== 0) {
-            var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
-            captureBlob.value = decodeingBlob;
-        } else {
-            $q.loading.hide();
-            if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
-                $router.go(0);
+            if (response.data.faces.length !== 0) {
+                var decodeingBlob = base64toBlob(response.data.faces[0].crop, 'image/jpeg');
+                captureBlob.value = decodeingBlob;
             } else {
-                $router.push('/home');
+                $q.loading.hide();
+                if (await meta.confirm('얼굴 인식에 실패했습니다. 다시 촬영하시겠어요?')) {
+                    $router.push('/camera');
+                } else {
+                    $router.push('/home');
+                }
+                return;
             }
-            return;
-        }
 
-        // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
-        myImage.value = 'data:image/jpeg;base64,' + response.data.faces[0].crop;
+            // 자른 이미지를 저장하거나 다른 작업을 수행할 수 있습니다.
+            myImage.value = 'data:image/jpeg;base64,' + response.data.faces[0].crop;
+        } else {
+            myImage.value = canvas.toDataURL('image/jpeg');
+        }
 
         $q.loading.hide();
     };
@@ -242,7 +246,7 @@ function base64toBlob(base64String: string, mimeType: string) {
 async function confirm() {
     try {
         if (!captureBlob.value) {
-            if (await meta.confirm('사진을 불러오는데 실패했습니다.. 다시 촬영하시겠어요?')) {
+            if (await meta.confirm('사진을 불러오는데 실패했습니다. 다시 촬영하시겠어요?')) {
                 moveCamera();
             } else {
                 $router.push('/home');
@@ -335,7 +339,7 @@ async function confirm() {
         }
     } catch (e) {
         $q.loading.hide();
-        if (await meta.confirm('매칭된 질환 결과가 없습니다.\n다시 촬영하시겠어요?')) {
+        if (await meta.confirm('이미지 처리에 실패했습니다.\n다시 촬영하시겠어요?')) {
             moveCamera();
         } else {
             $router.push('/home');

@@ -107,7 +107,7 @@ module.exports = configure(function (ctx) {
             proxy: {
                 // proxy all requests starting with /api to jsonplaceholder
                 '/api': {
-                    target: 'http://localhost:9000/api',
+                    target: 'http://meta-soft.iptime.org:9000/api',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, ''),
                     timeout: 5000,

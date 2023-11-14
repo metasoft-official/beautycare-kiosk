@@ -8,9 +8,9 @@
                 <!-- <template v-if="$route.query.from === 'mbti'"> -->
                 <div
                     class="flex items-center justify-center"
-                    :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 15%; background-color: #00000000`"
+                    :style="`width: ${$q.screen.width}px; height: 90%; position: absolute; bottom: 0%; background-color: #00000000`"
                 >
-                    <q-img :src="facePositionImg" style="width: 70%"> </q-img>
+                    <q-img :src="facePositionImg" style="width: 90%"> </q-img>
                 </div>
                 <!-- <div
                         class="flex items-center justify-center"
