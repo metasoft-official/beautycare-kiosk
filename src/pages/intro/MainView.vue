@@ -24,8 +24,8 @@ async function loadVideo() {
     const { data } = await meta.api.common.video.getList({
         rowSize: 1,
         // title: '움트다',
-        // title: '에이엘',
-        title: '파인드',
+        title: '에이엘',
+        // title: '파인드',
         visibilityStatus: 'T',
         sort: ['order,desc', 'id,desc'],
     });
