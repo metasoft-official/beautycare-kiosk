@@ -21,20 +21,7 @@ const $router = useRouter();
 const video = ref<{ type: string; src: string }>({ type: '', src: '' });
 
 async function loadVideo() {
-    const { data } = await meta.api.common.video.getList({
-        rowSize: 1,
-        // title: '움트다',
-        // title: '에이엘',
-        // title: '파인드',
-        visibilityStatus: 'T',
-        sort: ['order,desc', 'id,desc'],
-    });
-    if (data.items.length > 0) {
-        const { imageId } = data.items[0];
-        if (imageId) {
-            video.value = { type: 'video/mp4', src: `${process.env.APP_URL}api/video/${imageId}` };
-        }
-    }
+    video.value = { type: 'video/mp4', src: 'intro.mp4' };
 }
 
 loadVideo();
